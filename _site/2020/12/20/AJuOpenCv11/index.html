@@ -200,11 +200,7 @@
   </div>
 </div>
 
-    <!-- Image to hack wechat -->
-<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/in-post/AJuOpenCv.jpg" width="0" height="0"> -->
-
-<!-- Post Header -->
+    <!-- Post Header -->
 
 
 
@@ -479,7 +475,41 @@
             </div>
         </div>
     </div>
+    
+    <div id="gitmentContainer"></div>
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    <script>
+    var gitment = new Gitment({
+        owner: 'fuhao7i',
+        repo: 'https://github.com/fuhao7i/fuhao7i.github.io',
+        oauth: {
+            client_id: '1695c83228c471fa58d4',
+            client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+        },
+    });
+    gitment.render('gitmentContainer');
+    
 </article>
+
+
+
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+    owner: 'fuhao7i',
+    repo: 'https://github.com/fuhao7i/fuhao7i.github.io',
+    oauth: {
+        client_id: '1695c83228c471fa58d4',
+        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+    },
+});
+gitment.render('gitmentContainer');
+
+
+
 
 <!-- add support for mathjax by voleking-->
 
