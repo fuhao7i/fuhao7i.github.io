@@ -1,0 +1,25 @@
+{
+    "name": "fuhao7i-blog",
+    "title": "fuhao7i Blog",
+    "author": "fuhao <54173723@qq.com>",
+    "version": "1.8.2",
+    "homepage": "http://fuhao7i.github.io",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fuhao7i/fuhao7i.github.io"
+    },
+    "bugs": "https://github.com/fuhao7i/fuhao7i.github.io/issues",
+    "devDependencies": {
+        "grunt": "^1.1.0",
+        "grunt-banner": "~0.2.3",
+        "grunt-contrib-less": "^2.0.0",
+        "grunt-contrib-uglify": "^4.0.1",
+        "grunt-contrib-watch": "^1.1.0"
+    },
+    "scripts": {
+        "start": "bundle exec jekyll serve -w -l --host 0.0.0.0",
+        "dev": "grunt watch & npm run start",
+        "boil": "git push boilerplate boilerplate:master",
+        "push": "git push origin master --tag"
+    }
+}
