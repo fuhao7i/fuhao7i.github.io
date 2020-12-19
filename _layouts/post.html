@@ -31,14 +31,49 @@ layout: default
                 {% comment %} <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
                 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script> {% endcomment %}
                 <script>
-                var gitment = new Gitment({
+                {% comment %} var gitment = new Gitment({
                     owner: 'fuhao7i',
                     repo: 'fuhao7i.github.io',
                     oauth: {
                         client_id: '1695c83228c471fa58d4',
                         client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
                     },
-                });
+                }); {% endcomment %}
+                const myTheme = {
+                    render(state, instance) {
+                    const container = document.createElement('div')
+                    container.lang = "en-US"
+                    container.className = 'gitment-container gitment-root-container'
+
+                        // your custom component
+                    container.appendChild(instance.renderSomething(state, instance))
+
+                    container.appendChild(instance.renderHeader(state, instance))
+                    container.appendChild(instance.renderEditor(state, instance))
+                    container.appendChild(instance.renderComments(state, instance))
+                    container.appendChild(instance.renderFooter(state, instance))
+                    return container
+                    },
+                    renderSomething(state, instance) {
+                    const container = document.createElement('div')
+                    container.lang = "en-US"
+                    if (state.user.login) {
+                        container.innerText = `Hello, ${state.user.login}`
+                    }
+                    return container
+                    }
+                    }
+
+                    const gitment = new Gitment({
+                    // ...
+                    owner: 'fuhao7i',
+                    repo: 'fuhao7i.github.io',
+                    oauth: {
+                        client_id: '1695c83228c471fa58d4',
+                        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+                    },
+                    theme: myTheme,
+                    })
                 gitment.render('gitmentContainer');
                 </script>
                 <!-- gitment 评论系统 end-->
