@@ -1,0 +1,107 @@
+---
+layout:     post
+title:      "阿菊的OpenCv11——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)"
+subtitle:   " \"Opencv, plt, cv2.split, cv2.merge\""
+date:       2020-12-19 20:33:00
+author:     "fuhao7i"
+header-img: "img/in-post/AJuOpenCv.jpg"
+catalog: true
+tags:
+    - 阿菊的OpenCv
+---
+
+> “Yeah It's on. ”
+
+
+# 0. 原始图像
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201215160651373.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70#pic_center)
+
+
+# 1. cv2读取图像并用matplotlib显示
+
+```python
+import cv2
+import matplotlib.pyplot as plt
+
+img = cv2.imread('../images/ju.jpg')
+
+plt.figure('Aju') #窗口名称
+plt.title('jujujuju') #图像名称
+plt.imshow(img)
+plt.show()
+```
+
+`e.g.运行结果如下：`
+
+
+<img src="https://img-blog.csdnimg.cn/20201215152746218.png#pic_center" width="70%">
+
+为什么我们用plt显示的图像看起来偏蓝色呢？因为OpenCV在读取图像的时候是按照**BGR通道顺序**来读取的，而我们平时看到的正常图片的编码格式为**RGB通道顺序**。所以为了用plt将图像显示为正常我们看到的图像，这里需要引入**RGB图像通道的拆分与合并**。
+
+# 2.RGB图像通道的拆分与合并
+
+将cv2读取的图像按照BGR的通道顺序进行拆分后再按照RGB的通道顺序进行合并，图像就可以正常显示了。
+
+```python
+import cv2
+import matplotlib.pyplot as plt
+
+img = cv2.imread('../images/ju.jpg')
+
+b, g, r = cv2.split(img) #按照BGR通道进行拆分
+
+img = cv2.merge([r, g, b]) #按照RGB通道顺序合并
+ 
+plt.figure('Aju') #窗口名称
+plt.title('jujujuju')
+plt.imshow(img)
+plt.show()
+```
+
+`e.g.运行结果如下：`
+
+<img src="https://img-blog.csdnimg.cn/20201215155931573.png#pic_center" width=70%>
+
+# 3. matplotlib 显示多幅图像 
+plt显示多幅图像需要用到subplot。
+
+```python
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+
+img = cv2.imread('../images/ju.jpg')
+b0, g0, r0 = cv2.split(img)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+zeros = np.zeros(img.shape[:2], dtype = "uint8")
+b = cv2.merge([zeros, zeros, b0])
+g = cv2.merge([zeros, g0, zeros])
+r = cv2.merge([r0, zeros, zeros])  
+
+rg = cv2.merge([r0, g0, zeros])
+rb = cv2.merge([r0, zeros, b0])
+gb = cv2.merge([zeros, g0, b0])
+
+plt.figure('AJu', figsize=(10, 10)) #窗口名称和大小
+plt.suptitle('Multi_ju')
+plt.subplot(3, 3, 2), plt.title('origin'), plt.imshow(img), plt.axis('off')
+plt.subplot(3, 3, 4), plt.title('R'), plt.imshow(r), plt.axis('off')
+plt.subplot(3, 3, 5), plt.title('G'), plt.imshow(g), plt.axis('off')
+plt.subplot(3, 3, 6), plt.title('B'), plt.imshow(b), plt.axis('off')
+plt.subplot(3, 3, 7), plt.title('RG'), plt.imshow(rg), plt.axis('off')
+plt.subplot(3, 3, 8), plt.title('RB'), plt.imshow(rb), plt.axis('off')
+plt.subplot(3, 3, 9), plt.title('GB'), plt.imshow(gb), plt.axis('off')
+#plt.axis('off')隐藏坐标轴
+
+plt.show()
+```
+
+`duangduangduang～`
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201215161018528.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70)
+
+**我会坚持分享更多关于计算机视觉的知识，同时也希望大家可以多多关注我，让我们一起进步，加油加油！！！**
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020121516200984.jpg#pic_center)
+
