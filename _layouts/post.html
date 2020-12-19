@@ -23,65 +23,28 @@ layout: default
 
 				{{ content }}
 
-                <!-- gitment 评论系统 start-->>
-                <div id="gitmentContainer"></div>
-                {% comment %} <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-                <script src="https://billts.site/js/gitment.js"></script> {% endcomment %}
-
-                {% comment %} <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-                <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script> {% endcomment %}
-
-                <link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-                <script src="https://www.wenjunjiang.win/js/gitment.js"></script>
+                {% comment %} <!--gittalk start-->
+                {% include gitalk.html %}  
+                <!--gittalk end--> {% endcomment %}
+                <link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+                <script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
 
 
+                <div id="gitalk-container" style="margin: 30px;padding-bottom: 30px;"></div>
                 <script>
-                {% comment %} var gitment = new Gitment({
-                    owner: 'fuhao7i',
-                    repo: 'fuhao7i.github.io',
-                    oauth: {
-                        client_id: '1695c83228c471fa58d4',
-                        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
-                    },
-                }); {% endcomment %}
-                const myTheme = {
-                    render(state, instance) {
-                    const container = document.createElement('div')
-                    container.lang = "en-US"
-                    container.className = 'gitment-container gitment-root-container'
+                    var gitalk = new Gitalk({
+                        clientID: '1695c83228c471fa58d4',
+                        clientSecret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+                        repo: 'fuhao7i.github.io',
+                        owner: 'fuhao7i',
+                        admin: ['fuhao7i'],
+                        id: location.pathname,      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
 
-                        // your custom component
-                    container.appendChild(instance.renderSomething(state, instance))
-
-                    container.appendChild(instance.renderHeader(state, instance))
-                    container.appendChild(instance.renderEditor(state, instance))
-                    container.appendChild(instance.renderComments(state, instance))
-                    container.appendChild(instance.renderFooter(state, instance))
-                    return container
-                    },
-                    renderSomething(state, instance) {
-                    const container = document.createElement('div')
-                    container.lang = "en-US"
-                    if (state.user.login) {
-                        container.innerText = `Hello, ${state.user.login}`
-                    }
-                    return container
-                    }
-                    }
-
-                    const gitment = new Gitment({
-                    // ...
-                    owner: 'fuhao7i',
-                    repo: 'fuhao7i.github.io',
-                    oauth: {
-                        client_id: '1695c83228c471fa58d4',
-                        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
-                    },
-                    theme: myTheme,
                     })
-                gitment.render('gitmentContainer');
+                    gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
                 </script>
-                <!-- gitment 评论系统 end-->
+
+
 
                 <hr style="visibility: hidden;">
                 <ul class="pager">
