@@ -399,20 +399,26 @@
 <p><img src="https://img-blog.csdnimg.cn/2020121516200984.jpg#pic_center" alt="在这里插入图片描述" /></p>
 
 
-<div id="gitmentContainer"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-    owner: 'fuhao7i',
-    repo: 'https://github.com/fuhao7i/fuhao7i.github.io',
-    oauth: {
-        client_id: '1695c83228c471fa58d4',
-        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
-    },
-});
-gitment.render('gitmentContainer');
-</script>
+
+                <!-- gitment 评论系统 start-->>
+                <div id="gitmentContainer"></div>
+                <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+                <script src="https://billts.site/js/gitment.js"></script>
+
+                
+                <script>
+                var gitment = new Gitment({
+                    owner: 'fuhao7i',
+                    repo: 'fuhao7i.github.io',
+                    oauth: {
+                        client_id: '1695c83228c471fa58d4',
+                        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+                    },
+                });
+                gitment.render('gitmentContainer');
+                </script>
+                <!-- gitment 评论系统 end-->
+
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
@@ -422,16 +428,9 @@ gitment.render('gitmentContainer');
 
 
                 
-                <!-- disqus 评论框 start -->
-                <div class="comment">
-                    <div id="disqus_thread" class="disqus-thread"></div>
-                </div>
-                <!-- disqus 评论框 end -->
-                
 
                 
 
-                
             </div>  
 
     <!-- Side Catalog Container -->
@@ -494,29 +493,12 @@ gitment.render('gitmentContainer');
 
 </article>
 
-
-
 <!-- add support for mathjax by voleking-->
 
 
 
 
 
-
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "hux";
-    var disqus_identifier = "/2020/12/20/AJuOpenCv11";
-    var disqus_url = "https://fuhao7i.github.io/2020/12/20/AJuOpenCv11/";
-
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
 
 
 
