@@ -399,7 +399,20 @@
 <p><img src="https://img-blog.csdnimg.cn/2020121516200984.jpg#pic_center" alt="在这里插入图片描述" /></p>
 
 
-
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+    owner: 'fuhao7i',
+    repo: 'https://github.com/fuhao7i/fuhao7i.github.io',
+    oauth: {
+        client_id: '1695c83228c471fa58d4',
+        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+    },
+});
+gitment.render('gitmentContainer');
+</script>
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
@@ -407,12 +420,15 @@
                 </ul>
                 <hr style="visibility: hidden;">
 
+
                 
                 <!-- disqus 评论框 start -->
                 <div class="comment">
                     <div id="disqus_thread" class="disqus-thread"></div>
                 </div>
                 <!-- disqus 评论框 end -->
+                
+
                 
 
                 
@@ -475,39 +491,8 @@
             </div>
         </div>
     </div>
-    
-    <div id="gitmentContainer"></div>
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-    <script>
-    var gitment = new Gitment({
-        owner: 'fuhao7i',
-        repo: 'https://github.com/fuhao7i/fuhao7i.github.io',
-        oauth: {
-            client_id: '1695c83228c471fa58d4',
-            client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
-        },
-    });
-    gitment.render('gitmentContainer');
-    
+
 </article>
-
-
-
-<div id="gitmentContainer"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-    owner: 'fuhao7i',
-    repo: 'https://github.com/fuhao7i/fuhao7i.github.io',
-    oauth: {
-        client_id: '1695c83228c471fa58d4',
-        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
-    },
-});
-gitment.render('gitmentContainer');
-
 
 
 

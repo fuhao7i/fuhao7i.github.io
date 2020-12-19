@@ -23,6 +23,23 @@ layout: default
 
 				{{ content }}
 
+                <!-- gitment 评论系统 start-->>
+                <div id="gitmentContainer"></div>
+                <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                <script>
+                var gitment = new Gitment({
+                    owner: 'fuhao7i',
+                    repo: 'https://github.com/fuhao7i/fuhao7i.github.io',
+                    oauth: {
+                        client_id: '1695c83228c471fa58d4',
+                        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+                    },
+                });
+                gitment.render('gitmentContainer');
+                </script>
+                <!-- gitment 评论系统 end-->
+
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     {% if page.previous.url %}
@@ -44,6 +61,7 @@ layout: default
                 </ul>
                 <hr style="visibility: hidden;">
 
+
                 {% if site.disqus_username %}
                 <!-- disqus 评论框 start -->
                 <div class="comment">
@@ -57,6 +75,7 @@ layout: default
                 <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
                 <!-- 网易云跟帖 评论框 end -->
                 {% endif %}
+
             </div>  
 
     <!-- Side Catalog Container -->
@@ -90,41 +109,8 @@ layout: default
             </div>
         </div>
     </div>
-    {% comment %} gitment评论系统 {% endcomment %}
-    <div id="gitmentContainer"></div>
-    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-    <script>
-    var gitment = new Gitment({
-        owner: 'fuhao7i',
-        repo: 'https://github.com/fuhao7i/fuhao7i.github.io',
-        oauth: {
-            client_id: '1695c83228c471fa58d4',
-            client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
-        },
-    });
-    gitment.render('gitmentContainer');
-    {% comment %} 结束 {% endcomment %}
+
 </article>
-
-
-{% comment %} gitment评论系统 {% endcomment %}
-<div id="gitmentContainer"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-    owner: 'fuhao7i',
-    repo: 'https://github.com/fuhao7i/fuhao7i.github.io',
-    oauth: {
-        client_id: '1695c83228c471fa58d4',
-        client_secret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
-    },
-});
-gitment.render('gitmentContainer');
-{% comment %} 结束 {% endcomment %}
-
-
 
 <!-- add support for mathjax by voleking-->
 {% if page.mathjax %}
