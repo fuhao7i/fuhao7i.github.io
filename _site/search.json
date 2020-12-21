@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集",
+      "subtitle" : " &quot;遥感图像数据集, 语义分割数据集制作&quot;",
+      "tags"     : "小菊的语义分割",
+      "url"      : "/2020/12/22/xiaoju1/",
+      "date"     : "2020-12-22 07:37:00 +0800"
+    } ,
+  
+    {
       "title"    : "阿菊的OpenCv11——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)",
       "subtitle" : " &quot;Opencv, plt, cv2.split, cv2.merge&quot;",
       "tags"     : "阿菊的OpenCv",
