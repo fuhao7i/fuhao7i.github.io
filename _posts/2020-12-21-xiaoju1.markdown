@@ -48,8 +48,9 @@ for i in range(26):
         
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20201221232942188.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70)
+`e.g.`
 
+<img src="https://img-blog.csdnimg.cn/20201221232942188.png#pic_center" width="90%">
 
 `gen_testdata.py`
 
@@ -86,6 +87,9 @@ with open('./train.txt', 'w') as f:
         f.write(name + '.jpg;' + name + '.png\n')
 
 ```
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20201221232824570.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70)
+
+`e.g.`
+
+<img src="https://img-blog.csdnimg.cn/20201221232824570.png#pic_center" width="90%">
 
 现在我们的遥感图像数据集就准备好了🎉，让我们一起开始小菊的语义分割吧～～～
