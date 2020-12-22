@@ -1,4 +1,9 @@
 <!-- Footer -->
+
+<!--不蒜子统计-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
 <footer>
     <div class="container">
         <div class="row">
@@ -7,9 +12,24 @@
                 {% include sns-links.html center=true %}
 
                 <p class="copyright text-muted">
+                <div class="copyright text-muted">
+                    <ul class="list-inline">
+                        <li>
+                            <link rel="stylesheet" href="/iconfont.css">
+                            访客数<span class="iconfont icon-jiaoyin"></span>
+                            <span id="busuanzi_value_site_uv"></span>
+                        </li>
+                        <li>
+                            <link rel="stylesheet" href="/iconfont.css">
+                            阅读量<span class="iconfont icon-xingxing"></span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </li>
+                    </ul>
                     Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
                     <br>
                     Powered by <a href="https://github.com/fuhao7i">fuhao7i Blog</a>
+                </div>
+
                     {% comment %} <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
                         height="20px"
                         src="https://github.com/fuhao7i">

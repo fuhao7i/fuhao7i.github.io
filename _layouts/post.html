@@ -86,6 +86,9 @@ layout: default
 
     <!-- Side Catalog Container -->
         {% unless page.no-catalog %}
+            <!--不蒜子统计-->
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+     
             <div class="
                 col-lg-2 col-lg-offset-0
                 visible-lg-block
@@ -94,11 +97,29 @@ layout: default
                 <div class="side-catalog">
                     <hr class="hidden-sm hidden-xs">
                     <h5>
+                        <link rel="stylesheet" href="/iconfont.css">
+                        <script src="/iconfont.js"></script>
+                        views<span id="busuanzi_value_page_pv"></span>
+                        <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-love"></use>
+                        </svg>
+                        <br>
+                        <br>
                         <a class="catalog-toggle" href="#">CATALOG</a>
+                       
                     </h5>
                     <ul class="catalog-body"></ul>
                 </div>
             </div>
+            <style>
+            .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+            }
+            </style>
         {% endunless %}
 
     <!-- Sidebar Container -->

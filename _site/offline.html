@@ -42,7 +42,6 @@
     <!-- Hux change font-awesome CDN to qiniu -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -218,6 +217,11 @@
 
 
     <!-- Footer -->
+
+<!--不蒜子统计-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
 <footer>
     <div class="container">
         <div class="row">
@@ -248,9 +252,24 @@
 </ul>
 
                 <p class="copyright text-muted">
+                <div class="copyright text-muted">
+                    <ul class="list-inline">
+                        <li>
+                            <link rel="stylesheet" href="/iconfont.css">
+                            访客数<span class="iconfont icon-jiaoyin"></span>
+                            <span id="busuanzi_value_site_uv"></span>
+                        </li>
+                        <li>
+                            <link rel="stylesheet" href="/iconfont.css">
+                            阅读量<span class="iconfont icon-xingxing"></span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </li>
+                    </ul>
                     Copyright &copy; fuhao7i Blog 2020
                     <br>
                     Powered by <a href="https://github.com/fuhao7i">fuhao7i Blog</a>
+                </div>
+
                     
                 </p>
             </div>
@@ -453,6 +472,7 @@
         });
     });
 </script>
+
 
 
 <!-- Image to hack wechat -->
