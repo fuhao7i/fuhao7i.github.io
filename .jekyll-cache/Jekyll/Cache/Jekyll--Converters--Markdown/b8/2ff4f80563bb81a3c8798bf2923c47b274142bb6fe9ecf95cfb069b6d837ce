@@ -1,0 +1,37 @@
+I"�<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><strong>2020.12.29</strong>
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />enhance [ɪnˈhɑːns] vt. 提高；加强；增加</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />imagery [ˈɪmɪdʒəri] n. 像；意象；比喻；形象化
+  = [ ] generative [ˈdʒenərətɪv] adj. 生殖的；生产的；有生殖力的；有生产力的</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />adversarial [ˌædvəˈseəriəl] adj. 对抗的；对手的，敌手的</li>
+    </ul>
+  </li>
+</ul>
+
+<details>
+<summary>展开查看</summary>
+<pre><code>
+System.out.println("Hello to see U!");
+</code></pre>
+</details>
+
+<details>
+  <summary>点击时的区域标题：点击查看详细内容</summary>
+  <p> - 测试 测试测试</p>
+  <pre><code>  title，value，callBack可以缺省  </code>  </pre>
+</details>
+
+<p><span style="color:red">This is red</span>   //字体颜色
+<ruby> 漢 <rt> ㄏㄢˋ </rt> </ruby> // 特殊字
+<kbd>Ctrl</kbd>+<kbd>F9</kbd>  // 按键标识
+<span style="font-size:2rem; background:yellow;"><strong>Bigger</strong></span> //字体大小和背景</p>
+
+<font face="微软雅黑" color="red" size="6">字体及字体颜色和大小</font>
+<font color="#0000ff">字体颜色</font>
+
+<p align="left">居左文本</p>
+<p align="center">居中文本</p>
+<p align="right">居右文本</p>
+
+:ET

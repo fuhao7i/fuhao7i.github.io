@@ -1,0 +1,112 @@
+I"�<h1 id="1-为什么要对遥感图像进行切分">1. 为什么要对遥感图像进行切分？</h1>
+<p>一般的遥感图像尺寸都是非常大的，就像这里我们用的ISPRS遥感图像数据集，每张遥感图像.ttf的尺寸都是6000 x 6000，这根本就不能用于我们的模型训练😣(内存瞬干爆炸💥)，因此需要我们自己将大的遥感图像切分成自己需要的尺寸，像是常用的224 x 224，512 x 512等。</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20201221231843185.png#pic_center" width="50%" /></p>
+
+<p>大家可以利用如下代码将遥感图像切分成224 x 224的大小，如需改成其他尺寸可以稍作修改。</p>
+
+<h1 id="2-切分图像制作数据集">2. 切分图像，制作数据集</h1>
+
+<p>Labels图像的大小和遥感图像的大小是一样的，所以我们在切分图像的时候，也需要一块把Labels图像切分了，以便RGB图像和Labels图像对应。</p>
+
+<p><code class="language-plaintext highlighter-rouge">gen_datasets.py</code></p>
+
+<p>因为我的电脑承受不了太大的数据集😅，所以在制作数据集的时候我只切分了一张遥感图像。</p>
+
+<style>
+    .mac {
+        width:10px;
+        height:10px;
+        border-radius:5px;
+        float:left;
+        margin:10px 0 0 5px;
+    }
+    .b1 {
+        background:#E0443E;
+        margin-left: 10px;
+    }
+    .b2 { background:#DEA123; }
+    .b3 { background:#1AAB29; }
+    .warpper{
+        background:#121212;
+        border-radius:5px;
+        width:100%;
+    }
+</style>
+
+<div class="warpper">
+    <div class="mac b1"></div>
+    <div class="mac b2"></div>
+    <div class="mac b3"></div>
+<div>
+<br />
+
+```python
+import cv2
+import numpy
+
+
+img1 = cv2.imread('/Users/fuhao7i/Desktop/北漠/ISPRS遥感图像分割/2_Ortho_RGB/top_potsdam_2_10_RGB.tif') #读取RGB原图像
+
+img2 = cv2.imread('/Users/fuhao7i/Desktop/北漠/ISPRS遥感图像分割/5_Labels_all/top_potsdam_2_10_label.tif') #读取Labels图像
+
+#因为6000/224 = 26，所以6000x6000的图像可以划分为26x26个224x224大小的图像
+for i in range(26):
+    for j in range(26):
+        img1_ = img1[224*i : 224*(i+1), 224*j : 224*(j+1), : ]
+        img2_ = img2[224*i : 224*(i+1), 224*j : 224*(j+1), : ]
+
+        name = i*26 + j
+        #让RGB图像和标签图像的文件名对应
+        name = str(name)
+        cv2.imwrite('./jpg/'+ name + '.jpg', img1_) #所有的RGB图像都放到jpg文件夹下
+        cv2.imwrite('./png/'+ name + '.png', img2_) #所有的标签图像都放到png文件夹下
+
+
+`e.g.`
+
+<img src="https://img-blog.csdnimg.cn/20201221232942188.png#pic_center" width="90%" />
+
+`gen_testdata.py`
+
+同理可以得到测试集图像。
+
+```python
+import cv2
+import numpy
+
+testdata_path = '/Users/fuhao7i/Desktop/北漠/ISPRS遥感图像分割/2_Ortho_RGB/top_potsdam_2_13_RGB.tif'
+
+img = cv2.imread(testdata_path)
+
+
+for i in range(18,26):
+    for j in range(18,26):
+        img_ = img[224*i : 224*(i+1), 224*j : 224*(j+1), : ]
+
+        name = i*26 + j
+        name = str(name)
+        cv2.imwrite('./test/'+ name + '.jpg', img_)
+```
+
+`get_train_txt.py`
+
+```python
+import os
+
+filename = os.listdir('./jpg')
+
+with open('./train.txt', 'w') as f:
+    for name in filename:
+        name = name.split('.')[0]
+        f.write(name + '.jpg;' + name + '.png\n')
+
+```
+
+`e.g.`
+
+<img src="https://img-blog.csdnimg.cn/20201221232824570.png#pic_center" width="90%" />
+
+现在我们的遥感图像数据集就准备好了🎉，让我们一起开始小菊的语义分割吧～～～
+</div></div>
+:ET

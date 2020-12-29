@@ -45,7 +45,6 @@ for i in range(26):
         name = str(name)
         cv2.imwrite('./jpg/'+ name + '.jpg', img1_) #所有的RGB图像都放到jpg文件夹下
         cv2.imwrite('./png/'+ name + '.png', img2_) #所有的标签图像都放到png文件夹下
-        
 ```
 
 `e.g.`

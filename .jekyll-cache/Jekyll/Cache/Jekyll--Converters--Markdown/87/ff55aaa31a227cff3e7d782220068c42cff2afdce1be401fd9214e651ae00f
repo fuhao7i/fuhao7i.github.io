@@ -1,0 +1,151 @@
+I"�*<h1 id="1-为什么要对遥感图像进行切分">1. 为什么要对遥感图像进行切分？</h1>
+<p>一般的遥感图像尺寸都是非常大的，就像这里我们用的ISPRS遥感图像数据集，每张遥感图像.ttf的尺寸都是6000 x 6000，这根本就不能用于我们的模型训练😣(内存瞬干爆炸💥)，因此需要我们自己将大的遥感图像切分成自己需要的尺寸，像是常用的224 x 224，512 x 512等。</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20201221231843185.png#pic_center" width="50%" /></p>
+
+<p>大家可以利用如下代码将遥感图像切分成224 x 224的大小，如需改成其他尺寸可以稍作修改。</p>
+
+<h1 id="2-切分图像制作数据集">2. 切分图像，制作数据集</h1>
+
+<p>Labels图像的大小和遥感图像的大小是一样的，所以我们在切分图像的时候，也需要一块把Labels图像切分了，以便RGB图像和Labels图像对应。</p>
+
+<p><code class="language-plaintext highlighter-rouge">gen_datasets.py</code></p>
+
+<p>因为我的电脑承受不了太大的数据集😅，所以在制作数据集的时候我只切分了一张遥感图像。</p>
+
+<style>
+    .warpper7i{
+        background:#121212;
+        border-radius:5px;
+        width:100%;
+    }
+    .mac {
+        width:10px;
+        height:10px;
+        border-radius:5px;
+        float:left;
+        margin:10px 0 0 5px;
+    }
+    .b1 {
+        background:#E0443E;
+        margin-left: 10px;
+    }
+    .b2 { background:#DEA123; }
+    .b3 { background:#1AAB29; }
+</style>
+
+<div class="warpper7i">
+    <div class="mac b1"></div>
+    <div class="mac b2"></div>
+    <div class="mac b3"></div>
+    <br />
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+
+<span class="n">img1</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'/Users/fuhao7i/Desktop/北漠/ISPRS遥感图像分割/2_Ortho_RGB/top_potsdam_2_10_RGB.tif'</span><span class="p">)</span> <span class="c1">#读取RGB原图像
+</span>
+<span class="n">img2</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'/Users/fuhao7i/Desktop/北漠/ISPRS遥感图像分割/5_Labels_all/top_potsdam_2_10_label.tif'</span><span class="p">)</span> <span class="c1">#读取Labels图像
+</span>
+<span class="c1">#因为6000/224 = 26，所以6000x6000的图像可以划分为26x26个224x224大小的图像
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">26</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">26</span><span class="p">):</span>
+        <span class="n">img1_</span> <span class="o">=</span> <span class="n">img1</span><span class="p">[</span><span class="mi">224</span><span class="o">*</span><span class="n">i</span> <span class="p">:</span> <span class="mi">224</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">224</span><span class="o">*</span><span class="n">j</span> <span class="p">:</span> <span class="mi">224</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">:</span> <span class="p">]</span>
+        <span class="n">img2_</span> <span class="o">=</span> <span class="n">img2</span><span class="p">[</span><span class="mi">224</span><span class="o">*</span><span class="n">i</span> <span class="p">:</span> <span class="mi">224</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">224</span><span class="o">*</span><span class="n">j</span> <span class="p">:</span> <span class="mi">224</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">:</span> <span class="p">]</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="mi">26</span> <span class="o">+</span> <span class="n">j</span>
+        <span class="c1">#让RGB图像和标签图像的文件名对应
+</span>        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'./jpg/'</span><span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">'.jpg'</span><span class="p">,</span> <span class="n">img1_</span><span class="p">)</span> <span class="c1">#所有的RGB图像都放到jpg文件夹下
+</span>        <span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'./png/'</span><span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">'.png'</span><span class="p">,</span> <span class="n">img2_</span><span class="p">)</span> <span class="c1">#所有的标签图像都放到png文件夹下
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">e.g.</code></p>
+
+<p><img src="https://img-blog.csdnimg.cn/20201221232942188.png#pic_center" width="90%" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">gen_testdata.py</code></p>
+
+<p>同理可以得到测试集图像。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="n">testdata_path</span> <span class="o">=</span> <span class="s">'/Users/fuhao7i/Desktop/北漠/ISPRS遥感图像分割/2_Ortho_RGB/top_potsdam_2_13_RGB.tif'</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="n">testdata_path</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">26</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">26</span><span class="p">):</span>
+        <span class="n">img_</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="mi">224</span><span class="o">*</span><span class="n">i</span> <span class="p">:</span> <span class="mi">224</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="mi">224</span><span class="o">*</span><span class="n">j</span> <span class="p">:</span> <span class="mi">224</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="p">:</span> <span class="p">]</span>
+
+        <span class="n">name</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="mi">26</span> <span class="o">+</span> <span class="n">j</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'./test/'</span><span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">'.jpg'</span><span class="p">,</span> <span class="n">img_</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">get_train_txt.py</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">'./jpg'</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'./train.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">'.'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">'.jpg;'</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">'.png</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">e.g.</code></p>
+
+<p><img src="https://img-blog.csdnimg.cn/20201221232824570.png#pic_center" width="90%" /></p>
+
+<p>现在我们的遥感图像数据集就准备好了🎉，让我们一起开始小菊的语义分割吧～～～</p>
+:ET
