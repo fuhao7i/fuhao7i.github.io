@@ -1,0 +1,14 @@
+---
+layout:     post
+title:      "Word📖"
+subtitle:   " \"还是有很多单词需要学习啊\""
+date:       2020-12-29 17:04:00
+author:     "fuhao7i"
+header-img: "img/in-post/word.jpg"
+catalog: true
+tags:
+    - Word📖
+---
+
+- [x] **2020.12.29**
+    - [x] friend

@@ -5,9 +5,28 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 26 Dec 2020 16:39:24 +0800</pubDate>
-    <lastBuildDate>Sat, 26 Dec 2020 16:39:24 +0800</lastBuildDate>
+    <pubDate>Tue, 29 Dec 2020 17:37:10 +0800</pubDate>
+    <lastBuildDate>Tue, 29 Dec 2020 17:37:10 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Word📖</title>
+        <description>&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;strong&gt;2020.12.29&lt;/strong&gt;
+    &lt;ul class=&quot;task-list&quot;&gt;
+      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;friend&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 30 Dec 2020 01:04:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2020/12/30/Word/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2020/12/30/Word/</guid>
+        
+        <category>Word📖</category>
+        
+        
+      </item>
     
       <item>
         <title>小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集</title>

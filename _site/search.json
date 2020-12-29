@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Word📖",
+      "subtitle" : " &quot;还是有很多单词需要学习啊&quot;",
+      "tags"     : "Word📖",
+      "url"      : "/2020/12/30/Word/",
+      "date"     : "2020-12-30 01:04:00 +0800"
+    } ,
+  
+    {
       "title"    : "小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集",
       "subtitle" : " &quot;遥感图像数据集, 语义分割数据集制作&quot;",
       "tags"     : "小菊的语义分割",
