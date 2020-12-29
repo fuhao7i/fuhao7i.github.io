@@ -5,34 +5,20 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 29 Dec 2020 20:48:33 +0800</pubDate>
-    <lastBuildDate>Tue, 29 Dec 2020 20:48:33 +0800</lastBuildDate>
+    <pubDate>Tue, 29 Dec 2020 20:59:31 +0800</pubDate>
+    <lastBuildDate>Tue, 29 Dec 2020 20:59:31 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
         <title>Word📖</title>
-        <description>&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;strong&gt;2020.12.29&lt;/strong&gt;
-    &lt;ul class=&quot;task-list&quot;&gt;
-      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;enhance [ɪnˈhɑːns] vt. 提高；加强；增加&lt;/li&gt;
-      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;imagery [ˈɪmɪdʒəri] n. 像；意象；比喻；形象化
-  = [ ] generative [ˈdʒenərətɪv] adj. 生殖的；生产的；有生殖力的；有生产力的&lt;/li&gt;
-      &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;adversarial [ˌædvəˈseəriəl] adj. 对抗的；对手的，敌手的&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;details&gt;
-&lt;summary&gt;展开查看&lt;/summary&gt;
-&lt;pre&gt;&lt;code&gt;
-System.out.println(&quot;Hello to see U!&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/details&gt;
-
-&lt;details&gt;
-  &lt;summary&gt;点击时的区域标题：点击查看详细内容&lt;/summary&gt;
-  &lt;p&gt; - 测试 测试测试&lt;/p&gt;
-  &lt;pre&gt;&lt;code&gt;  title，value，callBack可以缺省  &lt;/code&gt;  &lt;/pre&gt;
+        <description>&lt;details&gt;
+  &lt;summary&gt;2020.12.29&lt;/summary&gt;
+  &lt;pre&gt;&lt;code&gt;
+    - [x] enhance vt. 提高；加强；增加
+    - [ ] imagery n. 像；意象；比喻；形象化
+    = [ ] generative adj. 生殖的；生产的；有生殖力的；有生产力的
+    - [ ] adversarial adj. 对抗的；对手的，敌手的
+  &lt;/code&gt;&lt;/pre&gt;
 &lt;/details&gt;
 </description>
         <pubDate>Wed, 30 Dec 2020 01:04:00 +0800</pubDate>
