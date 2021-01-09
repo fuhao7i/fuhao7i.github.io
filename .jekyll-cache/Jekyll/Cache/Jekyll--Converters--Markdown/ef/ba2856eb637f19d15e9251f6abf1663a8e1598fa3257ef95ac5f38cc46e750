@@ -1,0 +1,66 @@
+I"�<h1 id="1google-colab环境配置">1.Google colab环境配置</h1>
+
+<p>Google colab提供的免费GPU，是我目前学习的主要工具。很适合还没有进组的同学们进行深度学习练手和学习。</p>
+
+<h2 id="11-连接google-drive">1.1 连接Google Drive</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="c1"># 连接Google云盘
+</span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="p">.</span><span class="n">mount</span><span class="p">(</span><span class="s">'/content/drive'</span><span class="p">)</span>
+<span class="c1"># path是ipynb的工作路径
+</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/content/drive/My Drive/水下目标检测/HitDetection"</span>
+
+<span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="12-安装anaconda3">1.2 安装Anaconda3</h2>
+
+<pre><code class="language-Bash">!wget -q https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
+!chmod +x Anaconda3-2019.10-Linux-x86_64.sh
+!bash ./Anaconda3-2019.10-Linux-x86_64.sh -b -f -p /content/drive/MyDrive/anaconda3
+# set PATH environment variable
+# 添加到系统变量中
+import os
+os.environ['PATH'] = "/content/drive/MyDrive/anaconda3/bin:" + os.environ['PATH']
+</code></pre>
+
+<p>查看当前所有的环境变量：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">key</span><span class="p">()</span> <span class="c1">#查看当前所有的环境变量
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>colab中用anaconda环境来运行python文件：</p>
+
+<pre><code class="language-Bash">!source activate 环境名 &amp;&amp; python 文件.py
+</code></pre>
+
+<h2 id="13-安装gccg5">1.3 安装gcc(g++5)</h2>
+
+<p>由于系统自带了一个版本的gcc，所以我们需要先删除系统的gcc文件，再安装我们需要的版本。</p>
+
+<pre><code class="language-Bash">!apt-get install gcc-5 g++-5
+!cd /usr/bin &amp;&amp; sudo rm gcc-7 g++-7 gcc g++ &amp;&amp; sudo ln gcc-5 gcc &amp;&amp; sudo ln g++-5 g++
+</code></pre>
+
+<h2 id="14-安装pytorch和cudatoolkit">1.4 安装pytorch和cudatoolkit</h2>
+
+<p><a href="https://pytorch.org/get-started/previous-versions/">注意torch和cuda的版本，这里是torch的一个官方文档，可以查看版本对应关系。</a></p>
+
+<pre><code class="language-Bash">!conda install cython
+!conda install pytorch=1.3.1 torchvision cudatoolkit=10.0 nccl -c pytorch
+</code></pre>
+:ET

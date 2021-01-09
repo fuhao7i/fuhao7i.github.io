@@ -14,34 +14,26 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Word📖 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="哈哈哈目标检测🧸1——mmdetection学习记录 - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="
-  2020.12.29
-  
-    - [x] enhance vt. 提高；加强；增加
-    - [ ] imagery n. 像；意象；比喻；形象化
-    = [ ] generative adj. 生殖的；生产的；有生殖力的；有生产力的
-    - [ ] adversarial adj. 对抗的；对手的，敌手的
-  
-
+    <meta property="og:description" content="1.Google colab环境配置
 ">
     
-    <meta property="article:published_time" content="2020-12-30T01:04:00Z">
+    <meta property="article:published_time" content="2021-01-10T04:19:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="Word📖">
+    <meta property="article:tag" content="哈哈哈目标检测🧸">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2020/12/30/Word/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/10/mmdet/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Word📖 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>哈哈哈目标检测🧸1——mmdetection学习记录 - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -50,7 +42,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2020/12/30/Word/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/10/mmdet/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -215,7 +207,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/word.jpg');
+        background-image: url('/img/in-post/mubiaojiance.jpg');
         background: ;
     }
 
@@ -232,13 +224,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=Word%F0%9F%93%96" title="Word📖">Word📖</a>
+                        <a class="tag" href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8" title="哈哈哈目标检测🧸">哈哈哈目标检测🧸</a>
                         
                     </div>
-                    <h1>Word📖</h1>
+                    <h1>哈哈哈目标检测🧸1——mmdetection学习记录</h1>
                     
-                    <h2 class="subheading"> "还是有很多单词需要学习啊"</h2>
-                    <span class="meta">Posted by fuhao7i on December 30, 2020</span>
+                    <h2 class="subheading"> "mmdetection工具箱学习记录"</h2>
+                    <span class="meta">Posted by fuhao7i on January 10, 2021</span>
                 </div>
             </div>
         </div>
@@ -264,15 +256,71 @@
                 <!-- Multi-Lingual -->
                 
 
-				<details>
-  <summary>2020.12.29</summary>
-  <pre><code>
-    - [x] enhance vt. 提高；加强；增加
-    - [ ] imagery n. 像；意象；比喻；形象化
-    = [ ] generative adj. 生殖的；生产的；有生殖力的；有生产力的
-    - [ ] adversarial adj. 对抗的；对手的，敌手的
-  </code></pre>
-</details>
+				<h1 id="1google-colab环境配置">1.Google colab环境配置</h1>
+
+<p>Google colab提供的免费GPU，是我目前学习的主要工具。很适合还没有进组的同学们进行深度学习练手和学习。</p>
+
+<h2 id="11-连接google-drive">1.1 连接Google Drive</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="c1"># 连接Google云盘
+</span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="p">.</span><span class="n">mount</span><span class="p">(</span><span class="s">'/content/drive'</span><span class="p">)</span>
+<span class="c1"># path是ipynb的工作路径
+</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/content/drive/My Drive/水下目标检测/HitDetection"</span>
+
+<span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="12-安装anaconda3">1.2 安装Anaconda3</h2>
+
+<pre><code class="language-Bash">!wget -q https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
+!chmod +x Anaconda3-2019.10-Linux-x86_64.sh
+!bash ./Anaconda3-2019.10-Linux-x86_64.sh -b -f -p /content/drive/MyDrive/anaconda3
+# set PATH environment variable
+# 添加到系统变量中
+import os
+os.environ['PATH'] = "/content/drive/MyDrive/anaconda3/bin:" + os.environ['PATH']
+</code></pre>
+
+<p>查看当前所有的环境变量：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">key</span><span class="p">()</span> <span class="c1">#查看当前所有的环境变量
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>colab中用anaconda环境来运行python文件：</p>
+
+<pre><code class="language-Bash">!source activate 环境名 &amp;&amp; python 文件.py
+</code></pre>
+
+<h2 id="13-安装gccg5">1.3 安装gcc(g++5)</h2>
+
+<p>由于系统自带了一个版本的gcc，所以我们需要先删除系统的gcc文件，再安装我们需要的版本。</p>
+
+<pre><code class="language-Bash">!apt-get install gcc-5 g++-5
+!cd /usr/bin &amp;&amp; sudo rm gcc-7 g++-7 gcc g++ &amp;&amp; sudo ln gcc-5 gcc &amp;&amp; sudo ln g++-5 g++
+</code></pre>
+
+<h2 id="14-安装pytorch和cudatoolkit">1.4 安装pytorch和cudatoolkit</h2>
+
+<p><a href="https://pytorch.org/get-started/previous-versions/">注意torch和cuda的版本，这里是torch的一个官方文档，可以查看版本对应关系。</a></p>
+
+<pre><code class="language-Bash">!conda install cython
+!conda install pytorch=1.3.1 torchvision cudatoolkit=10.0 nccl -c pytorch
+</code></pre>
 
                 
                 <!--Donate start-->
@@ -303,19 +351,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2020/12/22/xiaoju1/" data-toggle="tooltip" data-placement="top" title="小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集">
+                        <a href="/2020/12/30/Word/" data-toggle="tooltip" data-placement="top" title="Word📖">
                         Previous<br>
-                        <span>小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集</span>
+                        <span>Word📖</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/01/10/mmdet/" data-toggle="tooltip" data-placement="top" title="哈哈哈目标检测🧸1——mmdetection学习记录">
-                        Next<br>
-                        <span>哈哈哈目标检测🧸1——mmdetection学习记录</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

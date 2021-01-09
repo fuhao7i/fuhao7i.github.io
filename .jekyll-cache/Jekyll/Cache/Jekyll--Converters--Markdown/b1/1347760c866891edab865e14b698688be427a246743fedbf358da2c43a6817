@@ -1,0 +1,16 @@
+I"�<h1 id="1google-colab环境配置">1.Google colab环境配置</h1>
+
+<p>Google colab提供的免费GPU，是我目前学习的主要工具。很适合还没有进组的童鞋们进行深度学习练手和学习。</p>
+
+<pre><code>
+# 连接Google云盘
+import os
+from google.colab import drive
+drive.mount('/content/drive')
+# path是ipynb的工作路径
+path = "/content/drive/My Drive/水下目标检测/HitDetection"
+
+os.chdir(path)
+os.listdir(path)
+</code></pre>
+:ET
