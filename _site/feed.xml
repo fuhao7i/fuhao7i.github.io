@@ -5,9 +5,124 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 09 Jan 2021 23:43:27 +0800</pubDate>
-    <lastBuildDate>Sat, 09 Jan 2021 23:43:27 +0800</lastBuildDate>
+    <pubDate>Sun, 10 Jan 2021 22:29:37 +0800</pubDate>
+    <lastBuildDate>Sun, 10 Jan 2021 22:29:37 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali工具箱🔧1——torch GPU版本环境配置</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;最近在用mmdetection工具箱完成一个目标检测模块，但是这个工具箱版本更新实在太快，而且各个版本，pytorch gpu的版本还不相同。搭建GPU环境实在繁琐，而且稍不注意程序就会报各种各样的错误。既然可以有各种工具箱用于目标检测，语义分割等任务，那为什么不可以有一个工具箱来帮助大家管理和配置python环境呢？这也是我创建Dali工具箱的初衷。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;1-anaconda安装&quot;&gt;1. Anaconda安装&lt;/h1&gt;
+
+&lt;p&gt;Anaconda是一个管理Python环境特别好的工具箱。它可以很方便的让你在电脑上管理多个Python环境，具体可以参考Anaconda官网或者其他博客。&lt;/p&gt;
+
+&lt;h1 id=&quot;2-安装cuda&quot;&gt;2. 安装CUDA&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;要想利用GPU进行运算，除了在电脑上安装GPU的驱动外，我们还需要安装对应版本的CUDA(Compute Unified Device Architecture)，这是显卡厂商NVIDIA推出的运算平台。CUDA™是一种由NVIDIA推出的通用并行计算架构，该架构使GPU能够解决复杂的计算问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我们要安装GPU版本的torch就需要使用CUDA。&lt;/p&gt;
+
+&lt;h2 id=&quot;21-查看电脑上现有的cuda版本&quot;&gt;2.1 查看电脑上现有的CUDA版本&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;cat /usr/local/cuda/version.txt 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;22-确认gpu所支持的cuda版本&quot;&gt;2.2 &lt;a href=&quot;https://developer.nvidia.com/zh-cn/cuda-gpus&quot;&gt;确认GPU所支持的CUDA版本&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h2 id=&quot;23-卸载cuda&quot;&gt;2.3 卸载CUDA&lt;/h2&gt;
+
+&lt;p&gt;在目录:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;/usr/local/cuda-7.0/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;有CUDA自带的卸载工具uninstall_cuda_toolkit_7.0.pl，使用命令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;sudo ./uninstall_cuda_toolkit_7.0.pl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;24-安装我们所需的cuda版本&quot;&gt;2.4 安装我们所需的CUDA版本&lt;/h2&gt;
+
+&lt;h3 id=&quot;241-确认我们目前的环境&quot;&gt;2.4.1 确认我们目前的环境&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;1.显卡驱动已安装&lt;/li&gt;
+  &lt;li&gt;2.nouveau已经禁用&lt;/li&gt;
+  &lt;li&gt;3.验证系统是否安装了gcc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;GCC 编译器是 Linux 系统下最常用的 C/C++ 编译器，大部分 Linux 发行版中都会默认安装。GCC 编译器通常以gcc命令的形式在终端（Shell）中使用。有时候我们也需要注意gcc的版本问题。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;gcc --version
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;242-下载cuda文件并安装&quot;&gt;2.4.2 &lt;a href=&quot;https://developer.nvidia.com/zh-cn/cuda-downloads&quot;&gt;下载CUDA文件并安装&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;安装的教程可以参考官网或其他博客。&lt;/p&gt;
+
+&lt;h3 id=&quot;243-配置好cuda系统环境&quot;&gt;2.4.3 配置好CUDA系统环境&lt;/h3&gt;
+
+&lt;p&gt;将cuda的bin和lib写入系统环境
+打开&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;～/.bashrc&lt;/code&gt;文件，在末尾追加两句：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;export CUDA_HOME=/usr/local/cuda-9.2
+export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda-9.2/bin:$PATH
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并重新激活环境&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;source ~/.bashrc&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;查看是否安装成功：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;nvcc -V
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;3-安装cudaa&quot;&gt;3. 安装cuDAA&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;NVIDIA cuDNN是用于深度神经网络的GPU加速库。它强调性能、易用性和低内存开销。NVIDIA cuDNN可以集成到更高级别的机器学习框架中，如谷歌的Tensorflow、加州大学伯克利分校的流行caffe软件。简单的插入式设计可以让开发人员专注于设计和实现神经网络模型，而不是简单调整性能，同时还可以在GPU上实现高性能现代并行计算。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;31-查看和你cuda版本对应的cudnn版本并下载&quot;&gt;3.1 &lt;a href=&quot;https://developer.nvidia.com/rdp/cudnn-archive&quot;&gt;查看和你CUDA版本对应的cuDNN版本，并下载&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h2 id=&quot;32-查看电脑上现有的cudnn版本&quot;&gt;3.2 查看电脑上现有的cuDNN版本&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;33-下载相应的cudnn文件并插入式安装到cuda文件夹下&quot;&gt;3.3 下载相应的cuDNN文件，并‘插入式’安装到CUDA文件夹下&lt;/h2&gt;
+
+&lt;p&gt;就是将下载的cuDNN文件复制到相应的CUDA文件夹下。&lt;/p&gt;
+
+&lt;h1 id=&quot;4-cuda和cudnn的关系&quot;&gt;4. CUDA和cuDNN的关系&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;CUDA是底层架构，类似于一个工具箱。cuDNN是基于CUDA的深度学习GPU加速库，有了它才能在GPU上完成深度学习的计算，它就相当于是实现具体功能的一个具体的工具，比如说扳手🔧。但是我们安装CUDA的时候，并没有赠送这个扳手，我们需要把cuDNN下载下来，放入工具箱中(即插入式设计，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cuDNN不会对CUDA产生任何影响&lt;/code&gt;，因为是把cuDNN的文件复制到CUDA文件夹里，并没有相同文件覆盖的问题)。所以安装cuDNN也就是放文件和删除文件的问题。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;5-torch-gpu-安装&quot;&gt;5. &lt;a href=&quot;https://pytorch.org/get-started/locally/&quot;&gt;torch gpu 安装&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;安装对应CUDA版本的torch gpu版本。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;torchversion介绍&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;torchvision包是服务于pytorch深度学习框架的,用来生成图片,视频数据集,和一些流行的模型类和预训练模型. 主要包含四个模块：
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(注意torchvision和torch的版本对应关系，一般 [官网](https://pytorch.org/get-started/locally/) 安装命令会附带相应的torchvision安装)&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;1. torchvision.datasets
+2. torchvision.models
+3. torchvision.transforms
+4. torchvision.utils
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Mon, 11 Jan 2021 04:46:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/01/11/environments/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/11/environments/</guid>
+        
+        <category>Dali工具箱🔧</category>
+        
+        
+      </item>
     
       <item>
         <title>哈哈哈目标检测🧸1——mmdetection学习记录</title>
