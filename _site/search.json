@@ -2,7 +2,7 @@
   
     {
       "title"    : "Dali工具箱🔧1——torch GPU版本环境配置",
-      "subtitle" : " &quot;从CUDA，CUDNN到gcc版本，傻瓜式配置各torch版本&quot;",
+      "subtitle" : " &quot;从CUDA，cuDNN到gcc版本，傻瓜式配置各torch版本&quot;",
       "tags"     : "Dali工具箱🔧",
       "url"      : "/2021/01/11/environments/",
       "date"     : "2021-01-11 04:46:00 +0800"

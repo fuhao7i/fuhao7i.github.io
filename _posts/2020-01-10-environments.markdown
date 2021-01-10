@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Dali工具箱🔧1——torch GPU版本环境配置"
-subtitle:   " \"从CUDA，CUDNN到gcc版本，傻瓜式配置各torch版本\""
+subtitle:   " \"从CUDA，cuDNN到gcc版本，傻瓜式配置各torch版本\""
 date:       2021-01-10 20:46:00
 author:     "fuhao7i"
 header-img: "img/in-post/tools.jpg"
