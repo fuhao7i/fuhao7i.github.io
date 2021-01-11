@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 11 Jan 2021 20:32:32 +0800</pubDate>
-    <lastBuildDate>Mon, 11 Jan 2021 20:32:32 +0800</lastBuildDate>
+    <pubDate>Mon, 11 Jan 2021 22:39:29 +0800</pubDate>
+    <lastBuildDate>Mon, 11 Jan 2021 22:39:29 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -401,6 +401,17 @@ export PATH=/usr/local/cuda-9.2/bin:$PATH
 &lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;nvcc -V
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;blockquote&gt;
+  &lt;p&gt;Linux 安装CUDA9.0 可以使用如下代码，会自动配置好系统环境。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;!wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
+!apt-get update
+!apt-get install cuda=9.0.176-1
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h1 id=&quot;3-安装cudaa&quot;&gt;3. 安装cuDAA&lt;/h1&gt;
 
 &lt;blockquote&gt;
@@ -453,12 +464,18 @@ sudo ldconfig
 3
 4
 5
+6
+7
+8
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__version__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torchvision&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torchvision&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__version__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cuda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_available&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# torch能否正常使用GPU
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cuda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# torch使用的CUDA版本
+&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Mon, 11 Jan 2021 04:46:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/01/11/environments/</link>
@@ -535,6 +552,36 @@ os.environ['PATH'] = &quot;/content/drive/MyDrive/anaconda3/bin:&quot; + os.envi
 
 &lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;!conda install cython
 !conda install pytorch=1.3.1 torchvision cudatoolkit=10.0 nccl -c pytorch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;2-colab重新安装cuda90-torch110-torchvision030&quot;&gt;2. colab重新安装CUDA9.0, torch1.1.0, torchvision0.3.0&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-安装cuda90&quot;&gt;1. 安装CUDA9.0&lt;/h2&gt;
+
+&lt;p&gt;这个会自动配置好系统环境。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;!wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
+!apt-get update
+!apt-get install cuda=9.0.176-1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;2-卸载原有的torch和torchvision&quot;&gt;2. 卸载原有的torch和torchvision&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;!pip uninstall torch
+!pip uninstall torchvision
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;3-安装torchvision和torch&quot;&gt;3. 安装torchvision和torch&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;!pip install torchvision==0.3.0
+!pip install -q torch==1.1.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;4之后sh-envsh安装程序依赖&quot;&gt;4.之后sh env.sh安装程序依赖&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;!sh env.sh
 &lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Sun, 10 Jan 2021 04:19:00 +0800</pubDate>

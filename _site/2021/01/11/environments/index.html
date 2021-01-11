@@ -350,6 +350,17 @@ export PATH=/usr/local/cuda-9.2/bin:$PATH
 <pre><code class="language-Bash">nvcc -V
 </code></pre>
 
+<blockquote>
+  <p>Linux 安装CUDA9.0 可以使用如下代码，会自动配置好系统环境。</p>
+</blockquote>
+
+<pre><code class="language-Bash">!wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
+!apt-get update
+!apt-get install cuda=9.0.176-1
+</code></pre>
+
 <h1 id="3-安装cudaa">3. 安装cuDAA</h1>
 
 <blockquote>
@@ -402,12 +413,18 @@ sudo ldconfig
 3
 4
 5
+6
+7
+8
 </pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span>
 <span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">__version__</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">torchvision</span>
 <span class="k">print</span><span class="p">(</span><span class="n">torchvision</span><span class="p">.</span><span class="n">__version__</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+
+<span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="n">is_available</span><span class="p">())</span> <span class="c1"># torch能否正常使用GPU
+</span><span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">version</span><span class="p">.</span><span class="n">cuda</span><span class="p">)</span> <span class="c1"># torch使用的CUDA版本
+</span></pre></td></tr></tbody></table></code></pre></div></div>
 
                 
                 <!--Donate start-->

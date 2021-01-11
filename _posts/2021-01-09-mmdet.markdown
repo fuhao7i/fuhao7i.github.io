@@ -70,3 +70,37 @@ colab中用anaconda环境来运行python文件：
 !conda install cython
 !conda install pytorch=1.3.1 torchvision cudatoolkit=10.0 nccl -c pytorch
 ```
+
+# 2. colab重新安装CUDA9.0, torch1.1.0, torchvision0.3.0
+
+## 1. 安装CUDA9.0
+
+这个会自动配置好系统环境。
+
+```Bash
+!wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
+!apt-get update
+!apt-get install cuda=9.0.176-1
+```
+
+## 2. 卸载原有的torch和torchvision
+
+```Bash
+!pip uninstall torch
+!pip uninstall torchvision
+```
+
+## 3. 安装torchvision和torch
+
+```Bash
+!pip install torchvision==0.3.0
+!pip install -q torch==1.1.0
+```
+
+## 4.之后sh env.sh安装程序依赖
+
+```Bash
+!sh env.sh
+```

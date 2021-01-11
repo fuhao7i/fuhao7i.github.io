@@ -103,6 +103,16 @@ export PATH=/usr/local/cuda-9.2/bin:$PATH
 nvcc -V
 ```
 
+> Linux 安装CUDA9.0 可以使用如下代码，会自动配置好系统环境。
+
+```Bash
+!wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
+!apt-get update
+!apt-get install cuda=9.0.176-1
+```
+
 # 3. 安装cuDAA
 
 > NVIDIA cuDNN是用于深度神经网络的GPU加速库。它强调性能、易用性和低内存开销。NVIDIA cuDNN可以集成到更高级别的机器学习框架中，如谷歌的Tensorflow、加州大学伯克利分校的流行caffe软件。简单的插入式设计可以让开发人员专注于设计和实现神经网络模型，而不是简单调整性能，同时还可以在GPU上实现高性能现代并行计算。
@@ -157,4 +167,7 @@ print(torch.__version__)
 
 import torchvision
 print(torchvision.__version__)
+
+print(torch.cuda.is_available()) # torch能否正常使用GPU
+print(torch.version.cuda) # torch使用的CUDA版本
 ```
