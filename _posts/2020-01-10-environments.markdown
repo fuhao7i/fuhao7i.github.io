@@ -60,6 +60,31 @@ gcc --version
 
 ### 2.4.2 [下载CUDA文件并安装](https://developer.nvidia.com/zh-cn/cuda-downloads)
 
+通过命令行输入`nvidia-smi`查看自己的显卡驱动版本以及支持的最大CUDA版本.
+
+```Bash
+Mon Jan 11 01:54:41 2021       
++-----------------------------------------------------------------------------+  
+| NVIDIA-SMI 460.27.04    Driver Version: 418.67       CUDA Version: 10.1     |  
+|-------------------------------+----------------------+----------------------+  
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |  
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |  
+|                               |                      |               MIG M. |  
+|===============================+======================+======================|  
+|   0  Tesla T4            Off  | 00000000:00:04.0 Off |                    0 |  
+| N/A   40C    P8     9W /  70W |      0MiB / 15079MiB |      0%      Default |  
+|                               |                      |                 ERR! |  
++-------------------------------+----------------------+----------------------+  
+                                                                                  
++-----------------------------------------------------------------------------+  
+| Processes:                                                                  |  
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |  
+|        ID   ID                                                   Usage      |  
+|=============================================================================|  
+|  No running processes found                                                 |  
++-----------------------------------------------------------------------------+  
+```
+
 安装的教程可以参考官网或其他博客。
 
 ### 2.4.3 配置好CUDA系统环境
@@ -94,6 +119,16 @@ cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
 
 就是将下载的cuDNN文件复制到相应的CUDA文件夹下。
 
+```Bash
+tar -xzvf cudnn-10.2-linux-x64-v7.6.5.32.tgz
+
+sudo cp -P cuda/include/cudnn.h /usr/local/cuda/include
+sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64
+sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+
+sudo ldconfig
+```
+
 # 4. CUDA和cuDNN的关系
 
 **CUDA是底层架构，类似于一个工具箱。cuDNN是基于CUDA的深度学习GPU加速库，有了它才能在GPU上完成深度学习的计算，它就相当于是实现具体功能的一个具体的工具，比如说扳手🔧。但是我们安装CUDA的时候，并没有赠送这个扳手，我们需要把cuDNN下载下来，放入工具箱中(即插入式设计，`cuDNN不会对CUDA产生任何影响`，因为是把cuDNN的文件复制到CUDA文件夹里，并没有相同文件覆盖的问题)。所以安装cuDNN也就是放文件和删除文件的问题。**
@@ -112,4 +147,14 @@ torchvision包是服务于pytorch深度学习框架的,用来生成图片,视频
 2. torchvision.models
 3. torchvision.transforms
 4. torchvision.utils
+```
+
+查看torch, torchvision版本信息：
+
+```python
+import torch
+print(torch.__version__)
+
+import torchvision
+print(torchvision.__version__)
 ```

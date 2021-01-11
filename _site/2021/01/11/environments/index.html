@@ -310,6 +310,30 @@
 
 <h3 id="242-下载cuda文件并安装">2.4.2 <a href="https://developer.nvidia.com/zh-cn/cuda-downloads">下载CUDA文件并安装</a></h3>
 
+<p>通过命令行输入<code class="language-plaintext highlighter-rouge">nvidia-smi</code>查看自己的显卡驱动版本以及支持的最大CUDA版本.</p>
+
+<pre><code class="language-Bash">Mon Jan 11 01:54:41 2021       
++-----------------------------------------------------------------------------+  
+| NVIDIA-SMI 460.27.04    Driver Version: 418.67       CUDA Version: 10.1     |  
+|-------------------------------+----------------------+----------------------+  
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |  
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |  
+|                               |                      |               MIG M. |  
+|===============================+======================+======================|  
+|   0  Tesla T4            Off  | 00000000:00:04.0 Off |                    0 |  
+| N/A   40C    P8     9W /  70W |      0MiB / 15079MiB |      0%      Default |  
+|                               |                      |                 ERR! |  
++-------------------------------+----------------------+----------------------+  
+                                                                                  
++-----------------------------------------------------------------------------+  
+| Processes:                                                                  |  
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |  
+|        ID   ID                                                   Usage      |  
+|=============================================================================|  
+|  No running processes found                                                 |  
++-----------------------------------------------------------------------------+  
+</code></pre>
+
 <p>安装的教程可以参考官网或其他博客。</p>
 
 <h3 id="243-配置好cuda系统环境">2.4.3 配置好CUDA系统环境</h3>
@@ -343,6 +367,15 @@ export PATH=/usr/local/cuda-9.2/bin:$PATH
 
 <p>就是将下载的cuDNN文件复制到相应的CUDA文件夹下。</p>
 
+<pre><code class="language-Bash">tar -xzvf cudnn-10.2-linux-x64-v7.6.5.32.tgz
+
+sudo cp -P cuda/include/cudnn.h /usr/local/cuda/include
+sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64
+sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+
+sudo ldconfig
+</code></pre>
+
 <h1 id="4-cuda和cudnn的关系">4. CUDA和cuDNN的关系</h1>
 
 <p><strong>CUDA是底层架构，类似于一个工具箱。cuDNN是基于CUDA的深度学习GPU加速库，有了它才能在GPU上完成深度学习的计算，它就相当于是实现具体功能的一个具体的工具，比如说扳手🔧。但是我们安装CUDA的时候，并没有赠送这个扳手，我们需要把cuDNN下载下来，放入工具箱中(即插入式设计，<code class="language-plaintext highlighter-rouge">cuDNN不会对CUDA产生任何影响</code>，因为是把cuDNN的文件复制到CUDA文件夹里，并没有相同文件覆盖的问题)。所以安装cuDNN也就是放文件和删除文件的问题。</strong></p>
@@ -361,6 +394,20 @@ export PATH=/usr/local/cuda-9.2/bin:$PATH
 3. torchvision.transforms
 4. torchvision.utils
 </code></pre>
+
+<p>查看torch, torchvision版本信息：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span>
+<span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="k">print</span><span class="p">(</span><span class="n">torchvision</span><span class="p">.</span><span class="n">__version__</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
                 
                 <!--Donate start-->
@@ -397,6 +444,13 @@ export PATH=/usr/local/cuda-9.2/bin:$PATH
                         </a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2021/01/11/chedaoxianbiaozhu/" data-toggle="tooltip" data-placement="top" title="Competition🐳1——车道线检测识别与标注">
+                        Next<br>
+                        <span>Competition🐳1——车道线检测识别与标注</span>
+                        </a>
+                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
@@ -470,27 +524,32 @@ export PATH=/usr/local/cuda-9.2/bin:$PATH
         
         
         
-                <a data-sort="0004" 
+                <a data-sort="0005" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv"
                     title="阿菊的OpenCv"
                     rel="1">阿菊的OpenCv</a>
         
-                <a data-sort="0004" 
+                <a data-sort="0005" 
                     href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8"
                     title="哈哈哈目标检测🧸"
                     rel="1">哈哈哈目标检测🧸</a>
         
-                <a data-sort="0004" 
+                <a data-sort="0005" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2"
                     title="小菊的语义分割"
                     rel="1">小菊的语义分割</a>
         
-                <a data-sort="0004" 
+                <a data-sort="0005" 
+                    href="/archive/?tag=Competition%F0%9F%90%B3"
+                    title="Competition🐳"
+                    rel="1">Competition🐳</a>
+        
+                <a data-sort="0005" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
                     title="Dali工具箱🔧"
                     rel="1">Dali工具箱🔧</a>
         
-                <a data-sort="0004" 
+                <a data-sort="0005" 
                     href="/archive/?tag=Word%F0%9F%93%96"
                     title="Word📖"
                     rel="1">Word📖</a>

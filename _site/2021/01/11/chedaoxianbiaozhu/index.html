@@ -14,28 +14,34 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="阿菊的OpenCv11——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge) - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Competition🐳1——车道线检测识别与标注 - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
     <meta property="og:description" content="
-  “Yeah It’s on. ”
+  车道线的检测识别就是检测出来交通场景中的各种车道线，并返回它们的准确位置信息。目前常见的解决方法有：
+  
+    
+      机器学习模型自动检测识别
+      利用OpenCv的传统计算机视觉算法进行自动检测识别
+    
+  
 
 ">
     
-    <meta property="article:published_time" content="2020-12-20T04:33:00Z">
+    <meta property="article:published_time" content="2021-01-11T20:47:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="阿菊的OpenCv">
+    <meta property="article:tag" content="Competition🐳">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2020/12/20/AJuOpenCv11/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/11/chedaoxianbiaozhu/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>阿菊的OpenCv11——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge) - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Competition🐳1——车道线检测识别与标注 - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -44,7 +50,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2020/12/20/AJuOpenCv11/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/11/chedaoxianbiaozhu/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -209,7 +215,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/AJuOpenCv.jpg');
+        background-image: url('/img/in-post/competition.jpg');
         background: ;
     }
 
@@ -226,13 +232,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv" title="阿菊的OpenCv">阿菊的OpenCv</a>
+                        <a class="tag" href="/archive/?tag=Competition%F0%9F%90%B3" title="Competition🐳">Competition🐳</a>
                         
                     </div>
-                    <h1>阿菊的OpenCv11——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)</h1>
+                    <h1>Competition🐳1——车道线检测识别与标注</h1>
                     
-                    <h2 class="subheading"> "Opencv, plt, cv2.split, cv2.merge"</h2>
-                    <span class="meta">Posted by fuhao7i on December 20, 2020</span>
+                    <h2 class="subheading"> "中国软件杯, 车道线的手动标注"</h2>
+                    <span class="meta">Posted by fuhao7i on January 11, 2021</span>
                 </div>
             </div>
         </div>
@@ -259,43 +265,29 @@
                 
 
 				<blockquote>
-  <p>“Yeah It’s on. ”</p>
+  <p>车道线的检测识别就是检测出来交通场景中的各种车道线，并返回它们的准确位置信息。目前常见的解决方法有：</p>
+  <blockquote>
+    <ol>
+      <li>机器学习模型自动检测识别</li>
+      <li>利用OpenCv的传统计算机视觉算法进行自动检测识别</li>
+    </ol>
+  </blockquote>
 </blockquote>
 
-<h1 id="0-原始图像">0. 原始图像</h1>
-<p><img src="https://img-blog.csdnimg.cn/20201215160651373.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /></p>
+<blockquote>
+  <p>这两种方法都可以完成这项任务，但是由于对车道线位置信息的精度要求，再加上整个程序的实时性性能要求，我最终采用的方案是手动标注。因为我的项目应用场景是交通路口摄像头下的道路情况。所以一般我们只需要</p>
+  <blockquote>
+    <ol>
+      <li>在安装程序的时候标注一次，以后就可以不用再标注了；</li>
+      <li>手动标注精确度可以达到100%；</li>
+      <li>利用更少的计算资源。</li>
+    </ol>
+  </blockquote>
+</blockquote>
 
-<h1 id="1-cv2读取图像并用matplotlib显示">1. cv2读取图像并用matplotlib显示</h1>
+<h2 id="1-提取背景py">1. 提取背景.py</h2>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'../images/ju.jpg'</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="s">'Aju'</span><span class="p">)</span> <span class="c1">#窗口名称
-</span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'jujujuju'</span><span class="p">)</span> <span class="c1">#图像名称
-</span><span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">e.g.运行结果如下：</code></p>
-
-<p><img src="https://img-blog.csdnimg.cn/20201215152746218.png#pic_center" width="70%" /></p>
-
-<p>为什么我们用plt显示的图像看起来偏蓝色呢？因为OpenCV在读取图像的时候是按照<strong>BGR通道顺序</strong>来读取的，而我们平时看到的正常图片的编码格式为<strong>RGB通道顺序</strong>。所以为了用plt将图像显示为正常我们看到的图像，这里需要引入<strong>RGB图像通道的拆分与合并</strong>。</p>
-
-<h1 id="2rgb图像通道的拆分与合并">2.RGB图像通道的拆分与合并</h1>
-
-<p>将cv2读取的图像按照BGR的通道顺序进行拆分后再按照RGB的通道顺序进行合并，图像就可以正常显示了。</p>
+<p>提取视频或摄像头的第一帧作为我们手动标注的图像。</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -307,30 +299,21 @@
 8
 9
 10
-11
-12
-13
 </pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'../images/ju.jpg'</span><span class="p">)</span>
-
-<span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="c1">#按照BGR通道进行拆分
-</span>
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span> <span class="c1">#按照RGB通道顺序合并
-</span> 
-<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="s">'Aju'</span><span class="p">)</span> <span class="c1">#窗口名称
-</span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'jujujuju'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">vidcap</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s">'/Users/apple/Documents/二叶/目标追踪/yolov3_deepsort/data/video/直线马路.mp4'</span><span class="p">)</span>
+<span class="n">success</span><span class="p">,</span><span class="n">image</span> <span class="o">=</span> <span class="n">vidcap</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+	<span class="n">success</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">vidcap</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+	<span class="n">n</span><span class="o">+=</span><span class="mi">1</span>
+<span class="n">imag</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'fff.png'</span><span class="p">,</span><span class="n">image</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">imag</span> <span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+	<span class="k">print</span><span class="p">(</span><span class="s">'ok'</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p><code class="language-plaintext highlighter-rouge">e.g.运行结果如下：</code></p>
+<h2 id="2-车道线标定py">2. 车道线标定.py</h2>
 
-<p>&lt;img src=”https://img-blog.csdnimg.cn/20201215155931573.png#pic_center” width=70%&gt;</p>
-
-<h1 id="3-matplotlib-显示多幅图像">3. matplotlib 显示多幅图像</h1>
-<p>plt显示多幅图像需要用到subplot。</p>
+<p>斑马线标定顺序从左上角顺时针标定好4个点。</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -361,45 +344,212 @@
 27
 28
 29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
 </pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
 
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'../images/ju.jpg'</span><span class="p">)</span>
-<span class="n">b0</span><span class="p">,</span> <span class="n">g0</span><span class="p">,</span> <span class="n">r0</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'fff.png'</span><span class="p">)</span>
 
-<span class="n">zeros</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">img</span><span class="p">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s">"uint8"</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">zeros</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">b0</span><span class="p">])</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">zeros</span><span class="p">,</span> <span class="n">g0</span><span class="p">,</span> <span class="n">zeros</span><span class="p">])</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">r0</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">zeros</span><span class="p">])</span>  
+<span class="n">cishu</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">sx</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bm</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">'fff.png'</span><span class="p">))</span>
+<span class="n">ion</span><span class="p">()</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="c1"># 实线标定
+</span><span class="k">for</span> <span class="n">cs</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cishu</span><span class="p">):</span>
 
-<span class="n">rg</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">r0</span><span class="p">,</span> <span class="n">g0</span><span class="p">,</span> <span class="n">zeros</span><span class="p">])</span>
-<span class="n">rb</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">r0</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">b0</span><span class="p">])</span>
-<span class="n">gb</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">zeros</span><span class="p">,</span> <span class="n">g0</span><span class="p">,</span> <span class="n">b0</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Please click 2 points'</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">ginput</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># 获取两个鼠标点击坐标
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">'you clicked:'</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">sx</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="s">'AJu'</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="c1">#窗口名称和大小
-</span><span class="n">plt</span><span class="p">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">'Multi_ju'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'origin'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'R'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'G'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'B'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'RG'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rg</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'RB'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rb</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'GB'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gb</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="c1">#plt.axis('off')隐藏坐标轴
-</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># 斑马线标定（只标定了一处斑马线）
+</span><span class="k">print</span><span class="p">(</span><span class="s">'Please click 4 points'</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">ginput</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># 获取四个鼠标点击坐标
+</span><span class="k">print</span><span class="p">(</span><span class="s">'you clicked:'</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="n">bm</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">ioff</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">jinzhi</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">banmaxian</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">shixian</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x1</span> <span class="o">==</span> <span class="n">x2</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2</span><span class="o">-</span><span class="n">y1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">x1</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">k</span>
+        <span class="c1"># k = int(k)
+</span>        <span class="c1"># b = int(b)
+</span>    <span class="k">return</span> <span class="n">k</span><span class="p">,</span><span class="n">b</span>
+<span class="c1">#data1 = [{'x1':int(x[0][0]),'y1':int(x[0][1]),'x2':int(x[1][0]),'y2':int(x[1][1])}]
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sx</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">shixian</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">)</span>
+    <span class="c1">#cv2.rectangle(img, (x1+15,y1), (x2-15,y2), (0,0,255), -1)
+</span>    <span class="k">if</span> <span class="n">y1</span> <span class="o">&gt;</span> <span class="n">y2</span><span class="p">:</span>
+        <span class="n">yy</span> <span class="o">=</span> <span class="n">y2</span>
+        <span class="n">xx</span> <span class="o">=</span> <span class="n">x2</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="n">y1</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">yy</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">xx</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">xxx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span><span class="n">y2</span><span class="p">):</span>
+            <span class="n">xq</span> <span class="o">=</span> <span class="p">(</span><span class="n">xxx</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">k</span>
+            <span class="n">xq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">xq</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">xq</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">xxx</span><span class="p">),</span> <span class="p">(</span><span class="n">xq</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="n">xxx</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">xxx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">):</span>
+            <span class="n">yq</span> <span class="o">=</span> <span class="n">b</span>
+            <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">xxx</span><span class="p">,</span><span class="n">yq</span><span class="o">+</span><span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="n">xxx</span><span class="p">,</span><span class="n">yq</span><span class="o">-</span><span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'x1'</span><span class="p">]</span> <span class="o">=</span> <span class="n">x1</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'x2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">x2</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'y1'</span><span class="p">]</span> <span class="o">=</span> <span class="n">y1</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'y2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">y2</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'k:'</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="s">'b:'</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">jinzhi</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+
+
+<span class="k">print</span><span class="p">(</span><span class="n">jinzhi</span><span class="p">)</span>
+
+
+<span class="c1"># data2 = [{'x1':400, 'y1':0,'x2':800,'y2':0,
+#           'x3':400, 'y3':800, 'x4':800, 'y4':800}]
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bm</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">y3</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">shixian</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">y3</span> <span class="o">-</span> <span class="n">y1</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'c'</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'x1'</span><span class="p">]</span> <span class="o">=</span> <span class="n">x1</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'x2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">x2</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'y1'</span><span class="p">]</span> <span class="o">=</span> <span class="n">y1</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'y2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">y2</span>
+
+    <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">+</span><span class="n">c</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">banmaxian</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">banmaxian</span><span class="p">)</span>
+
+<span class="c1"># 将标定好的图像进行保存显示
+</span><span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'001_new.png'</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+<span class="c1"># 将返回信息写入txt文件，方便后面读取使用
+</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"shixian.txt"</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">jinzhi</span><span class="p">:</span>
+        <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"banmaxian.txt"</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">banmaxian</span><span class="p">:</span>
+        <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">duangduangduang～</code></p>
-
-<p><img src="https://img-blog.csdnimg.cn/20201215161018528.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
-
-<p><strong>我会坚持分享更多关于计算机视觉的知识，同时也希望大家可以多多关注我，让我们一起进步，加油加油！！！</strong></p>
-
-<p><img src="https://img-blog.csdnimg.cn/2020121516200984.jpg#pic_center" alt="在这里插入图片描述" /></p>
-
 
                 
                 <!--Donate start-->
@@ -429,13 +579,13 @@
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/2020/12/22/xiaoju1/" data-toggle="tooltip" data-placement="top" title="小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集">
-                        Next<br>
-                        <span>小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集</span>
+                    <li class="previous">
+                        <a href="/2021/01/11/environments/" data-toggle="tooltip" data-placement="top" title="Dali工具箱🔧1——torch GPU版本环境配置">
+                        Previous<br>
+                        <span>Dali工具箱🔧1——torch GPU版本环境配置</span>
                         </a>
                     </li>
+                    
                     
                 </ul>
                 <hr style="visibility: hidden;">

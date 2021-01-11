@@ -1,0 +1,10 @@
+I"s<blockquote>
+  <p>车道线的检测识别就是检测出来交通场景中的各种车道线，并返回它们的准确位置信息。目前常见的解决方法有：</p>
+  <blockquote>
+    <ol>
+      <li>机器学习模型自动检测识别</li>
+      <li>利用OpenCv的传统计算机视觉算法进行自动检测识别</li>
+    </ol>
+  </blockquote>
+</blockquote>
+:ET
