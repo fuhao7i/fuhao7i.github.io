@@ -12,12 +12,11 @@ https://github.com/kitian616/jekyll-TeXt-theme
 <!-- Page Header -->
 {% include intro-header.html type='page' short=true %}
 
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 <!-- Main Content -->
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
+
                 {% comment %} <!--gittalk start-->
                 {% include gitalk.html %}  
                 <!--gittalk end--> {% endcomment %}
@@ -41,3 +40,16 @@ https://github.com/kitian616/jekyll-TeXt-theme
 		</div>
 	</div>
 </div>
+
+
+{% comment %} <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<div id="vcomments"></div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '',
+            appKey: '',
+            placeholder: 'So la da di da di🐽'
+        })
+    </script> {% endcomment %}
