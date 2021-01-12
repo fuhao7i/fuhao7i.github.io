@@ -14,26 +14,28 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="哈哈哈目标检测🧸1——mmdetection学习记录 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali工具箱🔧1——torch GPU版本环境配置 - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="1.Google colab环境配置
+    <meta property="og:description" content="
+  最近在用mmdetection工具箱完成一个目标检测模块，但是这个工具箱版本更新实在太快，而且各个版本，pytorch gpu的版本还不相同。搭建GPU环境实在繁琐，而且稍不注意程序就会报各种各样的错误。既然可以有各种工具箱用于目标检测，语义分割等任务，那为什么不可以有一个工具箱来帮助大家管理和配置python环境呢？这也是我创建Dali工具箱的初衷。
+
 ">
     
-    <meta property="article:published_time" content="2021-01-10T04:19:00Z">
+    <meta property="article:published_time" content="2021-01-11T04:46:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="哈哈哈目标检测🧸">
+    <meta property="article:tag" content="Dali工具箱🔧">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/10/mmdet/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/11/dalitools1/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>哈哈哈目标检测🧸1——mmdetection学习记录 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali工具箱🔧1——torch GPU版本环境配置 - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -42,7 +44,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/10/mmdet/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/11/dalitools1/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -213,7 +215,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/mubiaojiance.jpg');
+        background-image: url('/img/in-post/tools.jpg');
         background: ;
     }
 
@@ -230,13 +232,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8" title="哈哈哈目标检测🧸">哈哈哈目标检测🧸</a>
+                        <a class="tag" href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7" title="Dali工具箱🔧">Dali工具箱🔧</a>
                         
                     </div>
-                    <h1>哈哈哈目标检测🧸1——mmdetection学习记录</h1>
+                    <h1>Dali工具箱🔧1——torch GPU版本环境配置</h1>
                     
-                    <h2 class="subheading"> "mmdetection工具箱学习记录"</h2>
-                    <span class="meta">Posted by fuhao7i on January 10, 2021</span>
+                    <h2 class="subheading"> "从CUDA，cuDNN到gcc版本，傻瓜式配置各torch版本"</h2>
+                    <span class="meta">Posted by fuhao7i on January 11, 2021</span>
                 </div>
             </div>
         </div>
@@ -262,11 +264,155 @@
                 <!-- Multi-Lingual -->
                 
 
-				<h1 id="1google-colab环境配置">1.Google colab环境配置</h1>
+				<blockquote>
+  <p>最近在用mmdetection工具箱完成一个目标检测模块，但是这个工具箱版本更新实在太快，而且各个版本，pytorch gpu的版本还不相同。搭建GPU环境实在繁琐，而且稍不注意程序就会报各种各样的错误。既然可以有各种工具箱用于目标检测，语义分割等任务，那为什么不可以有一个工具箱来帮助大家管理和配置python环境呢？这也是我创建Dali工具箱的初衷。</p>
+</blockquote>
 
-<p>Google colab提供的免费GPU，是我目前学习的主要工具。很适合还没有进组的同学们进行深度学习练手和学习。</p>
+<h1 id="1-anaconda安装">1. Anaconda安装</h1>
 
-<h2 id="11-连接google-drive">1.1 连接Google Drive</h2>
+<p>Anaconda是一个管理Python环境特别好的工具箱。它可以很方便的让你在电脑上管理多个Python环境，具体可以参考Anaconda官网或者其他博客。</p>
+
+<h1 id="2-安装cuda">2. 安装CUDA</h1>
+
+<blockquote>
+  <p>要想利用GPU进行运算，除了在电脑上安装GPU的驱动外，我们还需要安装对应版本的CUDA(Compute Unified Device Architecture)，这是显卡厂商NVIDIA推出的运算平台。CUDA™是一种由NVIDIA推出的通用并行计算架构，该架构使GPU能够解决复杂的计算问题。</p>
+</blockquote>
+
+<p>我们要安装GPU版本的torch就需要使用CUDA。</p>
+
+<h2 id="21-查看电脑上现有的cuda版本">2.1 查看电脑上现有的CUDA版本</h2>
+
+<pre><code class="language-Bash">cat /usr/local/cuda/version.txt 
+</code></pre>
+
+<h2 id="22-确认gpu所支持的cuda版本">2.2 <a href="https://developer.nvidia.com/zh-cn/cuda-gpus">确认GPU所支持的CUDA版本</a></h2>
+
+<h2 id="23-卸载cuda">2.3 卸载CUDA</h2>
+
+<p>在目录:</p>
+
+<pre><code class="language-Bash">/usr/local/cuda-7.0/bin
+</code></pre>
+
+<p>有CUDA自带的卸载工具uninstall_cuda_toolkit_7.0.pl，使用命令：</p>
+
+<pre><code class="language-Bash">sudo ./uninstall_cuda_toolkit_7.0.pl
+</code></pre>
+
+<h2 id="24-安装我们所需的cuda版本">2.4 安装我们所需的CUDA版本</h2>
+
+<h3 id="241-确认我们目前的环境">2.4.1 确认我们目前的环境</h3>
+
+<ul>
+  <li>1.显卡驱动已安装</li>
+  <li>2.nouveau已经禁用</li>
+  <li>3.验证系统是否安装了gcc</li>
+</ul>
+
+<p>GCC 编译器是 Linux 系统下最常用的 C/C++ 编译器，大部分 Linux 发行版中都会默认安装。GCC 编译器通常以gcc命令的形式在终端（Shell）中使用。有时候我们也需要注意gcc的版本问题。</p>
+
+<pre><code class="language-Bash">gcc --version
+</code></pre>
+
+<h3 id="242-下载cuda文件并安装">2.4.2 <a href="https://developer.nvidia.com/zh-cn/cuda-downloads">下载CUDA文件并安装</a></h3>
+
+<p>通过命令行输入<code class="language-plaintext highlighter-rouge">nvidia-smi</code>查看自己的显卡驱动版本以及支持的最大CUDA版本.</p>
+
+<pre><code class="language-Bash">Mon Jan 11 01:54:41 2021       
++-----------------------------------------------------------------------------+  
+| NVIDIA-SMI 460.27.04    Driver Version: 418.67       CUDA Version: 10.1     |  
+|-------------------------------+----------------------+----------------------+  
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |  
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |  
+|                               |                      |               MIG M. |  
+|===============================+======================+======================|  
+|   0  Tesla T4            Off  | 00000000:00:04.0 Off |                    0 |  
+| N/A   40C    P8     9W /  70W |      0MiB / 15079MiB |      0%      Default |  
+|                               |                      |                 ERR! |  
++-------------------------------+----------------------+----------------------+  
+                                                                                  
++-----------------------------------------------------------------------------+  
+| Processes:                                                                  |  
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |  
+|        ID   ID                                                   Usage      |  
+|=============================================================================|  
+|  No running processes found                                                 |  
++-----------------------------------------------------------------------------+  
+</code></pre>
+
+<p>安装的教程可以参考官网或其他博客。</p>
+
+<h3 id="243-配置好cuda系统环境">2.4.3 配置好CUDA系统环境</h3>
+
+<p>将cuda的bin和lib写入系统环境
+打开<code class="language-plaintext highlighter-rouge">～/.bashrc</code>文件，在末尾追加两句：</p>
+<pre><code class="language-Bash">export CUDA_HOME=/usr/local/cuda-9.2
+export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda-9.2/bin:$PATH
+</code></pre>
+<p>并重新激活环境<code class="language-plaintext highlighter-rouge">source ~/.bashrc</code>。</p>
+
+<p>查看是否安装成功：</p>
+<pre><code class="language-Bash">nvcc -V
+</code></pre>
+
+<blockquote>
+  <p>Linux 安装CUDA9.0 可以使用如下代码，会自动配置好系统环境。</p>
+</blockquote>
+
+<pre><code class="language-Bash">!wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
+!apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
+!apt-get update
+!apt-get install cuda=9.0.176-1
+</code></pre>
+
+<h1 id="3-安装cudaa">3. 安装cuDAA</h1>
+
+<blockquote>
+  <p>NVIDIA cuDNN是用于深度神经网络的GPU加速库。它强调性能、易用性和低内存开销。NVIDIA cuDNN可以集成到更高级别的机器学习框架中，如谷歌的Tensorflow、加州大学伯克利分校的流行caffe软件。简单的插入式设计可以让开发人员专注于设计和实现神经网络模型，而不是简单调整性能，同时还可以在GPU上实现高性能现代并行计算。</p>
+</blockquote>
+
+<h2 id="31-查看和你cuda版本对应的cudnn版本并下载">3.1 <a href="https://developer.nvidia.com/rdp/cudnn-archive">查看和你CUDA版本对应的cuDNN版本，并下载</a></h2>
+
+<h2 id="32-查看电脑上现有的cudnn版本">3.2 查看电脑上现有的cuDNN版本</h2>
+
+<pre><code class="language-Bash">cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
+</code></pre>
+
+<h2 id="33-下载相应的cudnn文件并插入式安装到cuda文件夹下">3.3 下载相应的cuDNN文件，并‘插入式’安装到CUDA文件夹下</h2>
+
+<p>就是将下载的cuDNN文件复制到相应的CUDA文件夹下。</p>
+
+<pre><code class="language-Bash">tar -xzvf cudnn-10.2-linux-x64-v7.6.5.32.tgz
+
+sudo cp -P cuda/include/cudnn.h /usr/local/cuda/include
+sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64
+sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+
+sudo ldconfig
+</code></pre>
+
+<h1 id="4-cuda和cudnn的关系">4. CUDA和cuDNN的关系</h1>
+
+<p><strong>CUDA是底层架构，类似于一个工具箱。cuDNN是基于CUDA的深度学习GPU加速库，有了它才能在GPU上完成深度学习的计算，它就相当于是实现具体功能的一个具体的工具，比如说扳手🔧。但是我们安装CUDA的时候，并没有赠送这个扳手，我们需要把cuDNN下载下来，放入工具箱中(即插入式设计，<code class="language-plaintext highlighter-rouge">cuDNN不会对CUDA产生任何影响</code>，因为是把cuDNN的文件复制到CUDA文件夹里，并没有相同文件覆盖的问题)。所以安装cuDNN也就是放文件和删除文件的问题。</strong></p>
+
+<h1 id="5-torch-gpu-安装">5. <a href="https://pytorch.org/get-started/locally/">torch gpu 安装</a></h1>
+
+<p>安装对应CUDA版本的torch gpu版本。</p>
+
+<p><strong>torchversion介绍</strong></p>
+
+<p>torchvision包是服务于pytorch深度学习框架的,用来生成图片,视频数据集,和一些流行的模型类和预训练模型. 主要包含四个模块：
+<code class="language-plaintext highlighter-rouge">(注意torchvision和torch的版本对应关系，一般 [官网](https://pytorch.org/get-started/locally/) 安装命令会附带相应的torchvision安装)</code></p>
+
+<pre><code class="language-Bash">1. torchvision.datasets
+2. torchvision.models
+3. torchvision.transforms
+4. torchvision.utils
+</code></pre>
+
+<p>查看torch, torchvision版本信息：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -276,87 +422,15 @@
 6
 7
 8
-9
-</pre></td><td class="rouge-code"><pre><span class="c1"># 连接Google云盘
-</span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
-<span class="n">drive</span><span class="p">.</span><span class="n">mount</span><span class="p">(</span><span class="s">'/content/drive'</span><span class="p">)</span>
-<span class="c1"># path是ipynb的工作路径
-</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/content/drive/My Drive/水下目标检测/HitDetection"</span>
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span>
+<span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">__version__</span><span class="p">)</span>
 
-<span class="n">os</span><span class="p">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<span class="kn">import</span> <span class="nn">torchvision</span>
+<span class="k">print</span><span class="p">(</span><span class="n">torchvision</span><span class="p">.</span><span class="n">__version__</span><span class="p">)</span>
 
-<h2 id="12-安装anaconda3">1.2 安装Anaconda3</h2>
-
-<pre><code class="language-Bash">!wget -q https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
-!chmod +x Anaconda3-2019.10-Linux-x86_64.sh
-!bash ./Anaconda3-2019.10-Linux-x86_64.sh -b -f -p /content/drive/MyDrive/anaconda3
-# set PATH environment variable
-# 添加到系统变量中
-import os
-os.environ['PATH'] = "/content/drive/MyDrive/anaconda3/bin:" + os.environ['PATH']
-</code></pre>
-
-<p>查看当前所有的环境变量：</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">os</span>
-<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">key</span><span class="p">()</span> <span class="c1">#查看当前所有的环境变量
+<span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="n">is_available</span><span class="p">())</span> <span class="c1"># torch能否正常使用GPU
+</span><span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">version</span><span class="p">.</span><span class="n">cuda</span><span class="p">)</span> <span class="c1"># torch使用的CUDA版本
 </span></pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>colab中用anaconda环境来运行python文件：</p>
-
-<pre><code class="language-Bash">!source activate 环境名 &amp;&amp; python 文件.py
-</code></pre>
-
-<h2 id="13-安装gccg5">1.3 安装gcc(g++5)</h2>
-
-<p>由于系统自带了一个版本的gcc，所以我们需要先删除系统的gcc文件，再安装我们需要的版本。</p>
-
-<pre><code class="language-Bash">!apt-get install gcc-5 g++-5
-!cd /usr/bin &amp;&amp; sudo rm gcc-7 g++-7 gcc g++ &amp;&amp; sudo ln gcc-5 gcc &amp;&amp; sudo ln g++-5 g++
-</code></pre>
-
-<h2 id="14-安装pytorch和cudatoolkit">1.4 安装pytorch和cudatoolkit</h2>
-
-<p><a href="https://pytorch.org/get-started/previous-versions/">注意torch和cuda的版本，这里是torch的一个官方文档，可以查看版本对应关系。</a></p>
-
-<pre><code class="language-Bash">!conda install cython
-!conda install pytorch=1.3.1 torchvision cudatoolkit=10.0 nccl -c pytorch
-</code></pre>
-
-<h1 id="2-colab重新安装cuda90-torch110-torchvision030">2. colab重新安装CUDA9.0, torch1.1.0, torchvision0.3.0</h1>
-
-<h2 id="1-安装cuda90">1. 安装CUDA9.0</h2>
-
-<p>这个会自动配置好系统环境。</p>
-
-<pre><code class="language-Bash">!wget https://developer.nvidia.com/compute/cuda/9.0/Prod/local_installers/cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
-!dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64-deb
-!apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
-!apt-get update
-!apt-get install cuda=9.0.176-1
-</code></pre>
-
-<h2 id="2-卸载原有的torch和torchvision">2. 卸载原有的torch和torchvision</h2>
-
-<pre><code class="language-Bash">!pip uninstall torch
-!pip uninstall torchvision
-</code></pre>
-
-<h2 id="3-安装torchvision和torch">3. 安装torchvision和torch</h2>
-
-<pre><code class="language-Bash">!pip install torchvision==0.3.0
-!pip install -q torch==1.1.0
-</code></pre>
-
-<h2 id="4之后sh-envsh安装程序依赖">4.之后sh env.sh安装程序依赖</h2>
-
-<pre><code class="language-Bash">!sh env.sh
-</code></pre>
 
                 
                 <!--Donate start-->
@@ -387,17 +461,17 @@ os.environ['PATH'] = "/content/drive/MyDrive/anaconda3/bin:" + os.environ['PATH'
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2020/12/30/Word/" data-toggle="tooltip" data-placement="top" title="Word📖">
+                        <a href="/2021/01/10/detector1/" data-toggle="tooltip" data-placement="top" title="哈哈哈目标检测🧸1——mmdetection学习记录">
                         Previous<br>
-                        <span>Word📖</span>
+                        <span>哈哈哈目标检测🧸1——mmdetection学习记录</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2021/01/11/environments/" data-toggle="tooltip" data-placement="top" title="Dali工具箱🔧1——torch GPU版本环境配置">
+                        <a href="/2021/01/11/competition1/" data-toggle="tooltip" data-placement="top" title="Competition🐳1——车道线检测识别与标注">
                         Next<br>
-                        <span>Dali工具箱🔧1——torch GPU版本环境配置</span>
+                        <span>Competition🐳1——车道线检测识别与标注</span>
                         </a>
                     </li>
                     

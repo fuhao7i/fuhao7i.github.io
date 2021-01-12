@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 12 Jan 2021 12:19:25 +0800</pubDate>
-    <lastBuildDate>Tue, 12 Jan 2021 12:19:25 +0800</lastBuildDate>
+    <pubDate>Tue, 12 Jan 2021 20:08:19 +0800</pubDate>
+    <lastBuildDate>Tue, 12 Jan 2021 20:08:19 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -299,8 +299,8 @@
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Mon, 11 Jan 2021 20:47:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/01/11/chedaoxianbiaozhu/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/11/chedaoxianbiaozhu/</guid>
+        <link>https://fuhao7i.github.io/2021/01/11/competition1/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/11/competition1/</guid>
         
         <category>Competition🐳</category>
         
@@ -478,8 +478,8 @@ sudo ldconfig
 &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Mon, 11 Jan 2021 04:46:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/01/11/environments/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/11/environments/</guid>
+        <link>https://fuhao7i.github.io/2021/01/11/dalitools1/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/11/dalitools1/</guid>
         
         <category>Dali工具箱🔧</category>
         
@@ -585,8 +585,8 @@ os.environ['PATH'] = &quot;/content/drive/MyDrive/anaconda3/bin:&quot; + os.envi
 &lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Sun, 10 Jan 2021 04:19:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/01/10/mmdet/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/10/mmdet/</guid>
+        <link>https://fuhao7i.github.io/2021/01/10/detector1/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/10/detector1/</guid>
         
         <category>哈哈哈目标检测🧸</category>
         
