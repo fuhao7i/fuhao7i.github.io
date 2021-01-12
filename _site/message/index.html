@@ -230,17 +230,24 @@ https://github.com/kitian616/jekyll-TeXt-theme
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-            <div id="vcomments"></div>
-                <script>
-                    new Valine({
-                        el: '#vcomments',
-                        appId: 'h2lPzP9AqgQTkM11on7HhLsW-gzGzoHsz',
-                        appKey: 'qYmxlWvx6dnpfHELgpBJxDt8',
-                        placeholder: 'So la da di da di🐽'
-                    })
-                </script>
+                
+                <link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+                <script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
 
-         
+
+                <div id="gitalk-container" style="margin: 30px;padding-bottom: 30px;"></div>
+                <script>
+                    var gitalk = new Gitalk({
+                        clientID: '1695c83228c471fa58d4',
+                        clientSecret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+                        repo: 'fuhao7i.github.io',
+                        owner: 'fuhao7i',
+                        admin: ['fuhao7i'],
+                        id: location.pathname,      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
+
+                    })
+                    gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
+                </script>
 		</div>
 	</div>
 </div>
