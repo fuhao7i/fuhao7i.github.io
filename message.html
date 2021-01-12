@@ -1,0 +1,33 @@
+---
+title: Message
+layout: default
+description: 「We can't stop!」
+header-img: "img/message.jpg"
+---
+
+<!-- 
+Credits: this page shamelessly borrowed a lot from:
+https://github.com/kitian616/jekyll-TeXt-theme
+-->
+<!-- Page Header -->
+{% include intro-header.html type='page' short=true %}
+
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+            <div id="vcomments"></div>
+                <script>
+                    new Valine({
+                        el: '#vcomments',
+                        appId: 'h2lPzP9AqgQTkM11on7HhLsW-gzGzoHsz',
+                        appKey: 'qYmxlWvx6dnpfHELgpBJxDt8',
+                        placeholder: 'So la da di da di🐽'
+                    })
+                </script>
+                
+		</div>
+	</div>
+</div>
