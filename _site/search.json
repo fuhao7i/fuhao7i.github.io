@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "PyTorch🧟‍♂️1——PyTorch输出中间特征层",
+      "subtitle" : " &quot;torch, 模型融合&quot;",
+      "tags"     : "PyTorch🧟‍♂️",
+      "url"      : "/2021/01/11/torch1/",
+      "date"     : "2021-01-11 20:47:00 +0800"
+    } ,
+  
+    {
       "title"    : "Competition🐳1——车道线检测识别与标注",
       "subtitle" : " &quot;中国软件杯, 车道线的手动标注&quot;",
       "tags"     : "Competition🐳",

@@ -5,9 +5,22 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 12 Jan 2021 20:08:19 +0800</pubDate>
-    <lastBuildDate>Tue, 12 Jan 2021 20:08:19 +0800</lastBuildDate>
+    <pubDate>Tue, 12 Jan 2021 21:41:02 +0800</pubDate>
+    <lastBuildDate>Tue, 12 Jan 2021 21:41:02 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>PyTorch🧟‍♂️1——PyTorch输出中间特征层</title>
+        <description>
+</description>
+        <pubDate>Mon, 11 Jan 2021 20:47:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/01/11/torch1/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/11/torch1/</guid>
+        
+        <category>PyTorch🧟‍♂️</category>
+        
+        
+      </item>
     
       <item>
         <title>Competition🐳1——车道线检测识别与标注</title>
