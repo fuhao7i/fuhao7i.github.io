@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "哈哈哈目标检测🧸2——mmdetection Configs文件详解"
-subtitle:   " \"mmdetection工具箱学习记录\""
+title:      "哈哈哈目标检测🧸2——mmdetection build_dataset函数详解"
+subtitle:   " \"mmdetection 数据集准备\""
 date:       2021-01-13 17:32:00
 author:     "fuhao7i"
 header-img: "img/in-post/mubiaojiance.jpg"
@@ -10,3 +10,128 @@ tags:
     - 哈哈哈目标检测🧸
 ---
 
+> mmdetection 数据集准备，包括训练数据集和测试数据集
+
+# 1. 训练数据集
+
+在train.py文件中，构建训练数据集。
+
+```python
+from mmdet.datasets import build_dataset
+train_dataset = build_dataset(cfg.data.train)
+```
+
+## 1.1 参数cfg.data.train
+
+```python
+# dataset settings
+dataset_type = 'VOCDataset'
+data_root ='data/VOCdevkit/VOC2007/'
+img_norm_cfg = dict(
+    mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
+
+train_pipeline = [
+    dict(type='LoadImageFromFile'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(
+        type='Resize',
+       # img_scale=(1333, 800),
+        img_scale=(800,600),
+        keep_ratio=True),
+    dict(type='RandomFlip', flip_ratio=0.5),
+    dict(type='Normalize', **img_norm_cfg),
+    dict(type='Pad', size_divisor=32),
+    dict(type='DefaultFormatBundle'),
+    dict(type='Collect', keys=['img', 'gt_bboxes', 'gt_labels']),
+]
+
+
+train=dict(
+        type=dataset_type,
+        ann_file=data_root + 'ImageSets/Main/train.txt',
+        img_prefix=data_root ,
+        pipeline=train_pipeline)
+```
+
+## 1.2 函数build_dataset()
+
+其中，build_dataset函数在mmdet文件夹的datasets文件夹下的builder.py。
+`./mmdet/datasets/builder.py`
+
+```python
+def build_dataset(cfg, default_args=None):
+    if isinstance(cfg, (list, tuple)):
+        dataset = ConcatDataset([build_dataset(c, default_args) for c in cfg])
+    elif cfg['type'] == 'RepeatDataset':
+        dataset = RepeatDataset(
+            build_dataset(cfg['dataset'], default_args), cfg['times'])
+    elif isinstance(cfg['ann_file'], (list, tuple)):
+        dataset = _concat_dataset(cfg, default_args)
+    else:
+        dataset = build_from_cfg(cfg, DATASETS, default_args)
+
+    return dataset
+```
+
+这里我们会执行`dataset = build_from_cfg(cfg, DATASETS, default_args)`.
+
+## 1.2.1 函数 build_from_cfg()
+
+```python
+def build_from_cfg(cfg, registry, default_args=None):
+    """Build a module from config dict.
+
+    Args:
+        cfg (dict): Config dict. It should at least contain the key "type".
+        registry (:obj:`Registry`): The registry to search the type from.
+        default_args (dict, optional): Default initialization arguments.
+
+    Returns:
+        obj: The constructed object.
+    """
+    assert isinstance(cfg, dict) and 'type' in cfg
+    assert isinstance(default_args, dict) or default_args is None
+    args = cfg.copy()
+    obj_type = args.pop('type')
+    if mmcv.is_str(obj_type):
+        obj_type = registry.get(obj_type)
+        if obj_type is None:
+            raise KeyError('{} is not in the {} registry'.format(
+                obj_type, registry.name))
+    elif inspect.isclass(obj_type):
+        obj_cls = obj_type
+    else:
+        raise TypeError('type must be a str or valid type, but got {}'.format(
+            type(obj_type)))
+    if default_args is not None:
+        for name, value in default_args.items():
+            args.setdefault(name, value)
+    return obj_type(**args)
+```
+
+## 1.2.2 isinstance(object, classinfo)函数详解:
+
+```Bash
+* object -- 实例对象。
+* classinfo -- 可以是直接或间接类名、基本类型或者由它们组成的元组。
+
+classinfo可以是：int，float，bool，complex，str(字符串)，list，dict(字典)，set，tuple，具体的类
+
+判断对象object的类型是否和classinfo的类型相同。相同则返回True，否则返回False。
+```
+
+> isinstance() 与 type() 区别：
+>   type() 不会认为子类是一种父类类型，不考虑继承关系。
+>   isinstance() 会认为子类是一种父类类型，考虑继承关系。
+> 如果要判断两个类型是否相同推荐使用 isinstance()。
+
+`e.g`
+```python
+>>> a = 2
+>>> isinstance (a,(str,int,list))    # 是元组中的一个返回 True
+True
+```
+
+# 2. 测试数据集
+
+和训练数据集的构建相同。

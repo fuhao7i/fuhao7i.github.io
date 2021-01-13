@@ -1,0 +1,134 @@
+I")<blockquote>
+  <p>mmdetection 数据集准备，包括训练数据集和测试数据集</p>
+</blockquote>
+
+<h1 id="1-训练数据集">1. 训练数据集</h1>
+
+<p>在train.py文件中，构建训练数据集。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">mmdet.datasets</span> <span class="kn">import</span> <span class="n">build_dataset</span>
+<span class="n">train_dataset</span> <span class="o">=</span> <span class="n">build_dataset</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">train</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="11-参数cfgdatatrain">1.1 参数cfg.data.train</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre></td><td class="rouge-code"><pre><span class="c1"># dataset settings
+</span><span class="n">dataset_type</span> <span class="o">=</span> <span class="s">'VOCDataset'</span>
+<span class="n">data_root</span> <span class="o">=</span><span class="s">'data/VOCdevkit/VOC2007/'</span>
+<span class="n">img_norm_cfg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">mean</span><span class="o">=</span><span class="p">[</span><span class="mf">123.675</span><span class="p">,</span> <span class="mf">116.28</span><span class="p">,</span> <span class="mf">103.53</span><span class="p">],</span> <span class="n">std</span><span class="o">=</span><span class="p">[</span><span class="mf">58.395</span><span class="p">,</span> <span class="mf">57.12</span><span class="p">,</span> <span class="mf">57.375</span><span class="p">],</span> <span class="n">to_rgb</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">train_pipeline</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">'LoadImageFromFile'</span><span class="p">),</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">'LoadAnnotations'</span><span class="p">,</span> <span class="n">with_bbox</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="nb">dict</span><span class="p">(</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s">'Resize'</span><span class="p">,</span>
+       <span class="c1"># img_scale=(1333, 800),
+</span>        <span class="n">img_scale</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">600</span><span class="p">),</span>
+        <span class="n">keep_ratio</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">'RandomFlip'</span><span class="p">,</span> <span class="n">flip_ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">'Normalize'</span><span class="p">,</span> <span class="o">**</span><span class="n">img_norm_cfg</span><span class="p">),</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">'Pad'</span><span class="p">,</span> <span class="n">size_divisor</span><span class="o">=</span><span class="mi">32</span><span class="p">),</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">'DefaultFormatBundle'</span><span class="p">),</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s">'Collect'</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s">'img'</span><span class="p">,</span> <span class="s">'gt_bboxes'</span><span class="p">,</span> <span class="s">'gt_labels'</span><span class="p">]),</span>
+<span class="p">]</span>
+
+
+<span class="n">train</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">dataset_type</span><span class="p">,</span>
+        <span class="n">ann_file</span><span class="o">=</span><span class="n">data_root</span> <span class="o">+</span> <span class="s">'ImageSets/Main/train.txt'</span><span class="p">,</span>
+        <span class="n">img_prefix</span><span class="o">=</span><span class="n">data_root</span> <span class="p">,</span>
+        <span class="n">pipeline</span><span class="o">=</span><span class="n">train_pipeline</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="12-函数build_dataset">1.2 函数build_dataset()</h2>
+
+<p>其中，build_dataset函数在mmdet文件夹的datasets文件夹下的builder.py。
+<code class="language-plaintext highlighter-rouge">./mmdet/datasets/builder.py</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">build_dataset</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">default_args</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">ConcatDataset</span><span class="p">([</span><span class="n">build_dataset</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">default_args</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">cfg</span><span class="p">[</span><span class="s">'type'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'RepeatDataset'</span><span class="p">:</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">RepeatDataset</span><span class="p">(</span>
+            <span class="n">build_dataset</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s">'dataset'</span><span class="p">],</span> <span class="n">default_args</span><span class="p">),</span> <span class="n">cfg</span><span class="p">[</span><span class="s">'times'</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cfg</span><span class="p">[</span><span class="s">'ann_file'</span><span class="p">],</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">_concat_dataset</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">default_args</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="n">build_from_cfg</span><span class="p">(</span><span class="n">cfg</span><span class="p">,</span> <span class="n">DATASETS</span><span class="p">,</span> <span class="n">default_args</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dataset</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这里我们会执行<code class="language-plaintext highlighter-rouge">dataset = build_from_cfg(cfg, DATASETS, default_args)</code>.</p>
+
+<h2 id="121-函数-build_from_cfg">1.2.1 函数 build_from_cfg()</h2>
+
+<p><code class="language-plaintext highlighter-rouge">isinstance(object, classinfo)函数详解：</code></p>
+
+<pre><code class="language-Bash">* object -- 实例对象。
+* classinfo -- 可以是直接或间接类名、基本类型或者由它们组成的元组。
+
+classinfo可以是：int，float，bool，complex，str(字符串)，list，dict(字典)，set，tuple，具体的类
+
+判断对象object的类型是否和classinfo的类型相同。相同则返回True，否则返回False。
+</code></pre>
+
+<blockquote>
+  <p>isinstance() 与 type() 区别：
+  type() 不会认为子类是一种父类类型，不考虑继承关系。
+  isinstance() 会认为子类是一种父类类型，考虑继承关系。
+如果要判断两个类型是否相同推荐使用 isinstance()。</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">e.g</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span> <span class="p">(</span><span class="n">a</span><span class="p">,(</span><span class="nb">str</span><span class="p">,</span><span class="nb">int</span><span class="p">,</span><span class="nb">list</span><span class="p">))</span>    <span class="c1"># 是元组中的一个返回 True
+</span><span class="bp">True</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+:ET

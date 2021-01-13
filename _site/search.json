@@ -1,8 +1,16 @@
 [
   
     {
-      "title"    : "哈哈哈目标检测🧸2——mmdetection Configs文件详解",
-      "subtitle" : " &quot;mmdetection工具箱学习记录&quot;",
+      "title"    : "哈哈哈目标检测🧸3——mmdetection 训练文件详解train.py",
+      "subtitle" : " &quot;mmdetection 开始训练模型&quot;",
+      "tags"     : "哈哈哈目标检测🧸",
+      "url"      : "/2021/01/14/detector3/",
+      "date"     : "2021-01-14 02:54:00 +0800"
+    } ,
+  
+    {
+      "title"    : "哈哈哈目标检测🧸2——mmdetection build_dataset函数详解",
+      "subtitle" : " &quot;mmdetection 数据集准备&quot;",
       "tags"     : "哈哈哈目标检测🧸",
       "url"      : "/2021/01/14/detector2/",
       "date"     : "2021-01-14 01:32:00 +0800"

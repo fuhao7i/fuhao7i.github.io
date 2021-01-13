@@ -1,0 +1,163 @@
+I"�-<blockquote>
+  <p>mmdetection 详解：训练自己的模型</p>
+</blockquote>
+
+<h1 id="1-train_detector-函数详解">1. train_detector() 函数详解</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="n">train_detector</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">train_dataset</span><span class="p">,</span>
+    <span class="n">cfg</span><span class="p">,</span>
+    <span class="n">distributed</span><span class="o">=</span><span class="n">distributed</span><span class="p">,</span>
+    <span class="n">validate</span><span class="o">=</span><span class="n">args</span><span class="p">.</span><span class="n">validate</span><span class="p">,</span>
+    <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">参数：</code></p>
+
+<pre><code class="language-Bash">model : 构建的网络模型
+train_dataset : 构建的训练数据集
+cfg : 读取的Config py文件
+distributed : 是否是分布式训练
+validate : whether to evaluate the checkpoint during training
+logger : 日志信息
+</code></pre>
+
+<p>接下来我们详细看一下<code class="language-plaintext highlighter-rouge">train_detector()函数</code>。<br />
+<code class="language-plaintext highlighter-rouge">./mmdet/apis/train.py</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">train_detector</span><span class="p">(</span><span class="n">model</span><span class="p">,</span>
+                   <span class="n">dataset</span><span class="p">,</span>
+                   <span class="n">cfg</span><span class="p">,</span>
+                   <span class="n">distributed</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                   <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                   <span class="n">logger</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">get_root_logger</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">log_level</span><span class="p">)</span>
+    
+    <span class="c1"># start training
+</span>    <span class="k">if</span> <span class="n">distributed</span><span class="p">:</span>
+        <span class="n">_dist_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_non_dist_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="12-_non_dist_train-单个gpu非分布式训练">1.2 _non_dist_train() (单个GPU)非分布式训练</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">_non_dist_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nb">NotImplementedError</span><span class="p">(</span><span class="s">'Built-in validation is not implemented '</span>
+                                  <span class="s">'yet in not-distributed training. Use '</span>
+                                  <span class="s">'distributed training or test.py and '</span>
+                                  <span class="s">'*eval.py scripts instead.'</span><span class="p">)</span>
+    <span class="c1"># put model on gpus
+</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">MMDataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">gpus</span><span class="p">)).</span><span class="n">cuda</span><span class="p">()</span>
+    
+    <span class="c1"># build runner
+</span>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">build_optimizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'optimizer_exclude_arch'</span><span class="p">))</span>
+
+    <span class="n">arch_name</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">optimizer_arch</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="s">'optimizer_arch'</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nb">NotImplementedError</span>
+    
+    <span class="n">runner</span> <span class="o">=</span> <span class="n">Runner</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">batch_processor</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">optimizer_arch</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">log_level</span><span class="p">,</span> <span class="n">arch_name</span><span class="o">=</span><span class="n">arch_name</span><span class="p">)</span>
+
+    <span class="c1"># fp16 setting
+</span>    <span class="n">fp16_cfg</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'fp16'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fp16_cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">optimizer_config</span> <span class="o">=</span> <span class="n">Fp16OptimizerHook</span><span class="p">(</span>
+            <span class="o">**</span><span class="n">cfg</span><span class="p">.</span><span class="n">optimizer_config</span><span class="p">,</span> <span class="o">**</span><span class="n">fp16_cfg</span><span class="p">,</span> <span class="n">distributed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">optimizer_config</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">.</span><span class="n">optimizer_config</span>
+        <span class="n">optimizer_arch_config</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">.</span><span class="n">optimizer_config</span>
+    <span class="n">runner</span><span class="p">.</span><span class="n">register_training_hooks</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">lr_config</span><span class="p">,</span> <span class="n">optimizer_config</span><span class="p">,</span> <span class="n">optimizer_arch_config</span><span class="p">,</span>
+                                   <span class="n">cfg</span><span class="p">.</span><span class="n">checkpoint_config</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">log_config</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">cfg</span><span class="p">.</span><span class="n">resume_from</span><span class="p">:</span>
+        <span class="n">runner</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">resume_from</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">cfg</span><span class="p">.</span><span class="n">load_from</span><span class="p">:</span>
+        <span class="n">runner</span><span class="p">.</span><span class="n">load_checkpoint</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">load_from</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="s">'optimizer_arch'</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nb">NotImplementedError</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data_loaders</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">build_dataloader</span><span class="p">(</span>
+                <span class="n">dataset</span><span class="p">,</span>
+                <span class="n">cfg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">imgs_per_gpu</span><span class="p">,</span>
+                <span class="n">cfg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">workers_per_gpu</span><span class="p">,</span>
+                <span class="n">cfg</span><span class="p">.</span><span class="n">gpus</span><span class="p">,</span>
+                <span class="n">dist</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">runner</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">data_loaders</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">workflow</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">total_epochs</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET
