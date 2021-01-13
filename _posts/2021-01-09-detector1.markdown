@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "哈哈哈目标检测🧸1——mmdetection学习记录"
+title:      "哈哈哈目标检测🧸1——mmdetection环境配置"
 subtitle:   " \"mmdetection工具箱学习记录\""
 date:       2021-01-09 20:19:00
 author:     "fuhao7i"
@@ -9,6 +9,8 @@ catalog: true
 tags:
     - 哈哈哈目标检测🧸
 ---
+
+> 其实就是需要我们注意CUDA，cuDNN，torch，torchvision之间的版本对应。这个环境挺麻烦的，有一点没配置好在运行程序的时候可能就会有很多错误。更加详细的配置torch GPU版本可以参考我的另一篇博客[Dali工具箱🔧1——torch GPU版本环境配置](https://fuhao7i.com/2021/01/10/dalitools1/)。
 
 # 1.Google colab环境配置
 

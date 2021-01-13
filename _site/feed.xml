@@ -5,9 +5,22 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 12 Jan 2021 21:41:02 +0800</pubDate>
-    <lastBuildDate>Tue, 12 Jan 2021 21:41:02 +0800</lastBuildDate>
+    <pubDate>Wed, 13 Jan 2021 17:36:50 +0800</pubDate>
+    <lastBuildDate>Wed, 13 Jan 2021 17:36:50 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>哈哈哈目标检测🧸2——mmdetection Configs文件详解</title>
+        <description>
+</description>
+        <pubDate>Thu, 14 Jan 2021 01:32:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/01/14/detector2/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/14/detector2/</guid>
+        
+        <category>哈哈哈目标检测🧸</category>
+        
+        
+      </item>
     
       <item>
         <title>PyTorch🧟‍♂️1——PyTorch输出中间特征层</title>
@@ -500,8 +513,12 @@ sudo ldconfig
       </item>
     
       <item>
-        <title>哈哈哈目标检测🧸1——mmdetection学习记录</title>
-        <description>&lt;h1 id=&quot;1google-colab环境配置&quot;&gt;1.Google colab环境配置&lt;/h1&gt;
+        <title>哈哈哈目标检测🧸1——mmdetection环境配置</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;其实就是需要我们注意CUDA，cuDNN，torch，torchvision之间的版本对应。这个环境挺麻烦的，有一点没配置好在运行程序的时候可能就会有很多错误。更加详细的配置torch GPU版本可以参考我的另一篇博客&lt;a href=&quot;https://fuhao7i.com/2021/01/10/dalitools1/&quot;&gt;Dali工具箱🔧1——torch GPU版本环境配置&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;1google-colab环境配置&quot;&gt;1.Google colab环境配置&lt;/h1&gt;
 
 &lt;p&gt;Google colab提供的免费GPU，是我目前学习的主要工具。很适合还没有进组的同学们进行深度学习练手和学习。&lt;/p&gt;
 

@@ -1,0 +1,12 @@
+---
+layout:     post
+title:      "哈哈哈目标检测🧸2——mmdetection Configs文件详解"
+subtitle:   " \"mmdetection工具箱学习记录\""
+date:       2021-01-13 17:32:00
+author:     "fuhao7i"
+header-img: "img/in-post/mubiaojiance.jpg"
+catalog: true
+tags:
+    - 哈哈哈目标检测🧸
+---
+

@@ -1,0 +1,4 @@
+I"�<blockquote>
+  <p>其实就是需要我们注意CUDA，cuDNN，torch，torchvision之间的版本对应。这个环境挺麻烦的，有一点没配置好在运行程序的时候可能就会有很多错误。更加详细的配置torch GPU版本可以参考我的另一篇博客<a href="https://fuhao7i.com/2021/01/10/dalitools1/">Dali工具箱🔧1——torch GPU版本环境配置</a></p>
+</blockquote>
+:ET
