@@ -1,0 +1,84 @@
+---
+layout:     post
+title:      "哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py"
+subtitle:   " \"mmdetection 测试模型\""
+date:       2021-01-15 21:50:00
+author:     "fuhao7i"
+header-img: "img/in-post/mubiaojiance.jpg"
+catalog: true
+tags:
+    - 哈哈哈目标检测🧸
+---
+
+> mmdetection 详解：测试训练好的模型
+
+# 1. 运行test.py
+
+test有两种模式: 分布式和非分布式。这和train的过程类似。只不过test需要载入我们训练好的网络模型权重。
+
+```Bash
+# single-gpu testing
+python tools/test.py ${CONFIG_FILE} ${CHECKPOINT_FILE} [--out ${RESULT_FILE}] [--eval ${EVAL_METRICS}] [--show]
+
+# multi-gpu testing
+./tools/dist_test.sh ${CONFIG_FILE} ${CHECKPOINT_FILE} ${GPU_NUM} [--out ${RESULT_FILE}] [--eval ${EVAL_METRICS}]
+```
+
+接下来我们就看一下`tools/test.py`:
+
+# 2. tools/test.py
+
+```python
+def single_gpu_test(model, data_loader, show=False):
+    model.eval()
+    results = []
+    dataset = data_loader.dataset
+    prog_bar = mmcv.ProgressBar(len(dataset))
+    for i, data in enumerate(data_loader):
+        with torch.no_grad():
+            result = model(return_loss=False, rescale=not show, **data)
+        results.append(result)
+
+        if show:
+            model.module.show_result(data, result)
+
+        batch_size = data['img'][0].size(0)
+        for _ in range(batch_size):
+            prog_bar.update()
+    return results
+
+def main():
+    ...  # 省略了一些加载函数调用参数的代码
+    # build the dataloader
+    # TODO: support multiple images per gpu (only minor changes are needed)
+    dataset = build_dataset(cfg.data.test)
+    data_loader = build_dataloader(
+        dataset,
+        imgs_per_gpu=1,
+        workers_per_gpu=cfg.data.workers_per_gpu,
+        dist=distributed,
+        shuffle=False)
+
+    # build the model and load checkpoint
+    model = build_detector(cfg.model, train_cfg=None, test_cfg=cfg.test_cfg)
+    fp16_cfg = cfg.get('fp16', None)
+    if fp16_cfg is not None:
+        wrap_fp16_model(model)
+    checkpoint = load_checkpoint(model, args.checkpoint, map_location='cpu')
+    # old versions did not save class info in checkpoints, this walkaround is
+    # for backward compatibility
+    if 'CLASSES' in checkpoint['meta']:
+        model.CLASSES = checkpoint['meta']['CLASSES']
+    else:
+        model.CLASSES = dataset.CLASSES
+
+    if not distributed:
+        model = MMDataParallel(model, device_ids=[0])
+        outputs = single_gpu_test(model, data_loader, args.show)
+    else:
+        model = MMDistributedDataParallel(model.cuda())
+        outputs = multi_gpu_test(model, data_loader, args.tmpdir)
+
+    ...  # 省略了一些储存输出和eval的代码
+```
+

@@ -55,7 +55,7 @@ def train_detector(model,
         _non_dist_train(model, dataset, cfg, validate=validate)
 ```
 
-## 1.2 _non_dist_train() (单个GPU)非分布式训练
+## 1.1 _non_dist_train() (单个GPU)非分布式训练
 
 ```python
 def _non_dist_train(model, dataset, cfg, validate=False):
@@ -106,3 +106,37 @@ def _non_dist_train(model, dataset, cfg, validate=False):
         ]
         runner.run(data_loaders, None, cfg.workflow, cfg.total_epochs)
 ```
+
+### 1.1.1 构建Runner实例
+
+```python
+runner = Runner(model, batch_processor, optimizer, optimizer_arch, cfg.work_dir, cfg.log_level, arch_name=arch_name)
+...
+runner.run(data_loaders, None, cfg.workflow, cfg.total_epochs)
+```
+
+这里我们来看`Runner`第二个参数`batch_processor`
+
+```python
+def batch_processor(model, data, train_mode, **kwargs):
+    losses = model(**data)
+
+    losses_ = losses[0]
+    loss_latency = losses[1]
+    if loss_latency is not None:
+        losses_['loss_latency'] = loss_latency
+
+    loss, log_vars = parse_losses(losses_)
+   
+    outputs = dict(
+        loss=loss, log_vars=log_vars, num_samples=len(data['img'].data))
+
+    return outputs
+```
+
+https://blog.csdn.net/wqwqqwqw1231/article/details/104439463
+https://blog.csdn.net/wqwqqwqw1231/article/details/104401529
+https://blog.csdn.net/wqwqqwqw1231/article/details/103091908
+https://blog.csdn.net/wqwqqwqw1231/article/details/102912888
+https://blog.csdn.net/wqwqqwqw1231/article/details/104439463
+https://blog.csdn.net/qq_41375609/article/details/102906700

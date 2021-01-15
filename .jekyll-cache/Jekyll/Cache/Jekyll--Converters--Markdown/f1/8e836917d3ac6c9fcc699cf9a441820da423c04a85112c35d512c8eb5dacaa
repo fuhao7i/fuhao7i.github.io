@@ -1,0 +1,124 @@
+I"'%<blockquote>
+  <p>mmdetection 详解：测试训练好的模型</p>
+</blockquote>
+
+<h1 id="1-运行testpy">1. 运行test.py</h1>
+
+<p>test有两种模式: 分布式和非分布式。这和train的过程类似。只不过test需要载入我们训练好的网络模型权重。</p>
+
+<pre><code class="language-Bash"># single-gpu testing
+python tools/test.py ${CONFIG_FILE} ${CHECKPOINT_FILE} [--out ${RESULT_FILE}] [--eval ${EVAL_METRICS}] [--show]
+
+# multi-gpu testing
+./tools/dist_test.sh ${CONFIG_FILE} ${CHECKPOINT_FILE} ${GPU_NUM} [--out ${RESULT_FILE}] [--eval ${EVAL_METRICS}]
+</code></pre>
+
+<p>接下来我们就看一下<code class="language-plaintext highlighter-rouge">tools/test.py</code>:</p>
+
+<h1 id="2-toolstestpy">2. tools/test.py</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">single_gpu_test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="n">model</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">.</span><span class="n">dataset</span>
+    <span class="n">prog_bar</span> <span class="o">=</span> <span class="n">mmcv</span><span class="p">.</span><span class="n">ProgressBar</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">return_loss</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">rescale</span><span class="o">=</span><span class="ow">not</span> <span class="n">show</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="n">model</span><span class="p">.</span><span class="n">module</span><span class="p">.</span><span class="n">show_result</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'img'</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">prog_bar</span><span class="p">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">results</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">...</span>  <span class="c1"># 省略了一些加载函数调用参数的代码
+</span>    <span class="c1"># build the dataloader
+</span>    <span class="c1"># TODO: support multiple images per gpu (only minor changes are needed)
+</span>    <span class="n">dataset</span> <span class="o">=</span> <span class="n">build_dataset</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">test</span><span class="p">)</span>
+    <span class="n">data_loader</span> <span class="o">=</span> <span class="n">build_dataloader</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="p">,</span>
+        <span class="n">imgs_per_gpu</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">workers_per_gpu</span><span class="o">=</span><span class="n">cfg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">workers_per_gpu</span><span class="p">,</span>
+        <span class="n">dist</span><span class="o">=</span><span class="n">distributed</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="c1"># build the model and load checkpoint
+</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">build_detector</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">model</span><span class="p">,</span> <span class="n">train_cfg</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">test_cfg</span><span class="o">=</span><span class="n">cfg</span><span class="p">.</span><span class="n">test_cfg</span><span class="p">)</span>
+    <span class="n">fp16_cfg</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'fp16'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fp16_cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">wrap_fp16_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">load_checkpoint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">checkpoint</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s">'cpu'</span><span class="p">)</span>
+    <span class="c1"># old versions did not save class info in checkpoints, this walkaround is
+</span>    <span class="c1"># for backward compatibility
+</span>    <span class="k">if</span> <span class="s">'CLASSES'</span> <span class="ow">in</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s">'meta'</span><span class="p">]:</span>
+        <span class="n">model</span><span class="p">.</span><span class="n">CLASSES</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s">'meta'</span><span class="p">][</span><span class="s">'CLASSES'</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span><span class="p">.</span><span class="n">CLASSES</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="n">CLASSES</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">distributed</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">MMDataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">single_gpu_test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">show</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">MMDistributedDataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">cuda</span><span class="p">())</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">multi_gpu_test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">tmpdir</span><span class="p">)</span>
+
+    <span class="p">...</span>  <span class="c1"># 省略了一些储存输出和eval的代码
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+:ET

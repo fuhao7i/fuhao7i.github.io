@@ -14,16 +14,28 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="阶段性学习总结🔑1——HitDet改进 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py - fuhao7i的博客 | fuhao7i Blog">
     
-    <meta property="og:type" content="website">
-    <meta property="og:description" content="这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="
+  mmdetection 详解：测试训练好的模型
+
+">
+    
+    <meta property="article:published_time" content="2021-01-16T05:50:00Z">
+    
+    
+    <meta property="article:author" content="fuhao7i">
+    
+    
+    <meta property="article:tag" content="哈哈哈目标检测🧸">
+    
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/15/stage1/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/16/detector4/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>阶段性学习总结🔑1——HitDet改进 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -32,7 +44,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/15/stage1/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/16/detector4/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -206,7 +218,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/stage.jpg');
+        background-image: url('/img/in-post/mubiaojiance.jpg');
         background: ;
     }
 
@@ -223,13 +235,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91" title="阶段性学习总结🔑">阶段性学习总结🔑</a>
+                        <a class="tag" href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8" title="哈哈哈目标检测🧸">哈哈哈目标检测🧸</a>
                         
                     </div>
-                    <h1>阶段性学习总结🔑1——HitDet改进</h1>
+                    <h1>哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py</h1>
                     
-                    <h2 class="subheading"> "HitDet"</h2>
-                    <span class="meta">Posted by fuhao7i on January 15, 2021</span>
+                    <h2 class="subheading"> "mmdetection 测试模型"</h2>
+                    <span class="meta">Posted by fuhao7i on January 16, 2021</span>
                 </div>
             </div>
         </div>
@@ -255,142 +267,24 @@
                 <!-- Multi-Lingual -->
                 
 
-                <script type="text/javascript">   
-                loopy()   
-                function loopy() {   
-                var sWord =""  
-                while (sWord != "dut") {//设置密码
-                sWord = prompt("输入正确密码才能访问🍄")   
-                }   
-                alert("欢迎访问🐽")   
-                }   
-                </script> 
-                <!--下面添加你要显示的内容或者代码-->
 				<blockquote>
-  <p>对HitDet模型进行学习与改进</p>
-  <blockquote>
-    <p>“HitDet”</p>
-    <blockquote>
-      <p>Posted by fuhao7i on January 15, 2021</p>
-    </blockquote>
-  </blockquote>
+  <p>mmdetection 详解：测试训练好的模型</p>
 </blockquote>
 
-<p>========================================================================</p>
+<h1 id="1-运行testpy">1. 运行test.py</h1>
 
-<center><font face="黑体" color="#F4606C" size="12">HitDet改进</font></center>
+<p>test有两种模式: 分布式和非分布式。这和train的过程类似。只不过test需要载入我们训练好的网络模型权重。</p>
 
-<p>========================================================================</p>
+<pre><code class="language-Bash"># single-gpu testing
+python tools/test.py ${CONFIG_FILE} ${CHECKPOINT_FILE} [--out ${RESULT_FILE}] [--eval ${EVAL_METRICS}] [--show]
 
-<h1 id="1-陆上模块提取特征层前10层">1. 陆上模块提取特征层前10层</h1>
+# multi-gpu testing
+./tools/dist_test.sh ${CONFIG_FILE} ${CHECKPOINT_FILE} ${GPU_NUM} [--out ${RESULT_FILE}] [--eval ${EVAL_METRICS}]
+</code></pre>
 
-<h2 id="11-configsnas_trinity2stage_hitdet_out10py">1.1 configs/nas_trinity/2stage_hitdet_out10.py</h2>
+<p>接下来我们就看一下<code class="language-plaintext highlighter-rouge">tools/test.py</code>:</p>
 
-<p>复制<code class="language-plaintext highlighter-rouge">2stage_hitdet.py</code>, 重命名为<code class="language-plaintext highlighter-rouge">2stage_hitdet_out10.py</code>,修改<code class="language-plaintext highlighter-rouge">backbone</code>:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="n">model</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-    <span class="nb">type</span><span class="o">=</span><span class="s">'FasterRCNN'</span><span class="p">,</span>
-    <span class="n">pretrained</span><span class="o">=</span><span class="s">'./ImageNet-pretrained/fbhit_7747.pth'</span><span class="p">,</span>
-    <span class="n">backbone</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-        <span class="nb">type</span><span class="o">=</span><span class="s">'FBNet_out10'</span><span class="p">,</span>
-        <span class="n">out_indices</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
-        <span class="n">frozen_stages</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">arch</span><span class="o">=</span><span class="s">'fbnet_hit'</span><span class="p">),</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h2 id="12-mmdetmodelsbackbonesfbnet_out10py">1.2 mmdet/models/backbones/fbnet_out10.py</h2>
-
-<p>复制<code class="language-plaintext highlighter-rouge">fbnet.py</code>, 重命名为<code class="language-plaintext highlighter-rouge">fbnet_out10.py</code>,修改<code class="language-plaintext highlighter-rouge">forward函数</code>:</p>
-
-<p>在陆上模块前向传播时，输出前10层特征层。</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-</pre></td><td class="rouge-code"><pre>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">alphas</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="n">outs</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">out10</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">):</span>
-            <span class="c1"># fuhao7i------------------
-</span>            <span class="c1"># 提取陆上模块1——10层
-</span>            <span class="c1"># =========================
-</span>            <span class="n">x</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">out_indices</span><span class="p">:</span>
-                <span class="n">outs</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
-                <span class="n">out10</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                
-
-        <span class="k">return</span> <span class="n">outs</span><span class="p">,</span> <span class="n">out10</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h2 id="13-mmdetmodelsbackbonesinitpy">1.3 mmdet/models/backbones/<strong>init</strong>.py</h2>
-
-<p>加入<code class="language-plaintext highlighter-rouge">fbnet_out10</code></p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">'ResNet'</span><span class="p">,</span> <span class="s">'make_res_layer'</span><span class="p">,</span> <span class="s">'ResNeXt'</span><span class="p">,</span> <span class="s">'SSDVGG'</span><span class="p">,</span> <span class="s">'HRNet'</span><span class="p">,</span> <span class="s">'MobileNetV2'</span><span class="p">,</span> <span class="s">'DetNas'</span><span class="p">,</span> <span class="s">'FBNet'</span><span class="p">,</span> <span class="s">'MnasNet'</span><span class="p">,</span> <span class="s">'FBNet_out10'</span><span class="p">]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h2 id="14-mmdetmodelsdetectorstwo_stagepy">1.4 mmdet/models/detectors/two_stage.py</h2>
-
-<p>新增一个<code class="language-plaintext highlighter-rouge">extract_feat_out10函数</code></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="rouge-code"><pre>    <span class="c1"># fuhao7i------------------
-</span>    <span class="c1"># 提取陆上模块1——10层
-</span>    <span class="c1"># =========================
-</span>    <span class="k">def</span> <span class="nf">extract_feat_out10</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img</span><span class="p">):</span>
-        <span class="n">x</span><span class="p">,</span> <span class="n">out10</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">backbone</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">with_neck</span><span class="p">:</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">neck</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">out10</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h1 id="2-和水下模块前10层特征层进行堆叠">2. 和水下模块前10层特征层进行堆叠</h1>
-
-<h2 id="21-mmdetmodelsbackbonesfbnetpy">2.1 mmdet/models/backbones/fbnet.py</h2>
-
-<p>首先修改<code class="language-plaintext highlighter-rouge">build_backbone函数</code>，因为前10层特征层进行堆叠时，通道数要加倍。</p>
+<h1 id="2-toolstestpy">2. tools/test.py</h1>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -421,76 +315,81 @@
 27
 28
 29
-</pre></td><td class="rouge-code"><pre>    <span class="k">def</span> <span class="nf">build_backbone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arch</span><span class="p">,</span> <span class="n">input_size</span><span class="p">):</span>
-        <span class="n">genotypes</span> <span class="o">=</span> <span class="n">predefine_archs</span><span class="p">[</span><span class="n">arch</span><span class="p">][</span><span class="s">'genotypes'</span><span class="p">]</span> 
-        <span class="n">strides</span> <span class="o">=</span> <span class="n">predefine_archs</span><span class="p">[</span><span class="n">arch</span><span class="p">][</span><span class="s">'strides'</span><span class="p">]</span> 
-        <span class="n">out_channels</span> <span class="o">=</span> <span class="n">predefine_archs</span><span class="p">[</span><span class="n">arch</span><span class="p">][</span><span class="s">'out_channels'</span><span class="p">]</span>
-        
-        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">ModuleList</span><span class="p">()</span>
-        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">ConvBNReLU</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="n">out_channels</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">strides</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
-                      <span class="n">bias</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">relu_type</span><span class="o">=</span><span class="s">'relu'</span><span class="p">,</span> <span class="n">bn_type</span><span class="o">=</span><span class="s">'bn'</span><span class="p">))</span>
-        <span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span> <span class="o">//</span> <span class="n">strides</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">single_gpu_test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="n">model</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">data_loader</span><span class="p">.</span><span class="n">dataset</span>
+    <span class="n">prog_bar</span> <span class="o">=</span> <span class="n">mmcv</span><span class="p">.</span><span class="n">ProgressBar</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">return_loss</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">rescale</span><span class="o">=</span><span class="ow">not</span> <span class="n">show</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="n">_in_channels</span> <span class="o">=</span> <span class="n">out_channels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="c1"># fuhao7i------------------
-</span>        <span class="c1"># 前10层特征层堆叠，输入的特征层会翻倍(x1 + x2)
-</span>        <span class="c1"># =========================
-</span>        <span class="n">index_out</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">genotype</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">_out_channels</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">genotypes</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">strides</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">out_channels</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
-            <span class="k">if</span> <span class="n">genotype</span><span class="p">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">'sb'</span><span class="p">):</span>
-                <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">SUPER_PRIMITIVES</span><span class="p">[</span><span class="n">genotype</span><span class="p">](</span><span class="n">input_size</span><span class="p">,</span> <span class="n">_in_channels</span><span class="p">,</span> <span class="n">_out_channels</span><span class="p">,</span> <span class="n">stride</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">PRIMITIVES</span><span class="p">[</span><span class="n">genotype</span><span class="p">](</span><span class="n">input_size</span><span class="p">,</span> <span class="n">_in_channels</span><span class="p">,</span> <span class="n">_out_channels</span><span class="p">,</span> <span class="n">stride</span><span class="p">))</span>
-            <span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span> <span class="o">//</span> <span class="n">stride</span>
-            <span class="k">if</span> <span class="n">index_out</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
-                <span class="n">_in_channels</span> <span class="o">=</span> <span class="n">_out_channels</span> <span class="o">*</span> <span class="mi">2</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">_in_channels</span> <span class="o">=</span> <span class="n">_out_channels</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">"backbone.layers = "</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">))</span>
-        <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">modules</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">nn</span><span class="p">.</span><span class="n">SyncBatchNorm</span><span class="p">):</span>
-                <span class="n">m</span><span class="p">.</span><span class="n">_specify_ddp_gpu_num</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+        <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+            <span class="n">model</span><span class="p">.</span><span class="n">module</span><span class="p">.</span><span class="n">show_result</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
 
-<p>然后修改<code class="language-plaintext highlighter-rouge">forward函数</code>:</p>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">'img'</span><span class="p">][</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">prog_bar</span><span class="p">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">results</span>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">out10</span><span class="p">,</span> <span class="n">alphas</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="n">outs</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">):</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">:</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">out10</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">out_indices</span><span class="p">:</span>
-                <span class="n">outs</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="p">...</span>  <span class="c1"># 省略了一些加载函数调用参数的代码
+</span>    <span class="c1"># build the dataloader
+</span>    <span class="c1"># TODO: support multiple images per gpu (only minor changes are needed)
+</span>    <span class="n">dataset</span> <span class="o">=</span> <span class="n">build_dataset</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">test</span><span class="p">)</span>
+    <span class="n">data_loader</span> <span class="o">=</span> <span class="n">build_dataloader</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="p">,</span>
+        <span class="n">imgs_per_gpu</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">workers_per_gpu</span><span class="o">=</span><span class="n">cfg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">workers_per_gpu</span><span class="p">,</span>
+        <span class="n">dist</span><span class="o">=</span><span class="n">distributed</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">outs</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+    <span class="c1"># build the model and load checkpoint
+</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">build_detector</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">model</span><span class="p">,</span> <span class="n">train_cfg</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">test_cfg</span><span class="o">=</span><span class="n">cfg</span><span class="p">.</span><span class="n">test_cfg</span><span class="p">)</span>
+    <span class="n">fp16_cfg</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'fp16'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">fp16_cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">wrap_fp16_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    <span class="n">checkpoint</span> <span class="o">=</span> <span class="n">load_checkpoint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">checkpoint</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s">'cpu'</span><span class="p">)</span>
+    <span class="c1"># old versions did not save class info in checkpoints, this walkaround is
+</span>    <span class="c1"># for backward compatibility
+</span>    <span class="k">if</span> <span class="s">'CLASSES'</span> <span class="ow">in</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s">'meta'</span><span class="p">]:</span>
+        <span class="n">model</span><span class="p">.</span><span class="n">CLASSES</span> <span class="o">=</span> <span class="n">checkpoint</span><span class="p">[</span><span class="s">'meta'</span><span class="p">][</span><span class="s">'CLASSES'</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span><span class="p">.</span><span class="n">CLASSES</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">.</span><span class="n">CLASSES</span>
 
-<h1 id="3-对重新构建的网络进行训练">3. 对重新构建的网络进行训练</h1>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">distributed</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">MMDataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">single_gpu_test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">show</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">MMDistributedDataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">cuda</span><span class="p">())</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">multi_gpu_test</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">tmpdir</span><span class="p">)</span>
 
-<p><code class="language-plaintext highlighter-rouge">tools/train.py</code> –&gt; <code class="language-plaintext highlighter-rouge">mmdet/apis/train.py</code> –&gt; <code class="language-plaintext highlighter-rouge">mmcv/runner/runner.py</code></p>
+    <span class="p">...</span>  <span class="c1"># 省略了一些储存输出和eval的代码
+</span></pre></td></tr></tbody></table></code></pre></div></div>
 
-<h2 id="31">3.1</h2>
-
-<h3 id="41-弄懂dataset是怎么载入的dataset的格式是怎样的熟悉服务器">4.1 弄懂dataset是怎么载入的，dataset的格式是怎样的。熟悉服务器</h3>
-
-<h3 id="42-修改好runner-输出前10层特征">4.2 修改好runner, 输出前10层特征</h3>
-
-<h3 id="43-将runner中-水下模块和陆上模块结合">4.3 将runner中 水下模块和陆上模块结合。</h3>
-<h4 id="431-注意️数据集输入到两个模型的batch大小">4.3.1 注意⚠️数据集输入到两个模型的batch大小。</h4>
-<h4 id="432-多图片输入的时候怎样区分out10特征层">4.3.2 多图片输入的时候，怎样区分out10特征层。</h4>
 
                 
                 <!--Donate start-->
@@ -521,19 +420,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/01/14/detector3/" data-toggle="tooltip" data-placement="top" title="哈哈哈目标检测🧸3——mmdetection 训练文件详解train.py">
+                        <a href="/2021/01/15/stage1/" data-toggle="tooltip" data-placement="top" title="阶段性学习总结🔑1——HitDet改进">
                         Previous<br>
-                        <span>哈哈哈目标检测🧸3——mmdetection 训练文件详解train.py</span>
+                        <span>阶段性学习总结🔑1——HitDet改进</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/01/16/detector4/" data-toggle="tooltip" data-placement="top" title="哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py">
-                        Next<br>
-                        <span>哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

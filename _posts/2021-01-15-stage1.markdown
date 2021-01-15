@@ -145,3 +145,14 @@ __all__ = ['ResNet', 'make_res_layer', 'ResNeXt', 'SSDVGG', 'HRNet', 'MobileNetV
 
 # 3. 对重新构建的网络进行训练
 
+`tools/train.py` --> `mmdet/apis/train.py` --> `mmcv/runner/runner.py`
+
+## 3.1 
+
+### 4.1 弄懂dataset是怎么载入的，dataset的格式是怎样的。熟悉服务器
+
+### 4.2 修改好runner, 输出前10层特征
+
+### 4.3 将runner中 水下模块和陆上模块结合。
+#### 4.3.1 注意⚠️数据集输入到两个模型的batch大小。
+#### 4.3.2 多图片输入的时候，怎样区分out10特征层。
