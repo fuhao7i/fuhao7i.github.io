@@ -1,0 +1,147 @@
+---
+layout:     encryption
+title:      "阶段性学习总结🔑1——HitDet改进"
+subtitle:   " \"HitDet\""
+date:       2021-01-15 11:44:00
+author:     "fuhao7i"
+header-img: "img/in-post/stage.jpg"
+catalog: true
+tags:
+    - 阶段性学习总结🔑
+---
+
+> 对HitDet模型进行学习与改进
+>> "HitDet"
+>>> Posted by fuhao7i on January 15, 2021
+
+========================================================================
+                                                                          
+<center><font face='黑体' color='#F4606C' size= 12 >HitDet改进</font></center>      
+                                                                         
+========================================================================
+
+# 1. 陆上模块提取特征层前10层
+
+## 1.1 configs/nas_trinity/2stage_hitdet_out10.py
+
+复制`2stage_hitdet.py`, 重命名为`2stage_hitdet_out10.py`,修改`backbone`: 
+
+```python
+model = dict(
+    type='FasterRCNN',
+    pretrained='./ImageNet-pretrained/fbhit_7747.pth',
+    backbone=dict(
+        type='FBNet_out10',
+        out_indices=(4, 8, 16, 22),
+        frozen_stages=-1,
+        arch='fbnet_hit'),
+```
+
+## 1.2 mmdet/models/backbones/fbnet_out10.py
+
+复制`fbnet.py`, 重命名为`fbnet_out10.py`,修改`forward函数`:
+
+在陆上模块前向传播时，输出前10层特征层。
+```python
+    def forward(self, x, alphas=None):
+        outs = []
+        cnt = 0
+        out10 = []
+        for i, layer in enumerate(self.layers):
+            # fuhao7i------------------
+            # 提取陆上模块1——10层
+            # =========================
+            x = layer(x)
+            if i in self.out_indices:
+                outs.append(x)
+
+            if i > 0 and i <= 10:
+                out10.append(x)
+                
+
+        return outs, out10
+```
+
+## 1.3 mmdet/models/backbones/__init__.py
+
+加入`fbnet_out10`
+```python
+__all__ = ['ResNet', 'make_res_layer', 'ResNeXt', 'SSDVGG', 'HRNet', 'MobileNetV2', 'DetNas', 'FBNet', 'MnasNet', 'FBNet_out10']
+```
+
+## 1.4 mmdet/models/detectors/two_stage.py
+
+新增一个`extract_feat_out10函数`
+
+```python
+    # fuhao7i------------------
+    # 提取陆上模块1——10层
+    # =========================
+    def extract_feat_out10(self, img):
+        x, out10 = self.backbone(img)
+        if self.with_neck:
+            x = self.neck(x)
+            if len(x) >= 2:
+                if x[1] is not None:
+                    x = x
+                else:
+                    x = x[0]
+        return x, out10
+```
+
+# 2. 和水下模块前10层特征层进行堆叠
+
+## 2.1 mmdet/models/backbones/fbnet.py
+
+首先修改`build_backbone函数`，因为前10层特征层进行堆叠时，通道数要加倍。
+
+```python
+    def build_backbone(self, arch, input_size):
+        genotypes = predefine_archs[arch]['genotypes'] 
+        strides = predefine_archs[arch]['strides'] 
+        out_channels = predefine_archs[arch]['out_channels']
+        
+        self.layers = nn.ModuleList()
+        self.layers.append(ConvBNReLU(input_size, in_channels=3, out_channels=out_channels[0], kernel_size=3, stride=strides[0], padding=1, 
+                      bias=True, relu_type='relu', bn_type='bn'))
+        input_size = input_size // strides[0]
+
+        _in_channels = out_channels[0]
+        # fuhao7i------------------
+        # 前10层特征层堆叠，输入的特征层会翻倍(x1 + x2)
+        # =========================
+        index_out = 0
+        for genotype, stride, _out_channels in zip(genotypes[1:], strides[1:], out_channels[1:]):
+            if genotype.endswith('sb'):
+                self.layers.append(SUPER_PRIMITIVES[genotype](input_size, _in_channels, _out_channels, stride))
+            else:
+                self.layers.append(PRIMITIVES[genotype](input_size, _in_channels, _out_channels, stride))
+            input_size = input_size // stride
+            if index_out < 10:
+                _in_channels = _out_channels * 2
+            else:
+                _in_channels = _out_channels
+        print("backbone.layers = ", len(self.layers))
+        for m in self.modules():
+            if isinstance(m, nn.SyncBatchNorm):
+                m._specify_ddp_gpu_num(1)
+```
+
+然后修改`forward函数`:
+
+```python
+    def forward(self, x, out10, alphas=None):
+        outs = []
+        cnt = 0
+        for i, layer in enumerate(self.layers):
+            x = layer(x)
+            if i > 0 and i <= 10:
+                x = x + out10[i-1]
+            if i in self.out_indices:
+                outs.append(x)
+
+        return outs
+```
+
+# 3. 对重新构建的网络进行训练
+
