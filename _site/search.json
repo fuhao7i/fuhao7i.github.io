@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰2——super()函数解决多重继承问题",
+      "subtitle" : " &quot;python&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/01/18/sundry2/",
+      "date"     : "2021-01-18 02:48:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Dali杂货铺🐰1——__init__.py文件的作用",
+      "subtitle" : " &quot;python&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/01/18/sundry1/",
+      "date"     : "2021-01-18 00:57:00 +0800"
+    } ,
+  
+    {
       "title"    : "哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py",
       "subtitle" : " &quot;mmdetection 测试模型&quot;",
       "tags"     : "哈哈哈目标检测🧸",
@@ -25,7 +41,7 @@
     } ,
   
     {
-      "title"    : "哈哈哈目标检测🧸2——mmdetection build_dataset函数详解",
+      "title"    : "哈哈哈目标检测🧸2——mmdetection 数据集准备build_dataset函数详解",
       "subtitle" : " &quot;mmdetection 数据集准备&quot;",
       "tags"     : "哈哈哈目标检测🧸",
       "url"      : "/2021/01/14/detector2/",

@@ -1,0 +1,21 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰2——super()函数解决多重继承问题"
+subtitle:   " \"python\""
+date:       2021-01-17 18:48:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+> super() 函数是用于调用父类(超类)的一个方法。
+
+super() 是用来解决多重继承问题的，直接用类名调用父类方法在使用单继承的时候没问题，但是如果使用多继承，会涉及到查找顺序（MRO）、重复调用（钻石继承）等种种问题。
+
+```python
+super(Class, self).类方法()
+```
+
+Python3.x 和 Python2.x 的一个区别是: Python 3 可以使用直接使用 `super().xxx` 代替 `super(Class, self).xxx`.

@@ -1,0 +1,25 @@
+I"�<h1 id="1-标志该文件夹为python的包module-package">1. 标志该文件夹为python的包(module package)</h1>
+
+<p><code class="language-plaintext highlighter-rouge">__init__.py</code>在文件夹下，可以使该文件夹变为一个python包。也就是可以使用<code class="language-plaintext highlighter-rouge">import ${filename}</code>导入。</p>
+
+<h1 id="2-自动运行">2. 自动运行</h1>
+
+<p>在导入python包时，会自动执行该包下的<code class="language-plaintext highlighter-rouge">__init__.py</code>文件。<code class="language-plaintext highlighter-rouge">__init__.py</code>文件也可以为空。</p>
+
+<h1 id="3-_all_------">3. _<em>all_</em> = [    ]</h1>
+
+<p>我们在导入包时，经常会用到全部导入。即:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">package</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这时我们就需要借助<code class="language-plaintext highlighter-rouge">__all__</code>来实现。</p>
+
+<p><code class="language-plaintext highlighter-rouge">__all__</code>关联的是一个模块列表。当我们执行<code class="language-plaintext highlighter-rouge">from package import *</code>时，import就会把注册在包 <code class="language-plaintext highlighter-rouge">__init__.py</code> 文件中<code class="language-plaintext highlighter-rouge">__all__</code>列表中的所有子模块和子包导入到当前作用域。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">"subPackage_1"</span><span class="p">,</span> <span class="s">"subPackage_2"</span><span class="p">]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+:ET

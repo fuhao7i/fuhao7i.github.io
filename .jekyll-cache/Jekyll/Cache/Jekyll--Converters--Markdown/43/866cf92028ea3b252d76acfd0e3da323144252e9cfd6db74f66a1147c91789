@@ -1,0 +1,12 @@
+I"?<blockquote>
+  <p>super() 函数是用于调用父类(超类)的一个方法。</p>
+</blockquote>
+
+<p>super() 是用来解决多重继承问题的，直接用类名调用父类方法在使用单继承的时候没问题，但是如果使用多继承，会涉及到查找顺序（MRO）、重复调用（钻石继承）等种种问题。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">super</span><span class="p">(</span><span class="n">Class</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">类方法</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Python3.x 和 Python2.x 的一个区别是: Python 3 可以使用直接使用 <code class="language-plaintext highlighter-rouge">super().xxx</code> 代替 <code class="language-plaintext highlighter-rouge">super(Class, self).xxx</code>.</p>
+:ET

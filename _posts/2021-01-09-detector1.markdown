@@ -106,3 +106,5 @@ colab中用anaconda环境来运行python文件：
 ```Bash
 !sh env.sh
 ```
+
+# 3. [更多环境配置问题请看Dali tools🔧](https://fuhao7i.com/2021/01/09/detector1/)
