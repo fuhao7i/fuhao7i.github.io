@@ -1,0 +1,9 @@
+I"�<blockquote>
+  <p>利用软连接来实现 ln -s</p>
+</blockquote>
+
+<pre><code class="language-Bash">sudo rm -rf /usr/local/cuda #删除之前生成的软链接
+
+sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda #生成新的软链接
+</code></pre>
+:ET

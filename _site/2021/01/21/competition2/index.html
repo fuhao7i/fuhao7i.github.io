@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！">
+    <meta name="keywords"  content="深度学习, 计算机视觉, OpenCv">
+    <meta name="theme-color" content="#000000">
+    
+    <!--不蒜子-->
+    <meta name="referrer" content="no-referrer-when-downgrade">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Competition🐳2——智能交通场景应用 - fuhao7i的博客 | fuhao7i Blog">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="视频讲解在这找🤪[袖手天下7i](https://space.bilibili.com/481802918)
+">
+    
+    <meta property="article:published_time" content="2021-01-21T03:42:00Z">
+    
+    
+    <meta property="article:author" content="fuhao7i">
+    
+    
+    <meta property="article:tag" content="Competition🐳">
+    
+    
+    <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/21/competition2/">
+    <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
+    
+    <title>Competition🐳2——智能交通场景应用 - fuhao7i的博客 | fuhao7i Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/21/competition2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">fuhao7i Blog</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/message/">Message</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Post Header -->
+
+
+
+
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/in-post/competition.jpg');
+        background: ;
+    }
+
+    
+</style>
+
+<header class="intro-header" >
+
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=Competition%F0%9F%90%B3" title="Competition🐳">Competition🐳</a>
+                        
+                    </div>
+                    <h1>Competition🐳2——智能交通场景应用</h1>
+                    
+                    <h2 class="subheading"> "车辆非法越线检测, 不礼让行人检测"</h2>
+                    <span class="meta">Posted by fuhao7i on January 21, 2021</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				<font color="eeepink">视频讲解在这找🤪[袖手天下7i](https://space.bilibili.com/481802918)</font>
+
+<blockquote>
+  <p>Hello, 最近很多小伙伴们看了我在B站的视频之后来和我交流关于如何实现车辆的非法越线检测以及车辆在斑马线不礼让行人的检测等，今天我以一个开源的项目为基础来和大家简单分享一下技术实现，希望对刚接触计算机视觉领域的小伙伴们有所帮助。</p>
+</blockquote>
+
+<h1 id="1-yolov3--deepsort">1. YOLOv3 + Deepsort</h1>
+
+<p>首先，看过我本专栏第一个视频的小伙伴们应该清楚，整个的项目我们是基于一个目标追踪算法来做的。因此，在这里我采用比较经典的 <a href="https://github.com/fuhao7i/yolov3_deepsort">YOLOv3 + Deepsort</a> 来进行简单的讲解。这是一个Github上的开源项目，环境配置也比较简单，在<code class="language-plaintext highlighter-rouge">README.md</code>文件中描述的很清楚。分为cpu和gpu两个版本。</p>
+
+<h1 id="2-提取背景py">2. 提取背景.py</h1>
+
+<p>因为我们处理的对象是交通摄像头下的场景，数据格式为视频流或者视频，所以我们要提取视频的第一帧作为背景来进行车道线的标定。不推荐使用截屏的方式，因为这会使图像的尺寸发生改变。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
+
+<span class="c1"># 这里我们取视频的第一帧来进行标注。注意⚠️不要使用截图，因为截图会使的图像大小不一致。
+</span><span class="n">vidcap</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="s">'/Users/apple/Documents/二叶/目标追踪/yolov3_deepsort/data/video/1.mp4'</span><span class="p">)</span>
+<span class="n">success</span><span class="p">,</span><span class="n">image</span> <span class="o">=</span> <span class="n">vidcap</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">1</span>
+<span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
+	<span class="n">success</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">vidcap</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+	<span class="n">n</span><span class="o">+=</span><span class="mi">1</span>
+<span class="n">imag</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'fff.png'</span><span class="p">,</span><span class="n">image</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">imag</span> <span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+	<span class="k">print</span><span class="p">(</span><span class="s">'ok'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="https://img-blog.csdnimg.cn/20210120205726886.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+
+<h1 id="3-车道线标定py">3. 车道线标定.py</h1>
+
+<p>根据提取的<code class="language-plaintext highlighter-rouge">背景图片</code>，进行道路信息的标定，并返回道路信息的相关参数。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'fff.png'</span><span class="p">)</span>
+
+<span class="c1"># cishu是需要标记的实线的个数。这个需要标记4处实线。
+</span>
+<span class="n">cishu</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">sx</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">bm</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">'fff.png'</span><span class="p">))</span>
+<span class="n">ion</span><span class="p">()</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">cs</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cishu</span><span class="p">):</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">'Please click 2 points'</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">ginput</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'you clicked:'</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">sx</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'Please click 4 points'</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">ginput</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'you clicked:'</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="n">bm</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">ioff</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">im</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">jinzhi</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">banmaxian</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">def</span> <span class="nf">shixian</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x1</span> <span class="o">==</span> <span class="n">x2</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">y2</span><span class="o">-</span><span class="n">y1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">x1</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">-</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">k</span>
+        <span class="c1"># k = int(k)
+</span>        <span class="c1"># b = int(b)
+</span>    <span class="k">return</span> <span class="n">k</span><span class="p">,</span><span class="n">b</span>
+<span class="c1">#data1 = [{'x1':int(x[0][0]),'y1':int(x[0][1]),'x2':int(x[1][0]),'y2':int(x[1][1])}]
+# 计算实线的值 y = kx + b
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sx</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">shixian</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">)</span>
+    <span class="c1">#cv2.rectangle(img, (x1+15,y1), (x2-15,y2), (0,0,255), -1)
+</span>    <span class="k">if</span> <span class="n">y1</span> <span class="o">&gt;</span> <span class="n">y2</span><span class="p">:</span>
+        <span class="n">yy</span> <span class="o">=</span> <span class="n">y2</span>
+        <span class="n">xx</span> <span class="o">=</span> <span class="n">x2</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="n">y1</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">x1</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">yy</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">xx</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">xxx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span><span class="n">y2</span><span class="p">):</span>
+            <span class="n">xq</span> <span class="o">=</span> <span class="p">(</span><span class="n">xxx</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">k</span>
+            <span class="n">xq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">xq</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">xq</span><span class="o">+</span><span class="mi">15</span><span class="p">,</span><span class="n">xxx</span><span class="p">),</span> <span class="p">(</span><span class="n">xq</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="n">xxx</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">xxx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">):</span>
+            <span class="n">yq</span> <span class="o">=</span> <span class="n">b</span>
+            <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">xxx</span><span class="p">,</span><span class="n">yq</span><span class="o">+</span><span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="n">xxx</span><span class="p">,</span><span class="n">yq</span><span class="o">-</span><span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'k:'</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="s">'b:'</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">jinzhi</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+
+
+<span class="k">print</span><span class="p">(</span><span class="n">jinzhi</span><span class="p">)</span>
+
+
+<span class="c1"># data2 = [{'x1':400, 'y1':0,'x2':800,'y2':0,
+#           'x3':400, 'y3':800, 'x4':800, 'y4':800}]
+# 计算斑马线的各项值 y = kx + b
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bm</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">y3</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">k</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">shixian</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">y3</span> <span class="o">-</span> <span class="n">y1</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'c'</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'x1'</span><span class="p">]</span> <span class="o">=</span> <span class="n">x1</span>
+    <span class="n">x</span><span class="p">[</span><span class="s">'x2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">x2</span>
+
+    <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">+</span><span class="n">c</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">banmaxian</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">banmaxian</span><span class="p">)</span>
+<span class="n">cv2</span><span class="p">.</span><span class="n">imwrite</span><span class="p">(</span><span class="s">'001_new.png'</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+
+<span class="c1"># 将获得的实线和斑马线信息写入相应的文件。
+</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"shixian.txt"</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">jinzhi</span><span class="p">:</span>
+        <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"banmaxian.txt"</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">banmaxian</span><span class="p">:</span>
+        <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="https://img-blog.csdnimg.cn/20210120205811935.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+
+<h1 id="4-车牌识别模块">4. 车牌识别模块</h1>
+
+<p>这里我们可以自己训练模型，也可以使用开源项目<code class="language-plaintext highlighter-rouge">HyperLPR</code>，来进行车牌的识别。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>                <span class="c1"># 截取车辆图片
+</span>                <span class="n">cropped</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+                <span class="c1"># 传入HyperLPR模型识别车牌信息
+</span>                <span class="n">xinxi</span> <span class="o">=</span> <span class="n">HyperLPR_plate_recognition</span><span class="p">(</span><span class="n">cropped</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="https://img-blog.csdnimg.cn/20210120211222931.png#pic_center" width="25%" /></p>
+
+<h1 id="41-车牌信息择优迭代">4.1 车牌信息择优迭代</h1>
+
+<p>车牌号的识别是从车辆出现在画面的第一帧开始，一直到车辆消失在画面中。我们并不能事先确定在哪一帧对车牌的识别效果最好。因此，我们在车辆出现的第一帧，就将它的<code class="language-plaintext highlighter-rouge">id</code>和<code class="language-plaintext highlighter-rouge">车牌信息</code>传入字典<code class="language-plaintext highlighter-rouge">chepaixinxi</code>保存起来。如果当前帧比之前的识别效果都好(<code class="language-plaintext highlighter-rouge">置信度高</code>)，我们就用它替换之前的车牌信息。</p>
+
+<p>另一方面，为了节省计算资源，只要是该车在某一帧的车牌置信度高于0.9，我们就不再将其传入车牌识别模块。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre>                <span class="c1"># 实现车牌信息的择优迭代
+</span>                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">chepaixinxi</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">xinxi</span><span class="p">:</span>
+                        <span class="n">chepai</span> <span class="o">=</span> <span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)]</span>
+                        <span class="k">if</span> <span class="n">chepai</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">xinxi</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+                            <span class="n">cheche</span> <span class="o">=</span> <span class="n">xinxi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cheche</span>
+                            <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">':'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)),</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">':'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)),</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">xinxi</span> <span class="p">:</span>
+                    <span class="n">cheche</span> <span class="o">=</span> <span class="n">xinxi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cheche</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">':'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)),</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="5-车辆非法越线检测">5. 车辆非法越线检测</h1>
+
+<p>有了 <code class="language-plaintext highlighter-rouge">4. 车牌信息择优迭代</code>，我们不难将车辆在上一帧的位置保存下来。如果车辆在上一帧的位置和在这一帧的位置分别位于车道线实线的两侧，或者落在了实线上，我们就判定车辆非法越实线了。</p>
+
+<p><code class="language-plaintext highlighter-rouge">这里我只写当前帧落在实线上进行演示</code>😂</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre>                <span class="c1"># 计算车的中心点坐标
+</span>                <span class="n">diet1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+                <span class="n">diet2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">diet1</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">diet2</span>
+
+                <span class="c1"># 如果车的中心点落在实线的”范围“内，就判断车辆非法越线。
+</span>                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="c1"># 修改
+</span>                    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">[</span><span class="s">'y1'</span><span class="p">]</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">[</span><span class="s">'y2'</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="o">*</span><span class="n">i</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span><span class="o">-</span><span class="mi">15</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">*</span><span class="n">i</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span><span class="o">+</span><span class="mi">15</span><span class="p">:</span>
+                            <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="s">'非法越线'</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">20</span><span class="p">),(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                            <span class="k">print</span><span class="p">(</span><span class="s">'car违规！违规类型：越实线！'</span><span class="p">,</span><span class="n">xinxi</span><span class="p">)</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><img src="https://img-blog.csdnimg.cn/20210120205854221.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+
+<h1 id="6-车辆斑马线不礼让行人检测">6. 车辆斑马线不礼让行人检测</h1>
+
+<p>最简单粗暴的做法：行人在斑马线上时，车辆也在斑马线上 ==&gt; 车辆不礼让行人。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="rouge-code"><pre>        <span class="n">on_bmx</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xingren</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="n">banma</span><span class="p">:</span>
+                <span class="n">ix</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">ix</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">on_banmaxian</span><span class="p">(</span><span class="n">ix</span><span class="p">[</span><span class="s">'k'</span><span class="p">],</span> <span class="n">ix</span><span class="p">[</span><span class="s">'b'</span><span class="p">],</span> <span class="n">ix</span><span class="p">[</span><span class="s">'c'</span><span class="p">],</span> <span class="n">ix</span><span class="p">[</span><span class="s">'x1'</span><span class="p">],</span> <span class="n">ix</span><span class="p">[</span><span class="s">'x2'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'y1'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'y2'</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="n">on_bmx</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">on_bmx</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="c1"># 车辆斑马线不礼让行人检测，并记录它的车牌信息和违规情况
+</span>        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracker</span><span class="p">.</span><span class="n">tracks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">track</span><span class="p">.</span><span class="n">is_confirmed</span><span class="p">()</span> <span class="ow">or</span> <span class="n">track</span><span class="p">.</span><span class="n">time_since_update</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span> 
+            
+            <span class="n">bbox</span> <span class="o">=</span> <span class="n">track</span><span class="p">.</span><span class="n">to_tlbr</span><span class="p">()</span>
+            <span class="n">class_name</span> <span class="o">=</span> <span class="n">track</span><span class="p">.</span><span class="n">get_class</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">'car'</span><span class="p">:</span>
+                <span class="n">diet1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+                <span class="n">diet2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">diet1</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">diet2</span>
+                <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="n">banma</span><span class="p">:</span>
+                    <span class="n">ix</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">ix</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">on_banmaxian</span><span class="p">(</span><span class="n">ix</span><span class="p">[</span><span class="s">'k'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'b'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'c'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'x1'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'x2'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'y1'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'y2'</span><span class="p">],</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">on_bmx</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            
+                            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">chepaixinxi</span><span class="p">:</span>
+                                <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="s">'不礼让行人'</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">40</span><span class="p">),(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                                <span class="k">print</span><span class="p">(</span><span class="s">'car违规:没有礼让行人!'</span><span class="p">,</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">0</span><span class="p">])</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="s">'不礼让行人'</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">40</span><span class="p">),(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                                <span class="k">print</span><span class="p">(</span><span class="s">'car违规:没有礼让行人!'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>其实，这样做，有一种情况会误判: <code class="language-plaintext highlighter-rouge">行人向前走，身后有车通过，这样车辆不用礼让行人</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">解决方法：</code>我们还是可以根据<code class="language-plaintext highlighter-rouge">4. 车牌信息择优迭代</code>，记录行人上一帧和当前帧的位置，这样，通过两帧之间，行人的位置变化我们便可以知道行人的前进方向:<code class="language-plaintext highlighter-rouge">向左</code>, <code class="language-plaintext highlighter-rouge">向右</code>或 <code class="language-plaintext highlighter-rouge">原地不动</code>, 这样我们便可以实现更加完善的车辆在斑马线不礼让行人的功能了。</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20210120205906348.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
+
+<h1 id="7-总结">7. 总结</h1>
+
+<p>希望可以对刚入门的小伙伴们有所启发，这只是一个简单的示例，更多的有趣的功能需要你自己取开发哦哦哦哦哦哦～～～</p>
+
+<p><code class="language-plaintext highlighter-rouge">object_tracker.py</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">time</span><span class="p">,</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">absl</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">logging</span>
+<span class="kn">from</span> <span class="nn">absl.flags</span> <span class="kn">import</span> <span class="n">FLAGS</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">from</span> <span class="nn">yolov3_tf2.models</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">YoloV3</span><span class="p">,</span> <span class="n">YoloV3Tiny</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">yolov3_tf2.dataset</span> <span class="kn">import</span> <span class="n">transform_images</span>
+<span class="kn">from</span> <span class="nn">yolov3_tf2.utils</span> <span class="kn">import</span> <span class="n">draw_outputs</span><span class="p">,</span> <span class="n">convert_boxes</span>
+
+<span class="kn">from</span> <span class="nn">deep_sort</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">from</span> <span class="nn">deep_sort</span> <span class="kn">import</span> <span class="n">nn_matching</span>
+<span class="kn">from</span> <span class="nn">deep_sort.detection</span> <span class="kn">import</span> <span class="n">Detection</span>
+<span class="kn">from</span> <span class="nn">deep_sort.tracker</span> <span class="kn">import</span> <span class="n">Tracker</span>
+<span class="kn">from</span> <span class="nn">tools</span> <span class="kn">import</span> <span class="n">generate_detections</span> <span class="k">as</span> <span class="n">gdet</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">hyperlpr</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageDraw</span><span class="p">,</span> <span class="n">ImageFont</span>
+
+
+
+<span class="n">flags</span><span class="p">.</span><span class="n">DEFINE_string</span><span class="p">(</span><span class="s">'classes'</span><span class="p">,</span> <span class="s">'./data/labels/coco.names'</span><span class="p">,</span> <span class="s">'path to classes file'</span><span class="p">)</span>
+<span class="n">flags</span><span class="p">.</span><span class="n">DEFINE_string</span><span class="p">(</span><span class="s">'weights'</span><span class="p">,</span> <span class="s">'./weights/yolov3.tf'</span><span class="p">,</span>
+                    <span class="s">'path to weights file'</span><span class="p">)</span>
+<span class="n">flags</span><span class="p">.</span><span class="n">DEFINE_boolean</span><span class="p">(</span><span class="s">'tiny'</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="s">'yolov3 or yolov3-tiny'</span><span class="p">)</span>
+<span class="n">flags</span><span class="p">.</span><span class="n">DEFINE_integer</span><span class="p">(</span><span class="s">'size'</span><span class="p">,</span> <span class="mi">416</span><span class="p">,</span> <span class="s">'resize images to'</span><span class="p">)</span>
+<span class="n">flags</span><span class="p">.</span><span class="n">DEFINE_string</span><span class="p">(</span><span class="s">'video'</span><span class="p">,</span> <span class="s">'./data/video/test.mp4'</span><span class="p">,</span>
+                <span class="s">'path to video file or number for webcam)'</span><span class="p">)</span>
+<span class="n">flags</span><span class="p">.</span><span class="n">DEFINE_string</span><span class="p">(</span><span class="s">'output'</span><span class="p">,</span><span class="s">'./data/video/result_out.avi'</span><span class="p">,</span> <span class="s">'path to output video'</span><span class="p">)</span>
+<span class="n">flags</span><span class="p">.</span><span class="n">DEFINE_string</span><span class="p">(</span><span class="s">'output_format'</span><span class="p">,</span> <span class="s">'XVID'</span><span class="p">,</span> <span class="s">'codec used in VideoWriter when saving video to file'</span><span class="p">)</span>
+<span class="n">flags</span><span class="p">.</span><span class="n">DEFINE_integer</span><span class="p">(</span><span class="s">'num_classes'</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="s">'number of classes in the model'</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">textColor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">textSize</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)):</span>  <span class="c1"># 判断是否OpenCV图片类型
+</span>        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+    <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="p">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">fontStyle</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="p">.</span><span class="n">truetype</span><span class="p">(</span>
+        <span class="s">"simsun.ttc"</span><span class="p">,</span> <span class="n">textSize</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">)</span>
+    <span class="n">draw</span><span class="p">.</span><span class="n">text</span><span class="p">((</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">),</span> <span class="n">text</span><span class="p">,</span> <span class="n">textColor</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="n">fontStyle</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_RGB2BGR</span><span class="p">)</span>
+
+<span class="c1"># 判断是否在斑马线上
+</span>
+<span class="k">def</span> <span class="nf">on_banmaxian</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="n">y1</span><span class="o">+</span><span class="n">c</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y2</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">x1</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">x2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">_argv</span><span class="p">):</span>
+
+    <span class="c1"># 实线定义
+</span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"shixian.txt"</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="p">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">]</span>
+    <span class="c1"># 斑马线定义
+</span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">"banmaxian.txt"</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">banma</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="p">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">]</span>
+
+    <span class="n">max_cosine_distance</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">nn_budget</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">nms_max_overlap</span> <span class="o">=</span> <span class="mf">1.0</span>
+    
+    <span class="c1">#initialize deep sort
+</span>    <span class="n">model_filename</span> <span class="o">=</span> <span class="s">'model_data/mars-small128.pb'</span>
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">gdet</span><span class="p">.</span><span class="n">create_box_encoder</span><span class="p">(</span><span class="n">model_filename</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">metric</span> <span class="o">=</span> <span class="n">nn_matching</span><span class="p">.</span><span class="n">NearestNeighborDistanceMetric</span><span class="p">(</span><span class="s">"cosine"</span><span class="p">,</span> <span class="n">max_cosine_distance</span><span class="p">,</span> <span class="n">nn_budget</span><span class="p">)</span>
+    <span class="n">tracker</span> <span class="o">=</span> <span class="n">Tracker</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+
+    <span class="n">physical_devices</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">list_physical_devices</span><span class="p">(</span><span class="s">'GPU'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">physical_devices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">tf</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">experimental</span><span class="p">.</span><span class="n">set_memory_growth</span><span class="p">(</span><span class="n">physical_devices</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">FLAGS</span><span class="p">.</span><span class="n">tiny</span><span class="p">:</span>
+        <span class="n">yolo</span> <span class="o">=</span> <span class="n">YoloV3Tiny</span><span class="p">(</span><span class="n">classes</span><span class="o">=</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">num_classes</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">yolo</span> <span class="o">=</span> <span class="n">YoloV3</span><span class="p">(</span><span class="n">classes</span><span class="o">=</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">num_classes</span><span class="p">)</span>
+
+    <span class="n">yolo</span><span class="p">.</span><span class="n">load_weights</span><span class="p">(</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">weights</span><span class="p">)</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'weights loaded'</span><span class="p">)</span>
+
+    <span class="n">class_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="p">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">classes</span><span class="p">).</span><span class="n">readlines</span><span class="p">()]</span>
+    <span class="n">logging</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'classes loaded'</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">vid</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">video</span><span class="p">))</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">vid</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">video</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">if</span> <span class="n">FLAGS</span><span class="p">.</span><span class="n">output</span><span class="p">:</span>
+        <span class="c1"># by default VideoCapture returns float instead of int
+</span>        <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">vid</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="p">.</span><span class="n">CAP_PROP_FRAME_WIDTH</span><span class="p">))</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">vid</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="p">.</span><span class="n">CAP_PROP_FRAME_HEIGHT</span><span class="p">))</span>
+        <span class="n">fps</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">vid</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">cv2</span><span class="p">.</span><span class="n">CAP_PROP_FPS</span><span class="p">))</span>
+        <span class="n">codec</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">VideoWriter_fourcc</span><span class="p">(</span><span class="o">*</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">output_format</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">VideoWriter</span><span class="p">(</span><span class="n">FLAGS</span><span class="p">.</span><span class="n">output</span><span class="p">,</span> <span class="n">codec</span><span class="p">,</span> <span class="n">fps</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+        <span class="n">list_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'detection.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span>
+        <span class="n">frame_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> 
+    
+    <span class="n">fps</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span> 
+    <span class="c1">#车牌信息字典，全局变量，实现对车牌识别信息的择优迭代
+</span>    <span class="n">chepaixinxi</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">vid</span><span class="p">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="c1"># print(img.shape)
+</span>        <span class="k">if</span> <span class="n">img</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="s">"Empty Frame"</span><span class="p">)</span>
+            <span class="n">time</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+            <span class="n">count</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="k">break</span>
+        
+        <span class="n">img_in</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span> 
+        <span class="n">img_in</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">img_in</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">img_in</span> <span class="o">=</span> <span class="n">transform_images</span><span class="p">(</span><span class="n">img_in</span><span class="p">,</span> <span class="n">FLAGS</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">boxes</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">nums</span> <span class="o">=</span> <span class="n">yolo</span><span class="p">.</span><span class="n">predict</span><span class="p">(</span><span class="n">img_in</span><span class="p">,</span><span class="n">steps</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">classes</span> <span class="o">=</span> <span class="n">classes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)):</span>
+            <span class="n">names</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">class_names</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">classes</span><span class="p">[</span><span class="n">i</span><span class="p">])])</span>
+        <span class="c1">#print(names)
+</span>        <span class="n">names</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+        <span class="c1">#print(names)
+</span>        
+
+
+        <span class="n">converted_boxes</span> <span class="o">=</span> <span class="n">convert_boxes</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">boxes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">encoder</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">converted_boxes</span><span class="p">)</span>
+        <span class="n">detections</span> <span class="o">=</span> <span class="p">[</span><span class="n">Detection</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">feature</span><span class="p">)</span> <span class="k">for</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">converted_boxes</span><span class="p">,</span> <span class="n">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">names</span><span class="p">,</span> <span class="n">features</span><span class="p">)]</span>
+        
+        <span class="c1">#initialize color map
+</span>        <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s">'tab20b'</span><span class="p">)</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmap</span><span class="p">(</span><span class="n">i</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span>
+
+        <span class="c1"># run non-maxima suppresion
+</span>        <span class="n">boxs</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="p">.</span><span class="n">tlwh</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">])</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="p">.</span><span class="n">confidence</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">])</span>
+        <span class="n">classes</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">d</span><span class="p">.</span><span class="n">class_name</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">detections</span><span class="p">])</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="p">.</span><span class="n">non_max_suppression</span><span class="p">(</span><span class="n">boxs</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">nms_max_overlap</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+        <span class="n">detections</span> <span class="o">=</span> <span class="p">[</span><span class="n">detections</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>        
+
+        <span class="c1"># Call the tracker
+</span>        <span class="n">tracker</span><span class="p">.</span><span class="n">predict</span><span class="p">()</span>
+        <span class="n">tracker</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">detections</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1">#print(len(tracker.tracks))
+</span>
+        <span class="c1"># 统计车和行人的数量
+</span>        <span class="n">car_num</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">person_num</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="c1"># 记录行人位置
+</span>        <span class="n">xingren</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># 在帧上标注车道线
+</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">banma</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">'x1'</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="s">'y1'</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="p">[</span><span class="s">'c'</span><span class="p">]),</span> <span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">'x2'</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="s">'y2'</span><span class="p">]),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span><span class="c1">#画斑马线
+</span>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">xxx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">'y1'</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="s">'y2'</span><span class="p">]):</span>
+                    <span class="n">xq</span> <span class="o">=</span> <span class="p">(</span><span class="n">xxx</span><span class="o">-</span><span class="n">i</span><span class="p">[</span><span class="s">'b'</span><span class="p">])</span><span class="o">/</span><span class="n">i</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span>
+                    <span class="n">xq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">xq</span><span class="p">)</span>
+                    <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">xq</span><span class="o">+</span><span class="mi">5</span><span class="p">,</span><span class="n">xxx</span><span class="p">),</span> <span class="p">(</span><span class="n">xq</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="n">xxx</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">xxx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s">'x1'</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="s">'x2'</span><span class="p">]):</span>
+                    <span class="n">yq</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span>
+                    <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">xxx</span><span class="p">,</span><span class="n">yq</span><span class="o">+</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">xxx</span><span class="p">,</span><span class="n">yq</span><span class="o">-</span><span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+
+        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracker</span><span class="p">.</span><span class="n">tracks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">track</span><span class="p">.</span><span class="n">is_confirmed</span><span class="p">()</span> <span class="ow">or</span> <span class="n">track</span><span class="p">.</span><span class="n">time_since_update</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span> 
+            
+            <span class="n">bbox</span> <span class="o">=</span> <span class="n">track</span><span class="p">.</span><span class="n">to_tlbr</span><span class="p">()</span>
+            <span class="n">class_name</span> <span class="o">=</span> <span class="n">track</span><span class="p">.</span><span class="n">get_class</span><span class="p">()</span>
+
+            <span class="c1"># 统计车辆和行人数量
+</span>            <span class="k">if</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">'car'</span><span class="p">:</span>
+                <span class="n">car_num</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">'person'</span><span class="p">:</span>
+                <span class="n">person_num</span> <span class="o">+=</span> <span class="mi">1</span> 
+
+            <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)]</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">255</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">color</span><span class="p">]</span>
+            <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span> <span class="n">color</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">cv2</span><span class="p">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">30</span><span class="p">)),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_name</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)))</span><span class="o">*</span><span class="mi">17</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="n">color</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">cv2</span><span class="p">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">+</span> <span class="s">"-"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">),(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">10</span><span class="p">)),</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+         
+
+            <span class="k">if</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">'person'</span><span class="p">:</span>
+                <span class="c1"># 计算出行人的位置（用行人脚的位置定义行人所在位置）
+</span>                <span class="n">per</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+                <span class="n">xingren</span><span class="p">.</span><span class="n">append</span><span class="p">(((</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span><span class="n">per</span><span class="p">)))</span>
+      
+
+            <span class="k">if</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">'car'</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">&gt;</span><span class="mi">100</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">&gt;</span><span class="mi">200</span><span class="p">):</span>
+                
+                <span class="c1"># 截取车辆图片
+</span>                <span class="n">cropped</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])]</span>
+                <span class="c1"># 传入HyperLPR模型识别车牌信息
+</span>                <span class="n">xinxi</span> <span class="o">=</span> <span class="n">HyperLPR_plate_recognition</span><span class="p">(</span><span class="n">cropped</span><span class="p">)</span>
+
+                <span class="c1"># 计算车的中心点坐标
+</span>                <span class="n">diet1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+                <span class="n">diet2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">diet1</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">diet2</span>
+
+                <span class="c1"># 如果车的中心点落在实线的”范围“内，就判断车辆非法越线。
+</span>                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">k</span><span class="p">:</span>
+                    <span class="n">i</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="c1"># 修改
+</span>                    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">i</span><span class="p">[</span><span class="s">'y1'</span><span class="p">]</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">[</span><span class="s">'y2'</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="o">*</span><span class="n">i</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span><span class="o">-</span><span class="mi">15</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">*</span><span class="n">i</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span><span class="o">+</span><span class="mi">15</span><span class="p">:</span>
+                            <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="s">'非法越线'</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">20</span><span class="p">),(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                            <span class="k">print</span><span class="p">(</span><span class="s">'car违规！违规类型：越实线！'</span><span class="p">,</span><span class="n">xinxi</span><span class="p">)</span>
+
+                <span class="c1"># 实现车牌信息的择优迭代
+</span>                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">chepaixinxi</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">xinxi</span><span class="p">:</span>
+                        <span class="n">chepai</span> <span class="o">=</span> <span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)]</span>
+                        <span class="k">if</span> <span class="n">chepai</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">xinxi</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+                            <span class="n">cheche</span> <span class="o">=</span> <span class="n">xinxi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cheche</span>
+                            <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">':'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)),</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">':'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)),</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">xinxi</span> <span class="p">:</span>
+                    <span class="n">cheche</span> <span class="o">=</span> <span class="n">xinxi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)]</span> <span class="o">=</span> <span class="n">cheche</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">':'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="p">)),</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]),(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s">'car name:'</span><span class="p">,</span><span class="n">car_num</span><span class="p">,</span><span class="s">'person num:'</span><span class="p">,</span><span class="n">person_num</span><span class="p">)</span>
+                
+        
+        <span class="n">on_bmx</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xingren</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="n">banma</span><span class="p">:</span>
+                <span class="n">ix</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">ix</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">on_banmaxian</span><span class="p">(</span><span class="n">ix</span><span class="p">[</span><span class="s">'k'</span><span class="p">],</span> <span class="n">ix</span><span class="p">[</span><span class="s">'b'</span><span class="p">],</span> <span class="n">ix</span><span class="p">[</span><span class="s">'c'</span><span class="p">],</span> <span class="n">ix</span><span class="p">[</span><span class="s">'x1'</span><span class="p">],</span> <span class="n">ix</span><span class="p">[</span><span class="s">'x2'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'y1'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'y2'</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                    <span class="n">on_bmx</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">on_bmx</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+
+        <span class="c1"># 车辆斑马线不礼让行人检测，并记录它的车牌信息和违规情况
+</span>        <span class="k">for</span> <span class="n">track</span> <span class="ow">in</span> <span class="n">tracker</span><span class="p">.</span><span class="n">tracks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">track</span><span class="p">.</span><span class="n">is_confirmed</span><span class="p">()</span> <span class="ow">or</span> <span class="n">track</span><span class="p">.</span><span class="n">time_since_update</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">continue</span> 
+            
+            <span class="n">bbox</span> <span class="o">=</span> <span class="n">track</span><span class="p">.</span><span class="n">to_tlbr</span><span class="p">()</span>
+            <span class="n">class_name</span> <span class="o">=</span> <span class="n">track</span><span class="p">.</span><span class="n">get_class</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">class_name</span> <span class="o">==</span> <span class="s">'car'</span><span class="p">:</span>
+                <span class="n">diet1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+                <span class="n">diet2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span><span class="o">-</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">/</span><span class="mi">2</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">diet1</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">diet2</span>
+                <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="n">banma</span><span class="p">:</span>
+                    <span class="n">ix</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">ix</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">on_banmaxian</span><span class="p">(</span><span class="n">ix</span><span class="p">[</span><span class="s">'k'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'b'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'c'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'x1'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'x2'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'y1'</span><span class="p">],</span><span class="n">ix</span><span class="p">[</span><span class="s">'y2'</span><span class="p">],</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">on_bmx</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            
+                            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)</span> <span class="ow">in</span> <span class="n">chepaixinxi</span><span class="p">:</span>
+                                <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="s">'不礼让行人'</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">40</span><span class="p">),(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                                <span class="k">print</span><span class="p">(</span><span class="s">'car违规:没有礼让行人!'</span><span class="p">,</span><span class="n">chepaixinxi</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">track</span><span class="p">.</span><span class="n">track_id</span><span class="p">)][</span><span class="mi">0</span><span class="p">])</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">img</span> <span class="o">=</span> <span class="n">cv2ImgAddText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span><span class="s">'不礼让行人'</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">40</span><span class="p">),(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">20</span><span class="p">)</span>
+                                <span class="k">print</span><span class="p">(</span><span class="s">'car违规:没有礼让行人!'</span><span class="p">)</span>
+                
+
+
+        <span class="k">print</span><span class="p">(</span><span class="n">chepaixinxi</span><span class="p">.</span><span class="n">items</span><span class="p">())</span>
+
+        <span class="n">fps</span>  <span class="o">=</span> <span class="p">(</span> <span class="n">fps</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t1</span><span class="p">))</span> <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">cv2</span><span class="p">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="s">"FPS: {:.2f}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">fps</span><span class="p">)</span><span class="o">+</span><span class="s">'  car num:'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">car_num</span><span class="p">)</span><span class="o">+</span><span class="s">'    '</span><span class="o">+</span><span class="s">'person num:'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">person_num</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span>
+                          <span class="n">cv2</span><span class="p">.</span><span class="n">FONT_HERSHEY_COMPLEX_SMALL</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">cv2</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">'output'</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">FLAGS</span><span class="p">.</span><span class="n">output</span><span class="p">:</span>
+            <span class="n">out</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+            <span class="n">frame_index</span> <span class="o">=</span> <span class="n">frame_index</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">list_file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">frame_index</span><span class="p">)</span><span class="o">+</span><span class="s">' '</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">converted_boxes</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">converted_boxes</span><span class="p">)):</span>
+                    <span class="n">list_file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">converted_boxes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="s">' '</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">converted_boxes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s">' '</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">converted_boxes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="s">' '</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">converted_boxes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="s">' '</span><span class="p">)</span>
+            <span class="n">list_file</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cv2</span><span class="p">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s">'q'</span><span class="p">):</span>
+            <span class="k">break</span>
+    <span class="n">vid</span><span class="p">.</span><span class="n">release</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">FLAGS</span><span class="p">.</span><span class="n">ouput</span><span class="p">:</span>
+        <span class="n">out</span><span class="p">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="n">list_file</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">cv2</span><span class="p">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">SystemExit</span><span class="p">:</span>
+        <span class="k">pass</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+                
+                <!--Donate start-->
+                <iframe src="/donate.html" style="overflow-x:hidden;overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;"  frameborder="0" scrolling="no"></iframe>
+                <!--donate end-->
+                
+                <link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+                <script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+
+
+                <div id="gitalk-container" style="margin: 30px;padding-bottom: 30px;"></div>
+                <script>
+                    var gitalk = new Gitalk({
+                        clientID: '1695c83228c471fa58d4',
+                        clientSecret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+                        repo: 'issues_fuhao7i',
+                        owner: 'fuhao7i',
+                        admin: ['fuhao7i'],
+                        id: location.pathname,      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
+
+                    })
+                    gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
+                </script>
+
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/01/20/sundry3/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰3——CUDA 版本之间的切换">
+                        Previous<br>
+                        <span>Dali杂货铺🐰3——CUDA 版本之间的切换</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+
+                
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <!--不蒜子统计-->
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <link rel="stylesheet" href="/iconfont.css">
+                        <script src="/iconfont.js"></script>
+                        views
+                        <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-love"></use>
+                        </svg>
+                        <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+
+                        <br>
+                        <br>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                       
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            <style>
+            .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+            }
+            </style>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0014" 
+                    href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv"
+                    title="阿菊的OpenCv"
+                    rel="1">阿菊的OpenCv</a>
+        
+                <a data-sort="0011" 
+                    href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8"
+                    title="哈哈哈目标检测🧸"
+                    rel="4">哈哈哈目标检测🧸</a>
+        
+                <a data-sort="0012" 
+                    href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
+                    title="Dali杂货铺🐰"
+                    rel="3">Dali杂货铺🐰</a>
+        
+                <a data-sort="0013" 
+                    href="/archive/?tag=Competition%F0%9F%90%B3"
+                    title="Competition🐳"
+                    rel="2">Competition🐳</a>
+        
+                <a data-sort="0014" 
+                    href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2"
+                    title="小菊的语义分割"
+                    rel="1">小菊的语义分割</a>
+        
+                <a data-sort="0014" 
+                    href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
+                    title="阶段性学习总结🔑"
+                    rel="1">阶段性学习总结🔑</a>
+        
+                <a data-sort="0014" 
+                    href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
+                    title="Dali工具箱🔧"
+                    rel="1">Dali工具箱🔧</a>
+        
+                <a data-sort="0014" 
+                    href="/archive/?tag=PyTorch%F0%9F%A7%9F%E2%80%8D%E2%99%82%EF%B8%8F"
+                    title="PyTorch🧟‍♂️"
+                    rel="1">PyTorch🧟‍♂️</a>
+        
+                <a data-sort="0014" 
+                    href="/archive/?tag=Word%F0%9F%93%96"
+                    title="Word📖"
+                    rel="1">Word📖</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
+                
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+  <li><a href="https://space.bilibili.com/481802918">Bilibili</a></li>
+  
+  <li><a href="https://blog.csdn.net/fuhao7i">CSDN</a></li>
+  
+</ul>
+
+            </div>
+        </div>
+    </div>
+
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+
+<!--不蒜子统计-->
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- SNS Link -->
+                
+
+
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/fuhao7i">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+                <p class="copyright text-muted">
+                <div class="copyright text-muted">
+                    <!--不蒜子-->
+                    <ul class="list-inline">
+                        <li>
+                            <link rel="stylesheet" href="/iconfont.css">
+                            Total
+                            <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span>
+                            <span class="iconfont icon-jiaoyin"></span>views
+                     
+                        </li>
+                        
+                    </ul>
+                    Copyright &copy; fuhao7i Blog 2021
+                    <br>
+                    Powered by <a href="https://github.com/fuhao7i">fuhao7i Blog</a>
+                </div>
+
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
+<!-- Service Worker -->
+
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+
+
+
+
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
+        var $nav = document.querySelector("nav");
+        if ($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

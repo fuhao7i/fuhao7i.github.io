@@ -121,6 +121,11 @@ nvcc -V
 
 ## 3.2 查看电脑上现有的cuDNN版本
 
+```python
+import torch
+torch.backends.cudnn.version()
+```
+
 ```Bash
 cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
 ```

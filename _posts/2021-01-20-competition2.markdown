@@ -1,0 +1,593 @@
+---
+layout:     post
+title:      "Competition🐳2——智能交通场景应用"
+subtitle:   " \"车辆非法越线检测, 不礼让行人检测\""
+date:       2021-01-20 19:42:00
+author:     "fuhao7i"
+header-img: "img/in-post/competition.jpg"
+catalog: true
+tags:
+    - Competition🐳
+---
+
+<font color=eeepink>视频讲解在这找🤪[袖手天下7i](https://space.bilibili.com/481802918)</font>
+
+> Hello, 最近很多小伙伴们看了我在B站的视频之后来和我交流关于如何实现车辆的非法越线检测以及车辆在斑马线不礼让行人的检测等，今天我以一个开源的项目为基础来和大家简单分享一下技术实现，希望对刚接触计算机视觉领域的小伙伴们有所帮助。
+
+# 1. YOLOv3 + Deepsort
+
+首先，看过我本专栏第一个视频的小伙伴们应该清楚，整个的项目我们是基于一个目标追踪算法来做的。因此，在这里我采用比较经典的 [YOLOv3 + Deepsort](https://github.com/fuhao7i/yolov3_deepsort) 来进行简单的讲解。这是一个Github上的开源项目，环境配置也比较简单，在`README.md`文件中描述的很清楚。分为cpu和gpu两个版本。
+
+# 2. 提取背景.py
+
+因为我们处理的对象是交通摄像头下的场景，数据格式为视频流或者视频，所以我们要提取视频的第一帧作为背景来进行车道线的标定。不推荐使用截屏的方式，因为这会使图像的尺寸发生改变。
+
+```python
+import cv2
+
+# 这里我们取视频的第一帧来进行标注。注意⚠️不要使用截图，因为截图会使的图像大小不一致。
+vidcap = cv2.VideoCapture('/Users/apple/Documents/二叶/目标追踪/yolov3_deepsort/data/video/1.mp4')
+success,image = vidcap.read()
+n=1
+while n < 30:
+	success, image = vidcap.read()
+	n+=1
+imag = cv2.imwrite('fff.png',image)
+if imag ==True:
+	print('ok')
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210120205726886.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70)
+
+
+# 3. 车道线标定.py
+
+根据提取的`背景图片`，进行道路信息的标定，并返回道路信息的相关参数。
+
+```python
+import cv2
+from PIL import Image
+from pylab import *
+import csv
+import codecs
+
+img = cv2.imread('fff.png')
+
+# cishu是需要标记的实线的个数。这个需要标记4处实线。
+
+cishu = 2
+sx = []
+bm = []
+im = array(Image.open('fff.png'))
+ion()
+imshow(im)
+for cs in range(cishu):
+
+    print('Please click 2 points')
+    x = ginput(2)
+    print('you clicked:',x)
+    sx.append(x)
+
+print('Please click 4 points')
+x = ginput(4)
+print('you clicked:',x)
+bm.append(x)
+
+ioff()
+show()
+print(im.shape)
+jinzhi = []
+banmaxian = []
+def shixian(x1,y1,x2,y2):
+    if x1 == x2:
+        k = -999
+        b = 0
+    else:
+        k = (y2-y1)/(x2-x1)
+        b = y1 - x1 * k
+        # k = int(k)
+        # b = int(b)
+    return k,b
+#data1 = [{'x1':int(x[0][0]),'y1':int(x[0][1]),'x2':int(x[1][0]),'y2':int(x[1][1])}]
+# 计算实线的值 y = kx + b
+for i in sx:
+    x = {}
+    x1 = int(i[0][0])
+    y1 = int(i[0][1])
+    x2 = int(i[1][0])
+    y2 = int(i[1][1])
+    k, b = shixian(x1,y1,x2,y2)
+    #cv2.rectangle(img, (x1+15,y1), (x2-15,y2), (0,0,255), -1)
+    if y1 > y2:
+        yy = y2
+        xx = x2
+        y2 = y1
+        x2 = x1
+        y1 = yy
+        x1 = xx
+    if k != 0:
+        for xxx in range(y1,y2):
+            xq = (xxx-b)/k
+            xq = int(xq)
+            cv2.rectangle(img, (xq+15,xxx), (xq-15,xxx), (0,0,255), -1)
+    else:
+        for xxx in range(x1,x2):
+            yq = b
+            cv2.rectangle(img, (xxx,yq+15), (xxx,yq-15), (0,0,255), -1)
+    x['k'] = k
+    x['b'] = b
+    print('k:',k,'b:',b)
+    jinzhi.append(x)
+
+
+
+print(jinzhi)
+
+
+# data2 = [{'x1':400, 'y1':0,'x2':800,'y2':0,
+#           'x3':400, 'y3':800, 'x4':800, 'y4':800}]
+# 计算斑马线的各项值 y = kx + b
+for i in bm:
+    x = {}
+    x1 = int(i[0][0])
+    y1 = int(i[0][1])
+    x2 = int(i[1][0])
+    y2 = int(i[1][1])
+    y3 = int(i[2][1])
+    k, b = shixian(x1,y1,x2,y2)
+    c = y3 - y1
+    x['k'] = k
+    x['b'] = b
+    x['c'] = c
+    x['x1'] = x1
+    x['x2'] = x2
+
+    cv2.rectangle(img, (x1,y1+c), (x2,y2), (0,255,0), 4)
+    banmaxian.append(x)
+
+print(banmaxian)
+cv2.imwrite('001_new.png', img)
+
+# 将获得的实线和斑马线信息写入相应的文件。
+
+with open("shixian.txt", 'w') as f:
+    for s in jinzhi:
+        f.write(str(s) + '\n')
+
+with open("banmaxian.txt", 'w') as f:
+    for s in banmaxian:
+        f.write(str(s) + '\n')
+
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210120205811935.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70)
+
+
+# 4. 车牌识别模块
+
+这里我们可以自己训练模型，也可以使用开源项目`HyperLPR`，来进行车牌的识别。
+
+```python
+                # 截取车辆图片
+                cropped = img[int(bbox[1]):int(bbox[3]), int(bbox[0]):int(bbox[2])]
+                # 传入HyperLPR模型识别车牌信息
+                xinxi = HyperLPR_plate_recognition(cropped)
+```
+
+<img src="https://img-blog.csdnimg.cn/20210120211222931.png#pic_center" width="25%">
+
+
+# 4.1 车牌信息择优迭代
+
+车牌号的识别是从车辆出现在画面的第一帧开始，一直到车辆消失在画面中。我们并不能事先确定在哪一帧对车牌的识别效果最好。因此，我们在车辆出现的第一帧，就将它的`id`和`车牌信息`传入字典`chepaixinxi`保存起来。如果当前帧比之前的识别效果都好(`置信度高`)，我们就用它替换之前的车牌信息。
+
+另一方面，为了节省计算资源，只要是该车在某一帧的车牌置信度高于0.9，我们就不再将其传入车牌识别模块。
+
+```python
+                # 实现车牌信息的择优迭代
+                if str(track.track_id) in chepaixinxi:
+                    if xinxi:
+                        chepai = chepaixinxi[str(track.track_id)]
+                        if chepai[1] < xinxi[0][1]:
+                            cheche = xinxi[0]
+                            chepaixinxi[str(track.track_id)] = cheche
+                            img = cv2ImgAddText(img,chepaixinxi[str(track.track_id)][0]+':'+str(round(chepaixinxi[str(track.track_id)][1], 2)),int(bbox[0]) , int(bbox[1]),(0,0,255),20)
+                        else:
+                            img = cv2ImgAddText(img,chepaixinxi[str(track.track_id)][0]+':'+str(round(chepaixinxi[str(track.track_id)][1], 2)),int(bbox[0]) , int(bbox[1]),(0,0,255),20)
+                elif xinxi :
+                    cheche = xinxi[0]
+                    chepaixinxi[str(track.track_id)] = cheche
+                    img = cv2ImgAddText(img,chepaixinxi[str(track.track_id)][0]+':'+str(round(chepaixinxi[str(track.track_id)][1], 2)),int(bbox[0]) , int(bbox[1]),(0,0,255),20)
+```
+
+# 5. 车辆非法越线检测
+
+有了 `4. 车牌信息择优迭代`，我们不难将车辆在上一帧的位置保存下来。如果车辆在上一帧的位置和在这一帧的位置分别位于车道线实线的两侧，或者落在了实线上，我们就判定车辆非法越实线了。
+
+`这里我只写当前帧落在实线上进行演示`😂
+```python
+                # 计算车的中心点坐标
+                diet1 = (int(bbox[3])-int(bbox[1]))/2
+                diet2 = (int(bbox[2])-int(bbox[0]))/2
+                x = int(bbox[1]) + diet1
+                y = int(bbox[0]) + diet2
+
+                # 如果车的中心点落在实线的”范围“内，就判断车辆非法越线。
+                for i in k:
+                    i = eval(i)
+                    # 修改
+                    if x > i['y1'] and x < i['y2']:
+                        if x > y*i['k']+i['b']-15 and x < y*i['k']+i['b']+15:
+                            img = cv2ImgAddText(img,'非法越线',int(bbox[0]) , int(bbox[1]+20),(255,0,0),20)
+                            print('car违规！违规类型：越实线！',xinxi)
+
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210120205854221.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70)
+
+
+# 6. 车辆斑马线不礼让行人检测
+
+最简单粗暴的做法：行人在斑马线上时，车辆也在斑马线上 ==> 车辆不礼让行人。
+
+```python
+        on_bmx = []
+        for i in xingren:
+            for ix in banma:
+                ix = eval(ix)
+                if on_banmaxian(ix['k'], ix['b'], ix['c'], ix['x1'], ix['x2'],ix['y1'],ix['y2'],i[0],i[1]):
+                    on_bmx.append(i[1])
+        on_bmx.sort()
+
+        # 车辆斑马线不礼让行人检测，并记录它的车牌信息和违规情况
+        for track in tracker.tracks:
+            if not track.is_confirmed() or track.time_since_update > 1:
+                continue 
+            
+            bbox = track.to_tlbr()
+            class_name = track.get_class()
+            if class_name == 'car':
+                diet1 = (int(bbox[3])-int(bbox[1]))/2
+                diet2 = (int(bbox[2])-int(bbox[0]))/2
+                x = int(bbox[1]) + diet1
+                y = int(bbox[0]) + diet2
+                for ix in banma:
+                    ix = eval(ix)
+                    if on_banmaxian(ix['k'],ix['b'],ix['c'],ix['x1'],ix['x2'],ix['y1'],ix['y2'],x,y):
+                        if len(on_bmx) != 0:
+            
+                            if str(track.track_id) in chepaixinxi:
+                                img = cv2ImgAddText(img,'不礼让行人',int(bbox[0]) , int(bbox[1]+40),(255,0,0),20)
+                                print('car违规:没有礼让行人!',chepaixinxi[str(track.track_id)][0])
+                            else:
+                                img = cv2ImgAddText(img,'不礼让行人',int(bbox[0]) , int(bbox[1]+40),(255,0,0),20)
+                                print('car违规:没有礼让行人!')
+```
+
+其实，这样做，有一种情况会误判: `行人向前走，身后有车通过，这样车辆不用礼让行人`
+
+`解决方法：`我们还是可以根据`4. 车牌信息择优迭代`，记录行人上一帧和当前帧的位置，这样，通过两帧之间，行人的位置变化我们便可以知道行人的前进方向:`向左`, `向右`或 `原地不动`, 这样我们便可以实现更加完善的车辆在斑马线不礼让行人的功能了。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20210120205906348.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70)
+
+
+# 7. 总结
+
+希望可以对刚入门的小伙伴们有所启发，这只是一个简单的示例，更多的有趣的功能需要你自己取开发哦哦哦哦哦哦～～～
+
+`object_tracker.py`
+```python
+import time, random
+import numpy as np
+from absl import app, flags, logging
+from absl.flags import FLAGS
+import cv2
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from yolov3_tf2.models import (
+    YoloV3, YoloV3Tiny
+)
+from yolov3_tf2.dataset import transform_images
+from yolov3_tf2.utils import draw_outputs, convert_boxes
+
+from deep_sort import preprocessing
+from deep_sort import nn_matching
+from deep_sort.detection import Detection
+from deep_sort.tracker import Tracker
+from tools import generate_detections as gdet
+from PIL import Image
+from hyperlpr import *
+from PIL import Image, ImageDraw, ImageFont
+
+
+
+flags.DEFINE_string('classes', './data/labels/coco.names', 'path to classes file')
+flags.DEFINE_string('weights', './weights/yolov3.tf',
+                    'path to weights file')
+flags.DEFINE_boolean('tiny', False, 'yolov3 or yolov3-tiny')
+flags.DEFINE_integer('size', 416, 'resize images to')
+flags.DEFINE_string('video', './data/video/test.mp4',
+                'path to video file or number for webcam)')
+flags.DEFINE_string('output','./data/video/result_out.avi', 'path to output video')
+flags.DEFINE_string('output_format', 'XVID', 'codec used in VideoWriter when saving video to file')
+flags.DEFINE_integer('num_classes', 80, 'number of classes in the model')
+
+
+def cv2ImgAddText(img, text, left, top, textColor=(0, 255, 0), textSize=20):
+    if (isinstance(img, np.ndarray)):  # 判断是否OpenCV图片类型
+        img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    draw = ImageDraw.Draw(img)
+    fontStyle = ImageFont.truetype(
+        "simsun.ttc", textSize, encoding="utf-8")
+    draw.text((left, top), text, textColor, font=fontStyle)
+    return cv2.cvtColor(np.asarray(img), cv2.COLOR_RGB2BGR)
+
+# 判断是否在斑马线上
+
+def on_banmaxian(k,b,c,x1,x2,y1,y2,x,y):
+
+    if x>y1+c and x < y2 and y > x1 and y < x2:
+        return True
+    else: return False
+
+def main(_argv):
+
+    # 实线定义
+    with open("shixian.txt", 'r') as f:
+        k = [line.rstrip('\n') for line in f]
+    # 斑马线定义
+    with open("banmaxian.txt", 'r') as f:
+        banma = [line.rstrip('\n') for line in f]
+
+    max_cosine_distance = 0.5
+    nn_budget = None
+    nms_max_overlap = 1.0
+    
+    #initialize deep sort
+    model_filename = 'model_data/mars-small128.pb'
+    encoder = gdet.create_box_encoder(model_filename, batch_size=1)
+    metric = nn_matching.NearestNeighborDistanceMetric("cosine", max_cosine_distance, nn_budget)
+    tracker = Tracker(metric)
+
+    physical_devices = tf.config.experimental.list_physical_devices('GPU')
+    if len(physical_devices) > 0:
+        tf.config.experimental.set_memory_growth(physical_devices[0], True)
+
+    if FLAGS.tiny:
+        yolo = YoloV3Tiny(classes=FLAGS.num_classes)
+    else:
+        yolo = YoloV3(classes=FLAGS.num_classes)
+
+    yolo.load_weights(FLAGS.weights)
+    logging.info('weights loaded')
+
+    class_names = [c.strip() for c in open(FLAGS.classes).readlines()]
+    logging.info('classes loaded')
+
+    try:
+        vid = cv2.VideoCapture(int(FLAGS.video))
+    except:
+        vid = cv2.VideoCapture(FLAGS.video)
+
+    out = None
+
+    if FLAGS.output:
+        # by default VideoCapture returns float instead of int
+        width = int(vid.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        fps = int(vid.get(cv2.CAP_PROP_FPS))
+        codec = cv2.VideoWriter_fourcc(*FLAGS.output_format)
+        out = cv2.VideoWriter(FLAGS.output, codec, fps, (width, height))
+        list_file = open('detection.txt', 'w')
+        frame_index = -1 
+    
+    fps = 0.0
+    count = 0 
+    #车牌信息字典，全局变量，实现对车牌识别信息的择优迭代
+    chepaixinxi = {}
+    while True:
+        _, img = vid.read()
+        # print(img.shape)
+        if img is None:
+            logging.warning("Empty Frame")
+            time.sleep(0.1)
+            count+=1
+            if count < 3:
+                continue
+            else: 
+                break
+        
+        img_in = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) 
+        img_in = tf.expand_dims(img_in, 0)
+        img_in = transform_images(img_in, FLAGS.size)
+
+        t1 = time.time()
+        boxes, scores, classes, nums = yolo.predict(img_in,steps = 1)
+        classes = classes[0]
+        names = []
+        for i in range(len(classes)):
+            names.append(class_names[int(classes[i])])
+        #print(names)
+        names = np.array(names)
+        #print(names)
+        
+
+
+        converted_boxes = convert_boxes(img, boxes[0])
+        features = encoder(img, converted_boxes)
+        detections = [Detection(bbox, score, class_name, feature) for bbox, score, class_name, feature in zip(converted_boxes, scores[0], names, features)]
+        
+        #initialize color map
+        cmap = plt.get_cmap('tab20b')
+        colors = [cmap(i)[:3] for i in np.linspace(0, 1, 20)]
+
+        # run non-maxima suppresion
+        boxs = np.array([d.tlwh for d in detections])
+        scores = np.array([d.confidence for d in detections])
+        classes = np.array([d.class_name for d in detections])
+        indices = preprocessing.non_max_suppression(boxs, classes, nms_max_overlap, scores)
+        detections = [detections[i] for i in indices]        
+
+        # Call the tracker
+        tracker.predict()
+        tracker.update(detections)
+        num = 0
+        #print(len(tracker.tracks))
+
+        # 统计车和行人的数量
+        car_num = 0
+        person_num = 0
+        
+        # 记录行人位置
+        xingren = []
+
+        # 在帧上标注车道线
+
+        for i in banma:
+            i = eval(i)
+            cv2.rectangle(img, (i['x1'],i['y1']+i['c']), (i['x2'],i['y2']), (0,255,0), 4)#画斑马线
+        for i in k:
+            i = eval(i)
+            if i['k'] != 0:
+                for xxx in range(i['y1'],i['y2']):
+                    xq = (xxx-i['b'])/i['k']
+                    xq = int(xq)
+                    cv2.rectangle(img, (xq+5,xxx), (xq-5,xxx), (0,0,255), -1)
+            else:
+                for xxx in range(i['x1'],i['x2']):
+                    yq = i['b']
+                    cv2.rectangle(img, (xxx,yq+5), (xxx,yq-5), (0,0,255), -1)
+
+
+        for track in tracker.tracks:
+            if not track.is_confirmed() or track.time_since_update > 1:
+                continue 
+            
+            bbox = track.to_tlbr()
+            class_name = track.get_class()
+
+            # 统计车辆和行人数量
+            if class_name == 'car':
+                car_num += 1
+            elif class_name == 'person':
+                person_num += 1 
+
+            color = colors[int(track.track_id) % len(colors)]
+            color = [i * 255 for i in color]
+            cv2.rectangle(img, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), color, 2)
+
+            cv2.rectangle(img, (int(bbox[0]), int(bbox[1]-30)), (int(bbox[0])+(len(class_name)+len(str(track.track_id)))*17, int(bbox[1])), color, -1)
+            cv2.putText(img, class_name + "-" + str(track.track_id),(int(bbox[0]) , int(bbox[1]-10)),0, 0.75, (255,255,255),2)
+         
+
+            if class_name == 'person':
+                # 计算出行人的位置（用行人脚的位置定义行人所在位置）
+                per = int((int(bbox[2])+int(bbox[0]))/2)
+
+                xingren.append(((int(bbox[3]),per)))
+      
+
+            if class_name == 'car' and (int(bbox[3])-int(bbox[1]))>100 and (int(bbox[2])-int(bbox[0])>200):
+                
+                # 截取车辆图片
+                cropped = img[int(bbox[1]):int(bbox[3]), int(bbox[0]):int(bbox[2])]
+                # 传入HyperLPR模型识别车牌信息
+                xinxi = HyperLPR_plate_recognition(cropped)
+
+                # 计算车的中心点坐标
+                diet1 = (int(bbox[3])-int(bbox[1]))/2
+                diet2 = (int(bbox[2])-int(bbox[0]))/2
+                x = int(bbox[1]) + diet1
+                y = int(bbox[0]) + diet2
+
+                # 如果车的中心点落在实线的”范围“内，就判断车辆非法越线。
+                for i in k:
+                    i = eval(i)
+                    # 修改
+                    if x > i['y1'] and x < i['y2']:
+                        if x > y*i['k']+i['b']-15 and x < y*i['k']+i['b']+15:
+                            img = cv2ImgAddText(img,'非法越线',int(bbox[0]) , int(bbox[1]+20),(255,0,0),20)
+                            print('car违规！违规类型：越实线！',xinxi)
+
+                # 实现车牌信息的择优迭代
+                if str(track.track_id) in chepaixinxi:
+                    if xinxi:
+                        chepai = chepaixinxi[str(track.track_id)]
+                        if chepai[1] < xinxi[0][1]:
+                            cheche = xinxi[0]
+                            chepaixinxi[str(track.track_id)] = cheche
+                            img = cv2ImgAddText(img,chepaixinxi[str(track.track_id)][0]+':'+str(round(chepaixinxi[str(track.track_id)][1], 2)),int(bbox[0]) , int(bbox[1]),(0,0,255),20)
+                        else:
+                            img = cv2ImgAddText(img,chepaixinxi[str(track.track_id)][0]+':'+str(round(chepaixinxi[str(track.track_id)][1], 2)),int(bbox[0]) , int(bbox[1]),(0,0,255),20)
+                elif xinxi :
+                    cheche = xinxi[0]
+                    chepaixinxi[str(track.track_id)] = cheche
+                    img = cv2ImgAddText(img,chepaixinxi[str(track.track_id)][0]+':'+str(round(chepaixinxi[str(track.track_id)][1], 2)),int(bbox[0]) , int(bbox[1]),(0,0,255),20)
+
+        print('car name:',car_num,'person num:',person_num)
+                
+        
+        on_bmx = []
+        for i in xingren:
+            for ix in banma:
+                ix = eval(ix)
+                if on_banmaxian(ix['k'], ix['b'], ix['c'], ix['x1'], ix['x2'],ix['y1'],ix['y2'],i[0],i[1]):
+                    on_bmx.append(i[1])
+        on_bmx.sort()
+
+        # 车辆斑马线不礼让行人检测，并记录它的车牌信息和违规情况
+        for track in tracker.tracks:
+            if not track.is_confirmed() or track.time_since_update > 1:
+                continue 
+            
+            bbox = track.to_tlbr()
+            class_name = track.get_class()
+            if class_name == 'car':
+                diet1 = (int(bbox[3])-int(bbox[1]))/2
+                diet2 = (int(bbox[2])-int(bbox[0]))/2
+                x = int(bbox[1]) + diet1
+                y = int(bbox[0]) + diet2
+                for ix in banma:
+                    ix = eval(ix)
+                    if on_banmaxian(ix['k'],ix['b'],ix['c'],ix['x1'],ix['x2'],ix['y1'],ix['y2'],x,y):
+                        if len(on_bmx) != 0:
+            
+                            if str(track.track_id) in chepaixinxi:
+                                img = cv2ImgAddText(img,'不礼让行人',int(bbox[0]) , int(bbox[1]+40),(255,0,0),20)
+                                print('car违规:没有礼让行人!',chepaixinxi[str(track.track_id)][0])
+                            else:
+                                img = cv2ImgAddText(img,'不礼让行人',int(bbox[0]) , int(bbox[1]+40),(255,0,0),20)
+                                print('car违规:没有礼让行人!')
+                
+
+
+        print(chepaixinxi.items())
+
+        fps  = ( fps + (1./(time.time()-t1)) ) / 2
+        cv2.putText(img, "FPS: {:.2f}".format(fps)+'  car num:'+str(car_num)+'    '+'person num:'+str(person_num), (0, 30),
+                          cv2.FONT_HERSHEY_COMPLEX_SMALL, 1, (0, 0, 255), 2)
+        cv2.imshow('output', img)
+        if FLAGS.output:
+            out.write(img)
+            frame_index = frame_index + 1
+            list_file.write(str(frame_index)+' ')
+            if len(converted_boxes) != 0:
+                for i in range(0,len(converted_boxes)):
+                    list_file.write(str(converted_boxes[i][0]) + ' '+str(converted_boxes[i][1]) + ' '+str(converted_boxes[i][2]) + ' '+str(converted_boxes[i][3]) + ' ')
+            list_file.write('\n')
+
+        if cv2.waitKey(1) == ord('q'):
+            break
+    vid.release()
+    if FLAGS.ouput:
+        out.release()
+        list_file.close()
+    cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    try:
+        app.run(main)
+    except SystemExit:
+        pass
+```
