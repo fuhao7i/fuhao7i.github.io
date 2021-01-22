@@ -9,6 +9,14 @@
     } ,
   
     {
+      "title"    : "Dali杂货铺🐰4——软连接 ln -s ",
+      "subtitle" : " &quot;文件调用&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/01/20/sundry4/",
+      "date"     : "2021-01-20 19:49:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰3——CUDA 版本之间的切换",
       "subtitle" : " &quot;python, CUDA, GPU&quot;",
       "tags"     : "Dali杂货铺🐰",

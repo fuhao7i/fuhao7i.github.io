@@ -1,0 +1,19 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰4——软连接 ln -s "
+subtitle:   " \"文件调用\""
+date:       2021-01-20 11:49:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+> 利用软连接来实现 ln -s
+
+```Bash
+sudo rm -rf /usr/local/cuda #删除之前生成的软链接
+
+sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda #生成新的软链接
+```
