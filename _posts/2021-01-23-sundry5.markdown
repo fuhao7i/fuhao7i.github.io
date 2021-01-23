@@ -1,0 +1,12 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰5——torch 深度学习model()函数参数问题"
+subtitle:   " \"深度学习, Model\""
+date:       2021-01-23 10:29:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+

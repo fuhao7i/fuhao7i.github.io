@@ -5,9 +5,46 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 22 Jan 2021 14:43:24 +0800</pubDate>
-    <lastBuildDate>Fri, 22 Jan 2021 14:43:24 +0800</lastBuildDate>
+    <pubDate>Sat, 23 Jan 2021 23:23:42 +0800</pubDate>
+    <lastBuildDate>Sat, 23 Jan 2021 23:23:42 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali杂货铺🐰5——torch 深度学习model()函数参数问题</title>
+        <description>
+</description>
+        <pubDate>Sat, 23 Jan 2021 18:29:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/01/23/sundry5/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/23/sundry5/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Dali杂货铺🐰4——软连接(符号连接) ln -s </title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;实现一个文件在多处的调用，而且无需挪动文件位置，无需复制，好酷🕶️，之前在学习Linux知识的时候真是小看了它。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;利用软连接来实现 ln -s&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;sudo rm -rf /usr/local/cuda #删除之前生成的软链接
+
+sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda #生成新的软链接
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Fri, 22 Jan 2021 19:49:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/01/22/sundry4/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/22/sundry4/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
     
       <item>
         <title>Competition🐳2——智能交通场景应用</title>
@@ -1090,26 +1127,6 @@
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/21/competition2/</guid>
         
         <category>Competition🐳</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰4——软连接 ln -s </title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;利用软连接来实现 ln -s&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;sudo rm -rf /usr/local/cuda #删除之前生成的软链接
-
-sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda #生成新的软链接
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-        <pubDate>Wed, 20 Jan 2021 19:49:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/01/20/sundry4/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/20/sundry4/</guid>
-        
-        <category>Dali杂货铺🐰</category>
         
         
       </item>
@@ -2232,19 +2249,6 @@ classinfo可以是：int，float，bool，complex，str(字符串)，list，dict
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/14/detector2/</guid>
         
         <category>哈哈哈目标检测🧸</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>PyTorch🧟‍♂️1——PyTorch输出中间特征层</title>
-        <description>
-</description>
-        <pubDate>Mon, 11 Jan 2021 20:47:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/01/11/torch1/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/11/torch1/</guid>
-        
-        <category>PyTorch🧟‍♂️</category>
         
         
       </item>
