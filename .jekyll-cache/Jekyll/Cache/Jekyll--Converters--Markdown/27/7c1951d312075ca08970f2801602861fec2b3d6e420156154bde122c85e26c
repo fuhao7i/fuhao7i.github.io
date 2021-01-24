@@ -1,0 +1,2 @@
+I"�<p><code class="language-plaintext highlighter-rouge">Module类</code>是<code class="language-plaintext highlighter-rouge">nn</code>模块里提供的一个模型构造类，是所有神经网络模块的基类，我们可以继承它来定义我们想要的模型。下面继承<code class="language-plaintext highlighter-rouge">Module类</code>构造本节开头提到的多层感知机。这里定义的<code class="language-plaintext highlighter-rouge">MLP类</code>重载了Module类的<code class="language-plaintext highlighter-rouge">__init__函数</code>和<code class="language-plaintext highlighter-rouge">forward函数</code>。它们分别用于创建模型参数和定义前向计算。前向计算也即正向传播。</p>
+:ET

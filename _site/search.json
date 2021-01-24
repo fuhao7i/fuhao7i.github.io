@@ -2,7 +2,7 @@
   
     {
       "title"    : "Dali杂货铺🐰5——torch 深度学习model()函数参数问题",
-      "subtitle" : " &quot;深度学习, Model&quot;",
+      "subtitle" : " &quot;深度学习, Model, forward(), 前向传播&quot;",
       "tags"     : "Dali杂货铺🐰",
       "url"      : "/2021/01/23/sundry5/",
       "date"     : "2021-01-23 18:29:00 +0800"

@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Dali杂货铺🐰5——torch 深度学习model()函数参数问题"
-subtitle:   " \"深度学习, Model\""
+subtitle:   " \"深度学习, Model, forward(), 前向传播\""
 date:       2021-01-23 10:29:00
 author:     "fuhao7i"
 header-img: "img/in-post/sundry.jpg"
@@ -10,3 +10,35 @@ tags:
     - Dali杂货铺🐰
 ---
 
+`Module类`是`nn`模块里提供的一个模型构造类，是所有神经网络模块的基类，我们可以继承它来定义我们想要的模型。下面继承`Module类`构造本节开头提到的多层感知机。这里定义的`MLP类`重载了Module类的`__init__函数`和`forward函数`。它们分别用于创建模型参数和定义前向计算。前向计算也即正向传播。
+
+```python
+import torch
+from torch import nn
+
+class MLP(nn.Module):
+    # 声明带有模型参数的层，这里声明了两个全连接层
+    def __init__(self, **kwargs):
+        # 调用MLP父类Module的构造函数来进行必要的初始化。这样在构造实例时还可以指定其他函数
+        # 参数，如“模型参数的访问、初始化和共享”一节将介绍的模型参数params
+        super(MLP, self).__init__(**kwargs)
+        self.hidden = nn.Linear(784, 256) # 隐藏层
+        self.act = nn.ReLU()
+        self.output = nn.Linear(256, 10)  # 输出层
+
+
+    # 定义模型的前向计算，即如何根据输入x计算返回所需要的模型输出
+    def forward(self, x):
+        a = self.act(self.hidden(x))
+        return self.output(a)
+
+
+
+
+X = torch.rand(2, 784)
+net = MLP()
+print(net)
+net(X)
+```
+
+为什么会调用forward()呢，是因为Module中定义了`__call__()`函数，该函数调用了`forward()`函数，当执行`net(x)`的时候，会自动调用`__call__()函数`.

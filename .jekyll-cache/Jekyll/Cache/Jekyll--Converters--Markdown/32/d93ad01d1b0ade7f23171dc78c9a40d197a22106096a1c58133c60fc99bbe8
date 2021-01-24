@@ -1,0 +1,58 @@
+I"�<p><code class="language-plaintext highlighter-rouge">Module类</code>是<code class="language-plaintext highlighter-rouge">nn</code>模块里提供的一个模型构造类，是所有神经网络模块的基类，我们可以继承它来定义我们想要的模型。下面继承<code class="language-plaintext highlighter-rouge">Module类</code>构造本节开头提到的多层感知机。这里定义的<code class="language-plaintext highlighter-rouge">MLP类</code>重载了Module类的<code class="language-plaintext highlighter-rouge">__init__函数</code>和<code class="language-plaintext highlighter-rouge">forward函数</code>。它们分别用于创建模型参数和定义前向计算。前向计算也即正向传播。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+<span class="k">class</span> <span class="nc">MLP</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="c1"># 声明带有模型参数的层，这里声明了两个全连接层
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># 调用MLP父类Module的构造函数来进行必要的初始化。这样在构造实例时还可以指定其他函数
+</span>        <span class="c1"># 参数，如“模型参数的访问、初始化和共享”一节将介绍的模型参数params
+</span>        <span class="nb">super</span><span class="p">(</span><span class="n">MLP</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span> <span class="c1"># 隐藏层
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">act</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">output</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># 输出层
+</span>
+
+    <span class="c1"># 定义模型的前向计算，即如何根据输入x计算返回所需要的模型输出
+</span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">act</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">hidden</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">output</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+
+
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">784</span><span class="p">)</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">net</span><span class="p">)</span>
+<span class="n">net</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>为什么会调用forward()呢，是因为Module中定义了<code class="language-plaintext highlighter-rouge">__call__()</code>函数，该函数调用了<code class="language-plaintext highlighter-rouge">forward()</code>函数，当执行<code class="language-plaintext highlighter-rouge">net(x)</code>的时候，会自动调用<code class="language-plaintext highlighter-rouge">__call__()函数</code>.</p>
+:ET
