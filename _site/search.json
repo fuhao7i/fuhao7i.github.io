@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰5——torch 分布式训练(多GPU)注意事项",
+      "subtitle" : " &quot;深度学习, 分布式训练, 多GPU&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/01/27/sundry6/",
+      "date"     : "2021-01-27 01:37:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰5——torch 深度学习model()函数参数问题",
       "subtitle" : " &quot;深度学习, Model, forward(), 前向传播&quot;",
       "tags"     : "Dali杂货铺🐰",

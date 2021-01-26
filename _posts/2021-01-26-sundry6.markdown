@@ -1,0 +1,15 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰5——torch 分布式训练(多GPU)注意事项"
+subtitle:   " \"深度学习, 分布式训练, 多GPU\""
+date:       2021-01-26 17:37:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+# 1. 'SyncBN': nn.SyncBatchNorm
+
+`warning:` 当单块GPU训练torch模型时，如果程序内含有`SyncBN`会报错误: `AssertionError: Default process group is not initialized`
