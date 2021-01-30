@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Dali杂货铺🐰5——torch 分布式训练(多GPU)注意事项"
+title:      "Dali杂货铺🐰6——torch 分布式训练(多GPU)注意事项"
 subtitle:   " \"深度学习, 分布式训练, 多GPU\""
 date:       2021-01-26 17:37:00
 author:     "fuhao7i"

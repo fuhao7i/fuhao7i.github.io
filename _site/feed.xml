@@ -5,12 +5,12 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 26 Jan 2021 18:00:27 +0800</pubDate>
-    <lastBuildDate>Tue, 26 Jan 2021 18:00:27 +0800</lastBuildDate>
+    <pubDate>Sat, 30 Jan 2021 09:16:11 +0800</pubDate>
+    <lastBuildDate>Sat, 30 Jan 2021 09:16:11 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
-        <title>Dali杂货铺🐰5——torch 分布式训练(多GPU)注意事项</title>
+        <title>Dali杂货铺🐰6——torch 分布式训练(多GPU)注意事项</title>
         <description>&lt;h1 id=&quot;1-syncbn-nnsyncbatchnorm&quot;&gt;1. ‘SyncBN’: nn.SyncBatchNorm&lt;/h1&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;warning:&lt;/code&gt; 当单块GPU训练torch模型时，如果程序内含有&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SyncBN&lt;/code&gt;会报错误: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AssertionError: Default process group is not initialized&lt;/code&gt;&lt;/p&gt;
