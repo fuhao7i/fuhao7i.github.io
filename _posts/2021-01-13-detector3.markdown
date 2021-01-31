@@ -133,13 +133,3 @@ def batch_processor(model, data, train_mode, **kwargs):
 
     return outputs
 ```
-
-https://blog.csdn.net/wqwqqwqw1231/article/details/104439463
-https://blog.csdn.net/wqwqqwqw1231/article/details/104401529
-https://blog.csdn.net/wqwqqwqw1231/article/details/103091908
-https://blog.csdn.net/wqwqqwqw1231/article/details/102912888
-https://blog.csdn.net/wqwqqwqw1231/article/details/104439463
-https://blog.csdn.net/qq_41375609/article/details/102906700
-
-
-https://www.yuque.com/u487847/nz099s/uqg4cb

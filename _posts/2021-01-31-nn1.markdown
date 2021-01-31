@@ -1,0 +1,12 @@
+---
+layout:     post
+title:      "Neural Network🦖1——上采样Upsampling详解"
+subtitle:   " \"反卷积, 上采样\""
+date:       2021-01-31 18:43:00
+author:     "fuhao7i"
+header-img: "img/in-post/nn.jpg"
+catalog: true
+tags:
+    - Neural Network🦖
+---
+
