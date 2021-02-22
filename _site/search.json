@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Neural Network🦖2——优化器详解",
+      "subtitle" : " &quot;优化器的作用与实现原理&quot;",
+      "tags"     : "Neural Network🦖",
+      "url"      : "/2021/02/20/nn2/",
+      "date"     : "2021-02-20 22:17:00 +0800"
+    } ,
+  
+    {
       "title"    : "Neural Network🦖1——上采样Upsampling详解",
       "subtitle" : " &quot;反卷积, 上采样&quot;",
       "tags"     : "Neural Network🦖",

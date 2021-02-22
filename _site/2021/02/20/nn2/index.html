@@ -14,16 +14,26 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="About - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Neural Network🦖2——优化器详解 - fuhao7i的博客 | fuhao7i Blog">
     
-    <meta property="og:type" content="website">
-    <meta property="og:description" content="努力努力再努力FHLucky7i">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="
+">
+    
+    <meta property="article:published_time" content="2021-02-20T22:17:00Z">
+    
+    
+    <meta property="article:author" content="fuhao7i">
+    
+    
+    <meta property="article:tag" content="Neural Network🦖">
+    
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/about/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/02/20/nn2/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>About - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Neural Network🦖2——优化器详解 - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -32,13 +42,13 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/about/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/02/20/nn2/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/about-blog.css">
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
 
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
@@ -198,131 +208,164 @@
   </div>
 </div>
 
-    <!-- Page Header -->
+    <!-- Post Header -->
 
 
 
 
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/in-post/nn.jpg');
+        background: ;
+    }
 
+    
+</style>
 
+<header class="intro-header" >
 
-<header class="intro-header" style="background-image: url('/img/about-bg.jpg')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="site-heading">
-        
-          <h1>About</h1>
-          <span class="subheading">努力努力再努力FHLucky7i</span>
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=Neural+Network%F0%9F%A6%96" title="Neural Network🦖">Neural Network🦖</a>
+                        
+                    </div>
+                    <h1>Neural Network🦖2——优化器详解</h1>
+                    
+                    <h2 class="subheading"> "优化器的作用与实现原理"</h2>
+                    <span class="meta">Posted by fuhao7i on February 20, 2021</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
+
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
+                
+
+				
+
+                
+                <!--Donate start-->
+                <iframe src="/donate.html" style="overflow-x:hidden;overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;"  frameborder="0" scrolling="no"></iframe>
+                <!--donate end-->
+                
+                <link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+                <script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+
+
+                <div id="gitalk-container" style="margin: 30px;padding-bottom: 30px;"></div>
+                <script>
+                    var gitalk = new Gitalk({
+                        clientID: '1695c83228c471fa58d4',
+                        clientSecret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+                        repo: 'issues_fuhao7i',
+                        owner: 'fuhao7i',
+                        admin: ['fuhao7i'],
+                        id: location.pathname,      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
+
+                    })
+                    gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
+                </script>
+
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/02/01/nn1/" data-toggle="tooltip" data-placement="top" title="Neural Network🦖1——上采样Upsampling详解">
+                        Previous<br>
+                        <span>Neural Network🦖1——上采样Upsampling详解</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+
+                
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <!--不蒜子统计-->
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <link rel="stylesheet" href="/iconfont.css">
+                        <script src="/iconfont.js"></script>
+                        views
+                        <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-love"></use>
+                        </svg>
+                        <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+
+                        <br>
+                        <br>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                       
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            <style>
+            .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+            }
+            </style>
         
 
-<!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                postlist-container
-            ">
-    			                <!-- Language Selector -->
-                <select class="sel-lang" onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
-                    <option value="0" selected> 中文 | Chinese </option>
-                    <option value="1"> 英文 | English </option>
-                </select>
-
-
-
-<!-- Chinese Version -->
-<div class="zh post-container">
-    
-    <blockquote>
-  <p>百二秦关终属楚。</p>
-</blockquote>
-
-<p>Hi，我是fuhao7i，目前是一名大四学生，热衷于计算机视觉领域，特别喜欢“折腾”…</p>
-
-<h4 id="出没地点">出没地点🦕</h4>
-
-<ul>
-  <li><a href="https://space.bilibili.com/481802918">Bilibili</a></li>
-  <li><a href="https://blog.csdn.net/fuhao7i?spm=1001.2101.3001.5343">CSDN</a></li>
-</ul>
-
-<h4 id="小有成就">小有成就📖</h4>
-
-<ul>
-  <li><a href="https://space.bilibili.com/481802918">在IEEE某会议以第一作者发表论文并作演讲</a>·2020.07</li>
-</ul>
-
-<h5 id="演讲与分享">演讲与分享🐰</h5>
-
-<ul>
-  <li><a href="https://space.bilibili.com/481802918">Coming…</a></li>
-</ul>
-
-
-</div>
-
-<!-- English Version -->
-<div class="en post-container">
-    
-    <blockquote>
-  <p>Till death do us part.</p>
-</blockquote>
-
-<p>Hi, I’m Fuhao7i, currently a senior student in the field of computer vision, especially like “toss and turn”…</p>
-
-<h4 id="haunts">Haunts🦕</h4>
-
-<ul>
-  <li><a href="https://space.bilibili.com/481802918">Bilibili</a></li>
-  <li><a href="https://blog.csdn.net/fuhao7i?spm=1001.2101.3001.5343">CSDN</a></li>
-</ul>
-
-<h4 id="accomplishments">Accomplishments📖</h4>
-
-<ul>
-  <li><a href="https://space.bilibili.com/481802918">Present a paper and lecture as lead author at an IEEE conference</a>·2020.07</li>
-</ul>
-
-<h5 id="speaking-and-sharing">Speaking and Sharing🐰</h5>
-
-<ul>
-  <li><a href="https://space.bilibili.com/481802918">Coming…</a></li>
-</ul>
-
-
-</div>
-
-
-
-
-    		</div>
     <!-- Sidebar Container -->
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
 
 
 <section>
+    
+        <hr class="hidden-sm hidden-xs">
     
     <h5><a href="/archive/">FEATURED TAGS</a></h5>
     <div class="tags">
@@ -385,44 +428,6 @@
 </section>
 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-  <hr>
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-    
-    <img src="/img/github.jpg" />
-    
-    
-    <p>苦心人, 天不负<br>卧薪尝胆, 三千越甲可吞吴</p>
-    
-    <!-- SNS Link -->
-    
-
-
-<ul class="list-inline">
-
-
-  
-  
-  
-  
-  
-  
-  <li>
-    <a target="_blank" href="https://github.com/fuhao7i">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-</ul>
-  </div>
-</section>
-
                 <!-- Friends Blog -->
                 
 <hr>
@@ -435,10 +440,55 @@
   
 </ul>
 
-    		</div>
-        
-	</div>
-</div>
+            </div>
+        </div>
+    </div>
+
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
 
@@ -581,7 +631,7 @@
     function generateCatalog(selector) {
 
         // interop with multilangual 
-        if ('true' == 'true') {
+        if ('' == 'true') {
             _containerSelector = 'div.post-container.active'
         } else {
             _containerSelector = 'div.post-container'
@@ -638,58 +688,6 @@
 
 
 <!-- Multi-Lingual -->
-
-<!-- Handle Language Change -->
-<script type="text/javascript">
-    // get nodes
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    var $select = document.querySelector("select");
-
-    // Changes at v1.8.1: include lang flag as a url query. This interop well with catalog hash anchors.
-    function getLang() { return new URLSearchParams(document.location.search).get("lang") }
-
-    function setLang(newLang) {
-        var params = new URLSearchParams(document.location.search)
-        params.set("lang", newLang)
-        document.location.search = params.toString()  // refresh.
-    }
-
-    // handle render
-    function _render() {
-        var lang = getLang()
-        // en
-        if (lang == "en") {
-            $select.selectedIndex = 1;
-            $en.style.display = "block";
-            $en.classList.add("active");
-            $zh.style.display = "none";
-            $zh.classList.remove("active");
-            // default to zh-cn
-        } else {
-            $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $zh.classList.add("active");
-            $en.style.display = "none";
-            $en.classList.remove("active");
-        }
-        // interop with catalog 
-        generateCatalog(".catalog-body");
-    }
-
-    // handle select change
-    function onLanChange(index) {
-        if (index == 0) {
-            lang = "zh"
-        } else {
-            lang = "en"
-        }
-        setLang(lang)
-    }
-
-    // init
-    _render();
-</script>
 
 
 <!-- Simple Jekyll Search -->

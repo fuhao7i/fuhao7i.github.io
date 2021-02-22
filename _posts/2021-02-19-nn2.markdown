@@ -1,0 +1,12 @@
+---
+layout:     post
+title:      "Neural Network🦖2——优化器详解"
+subtitle:   " \"优化器的作用与实现原理\""
+date:       2021-02-20 14:17:00
+author:     "fuhao7i"
+header-img: "img/in-post/nn.jpg"
+catalog: true
+tags:
+    - Neural Network🦖
+---
+
