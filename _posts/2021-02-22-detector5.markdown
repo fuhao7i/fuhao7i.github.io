@@ -1,0 +1,63 @@
+---
+layout:     post
+title:      "哈哈哈目标检测🧸5——mmdetection v0.6 (SSD)网络搭建过程详解"
+subtitle:   " \"mmdetection v0.6, 结构详解\""
+date:       2021-02-22 10:11:00
+author:     "fuhao7i"
+header-img: "img/in-post/mubiaojiance.jpg"
+catalog: true
+tags:
+    - 哈哈哈目标检测🧸
+---
+
+> 以SSD网络为例, 从配置文件到backbone..., 探索整个网络的搭建过程.
+
+# 1. /configs/ssd512_coco.py
+
+```python
+...
+# 网络结构
+model = dict(
+    type='SingleStageDetector',
+    pretrained='open-mmlab://vgg16_caffe',
+    backbone=dict(
+        type='SSDVGG',
+        input_size=input_size,
+        depth=16,
+        with_last_pool=False,
+        ceil_mode=True,
+        out_indices=(3, 4),
+        out_feature_indices=(22, 34),
+        l2_norm_scale=20),
+    neck=None,
+    bbox_head=dict(
+        type='SSDHead',
+        input_size=input_size,
+        in_channels=(512, 1024, 512, 256, 256, 256, 256),
+        num_classes=81,
+        anchor_strides=(8, 16, 32, 64, 128, 256, 512),
+        basesize_ratio_range=(0.1, 0.9),
+        anchor_ratios=([2], [2, 3], [2, 3], [2, 3], [2, 3], [2], [2]),
+        target_means=(.0, .0, .0, .0),
+        target_stds=(0.1, 0.1, 0.2, 0.2)))
+
+...
+```
+
+网络的整体结构是`SingleStageDetector`, 由一个主干网络(backbone)和bbox_head组成。
+
+1. backbone: SSDVGG
+
+2. bbox_head: SSDHead
+
+# 2. mmdet/models/detectors/single_stage.py
+
+...
+
+# 3. mmdet/models/backbones/ssd_vgg.py
+
+...
+
+# 4. mmdet/models/anchor_heads/ssd_head.py
+
+...
