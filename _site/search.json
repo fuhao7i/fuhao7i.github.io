@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Neural Network🦖3——GAN",
+      "subtitle" : " &quot;GAN网络详解&quot;",
+      "tags"     : "Neural Network🦖",
+      "url"      : "/2021/02/26/nn3/",
+      "date"     : "2021-02-26 06:32:00 +0800"
+    } ,
+  
+    {
       "title"    : "哈哈哈目标检测🧸5——mmdetection v0.6 (SSD)网络搭建过程详解",
       "subtitle" : " &quot;mmdetection v0.6, 结构详解&quot;",
       "tags"     : "哈哈哈目标检测🧸",
@@ -161,7 +169,7 @@
     } ,
   
     {
-      "title"    : "阿菊的OpenCv11——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)",
+      "title"    : "阿菊的OpenCv1——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)",
       "subtitle" : " &quot;Opencv, plt, cv2.split, cv2.merge&quot;",
       "tags"     : "阿菊的OpenCv",
       "url"      : "/2020/12/20/AJuOpenCv11/",

@@ -5,9 +5,36 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 22 Feb 2021 13:22:01 +0800</pubDate>
-    <lastBuildDate>Mon, 22 Feb 2021 13:22:01 +0800</lastBuildDate>
+    <pubDate>Fri, 26 Feb 2021 00:20:31 +0800</pubDate>
+    <lastBuildDate>Fri, 26 Feb 2021 00:20:31 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Neural Network🦖3——GAN</title>
+        <description>&lt;h1 id=&quot;1-核心g--d&quot;&gt;1. 核心：G &amp;amp; D&lt;/h1&gt;
+
+&lt;p&gt;G：Generator 生成器网络。
+D：Discriminator 判别器网络。&lt;/p&gt;
+
+&lt;h1 id=&quot;2-训练方法&quot;&gt;2. 训练方法&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;训练D的时候，就是将真图像和生成的图像（假图像）输入到D，进行一个二分类（真和假的判定）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;训练G的时候，需要把G和D看成一个整体。输出仍然是一个score，随机向量Z传入G生成图像之后传入D，之后生成score。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;这里D是不可以训练的！&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Fri, 26 Feb 2021 06:32:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/02/26/nn3/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/02/26/nn3/</guid>
+        
+        <category>Neural Network🦖</category>
+        
+        
+      </item>
     
       <item>
         <title>哈哈哈目标检测🧸5——mmdetection v0.6 (SSD)网络搭建过程详解</title>
@@ -1361,42 +1388,6 @@ sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda #生成新的软链接
         <pubDate>Mon, 18 Jan 2021 02:48:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/01/18/sundry2/</link>
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/18/sundry2/</guid>
-        
-        <category>Dali杂货铺🐰</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰1——__init__.py文件的作用</title>
-        <description>&lt;h1 id=&quot;1-标志该文件夹为python的包module-package&quot;&gt;1. 标志该文件夹为python的包(module package)&lt;/h1&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__init__.py&lt;/code&gt;在文件夹下，可以使该文件夹变为一个python包。也就是可以使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;import ${filename}&lt;/code&gt;导入。&lt;/p&gt;
-
-&lt;h1 id=&quot;2-自动运行&quot;&gt;2. 自动运行&lt;/h1&gt;
-
-&lt;p&gt;在导入python包时，会自动执行该包下的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__init__.py&lt;/code&gt;文件。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__init__.py&lt;/code&gt;文件也可以为空。&lt;/p&gt;
-
-&lt;h1 id=&quot;3-_all_------&quot;&gt;3. _&lt;em&gt;all_&lt;/em&gt; = [    ]&lt;/h1&gt;
-
-&lt;p&gt;我们在导入包时，经常会用到全部导入。即:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;这时我们就需要借助&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__all__&lt;/code&gt;来实现。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__all__&lt;/code&gt;关联的是一个模块列表。当我们执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;from package import *&lt;/code&gt;时，import就会把注册在包 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__init__.py&lt;/code&gt; 文件中&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__all__&lt;/code&gt;列表中的所有子模块和子包导入到当前作用域。&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;__all__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;subPackage_1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;subPackage_2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-</description>
-        <pubDate>Mon, 18 Jan 2021 00:57:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/01/18/sundry1/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/18/sundry1/</guid>
         
         <category>Dali杂货铺🐰</category>
         

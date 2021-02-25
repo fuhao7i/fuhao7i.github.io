@@ -1,0 +1,22 @@
+---
+layout:     post
+title:      "Neural Network🦖3——GAN"
+subtitle:   " \"GAN网络详解\""
+date:       2021-02-25 22:32:00
+author:     "fuhao7i"
+header-img: "img/in-post/nn.jpg"
+catalog: true
+tags:
+    - Neural Network🦖
+---
+
+# 1. 核心：G & D
+
+G：Generator 生成器网络。
+D：Discriminator 判别器网络。
+
+# 2. 训练方法
+
+1. 训练D的时候，就是将真图像和生成的图像（假图像）输入到D，进行一个二分类（真和假的判定）
+
+2. 训练G的时候，需要把G和D看成一个整体。输出仍然是一个score，随机向量Z传入G生成图像之后传入D，之后生成score。`这里D是不可以训练的！`

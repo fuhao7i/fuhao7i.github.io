@@ -14,34 +14,26 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Word📖 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Neural Network🦖3——GAN - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="
-  2020.12.29
-  
-    - [x] enhance vt. 提高；加强；增加
-    - [ ] imagery n. 像；意象；比喻；形象化
-    = [ ] generative adj. 生殖的；生产的；有生殖力的；有生产力的
-    - [ ] adversarial adj. 对抗的；对手的，敌手的
-  
-
+    <meta property="og:description" content="1. 核心：G &amp; D
 ">
     
-    <meta property="article:published_time" content="2020-12-30T01:04:00Z">
+    <meta property="article:published_time" content="2021-02-26T06:32:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="Word📖">
+    <meta property="article:tag" content="Neural Network🦖">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2020/12/30/Word/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/02/26/nn3/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Word📖 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Neural Network🦖3——GAN - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -50,7 +42,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2020/12/30/Word/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/02/26/nn3/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -226,7 +218,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/word.jpg');
+        background-image: url('/img/in-post/nn.jpg');
         background: ;
     }
 
@@ -243,13 +235,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=Word%F0%9F%93%96" title="Word📖">Word📖</a>
+                        <a class="tag" href="/archive/?tag=Neural+Network%F0%9F%A6%96" title="Neural Network🦖">Neural Network🦖</a>
                         
                     </div>
-                    <h1>Word📖</h1>
+                    <h1>Neural Network🦖3——GAN</h1>
                     
-                    <h2 class="subheading"> "还是有很多单词需要学习啊"</h2>
-                    <span class="meta">Posted by fuhao7i on December 30, 2020</span>
+                    <h2 class="subheading"> "GAN网络详解"</h2>
+                    <span class="meta">Posted by fuhao7i on February 26, 2021</span>
                 </div>
             </div>
         </div>
@@ -275,15 +267,21 @@
                 <!-- Multi-Lingual -->
                 
 
-				<details>
-  <summary>2020.12.29</summary>
-  <pre><code>
-    - [x] enhance vt. 提高；加强；增加
-    - [ ] imagery n. 像；意象；比喻；形象化
-    = [ ] generative adj. 生殖的；生产的；有生殖力的；有生产力的
-    - [ ] adversarial adj. 对抗的；对手的，敌手的
-  </code></pre>
-</details>
+				<h1 id="1-核心g--d">1. 核心：G &amp; D</h1>
+
+<p>G：Generator 生成器网络。
+D：Discriminator 判别器网络。</p>
+
+<h1 id="2-训练方法">2. 训练方法</h1>
+
+<ol>
+  <li>
+    <p>训练D的时候，就是将真图像和生成的图像（假图像）输入到D，进行一个二分类（真和假的判定）</p>
+  </li>
+  <li>
+    <p>训练G的时候，需要把G和D看成一个整体。输出仍然是一个score，随机向量Z传入G生成图像之后传入D，之后生成score。<code class="language-plaintext highlighter-rouge">这里D是不可以训练的！</code></p>
+  </li>
+</ol>
 
                 
                 <!--Donate start-->
@@ -314,19 +312,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2020/12/22/xiaoju1/" data-toggle="tooltip" data-placement="top" title="小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集">
+                        <a href="/2021/02/22/detector5/" data-toggle="tooltip" data-placement="top" title="哈哈哈目标检测🧸5——mmdetection v0.6 (SSD)网络搭建过程详解">
                         Previous<br>
-                        <span>小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集</span>
+                        <span>哈哈哈目标检测🧸5——mmdetection v0.6 (SSD)网络搭建过程详解</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/01/10/detector1/" data-toggle="tooltip" data-placement="top" title="哈哈哈目标检测🧸1——mmdetection环境配置">
-                        Next<br>
-                        <span>哈哈哈目标检测🧸1——mmdetection环境配置</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
