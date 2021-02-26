@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Feb 2021 00:20:31 +0800</pubDate>
-    <lastBuildDate>Fri, 26 Feb 2021 00:20:31 +0800</lastBuildDate>
+    <pubDate>Sat, 27 Feb 2021 00:29:04 +0800</pubDate>
+    <lastBuildDate>Sat, 27 Feb 2021 00:29:04 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -26,6 +26,20 @@ D：Discriminator 判别器网络。&lt;/p&gt;
     &lt;p&gt;训练G的时候，需要把G和D看成一个整体。输出仍然是一个score，随机向量Z传入G生成图像之后传入D，之后生成score。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;这里D是不可以训练的！&lt;/code&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h1 id=&quot;3-疑问&quot;&gt;3. 疑问&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;1. losses = self(**data)
+
+会调用forward_train()方法。
+
+2. mmdetection/mmdet/models/detectors/base.py
+
+train_step()方法在此文件中。
+
+3. https://www.zhihu.com/column/c_1270382879478755328系列讲解不错
+
+&lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Fri, 26 Feb 2021 06:32:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/02/26/nn3/</link>

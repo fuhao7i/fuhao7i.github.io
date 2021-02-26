@@ -20,3 +20,18 @@ D：Discriminator 判别器网络。
 1. 训练D的时候，就是将真图像和生成的图像（假图像）输入到D，进行一个二分类（真和假的判定）
 
 2. 训练G的时候，需要把G和D看成一个整体。输出仍然是一个score，随机向量Z传入G生成图像之后传入D，之后生成score。`这里D是不可以训练的！`
+
+# 3. 疑问
+
+```Bash
+1. losses = self(**data)
+
+会调用forward_train()方法。
+
+2. mmdetection/mmdet/models/detectors/base.py
+
+train_step()方法在此文件中。
+
+3. https://www.zhihu.com/column/c_1270382879478755328系列讲解不错
+
+```
