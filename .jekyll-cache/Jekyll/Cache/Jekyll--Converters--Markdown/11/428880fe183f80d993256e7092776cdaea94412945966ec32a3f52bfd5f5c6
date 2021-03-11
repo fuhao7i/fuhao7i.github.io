@@ -1,0 +1,34 @@
+I"�<h1 id="1-核心g--d">1. 核心：G &amp; D</h1>
+
+<p>G：Generator 生成器网络。
+D：Discriminator 判别器网络。</p>
+
+<h1 id="2-训练方法">2. 训练方法</h1>
+
+<ol>
+  <li>
+    <p>训练D的时候，就是将真图像和生成的图像（假图像）输入到D，进行一个二分类（真和假的判定）</p>
+  </li>
+  <li>
+    <p>训练G的时候，需要把G和D看成一个整体。输出仍然是一个score，随机向量Z传入G生成图像之后传入D，之后生成score。<code class="language-plaintext highlighter-rouge">这里D是不可以训练的！</code></p>
+  </li>
+</ol>
+
+<h1 id="3-疑问">3. 疑问</h1>
+
+<pre><code class="language-Bash">1. losses = self(**data)
+
+会调用forward_train()方法。
+
+2. mmdetection/mmdet/models/detectors/base.py
+
+train_step()方法在此文件中。
+
+3. https://www.zhihu.com/column/c_1270382879478755328系列讲解不错
+
+4. mmdetection优化器调用位置
+
+mmcv/runner/hooks/optimizer.py
+
+</code></pre>
+:ET

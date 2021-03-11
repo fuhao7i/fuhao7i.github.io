@@ -34,4 +34,8 @@ train_step()方法在此文件中。
 
 3. https://www.zhihu.com/column/c_1270382879478755328系列讲解不错
 
+4. mmdetection优化器调用位置
+
+mmcv/runner/hooks/optimizer.py
+
 ```

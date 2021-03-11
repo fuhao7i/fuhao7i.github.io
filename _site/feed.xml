@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 27 Feb 2021 14:02:21 +0800</pubDate>
-    <lastBuildDate>Sat, 27 Feb 2021 14:02:21 +0800</lastBuildDate>
+    <pubDate>Thu, 11 Mar 2021 11:53:50 +0800</pubDate>
+    <lastBuildDate>Thu, 11 Mar 2021 11:53:50 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -38,6 +38,10 @@ D：Discriminator 判别器网络。&lt;/p&gt;
 train_step()方法在此文件中。
 
 3. https://www.zhihu.com/column/c_1270382879478755328系列讲解不错
+
+4. mmdetection优化器调用位置
+
+mmcv/runner/hooks/optimizer.py
 
 &lt;/code&gt;&lt;/pre&gt;
 </description>
