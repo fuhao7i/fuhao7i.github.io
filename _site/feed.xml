@@ -5,9 +5,69 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 11 Mar 2021 11:53:50 +0800</pubDate>
-    <lastBuildDate>Thu, 11 Mar 2021 11:53:50 +0800</lastBuildDate>
+    <pubDate>Thu, 11 Mar 2021 16:11:44 +0800</pubDate>
+    <lastBuildDate>Thu, 11 Mar 2021 16:11:44 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Neural Network🦖4——损失，梯度的计算与反向传播</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;现代神经网络是一种非线性统计性数据建模工具。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;1-为什么需要激活函数&quot;&gt;1. 为什么需要激活函数？&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;激活函数可以给模型引入非线性的因素。&lt;/li&gt;
+  &lt;li&gt;假若网络中全部是线性部件，那么线性的组合还是线性，与单独一个线性分类器无异。这样就做不到用非线性来逼近任意函数。&lt;/li&gt;
+  &lt;li&gt;使用非线性激活函数 ，以便使网络更加强大，增加它的能力，使它可以学习复杂的事物。使用非线性激活函数，能够从输入输出之间生成非线性映射。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;2-损失函数的确定与损失计算&quot;&gt;2. 损失函数的确定与损失计算&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;确定一个能表述label和预测值之间误差值的损失函数，然后尽可能的通过更新权重w来优化这个损失函数，以达到提高预测准确率的目的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;3-梯度&quot;&gt;3. 梯度&lt;/h1&gt;
+
+&lt;p&gt;所谓梯度其实就是一个偏导数向量，但是我们经常说的仍是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x的梯度&lt;/code&gt;而不是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x的偏导数（就是对x求偏导）&lt;/code&gt;。利用网络中所有运算都是可微(differentiable)的这一事实，计算损失相对于网络系数的梯度(gradient)，然后向梯度的反方向改变系数，从而使损失降低。&lt;/p&gt;
+
+&lt;h1 id=&quot;4-反向传播&quot;&gt;4. 反向传播&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;作用：对损失函数优化，将损失值降到最低.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;反向传播算法就是梯度下降的求导链式法则的应用。&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;简单的说，就是损失函数E对每一个权重参数wi求导，然后用这个求得的导数去更新wi自身，因为在神经网络的隐藏层和输出层中存在不止一个层次的权重wi，所以需要从输出层开始向前一层一层的求导，这就是为什么叫做反向传播的原因。&lt;/p&gt;
+
+&lt;p&gt;以w10为例，要更新w10，需要先求得E对w10的导数。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/2021031114493974.gif&quot; /&gt;
+&lt;img src=&quot;https://img-blog.csdnimg.cn/2021031114493976.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;反向传播中，每一次迭代进行一次全体权重参数更新，直到参数不再更新，即得到全局最小值或局部最小值。&lt;/p&gt;
+
+&lt;h2 id=&quot;什么时候进行反向传播&quot;&gt;什么时候进行反向传播？&lt;/h2&gt;
+
+&lt;p&gt;一般是一个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;batch_size&lt;/code&gt;，一个batch算一次，可以让参数向着更加“正确”的方向前进，减少随机梯度下降带来的单样本随机抖动。&lt;/p&gt;
+
+&lt;h1 id=&quot;-引用&quot;&gt;#. 引用:&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/77858847d6f7&quot;&gt;梯度下降与反向传播讲解&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Thu, 11 Mar 2021 22:13:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/03/11/nn4/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/11/nn4/</guid>
+        
+        <category>Neural Network🦖</category>
+        
+        
+      </item>
     
       <item>
         <title>Neural Network🦖3——GAN</title>
@@ -1383,29 +1443,6 @@ sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda #生成新的软链接
         <pubDate>Wed, 20 Jan 2021 19:49:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/01/20/sundry3/</link>
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/20/sundry3/</guid>
-        
-        <category>Dali杂货铺🐰</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰2——super()函数解决多重继承问题</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;super() 函数是用于调用父类(超类)的一个方法。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;super() 是用来解决多重继承问题的，直接用类名调用父类方法在使用单继承的时候没问题，但是如果使用多继承，会涉及到查找顺序（MRO）、重复调用（钻石继承）等种种问题。&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;类方法&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Python3.x 和 Python2.x 的一个区别是: Python 3 可以使用直接使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;super().xxx&lt;/code&gt; 代替 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;super(Class, self).xxx&lt;/code&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 18 Jan 2021 02:48:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/01/18/sundry2/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/18/sundry2/</guid>
         
         <category>Dali杂货铺🐰</category>
         
