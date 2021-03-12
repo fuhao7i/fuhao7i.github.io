@@ -308,6 +308,12 @@
 
 <p>反向传播中，每一次迭代进行一次全体权重参数更新，直到参数不再更新，即得到全局最小值或局部最小值。</p>
 
+<p>更新网络参数时，主要使用以下简单的更新规则:</p>
+
+<blockquote>
+  <p>weight = weight - learning_rate * gradient</p>
+</blockquote>
+
 <h2 id="什么时候进行反向传播">什么时候进行反向传播？</h2>
 
 <p>一般是一个<code class="language-plaintext highlighter-rouge">batch_size</code>，一个batch算一次，可以让参数向着更加“正确”的方向前进，减少随机梯度下降带来的单样本随机抖动。</p>

@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 11 Mar 2021 16:11:44 +0800</pubDate>
-    <lastBuildDate>Thu, 11 Mar 2021 16:11:44 +0800</lastBuildDate>
+    <pubDate>Fri, 12 Mar 2021 12:57:16 +0800</pubDate>
+    <lastBuildDate>Fri, 12 Mar 2021 12:57:16 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -49,6 +49,12 @@
 &lt;img src=&quot;https://img-blog.csdnimg.cn/2021031114493976.gif&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;反向传播中，每一次迭代进行一次全体权重参数更新，直到参数不再更新，即得到全局最小值或局部最小值。&lt;/p&gt;
+
+&lt;p&gt;更新网络参数时，主要使用以下简单的更新规则:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;weight = weight - learning_rate * gradient&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;什么时候进行反向传播&quot;&gt;什么时候进行反向传播？&lt;/h2&gt;
 
