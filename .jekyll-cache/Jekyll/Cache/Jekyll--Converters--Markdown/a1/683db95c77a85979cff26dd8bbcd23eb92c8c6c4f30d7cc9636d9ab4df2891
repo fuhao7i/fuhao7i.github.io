@@ -1,0 +1,122 @@
+I"�<blockquote>
+  <p>像这种一个文件夹代表一类的数据集，我们可以将它的文件名读取出来，按照{ 文件名;类别 }的格式将它们保存到train.txt文件中以供我们使用；</p>
+</blockquote>
+
+<p>这里我们先从ImageNet数据集每个类别中随机抽取30%来作为训练集，剩下的70%以后再用。</p>
+
+<p><code class="language-plaintext highlighter-rouge">to_train_txt.py</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">os</span><span class="p">,</span> <span class="n">random</span>
+
+<span class="n">_label</span> <span class="o">=</span> <span class="p">{</span><span class="s">'n01924916'</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s">'n01943899'</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s">'n01950731'</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s">'n01968897'</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s">'n02317335'</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s">'n02319095'</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s">'n02321529'</span><span class="p">:</span><span class="mi">6</span><span class="p">}</span>
+
+<span class="n">train_path</span> <span class="o">=</span> <span class="s">'./train/'</span>
+
+<span class="n">pathDir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">train_path</span><span class="p">)</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'./train_3.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span>
+<span class="n">ff</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'./train_7.txt'</span><span class="p">,</span> <span class="s">'w'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">pathDir</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ii</span> <span class="o">!=</span> <span class="s">'.DS_Store'</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">_label</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        
+        <span class="n">rate</span> <span class="o">=</span> <span class="mf">0.3</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">train_path</span> <span class="o">+</span> <span class="n">ii</span><span class="p">)</span>
+        <span class="n">filenumber</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">picknumber</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">filenumber</span> <span class="o">*</span> <span class="n">rate</span><span class="p">)</span>
+
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">sample</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">picknumber</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">sample</span><span class="p">:</span>
+                <span class="n">f</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">ob</span> <span class="o">+</span> <span class="s">';'</span> <span class="o">+</span> <span class="n">label</span> <span class="o">+</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ff</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">ob</span> <span class="o">+</span> <span class="s">';'</span> <span class="o">+</span> <span class="n">label</span> <span class="o">+</span> <span class="s">'</span><span class="se">\n</span><span class="s">'</span><span class="p">)</span>
+
+
+<span class="n">f</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">ff</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">部分train_3.txt展示:</code></p>
+
+<pre><code class="language-Bash">...
+
+n02319095/n02319095_350.JPEG;5
+n02319095/n02319095_3527.JPEG;5
+n02319095/n02319095_10100.JPEG;5
+n02319095/n02319095_583.JPEG;5
+n02319095/n02319095_1263.JPEG;5
+n02319095/n02319095_8412.JPEG;5
+n02319095/n02319095_7026.JPEG;5
+n02319095/n02319095_2398.JPEG;5
+n02319095/n02319095_7030.JPEG;5
+n02319095/n02319095_487.JPEG;5
+n02319095/n02319095_6733.JPEG;5
+n02319095/n02319095_1019.JPEG;5
+n02319095/n02319095_8238.JPEG;5
+n02319095/n02319095_4077.JPEG;5
+n02319095/n02319095_4630.JPEG;5
+n02319095/n02319095_444.JPEG;5
+n02319095/n02319095_1936.JPEG;5
+n02319095/n02319095_2025.JPEG;5
+n02319095/n02319095_956.JPEG;5
+n02319095/n02319095_3272.JPEG;5
+
+...
+
+</code></pre>
+
+<h2 id="randomsample函数用法">random.sample()函数用法</h2>
+
+<p>用于截取列表的指定长度的随机数，不会改变原列表；</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rs</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+<span class="c1"># [2, 4] 
+# [0, 1, 2, 3, 4]        
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+:ET

@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali工具箱🔧2——数据集准备 transform to train.txt",
+      "subtitle" : " &quot;ImageNet数据集准备, 同一文件夹为一类&quot;",
+      "tags"     : "Dali工具箱🔧",
+      "url"      : "/2021/03/12/dalitools2/",
+      "date"     : "2021-03-12 22:15:00 +0800"
+    } ,
+  
+    {
       "title"    : "Neural Network🦖4——损失，梯度的计算与反向传播",
       "subtitle" : " &quot;神经网络优化，损失函数&quot;",
       "tags"     : "Neural Network🦖",

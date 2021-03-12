@@ -1,0 +1,95 @@
+---
+layout:     post
+title:      "Dali工具箱🔧2——数据集准备 transform to train.txt"
+subtitle:   " \"ImageNet数据集准备, 同一文件夹为一类\""
+date:       2021-03-12 14:15:00
+author:     "fuhao7i"
+header-img: "img/in-post/tools.jpg"
+catalog: true
+tags:
+    - Dali工具箱🔧
+---
+
+> 像这种一个文件夹代表一类的数据集，我们可以将它的文件名读取出来，按照{ 文件名;类别 }的格式将它们保存到train.txt文件中以供我们使用；
+
+这里我们先从ImageNet数据集每个类别中随机抽取30%来作为训练集，剩下的70%以后再用。
+
+`to_train_txt.py`
+
+```python
+import os, random
+
+_label = {'n01924916':0, 'n01943899':1, 'n01950731':2, 'n01968897':3, 'n02317335':4, 'n02319095':5, 'n02321529':6}
+
+train_path = './train/'
+
+pathDir = os.listdir(train_path)
+
+f = open('./train_3.txt', 'w')
+ff = open('./train_7.txt', 'w')
+
+for ii in pathDir:
+    if ii != '.DS_Store':
+        label = str(_label[ii])
+        
+        rate = 0.3
+        filename = os.listdir(train_path + ii)
+        filenumber = len(filename)
+        picknumber = int(filenumber * rate)
+
+        sample = random.sample(filename, picknumber)
+
+        for ob in filename:
+            if ob in sample:
+                f.write(ii + '/' + ob + ';' + label + '\n')
+            else:
+                ff.write(ii + '/' + ob + ';' + label + '\n')
+
+
+f.close()
+ff.close()
+```
+
+`部分train_3.txt展示:`
+
+```Bash
+...
+
+n02319095/n02319095_350.JPEG;5
+n02319095/n02319095_3527.JPEG;5
+n02319095/n02319095_10100.JPEG;5
+n02319095/n02319095_583.JPEG;5
+n02319095/n02319095_1263.JPEG;5
+n02319095/n02319095_8412.JPEG;5
+n02319095/n02319095_7026.JPEG;5
+n02319095/n02319095_2398.JPEG;5
+n02319095/n02319095_7030.JPEG;5
+n02319095/n02319095_487.JPEG;5
+n02319095/n02319095_6733.JPEG;5
+n02319095/n02319095_1019.JPEG;5
+n02319095/n02319095_8238.JPEG;5
+n02319095/n02319095_4077.JPEG;5
+n02319095/n02319095_4630.JPEG;5
+n02319095/n02319095_444.JPEG;5
+n02319095/n02319095_1936.JPEG;5
+n02319095/n02319095_2025.JPEG;5
+n02319095/n02319095_956.JPEG;5
+n02319095/n02319095_3272.JPEG;5
+
+...
+```
+
+## random.sample()函数用法
+
+用于随机截取指定长度的列表，不会改变原列表；
+
+```python
+list = [0,1,2,3,4]
+rs = random.sample(list, 2)
+print(rs)
+print(list)
+
+# [2, 4] 
+# [0, 1, 2, 3, 4]        
+```
+
