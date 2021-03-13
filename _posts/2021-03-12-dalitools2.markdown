@@ -1,7 +1,7 @@
 ---
 layout:     post
-title:      "Dali工具箱🔧2——数据集准备 transform to train.txt"
-subtitle:   " \"ImageNet数据集准备, 同一文件夹为一类\""
+title:      "Dali工具箱🔧2——Torch 数据集准备 Pipline"
+subtitle:   " \"transform to train.txt, Dataset, DataLoader, 预处理\""
 date:       2021-03-12 14:15:00
 author:     "fuhao7i"
 header-img: "img/in-post/tools.jpg"
@@ -10,7 +10,13 @@ tags:
     - Dali工具箱🔧
 ---
 
-> 像这种一个文件夹代表一类的数据集，我们可以将它的文件名读取出来，按照{ 文件名;类别 }的格式将它们保存到train.txt文件中以供我们使用；
+# 0. 生成train.txt
+
+> 像一个文件夹代表一类的数据集，我们可以将它的文件名读取出来，按照{ 文件名;类别 }的格式将它们保存到train.txt文件中以供我们使用；同理，对于语义分割或目标检测的数据集，我们按照 { img;label } 的格式保存到train.txt文件中。
+
+`文件目录:`
+
+<img src="https://img-blog.csdnimg.cn/20210313143137962.png">
 
 这里我们先从ImageNet数据集每个类别中随机抽取30%来作为训练集，剩下的70%以后再用。
 
@@ -92,4 +98,127 @@ print(list)
 # [2, 4] 
 # [0, 1, 2, 3, 4]        
 ```
+**PyTorch输入数据Pipline：**
 
+1. 创建一个`Dataset`对象;
+2. 创建一个`DataLoader`对象;
+3. 循环这个`DataLoader`对象，将`img`和`label`加载到模型中进行训练;
+
+# 1. 创建Dataset对象
+
+创建的时候需继承`from torch.utils.data.dataset import Dataset`类。
+
+**Dataset中主要有3个方法:**
+
+1. __init__: 初始化信息，包括训练数据和标签的路径, transform信息等;
+2. __getitem__: 在这个方法里根据传入的下标返回label和transform之后的图片tensor;
+3. __len__: 返回Dataset的长度;
+
+```python
+from PIL import Image
+import torch
+import torchvision.transforms as transforms
+from torch.utils.data import Dataset
+
+
+class MyDataset(Dataset):  # 创类：MyDataset,继承torch.utils.data.Dataset
+    def __init__(self, datatxt, transform=None):
+        super(MyDataset, self).__init__()
+        fh = open(datatxt, 'r')  # 打开txt，读取内容
+        data = []
+        for line in fh:  # 按行循环txt文本中的内容
+            words = line.split(';')  # 通过指定分隔符对字符串进行切片
+            data.append((words[0], int(words[1])))  # 把txt里的内容读入data列表保存，words[0]是图片信息，words[1]是label
+
+        self.data = data
+        self.transform = transform
+
+    def __getitem__(self, index):  # 按照索引读取每个元素的具体内容
+        fn, label = self.data[index]  # fn是图片path
+        img = Image.open(fn).convert('RGB')  # from PIL import Image
+
+        if self.transform is not None:  # 是否进行transform
+            img = self.transform(img)
+        return img, label  # return回哪些内容，在训练时循环读取每个batch，就能获得哪些内容
+
+    def __len__(self):  # 它返回的是数据集的长度，必须有
+        return len(self.imgs)
+
+
+'''标准化、图片变换'''
+train_transforms = transforms.Compose([
+    transforms.RandomCrop(224),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor()
+    ])
+
+train_data = MyDataset(datatxt='train.txt', transform=train_transforms)
+
+train_loader = torch.utils.data.DataLoader(dataset=train_data, batch_size=64, shuffle=True)
+
+""" 训练时:"""
+for epoch in range(num_epoches):
+    for i, (img, label) in enumerate(dataloader):
+        ...
+```
+
+## transform各参数的作用：
+
+```Bash
+1. 裁剪——Crop
+
+中心裁剪：transforms.CenterCrop
+随机裁剪：transforms.RandomCrop
+随机长宽比裁剪：transforms.RandomResizedCrop
+上下左右中心裁剪：transforms.FiveCrop
+上下左右中心裁剪后翻转，transforms.TenCrop
+
+2. 翻转和旋转——Flip and Rotation
+
+依概率p水平翻转：transforms.RandomHorizontalFlip(p=0.5)
+依概率p垂直翻转：transforms.RandomVerticalFlip(p=0.5)
+随机旋转：transforms.RandomRotation
+
+3. 图像变换
+
+resize：transforms.Resize
+标准化：transforms.Normalize
+转为tensor，并归一化至[0-1]：transforms.ToTensor
+填充：transforms.Pad
+修改亮度、对比度和饱和度：transforms.ColorJitter
+转灰度图：transforms.Grayscale
+线性变换：transforms.LinearTransformation()
+仿射变换：transforms.RandomAffine
+依概率p转为灰度图：transforms.RandomGrayscale
+将数据转换为PILImage：transforms.ToPILImage
+transforms.Lambda：Apply a user-defined lambda as a transform.
+
+4. 对transforms操作，使数据增强更灵活
+
+transforms.RandomChoice(transforms)， 从给定的一系列transforms中选一个进行操作
+transforms.RandomApply(transforms, p=0.5)，给一个transform加上概率，依概率进行操作
+transforms.RandomOrder，将transforms中的操作随机打乱
+
+```
+
+# 2. 创建DataLoader对象
+
+`DataLoader: `将自定义的Dataset根据batch size大小、是否shuffle等封装成一个Batch Size大小的Tensor，用于后面的训练。
+
+```python
+from torch.utils.data import Dataset, DataLoader
+
+train_loader = DataLoader(dataset=train_data, batch_size=64, shuffle=True)
+```
+
+# 3. 循环DataLoader进行训练
+
+```python
+for epoch in range(num_epoches):
+    for i, (img, label) in enumerate(dataloader):
+        ...
+```
+
+# #.引用
+
+1. [PyTorch 学习笔记（三）：transforms的二十二个方法](https://blog.csdn.net/u011995719/article/details/85107009)
