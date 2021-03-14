@@ -1,0 +1,23 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰7——Python 字典操作详解"
+subtitle:   " \"dict...\""
+date:       2021-03-14 21:00:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+# 1. update()方法
+
+```python 
+a = {'one': 1, 'two': 2, 'three': 3}
+a.update({'one':4.5, 'four': 9.3})
+print(a)
+```
+`输出:`
+```Bash
+{'one': 4.5, 'two': 2, 'three': 3, 'four': 9.3}
+```

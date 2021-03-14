@@ -1,0 +1,13 @@
+I"<h1 id="1-update方法">1. update()方法</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="s">'one'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'two'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'three'</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">a</span><span class="p">.</span><span class="n">update</span><span class="p">({</span><span class="s">'one'</span><span class="p">:</span><span class="mf">4.5</span><span class="p">,</span> <span class="s">'four'</span><span class="p">:</span> <span class="mf">9.3</span><span class="p">})</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">输出:</code></p>
+<pre><code class="language-Bash">{'one': 4.5, 'two': 2, 'three': 3, 'four': 9.3}
+</code></pre>
+:ET

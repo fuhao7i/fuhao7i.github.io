@@ -1,16 +1,16 @@
 [
   
     {
-      "title"    : "Dali工具箱🔧2——torch 训练自己的分类网络",
-      "subtitle" : " &quot;从数据集准备到模型训练全过程&quot;",
-      "tags"     : "Dali工具箱🔧",
-      "url"      : "/2021/03/13/dalitools3/",
-      "date"     : "2021-03-13 21:41:00 +0800"
+      "title"    : "Dali杂货铺🐰7——Python 字典操作详解",
+      "subtitle" : " &quot;dict...&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/03/15/sundry7/",
+      "date"     : "2021-03-15 05:00:00 +0800"
     } ,
   
     {
-      "title"    : "Dali工具箱🔧2——数据集准备 Pipline",
-      "subtitle" : " &quot;transform to train.txt, Dataset, DataLoader&quot;",
+      "title"    : "Dali工具箱🔧2——Torch 数据集准备 Pipline",
+      "subtitle" : " &quot;transform to train.txt, Dataset, DataLoader, 预处理&quot;",
       "tags"     : "Dali工具箱🔧",
       "url"      : "/2021/03/12/dalitools2/",
       "date"     : "2021-03-12 22:15:00 +0800"
