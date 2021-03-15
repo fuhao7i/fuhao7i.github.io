@@ -1,0 +1,18 @@
+I"�<h1 id="1-保存模型">1. 保存模型</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">(),</span><span class="s">"./Double.pth"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="2-加载训练好的模型">2. 加载训练好的模型</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c1"># 创建模型
+</span><span class="n">model</span><span class="o">=</span><span class="n">Net</span><span class="p">()</span>
+<span class="c1"># 加载预训练模型的参数
+</span><span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"./Double.pth"</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

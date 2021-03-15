@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰8——PyTorch 保存和加载训练好的模型",
+      "subtitle" : " &quot;save, load&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/03/16/sundry8/",
+      "date"     : "2021-03-16 08:35:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰7——Python 字典操作详解",
       "subtitle" : " &quot;dict...&quot;",
       "tags"     : "Dali杂货铺🐰",

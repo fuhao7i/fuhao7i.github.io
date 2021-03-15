@@ -5,9 +5,38 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 14 Mar 2021 22:02:11 +0800</pubDate>
-    <lastBuildDate>Sun, 14 Mar 2021 22:02:11 +0800</lastBuildDate>
+    <pubDate>Tue, 16 Mar 2021 00:40:06 +0800</pubDate>
+    <lastBuildDate>Tue, 16 Mar 2021 00:40:06 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali杂货铺🐰8——PyTorch 保存和加载训练好的模型</title>
+        <description>&lt;h1 id=&quot;1-保存模型&quot;&gt;1. 保存模型&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./Double.pth&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;2-加载训练好的模型&quot;&gt;2. 加载训练好的模型&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;# 创建模型
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 加载预训练模型的参数
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./Double.pth&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Tue, 16 Mar 2021 08:35:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/03/16/sundry8/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/16/sundry8/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
     
       <item>
         <title>Dali杂货铺🐰7——Python 字典操作详解</title>
@@ -332,6 +361,22 @@ transforms.RandomOrder，将transforms中的操作随机打乱
         &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;h1 id=&quot;-注意&quot;&gt;* 注意&lt;/h1&gt;
+
+&lt;p&gt;损失函数&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;torch.nn.CrossEntropyLoss()&lt;/code&gt;中已经包含了&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Softmax&lt;/code&gt;函数，所以我们的神经网络直接线性输出即可。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;net&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sequential&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Linear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ReLU&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Linear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;h1 id=&quot;引用&quot;&gt;#.引用&lt;/h1&gt;
 
 &lt;ol&gt;
@@ -339,6 +384,7 @@ transforms.RandomOrder，将transforms中的操作随机打乱
   &lt;li&gt;&lt;a href=&quot;https://zh.d2l.ai/index.html&quot;&gt;动手学深度学习&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/hnu_zzt/article/details/85092092?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-10.control&amp;amp;dist_request_id=1328642.24603.16156240016207327&amp;amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-10.control&quot;&gt;pytorch一步一步在VGG16上训练自己的数据集&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/panchuangai/p/12567996.html&quot;&gt;PyTorch ImageNet 基于预训练六大常用图片分类模型的实战&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/m0_37163827/article/details/110521518&quot;&gt;pytorch搭建分类网络并进行训练和测试&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
         <pubDate>Fri, 12 Mar 2021 22:15:00 +0800</pubDate>
@@ -661,30 +707,6 @@ mmcv/runner/hooks/optimizer.py
         <pubDate>Sat, 23 Jan 2021 18:29:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/01/23/sundry5/</link>
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/23/sundry5/</guid>
-        
-        <category>Dali杂货铺🐰</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰4——软连接(符号连接) ln -s </title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;实现一个文件在多处的调用，而且无需挪动文件位置，无需复制，好酷🕶️，之前在学习Linux知识的时候真是小看了它。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;利用软连接来实现 ln -s&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;sudo rm -rf /usr/local/cuda #删除之前生成的软链接
-
-sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda #生成新的软链接
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-        <pubDate>Fri, 22 Jan 2021 19:49:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/01/22/sundry4/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/22/sundry4/</guid>
         
         <category>Dali杂货铺🐰</category>
         

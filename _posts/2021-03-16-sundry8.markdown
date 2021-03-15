@@ -1,0 +1,26 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰8——PyTorch 保存和加载训练好的模型"
+subtitle:   " \"save, load\""
+date:       2021-03-16 00:35:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+# 1. 保存模型
+
+```python
+torch.save(model.state_dict(),"./Double.pth")
+```
+
+# 2. 加载训练好的模型
+
+```python
+# 创建模型
+model=Net()
+# 加载预训练模型的参数
+model.load_state_dict(torch.load("./Double.pth"))
+```
