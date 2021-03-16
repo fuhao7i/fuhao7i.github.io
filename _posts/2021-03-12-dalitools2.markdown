@@ -239,3 +239,4 @@ net = nn.Sequential(
 4. [PyTorch ImageNet 基于预训练六大常用图片分类模型的实战](https://www.cnblogs.com/panchuangai/p/12567996.html)
 5. [pytorch搭建分类网络并进行训练和测试](https://blog.csdn.net/m0_37163827/article/details/110521518)
 6. [二十二种 transforms 图片数据预处理方法](https://www.cnblogs.com/zhangxiann/p/13570884.html)
+7. [深度学习神经网络对于尺寸不同的图片如何处理？resize？crop？](https://www.zhihu.com/question/360010590)

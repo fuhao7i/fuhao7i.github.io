@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 16 Mar 2021 17:04:16 +0800</pubDate>
-    <lastBuildDate>Tue, 16 Mar 2021 17:04:16 +0800</lastBuildDate>
+    <pubDate>Tue, 16 Mar 2021 17:29:20 +0800</pubDate>
+    <lastBuildDate>Tue, 16 Mar 2021 17:29:20 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -399,6 +399,7 @@ transforms.RandomOrder，将transforms中的操作随机打乱
   &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/panchuangai/p/12567996.html&quot;&gt;PyTorch ImageNet 基于预训练六大常用图片分类模型的实战&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/m0_37163827/article/details/110521518&quot;&gt;pytorch搭建分类网络并进行训练和测试&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/zhangxiann/p/13570884.html&quot;&gt;二十二种 transforms 图片数据预处理方法&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.zhihu.com/question/360010590&quot;&gt;深度学习神经网络对于尺寸不同的图片如何处理？resize？crop？&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
         <pubDate>Fri, 12 Mar 2021 22:15:00 +0800</pubDate>
