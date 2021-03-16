@@ -17,6 +17,14 @@
     } ,
   
     {
+      "title"    : "Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广",
+      "subtitle" : " &quot;transform, 尺寸调整, 数据增强&quot;",
+      "tags"     : "Dali工具箱🔧",
+      "url"      : "/2021/03/12/dalitools3/",
+      "date"     : "2021-03-12 22:15:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali工具箱🔧2——Torch 数据集准备 Pipline",
       "subtitle" : " &quot;transform to train.txt, Dataset, DataLoader, 预处理&quot;",
       "tags"     : "Dali工具箱🔧",

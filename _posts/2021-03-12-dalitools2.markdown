@@ -219,7 +219,7 @@ for epoch in range(num_epoches):
         ...
 ```
 
-# * 注意
+# ** 注意
 
 损失函数`torch.nn.CrossEntropyLoss()`中已经包含了`Softmax`函数，所以我们的神经网络直接线性输出即可。
 
@@ -238,3 +238,4 @@ net = nn.Sequential(
 3. [pytorch一步一步在VGG16上训练自己的数据集](https://blog.csdn.net/hnu_zzt/article/details/85092092?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-10.control&dist_request_id=1328642.24603.16156240016207327&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-10.control)
 4. [PyTorch ImageNet 基于预训练六大常用图片分类模型的实战](https://www.cnblogs.com/panchuangai/p/12567996.html)
 5. [pytorch搭建分类网络并进行训练和测试](https://blog.csdn.net/m0_37163827/article/details/110521518)
+6. [二十二种 transforms 图片数据预处理方法](https://www.cnblogs.com/zhangxiann/p/13570884.html)
