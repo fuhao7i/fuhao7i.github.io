@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 18 Mar 2021 23:44:13 +0800</pubDate>
-    <lastBuildDate>Thu, 18 Mar 2021 23:44:13 +0800</lastBuildDate>
+    <pubDate>Fri, 19 Mar 2021 11:41:59 +0800</pubDate>
+    <lastBuildDate>Fri, 19 Mar 2021 11:41:59 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -327,6 +327,12 @@ layer4.2.bn3.bias      torch.Size([2048])
 fc.weight      torch.Size([1000, 2048])
 fc.bias      torch.Size([1000])
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;-引用&quot;&gt;#. 引用&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/137562717&quot;&gt;PyTorch使用预训练模型(保存，加载，加载部分，冻结某些参数，修改网络某些层等…)&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
 </description>
         <pubDate>Tue, 16 Mar 2021 08:35:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/03/16/sundry8/</link>
