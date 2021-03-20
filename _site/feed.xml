@@ -5,9 +5,54 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 19 Mar 2021 11:41:59 +0800</pubDate>
-    <lastBuildDate>Fri, 19 Mar 2021 11:41:59 +0800</lastBuildDate>
+    <pubDate>Sat, 20 Mar 2021 20:19:46 +0800</pubDate>
+    <lastBuildDate>Sat, 20 Mar 2021 20:19:46 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali工具箱🔧3—— DD——DaliDetetion</title>
+        <description>&lt;h1 id=&quot;0-配置文件-configs&quot;&gt;0. 配置文件 configs&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;
+&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Classification'&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 或者是‘_base/Faster_RCNN.py’
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;backbone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;'Conv'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;'Conv'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;output_indices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;classificer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;'Linear'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;768000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;'Linear'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Sat, 20 Mar 2021 23:34:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/03/20/dalitools3/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/20/dalitools3/</guid>
+        
+        <category>Dali工具箱🔧</category>
+        
+        
+      </item>
     
       <item>
         <title>Dali杂货铺🐰8——PyTorch 保存,加载和查看训练好的模型</title>
@@ -817,6 +862,13 @@ train_step()方法在此文件中。
 mmcv/runner/hooks/optimizer.py
 
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;-引用&quot;&gt;#. 引用&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_39941721/article/details/113073319&quot;&gt;gan判别器的loss接近零_训练GAN，你应该知道的二三事&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.freesion.com/article/9034391877/&quot;&gt;PYTORCH实现一个简单的生成对抗网络GAN&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
 </description>
         <pubDate>Fri, 26 Feb 2021 06:32:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/02/26/nn3/</link>
@@ -951,21 +1003,6 @@ mmcv/runner/hooks/optimizer.py
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/02/01/nn1/</guid>
         
         <category>Neural Network🦖</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰6——torch 分布式训练(多GPU)注意事项</title>
-        <description>&lt;h1 id=&quot;1-syncbn-nnsyncbatchnorm&quot;&gt;1. ‘SyncBN’: nn.SyncBatchNorm&lt;/h1&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;warning:&lt;/code&gt; 当单块GPU训练torch模型时，如果程序内含有&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SyncBN&lt;/code&gt;会报错误: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AssertionError: Default process group is not initialized&lt;/code&gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 27 Jan 2021 01:37:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/01/27/sundry6/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/01/27/sundry6/</guid>
-        
-        <category>Dali杂货铺🐰</category>
         
         
       </item>

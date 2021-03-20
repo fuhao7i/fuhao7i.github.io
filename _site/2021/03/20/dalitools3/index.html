@@ -14,28 +14,26 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Dali杂货铺🐰4——软连接(符号连接) ln -s  - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali工具箱🔧3—— DD——DaliDetetion - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="
-  实现一个文件在多处的调用，而且无需挪动文件位置，无需复制，好酷🕶️，之前在学习Linux知识的时候真是小看了它。
-
+    <meta property="og:description" content="0. 配置文件 configs
 ">
     
-    <meta property="article:published_time" content="2021-01-22T19:49:00Z">
+    <meta property="article:published_time" content="2021-03-20T23:34:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="Dali杂货铺🐰">
+    <meta property="article:tag" content="Dali工具箱🔧">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/22/sundry4/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/03/20/dalitools3/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Dali杂货铺🐰4——软连接(符号连接) ln -s  - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali工具箱🔧3—— DD——DaliDetetion - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -44,7 +42,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/22/sundry4/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/03/20/dalitools3/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -220,7 +218,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/sundry.jpg');
+        background-image: url('/img/in-post/tools.jpg');
         background: ;
     }
 
@@ -237,13 +235,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
+                        <a class="tag" href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7" title="Dali工具箱🔧">Dali工具箱🔧</a>
                         
                     </div>
-                    <h1>Dali杂货铺🐰4——软连接(符号连接) ln -s </h1>
+                    <h1>Dali工具箱🔧3—— DD——DaliDetetion</h1>
                     
-                    <h2 class="subheading"> "文件调用"</h2>
-                    <span class="meta">Posted by fuhao7i on January 22, 2021</span>
+                    <h2 class="subheading"> "更好的帮你完成深度学习任务"</h2>
+                    <span class="meta">Posted by fuhao7i on March 20, 2021</span>
                 </div>
             </div>
         </div>
@@ -269,18 +267,39 @@
                 <!-- Multi-Lingual -->
                 
 
-				<blockquote>
-  <p>实现一个文件在多处的调用，而且无需挪动文件位置，无需复制，好酷🕶️，之前在学习Linux知识的时候真是小看了它。</p>
-</blockquote>
+				<h1 id="0-配置文件-configs">0. 配置文件 configs</h1>
 
-<blockquote>
-  <p>利用软连接来实现 ln -s</p>
-</blockquote>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre>
+<span class="n">model</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span> <span class="s">'Classification'</span> <span class="c1"># 或者是‘_base/Faster_RCNN.py’
+</span>    <span class="n">backbone</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="s">'Conv'</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">input_channels</span><span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="s">'Conv'</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+        <span class="n">output_indices</span><span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">classificer</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="s">'Linear'</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="mi">768000</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span>
+        <span class="s">'Linear'</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="p">)</span>
+    <span class="p">)</span>
 
-<pre><code class="language-Bash">sudo rm -rf /usr/local/cuda #删除之前生成的软链接
+<span class="p">)</span>
 
-sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda #生成新的软链接
-</code></pre>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
                 
                 <!--Donate start-->
@@ -311,19 +330,12 @@ sudo ln -s /usr/local/cuda-10.1 /usr/local/cuda #生成新的软链接
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/01/21/competition2/" data-toggle="tooltip" data-placement="top" title="Competition🐳2——智能交通场景应用">
+                        <a href="/2021/03/16/sundry8/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰8——PyTorch 保存,加载和查看训练好的模型">
                         Previous<br>
-                        <span>Competition🐳2——智能交通场景应用</span>
+                        <span>Dali杂货铺🐰8——PyTorch 保存,加载和查看训练好的模型</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/01/23/sundry5/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰5——torch 深度学习model()函数参数问题">
-                        Next<br>
-                        <span>Dali杂货铺🐰5——torch 深度学习model()函数参数问题</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

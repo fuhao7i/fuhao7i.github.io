@@ -39,3 +39,8 @@ train_step()方法在此文件中。
 mmcv/runner/hooks/optimizer.py
 
 ```
+
+# #. 引用
+
+1. [gan判别器的loss接近零_训练GAN，你应该知道的二三事](https://blog.csdn.net/weixin_39941721/article/details/113073319)
+2. [PYTORCH实现一个简单的生成对抗网络GAN](https://www.freesion.com/article/9034391877/)

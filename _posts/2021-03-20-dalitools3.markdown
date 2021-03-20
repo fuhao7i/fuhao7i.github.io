@@ -1,0 +1,31 @@
+---
+layout:     post
+title:      "Dali工具箱🔧3—— DD——DaliDetetion"
+subtitle:   " \"更好的帮你完成深度学习任务\""
+date:       2021-03-20 15:34:00
+author:     "fuhao7i"
+header-img: "img/in-post/tools.jpg"
+catalog: true
+tags:
+    - Dali工具箱🔧
+---
+
+# 0. 配置文件 configs
+
+```python
+
+model= dict(
+    type= 'Classification' # 或者是‘_base/Faster_RCNN.py’
+    backbone= dict(
+        'Conv'= dict(input_channels= 3, out_channels=16, stride=1, padding=1),
+        'Conv'= dict(16, 64, 1, (2, 2)),
+        output_indices= (1, 2),
+    )
+    classificer= dict(
+        'Linear'= dict(768000, 1024),
+        'Linear'= dict(1024, )
+    )
+
+)
+
+```
