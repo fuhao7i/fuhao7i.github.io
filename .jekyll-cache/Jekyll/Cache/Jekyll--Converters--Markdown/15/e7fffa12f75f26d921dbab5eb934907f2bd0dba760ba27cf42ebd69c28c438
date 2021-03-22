@@ -1,0 +1,31 @@
+I"S<h1 id="1-cuda_visible_devices">1. CUDA_VISIBLE_DEVICES</h1>
+
+<h2 id="1-osenvironcuda_visible_devices">1. os.environ[‘CUDA_VISIBLE_DEVICES’]</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'CUDA_VISIBLE_DEVICES'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>     <span class="c1"># cpu模式
+</span>
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'CUDA_VISIBLE_DEVICES'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>      <span class="c1"># 只有GPU:0 对程序可见
+</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'CUDA_VISIBLE_DEVICES'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span>    <span class="c1"># GPU:0 和 GPU:1 对程序可见
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="2-在bash命令中使用">2. 在bash命令中使用</h2>
+
+<pre><code class="language-Bash">CUDA_VISIBLE_DEVICES=1 python run.py
+</code></pre>
+
+<h2 id="3-使用devicegpu0-or-cudagpu0指定">3. 使用.device(‘gpu:0’) or .cuda(‘gpu:0’)指定</h2>
+
+<h1 id="-引用">#. 引用</h1>
+
+<ol>
+  <li><a href="https://blog.csdn.net/weixin_39782394/article/details/111294929">pytorch指定gpu训练_PyTorch多GPU并行训练方法及问题整理</a></li>
+</ol>
+:ET

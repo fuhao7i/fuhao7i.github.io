@@ -1,0 +1,36 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰10——指定GPU进行训练"
+subtitle:   " \"TF, Keras, Torch\""
+date:       2021-03-22 15:49:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+# 1. CUDA_VISIBLE_DEVICES
+
+## 1. os.environ['CUDA_VISIBLE_DEVICES']
+
+```python
+import os
+
+os.environ['CUDA_VISIBLE_DEVICES'] = -1     # cpu模式
+
+os.environ['CUDA_VISIBLE_DEVICES'] = 0      # 只有GPU:0 对程序可见
+os.environ['CUDA_VISIBLE_DEVICES'] = 0,1    # GPU:0 和 GPU:1 对程序可见
+```
+
+## 2. 在bash命令中使用
+
+```Bash
+CUDA_VISIBLE_DEVICES=1 python run.py
+```
+
+## 3. 使用.device('gpu:0') or .cuda('gpu:0')指定
+
+# #. 引用
+
+1. [pytorch指定gpu训练_PyTorch多GPU并行训练方法及问题整理](https://blog.csdn.net/weixin_39782394/article/details/111294929)

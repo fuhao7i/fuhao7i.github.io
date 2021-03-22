@@ -14,28 +14,16 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Neural Network🦖4——损失，梯度的计算与反向传播 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <meta property="og:type" content="article">
-    <meta property="og:description" content="
-  现代神经网络是一种非线性统计性数据建模工具。
-
-">
-    
-    <meta property="article:published_time" content="2021-03-11T22:13:00Z">
-    
-    
-    <meta property="article:author" content="fuhao7i">
-    
-    
-    <meta property="article:tag" content="Neural Network🦖">
-    
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="[我还很年轻，吃苦趁现在！]">
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/03/11/nn4/">
+    <meta property="og:url" content="https://fuhao7i.github.io/page4/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Neural Network🦖4——损失，梯度的计算与反向传播 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -44,7 +32,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/03/11/nn4/">
+    <link rel="canonical" href="https://fuhao7i.github.io/page4/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -214,225 +202,119 @@
   </div>
 </div>
 
-    <!-- Post Header -->
+    <!-- Page Header -->
 
 
 
 
-<style type="text/css">
-    header.intro-header{
-        position: relative;
-        background-image: url('/img/in-post/nn.jpg');
-        background: ;
-    }
 
-    
-</style>
 
-<header class="intro-header" >
 
-    <div class="header-mask"></div>
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                        <a class="tag" href="/archive/?tag=Neural+Network%F0%9F%A6%96" title="Neural Network🦖">Neural Network🦖</a>
-                        
-                    </div>
-                    <h1>Neural Network🦖4——损失，梯度的计算与反向传播</h1>
-                    
-                    <h2 class="subheading"> "神经网络优化，损失函数"</h2>
-                    <span class="meta">Posted by fuhao7i on March 11, 2021</span>
-                </div>
-            </div>
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <div class="site-heading">
+        
+          <h1>fuhao7i Blog</h1>
+          <span class="subheading">[我还很年轻，吃苦趁现在！]</span>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 
 
-
-
-
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <!-- Multi-Lingual -->
-                
-
-				<blockquote>
-  <p>现代神经网络是一种非线性统计性数据建模工具。</p>
-</blockquote>
-
-<h1 id="1-为什么需要激活函数">1. 为什么需要激活函数？</h1>
-
-<ol>
-  <li>激活函数可以给模型引入非线性的因素。</li>
-  <li>假若网络中全部是线性部件，那么线性的组合还是线性，与单独一个线性分类器无异。这样就做不到用非线性来逼近任意函数。</li>
-  <li>使用非线性激活函数 ，以便使网络更加强大，增加它的能力，使它可以学习复杂的事物。使用非线性激活函数，能够从输入输出之间生成非线性映射。</li>
-</ol>
-
-<h1 id="2-损失函数的确定与损失计算">2. 损失函数的确定与损失计算</h1>
-
-<blockquote>
-  <p>确定一个能表述label和预测值之间误差值的损失函数，然后尽可能的通过更新权重w来优化这个损失函数，以达到提高预测准确率的目的。</p>
-</blockquote>
-
-<h1 id="3-梯度">3. 梯度</h1>
-
-<p>所谓梯度其实就是一个偏导数向量，但是我们经常说的仍是<code class="language-plaintext highlighter-rouge">x的梯度</code>而不是<code class="language-plaintext highlighter-rouge">x的偏导数（就是对x求偏导）</code>。利用网络中所有运算都是可微(differentiable)的这一事实，计算损失相对于网络系数的梯度(gradient)，然后向梯度的反方向改变系数，从而使损失降低。</p>
-
-<h1 id="4-反向传播">4. 反向传播</h1>
-
-<blockquote>
-  <p>作用：对损失函数优化，将损失值降到最低.</p>
-</blockquote>
-
-<p><code class="language-plaintext highlighter-rouge">反向传播算法就是梯度下降的求导链式法则的应用。</code></p>
-
-<p>简单的说，就是损失函数E对每一个权重参数wi求导，然后用这个求得的导数去更新wi自身，因为在神经网络的隐藏层和输出层中存在不止一个层次的权重wi，所以需要从输出层开始向前一层一层的求导，这就是为什么叫做反向传播的原因。</p>
-
-<p>以w10为例，要更新w10，需要先求得E对w10的导数。</p>
-
-<p><img src="https://img-blog.csdnimg.cn/2021031114493974.gif" />
-<img src="https://img-blog.csdnimg.cn/2021031114493976.gif" /></p>
-
-<p>反向传播中，每一次迭代进行一次全体权重参数更新，直到参数不再更新，即得到全局最小值或局部最小值。</p>
-
-<p>更新网络参数时，主要使用以下简单的更新规则:</p>
-
-<blockquote>
-  <p>weight = weight - learning_rate * gradient</p>
-</blockquote>
-
-<h2 id="什么时候进行反向传播">什么时候进行反向传播？</h2>
-
-<p>一般是一个<code class="language-plaintext highlighter-rouge">batch_size</code>，一个batch算一次，可以让参数向着更加“正确”的方向前进，减少随机梯度下降带来的单样本随机抖动。</p>
-
-<h1 id="-引用">#. 引用:</h1>
-
-<ol>
-  <li><a href="https://www.jianshu.com/p/77858847d6f7">梯度下降与反向传播讲解</a></li>
-  <li><a href="https://stackoverflow.com/questions/33962226/common-causes-of-NaNs-during-training">Nan在训练中出现的常见原因</a></li>
-</ol>
-
-                
-                <!--Donate start-->
-                <iframe src="/donate.html" style="overflow-x:hidden;overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;"  frameborder="0" scrolling="no"></iframe>
-                <!--donate end-->
-                
-                <link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
-                <script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
-
-
-                <div id="gitalk-container" style="margin: 30px;padding-bottom: 30px;"></div>
-                <script>
-                    var gitalk = new Gitalk({
-                        clientID: '1695c83228c471fa58d4',
-                        clientSecret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
-                        repo: 'issues_fuhao7i',
-                        owner: 'fuhao7i',
-                        admin: ['fuhao7i'],
-                        id: location.pathname,      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
-
-                    })
-                    gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
-                </script>
-
-
-
-                <hr style="visibility: hidden;">
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/2021/02/26/nn3/" data-toggle="tooltip" data-placement="top" title="Neural Network🦖3——GAN">
-                        Previous<br>
-                        <span>Neural Network🦖3——GAN</span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/2021/03/12/dalitools2/" data-toggle="tooltip" data-placement="top" title="Dali工具箱🔧2——Torch 数据集准备 Pipline">
-                        Next<br>
-                        <span>Dali工具箱🔧2——Torch 数据集准备 Pipline</span>
-                        </a>
-                    </li>
-                    
-                </ul>
-                <hr style="visibility: hidden;">
-
-
-                
-
-                
-
-            </div>  
-
-    <!-- Side Catalog Container -->
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
         
-            <!--不蒜子统计-->
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2020/12/20/AJuOpenCv11/">
+        <h2 class="post-title">
+            阿菊的OpenCv1——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "Opencv, plt, cv2.split, cv2.merge"
+        </h3>
+        
+        <div class="post-content-preview">
             
+                
+  “Yeah It’s on. ”
 
-            <div class="
-                col-lg-2 col-lg-offset-0
-                visible-lg-block
-                sidebar-container
-                catalog-container">
-                <div class="side-catalog">
-                    <hr class="hidden-sm hidden-xs">
-                    <h5>
-                        <link rel="stylesheet" href="/iconfont.css">
-                        <script src="/iconfont.js"></script>
-                        views
-                        <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-love"></use>
-                        </svg>
-                        <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
 
-                        <br>
-                        <br>
-                        <a class="catalog-toggle" href="#">CATALOG</a>
-                       
-                    </h5>
-                    <ul class="catalog-body"></ul>
-                </div>
-            </div>
-            <style>
-            .icon {
-            width: 1em;
-            height: 1em;
-            vertical-align: -0.15em;
-            fill: currentColor;
-            overflow: hidden;
-            }
-            </style>
-        
+0. 原始图像
 
+
+1. cv2读取图像并用matplotlib显示
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+import cv2
+import matplotlib.pyplot as plt
+
+img = cv2.imread('../images/ju.jpg')
+
+plt.figure('Aju') #窗口名称
+plt.title('juju...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on December 20, 2020
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page3">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
+
+
+
+    		</div>
     <!-- Sidebar Container -->
             <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
                 <!-- Featured Tags -->
                 
 
 
 <section>
-    
-        <hr class="hidden-sm hidden-xs">
     
     <h5><a href="/archive/">FEATURED TAGS</a></h5>
     <div class="tags">
@@ -500,6 +382,44 @@
 </section>
 
 
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+  <hr>
+  <h5><a href="/about/">ABOUT ME</a></h5>
+  <div class="short-about">
+    
+    <img src="/img/github.jpg" />
+    
+    
+    <p>苦心人, 天不负<br>卧薪尝胆, 三千越甲可吞吴</p>
+    
+    <!-- SNS Link -->
+    
+
+
+<ul class="list-inline">
+
+
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/fuhao7i">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+  </div>
+</section>
+
                 <!-- Friends Blog -->
                 
 <hr>
@@ -512,55 +432,10 @@
   
 </ul>
 
-            </div>
-        </div>
-    </div>
-
-</article>
-
-<!-- add support for mathjax by voleking-->
-
-
-
-
-
-
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'hover',
-          placement: 'right',
-          // icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
+    		</div>
+        
+	</div>
+</div>
 
 
 

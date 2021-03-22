@@ -14,28 +14,26 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Neural Network🦖4——损失，梯度的计算与反向传播 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali杂货铺🐰10——指定GPU进行训练 - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="
-  现代神经网络是一种非线性统计性数据建模工具。
-
+    <meta property="og:description" content="1. CUDA_VISIBLE_DEVICES
 ">
     
-    <meta property="article:published_time" content="2021-03-11T22:13:00Z">
+    <meta property="article:published_time" content="2021-03-22T23:49:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="Neural Network🦖">
+    <meta property="article:tag" content="Dali杂货铺🐰">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/03/11/nn4/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/03/22/sundry10/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Neural Network🦖4——损失，梯度的计算与反向传播 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali杂货铺🐰10——指定GPU进行训练 - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -44,7 +42,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/03/11/nn4/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/03/22/sundry10/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -222,7 +220,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/nn.jpg');
+        background-image: url('/img/in-post/sundry.jpg');
         background: ;
     }
 
@@ -239,13 +237,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=Neural+Network%F0%9F%A6%96" title="Neural Network🦖">Neural Network🦖</a>
+                        <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
                         
                     </div>
-                    <h1>Neural Network🦖4——损失，梯度的计算与反向传播</h1>
+                    <h1>Dali杂货铺🐰10——指定GPU进行训练</h1>
                     
-                    <h2 class="subheading"> "神经网络优化，损失函数"</h2>
-                    <span class="meta">Posted by fuhao7i on March 11, 2021</span>
+                    <h2 class="subheading"> "TF, Keras, Torch"</h2>
+                    <span class="meta">Posted by fuhao7i on March 22, 2021</span>
                 </div>
             </div>
         </div>
@@ -271,60 +269,35 @@
                 <!-- Multi-Lingual -->
                 
 
-				<blockquote>
-  <p>现代神经网络是一种非线性统计性数据建模工具。</p>
-</blockquote>
+				<h1 id="1-cuda_visible_devices">1. CUDA_VISIBLE_DEVICES</h1>
 
-<h1 id="1-为什么需要激活函数">1. 为什么需要激活函数？</h1>
+<h2 id="1-osenvironcuda_visible_devices">1. os.environ[‘CUDA_VISIBLE_DEVICES’]</h2>
 
-<ol>
-  <li>激活函数可以给模型引入非线性的因素。</li>
-  <li>假若网络中全部是线性部件，那么线性的组合还是线性，与单独一个线性分类器无异。这样就做不到用非线性来逼近任意函数。</li>
-  <li>使用非线性激活函数 ，以便使网络更加强大，增加它的能力，使它可以学习复杂的事物。使用非线性激活函数，能够从输入输出之间生成非线性映射。</li>
-</ol>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">os</span>
 
-<h1 id="2-损失函数的确定与损失计算">2. 损失函数的确定与损失计算</h1>
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'CUDA_VISIBLE_DEVICES'</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>     <span class="c1"># cpu模式
+</span>
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'CUDA_VISIBLE_DEVICES'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>      <span class="c1"># 只有GPU:0 对程序可见
+</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'CUDA_VISIBLE_DEVICES'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span>    <span class="c1"># GPU:0 和 GPU:1 对程序可见
+</span></pre></td></tr></tbody></table></code></pre></div></div>
 
-<blockquote>
-  <p>确定一个能表述label和预测值之间误差值的损失函数，然后尽可能的通过更新权重w来优化这个损失函数，以达到提高预测准确率的目的。</p>
-</blockquote>
+<h2 id="2-在bash命令中使用">2. 在bash命令中使用</h2>
 
-<h1 id="3-梯度">3. 梯度</h1>
+<pre><code class="language-Bash">CUDA_VISIBLE_DEVICES=1 python run.py
+</code></pre>
 
-<p>所谓梯度其实就是一个偏导数向量，但是我们经常说的仍是<code class="language-plaintext highlighter-rouge">x的梯度</code>而不是<code class="language-plaintext highlighter-rouge">x的偏导数（就是对x求偏导）</code>。利用网络中所有运算都是可微(differentiable)的这一事实，计算损失相对于网络系数的梯度(gradient)，然后向梯度的反方向改变系数，从而使损失降低。</p>
+<h2 id="3-使用devicegpu0-or-cudagpu0指定">3. 使用.device(‘gpu:0’) or .cuda(‘gpu:0’)指定</h2>
 
-<h1 id="4-反向传播">4. 反向传播</h1>
-
-<blockquote>
-  <p>作用：对损失函数优化，将损失值降到最低.</p>
-</blockquote>
-
-<p><code class="language-plaintext highlighter-rouge">反向传播算法就是梯度下降的求导链式法则的应用。</code></p>
-
-<p>简单的说，就是损失函数E对每一个权重参数wi求导，然后用这个求得的导数去更新wi自身，因为在神经网络的隐藏层和输出层中存在不止一个层次的权重wi，所以需要从输出层开始向前一层一层的求导，这就是为什么叫做反向传播的原因。</p>
-
-<p>以w10为例，要更新w10，需要先求得E对w10的导数。</p>
-
-<p><img src="https://img-blog.csdnimg.cn/2021031114493974.gif" />
-<img src="https://img-blog.csdnimg.cn/2021031114493976.gif" /></p>
-
-<p>反向传播中，每一次迭代进行一次全体权重参数更新，直到参数不再更新，即得到全局最小值或局部最小值。</p>
-
-<p>更新网络参数时，主要使用以下简单的更新规则:</p>
-
-<blockquote>
-  <p>weight = weight - learning_rate * gradient</p>
-</blockquote>
-
-<h2 id="什么时候进行反向传播">什么时候进行反向传播？</h2>
-
-<p>一般是一个<code class="language-plaintext highlighter-rouge">batch_size</code>，一个batch算一次，可以让参数向着更加“正确”的方向前进，减少随机梯度下降带来的单样本随机抖动。</p>
-
-<h1 id="-引用">#. 引用:</h1>
+<h1 id="-引用">#. 引用</h1>
 
 <ol>
-  <li><a href="https://www.jianshu.com/p/77858847d6f7">梯度下降与反向传播讲解</a></li>
-  <li><a href="https://stackoverflow.com/questions/33962226/common-causes-of-NaNs-during-training">Nan在训练中出现的常见原因</a></li>
+  <li><a href="https://blog.csdn.net/weixin_39782394/article/details/111294929">pytorch指定gpu训练_PyTorch多GPU并行训练方法及问题整理</a></li>
 </ol>
 
                 
@@ -356,19 +329,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/02/26/nn3/" data-toggle="tooltip" data-placement="top" title="Neural Network🦖3——GAN">
+                        <a href="/2021/03/22/sundry9/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰9——Anaconda conda 命令详解">
                         Previous<br>
-                        <span>Neural Network🦖3——GAN</span>
+                        <span>Dali杂货铺🐰9——Anaconda conda 命令详解</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/03/12/dalitools2/" data-toggle="tooltip" data-placement="top" title="Dali工具箱🔧2——Torch 数据集准备 Pipline">
-                        Next<br>
-                        <span>Dali工具箱🔧2——Torch 数据集准备 Pipline</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

@@ -13,3 +13,7 @@ tags:
 # 1. 'SyncBN': nn.SyncBatchNorm
 
 `warning:` 当单块GPU训练torch模型时，如果程序内含有`SyncBN`会报错误: `AssertionError: Default process group is not initialized`
+
+# #. 引用
+
+1. [pytorch指定gpu训练_PyTorch多GPU并行训练方法及问题整理](https://blog.csdn.net/weixin_39782394/article/details/111294929)

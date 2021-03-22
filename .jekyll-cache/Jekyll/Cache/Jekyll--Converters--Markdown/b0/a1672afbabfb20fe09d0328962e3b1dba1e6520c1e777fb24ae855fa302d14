@@ -1,0 +1,55 @@
+I"�<h2 id="1-创建环境">1. 创建环境</h2>
+
+<p><code class="language-plaintext highlighter-rouge">conda create -n envname python=3.7</code></p>
+
+<h2 id="2-激活环境">2. 激活环境</h2>
+
+<p><code class="language-plaintext highlighter-rouge">conda activate envname</code></p>
+
+<h2 id="3-查看存在的所有环境">3. 查看存在的所有环境</h2>
+
+<p><code class="language-plaintext highlighter-rouge">conda info --envs</code></p>
+
+<h2 id="4-克隆环境本地">4. 克隆环境(本地)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">conda create -n env2name --clone nv1name</code></p>
+
+<p>env2 是新创建的环境，env1 是被克隆的环境，env2和env1完全相同。</p>
+
+<h2 id="5-环境迁移异地">5. 环境迁移(异地)</h2>
+
+<h3 id="1-激活-or-关闭环境">1. 激活 or 关闭环境</h3>
+
+<p><code class="language-plaintext highlighter-rouge">conda activate envname</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">conda deactivate</code></p>
+
+<h3 id="2-环境导出">2. 环境导出</h3>
+
+<p><code class="language-plaintext highlighter-rouge">conda env export &gt; rf.yaml</code></p>
+
+<p><strong>or</strong></p>
+
+<pre><code class="language-Bash"># -n 后面的参数是服务器A要克隆的环境名称
+conda env export -n bigdata &gt; rf.yaml
+</code></pre>
+
+<h3 id="3-安装复制环境">3. 安装复制环境</h3>
+
+<p><code class="language-plaintext highlighter-rouge">conda env create -n newenvname -f rf.yaml</code></p>
+
+<p>-n 后面是新环境的名称</p>
+
+<h3 id="警告">警告</h3>
+
+<p>如果发现没有相关依赖的pip包，可能与你的conda版本有关，接着用以下命令进行导出pip包.</p>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">pip freeze</code> 会输出所有在本地已安装的包（但不包括 pip、wheel、setuptools 等自带包），若需要输出内容与 <code class="language-plaintext highlighter-rouge">pip list</code> 一致，需使用 <code class="language-plaintext highlighter-rouge">pip freeze -all</code>.</p>
+
+<pre><code class="language-Bash">pip freeze &gt; requirements.txt
+</code></pre>
+
+<pre><code class="language-Bash">pip install -r requirements.txt
+</code></pre>
+
+:ET

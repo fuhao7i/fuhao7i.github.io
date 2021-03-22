@@ -1,0 +1,10 @@
+I"Y<h1 id="1-syncbn-nnsyncbatchnorm">1. ‘SyncBN’: nn.SyncBatchNorm</h1>
+
+<p><code class="language-plaintext highlighter-rouge">warning:</code> 当单块GPU训练torch模型时，如果程序内含有<code class="language-plaintext highlighter-rouge">SyncBN</code>会报错误: <code class="language-plaintext highlighter-rouge">AssertionError: Default process group is not initialized</code></p>
+
+<h1 id="-引用">#. 引用</h1>
+
+<ol>
+  <li><a href="https://blog.csdn.net/weixin_39782394/article/details/111294929">pytorch指定gpu训练_PyTorch多GPU并行训练方法及问题整理</a></li>
+</ol>
+:ET

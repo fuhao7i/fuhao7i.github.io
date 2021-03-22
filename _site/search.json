@@ -1,10 +1,18 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰10——指定GPU进行训练",
+      "subtitle" : " &quot;TF, Keras, Torch&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/03/22/sundry10/",
+      "date"     : "2021-03-22 23:49:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰9——Anaconda conda 命令详解",
       "subtitle" : " &quot;Conda, 更好的管理python环境&quot;",
       "tags"     : "Dali杂货铺🐰",
-      "url"      : "/2021/03/22/sundry8/",
+      "url"      : "/2021/03/22/sundry9/",
       "date"     : "2021-03-22 20:40:00 +0800"
     } ,
   
