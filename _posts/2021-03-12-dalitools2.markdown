@@ -231,6 +231,49 @@ net = nn.Sequential(
             )
 ```
 
+# 4. transforms.Normalize 计算
+
+```python
+import numpy as np
+import cv2
+import os
+import torch
+import torchvision
+
+means = [0, 0, 0]
+stdevs = [0, 0, 0]
+
+imgs_path = '/content/drive/MyDrive/search/mmdetection/data/imagenet-underwater/train/' # 图片路径
+_txt_path = '/content/drive/MyDrive/search/mmdetection/data/imagenet-underwater/train_3.txt'    # train.txt
+imgs_path_list = []
+_txt = open(_txt_path, 'r')
+
+for line in _txt:
+    name, _ = line.split(';')
+    print(name)
+    imgs_path_list.append(imgs_path + name)
+
+num_imgs = 0
+for data in imgs_path_list:
+
+    num_imgs += 1
+    img = cv2.imread(data)
+    img = img.astype(np.float32) / 255.
+    for i in range(3):
+        means[i] += img[:, :, i].mean()
+        stdevs[i] += img[:, :, i].std()
+
+means.reverse()
+stdevs.reverse()
+
+means = np.asarray(means) / num_imgs
+stdevs = np.asarray(stdevs) / num_imgs
+
+print("normMean = {}".format(means))
+print("normStd = {}".format(stdevs))
+print('transforms.Normalize(normMean = {}, normStd = {})'.format(means, stdevs))
+```
+
 # #.引用
 
 1. [PyTorch 学习笔记（三）：transforms的二十二个方法](https://blog.csdn.net/u011995719/article/details/85107009)
@@ -240,3 +283,5 @@ net = nn.Sequential(
 5. [pytorch搭建分类网络并进行训练和测试](https://blog.csdn.net/m0_37163827/article/details/110521518)
 6. [二十二种 transforms 图片数据预处理方法](https://www.cnblogs.com/zhangxiann/p/13570884.html)
 7. [深度学习神经网络对于尺寸不同的图片如何处理？resize？crop？](https://www.zhihu.com/question/360010590)
+8. [pytorch transforms.Normalize中,图像集的像素均值(mean)和标准差(std)怎么计算？](https://blog.csdn.net/acm_xx/article/details/114525145)
+9. [Pytorch框架学习（6）——transforms与normalize](https://blog.csdn.net/aidanmo/article/details/104059612)
