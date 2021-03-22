@@ -8,6 +8,7 @@ header-img: "img/in-post/tools.jpg"
 catalog: true
 tags:
     - Dali工具箱🔧
+    - PyTorch🧟‍♂️
 ---
 
 # 0. 生成train.txt

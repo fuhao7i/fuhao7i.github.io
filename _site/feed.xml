@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 22 Mar 2021 08:33:38 +0800</pubDate>
-    <lastBuildDate>Mon, 22 Mar 2021 08:33:38 +0800</lastBuildDate>
+    <pubDate>Mon, 22 Mar 2021 10:45:37 +0800</pubDate>
+    <lastBuildDate>Mon, 22 Mar 2021 10:45:37 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -839,6 +839,8 @@ transforms.RandomOrder，将transforms中的操作随机打乱
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/12/dalitools2/</guid>
         
         <category>Dali工具箱🔧</category>
+        
+        <category>PyTorch🧟‍♂️</category>
         
         
       </item>
