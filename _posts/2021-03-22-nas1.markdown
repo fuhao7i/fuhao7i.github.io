@@ -10,22 +10,7 @@ tags:
     - NAS👣
 ---
 
-# 0. 配置文件 configs
+# #. 引用
 
-```python
-
-model= dict(
-    type= 'Classification' # 或者是‘_base/Faster_RCNN.py’
-    backbone= dict(
-        'Conv'= dict(input_channels= 3, out_channels=16, stride=1, padding=1),
-        'Conv'= dict(16, 64, 1, (2, 2)),
-        output_indices= (1, 2),
-    )
-    classificer= dict(
-        'Linear'= dict(768000, 1024),
-        'Linear'= dict(1024, )
-    )
-
-)
-
-```
+1. [神经网络架构搜索——可微分搜索（DARTS）](https://blog.csdn.net/u012347027/article/details/106175020)
+2. [【论文笔记】DARTS公式推导](https://zhuanlan.zhihu.com/p/73037439)
