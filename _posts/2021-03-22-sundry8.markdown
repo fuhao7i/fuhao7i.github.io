@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Dali杂货铺🐰8——Anaconda conda 命令详解"
+title:      "Dali杂货铺🐰9——Anaconda conda 命令详解"
 subtitle:   " \"Conda, 更好的管理python环境\""
 date:       2021-03-22 12:40:00
 author:     "fuhao7i"
@@ -30,11 +30,11 @@ env2 是新创建的环境，env1 是被克隆的环境，env2和env1完全相�
 
 ## 5. 环境迁移(异地)
 
-1. 激活环境
+### 1. 激活环境
 
 `conda activate envname`
 
-2. 环境导出
+### 2. 环境导出
 
 `conda env export > rf.yaml`
 
@@ -45,7 +45,7 @@ env2 是新创建的环境，env1 是被克隆的环境，env2和env1完全相�
 conda env export -n bigdata > rf.yaml
 ```
 
-3. 安装复制环境
+### 3. 安装复制环境
 
 `conda env create -n newenvname -f rf.yaml`
 

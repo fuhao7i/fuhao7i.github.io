@@ -14,7 +14,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Dali杂货铺🐰8——Anaconda conda 命令详解 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali杂货铺🐰9——Anaconda conda 命令详解 - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
     <meta property="og:description" content="1. 创建环境
@@ -33,7 +33,7 @@
     <meta property="og:url" content="https://fuhao7i.github.io/2021/03/22/sundry8/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Dali杂货铺🐰8——Anaconda conda 命令详解 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali杂货铺🐰9——Anaconda conda 命令详解 - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -238,7 +238,7 @@
                         <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
                         
                     </div>
-                    <h1>Dali杂货铺🐰8——Anaconda conda 命令详解</h1>
+                    <h1>Dali杂货铺🐰9——Anaconda conda 命令详解</h1>
                     
                     <h2 class="subheading"> "Conda, 更好的管理python环境"</h2>
                     <span class="meta">Posted by fuhao7i on March 22, 2021</span>
@@ -287,15 +287,11 @@
 
 <h2 id="5-环境迁移异地">5. 环境迁移(异地)</h2>
 
-<ol>
-  <li>激活环境</li>
-</ol>
+<h3 id="1-激活环境">1. 激活环境</h3>
 
 <p><code class="language-plaintext highlighter-rouge">conda activate envname</code></p>
 
-<ol>
-  <li>环境导出</li>
-</ol>
+<h3 id="2-环境导出">2. 环境导出</h3>
 
 <p><code class="language-plaintext highlighter-rouge">conda env export &gt; rf.yaml</code></p>
 
@@ -305,9 +301,7 @@
 conda env export -n bigdata &gt; rf.yaml
 </code></pre>
 
-<ol>
-  <li>安装复制环境</li>
-</ol>
+<h3 id="3-安装复制环境">3. 安装复制环境</h3>
 
 <p><code class="language-plaintext highlighter-rouge">conda env create -n newenvname -f rf.yaml</code></p>
 
