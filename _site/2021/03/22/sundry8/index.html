@@ -14,26 +14,26 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="PyTorch🧟‍♂️1——PyTorch输出中间特征层 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali杂货铺🐰8——Anaconda conda 命令详解 - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="
+    <meta property="og:description" content="1. 创建环境
 ">
     
-    <meta property="article:published_time" content="2021-01-11T20:47:00Z">
+    <meta property="article:published_time" content="2021-03-22T20:40:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="PyTorch🧟‍♂️">
+    <meta property="article:tag" content="Dali杂货铺🐰">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/11/torch1/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/03/22/sundry8/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>PyTorch🧟‍♂️1——PyTorch输出中间特征层 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali杂货铺🐰8——Anaconda conda 命令详解 - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -42,7 +42,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/11/torch1/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/03/22/sundry8/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -218,7 +218,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/torch.jpg');
+        background-image: url('/img/in-post/sundry.jpg');
         background: ;
     }
 
@@ -235,13 +235,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=PyTorch%F0%9F%A7%9F%E2%80%8D%E2%99%82%EF%B8%8F" title="PyTorch🧟‍♂️">PyTorch🧟‍♂️</a>
+                        <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
                         
                     </div>
-                    <h1>PyTorch🧟‍♂️1——PyTorch输出中间特征层</h1>
+                    <h1>Dali杂货铺🐰8——Anaconda conda 命令详解</h1>
                     
-                    <h2 class="subheading"> "torch, 模型融合"</h2>
-                    <span class="meta">Posted by fuhao7i on January 11, 2021</span>
+                    <h2 class="subheading"> "Conda, 更好的管理python环境"</h2>
+                    <span class="meta">Posted by fuhao7i on March 22, 2021</span>
                 </div>
             </div>
         </div>
@@ -267,7 +267,64 @@
                 <!-- Multi-Lingual -->
                 
 
-				
+				<h2 id="1-创建环境">1. 创建环境</h2>
+
+<p><code class="language-plaintext highlighter-rouge">conda create -n envname python=3.7</code></p>
+
+<h2 id="2-激活环境">2. 激活环境</h2>
+
+<p><code class="language-plaintext highlighter-rouge">conda activate envname</code></p>
+
+<h2 id="3-查看存在的所有环境">3. 查看存在的所有环境</h2>
+
+<p><code class="language-plaintext highlighter-rouge">conda info --envs</code></p>
+
+<h2 id="4-克隆环境本地">4. 克隆环境(本地)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">conda create -n env2name --clone nv1name</code></p>
+
+<p>env2 是新创建的环境，env1 是被克隆的环境，env2和env1完全相同。</p>
+
+<h2 id="5-环境迁移异地">5. 环境迁移(异地)</h2>
+
+<ol>
+  <li>激活环境</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">conda activate envname</code></p>
+
+<ol>
+  <li>环境导出</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">conda env export &gt; rf.yaml</code></p>
+
+<p><strong>or</strong></p>
+
+<pre><code class="language-Bash"># -n 后面的参数是服务器A要克隆的环境名称
+conda env export -n bigdata &gt; rf.yaml
+</code></pre>
+
+<ol>
+  <li>安装复制环境</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">conda env create -n newenvname -f rf.yaml</code></p>
+
+<p>-n 后面是新环境的名称</p>
+
+<h3 id="警告">警告</h3>
+
+<p>如果发现没有相关依赖的pip包，可能与你的conda版本有关，接着用以下命令进行导出pip包.</p>
+
+<p>使用 <code class="language-plaintext highlighter-rouge">pip freeze</code> 会输出所有在本地已安装的包（但不包括 pip、wheel、setuptools 等自带包），若需要输出内容与 <code class="language-plaintext highlighter-rouge">pip list</code> 一致，需使用 <code class="language-plaintext highlighter-rouge">pip freeze -all</code>.</p>
+
+<pre><code class="language-Bash">pip freeze &gt; requirements.txt
+</code></pre>
+
+<pre><code class="language-Bash">pip install -r requirements.txt
+</code></pre>
+
 
                 
                 <!--Donate start-->
@@ -298,19 +355,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/01/11/competition1/" data-toggle="tooltip" data-placement="top" title="Competition🐳1——车道线检测识别与标注">
+                        <a href="/2021/03/22/nas1/" data-toggle="tooltip" data-placement="top" title="NAS👣1——DARTS">
                         Previous<br>
-                        <span>Competition🐳1——车道线检测识别与标注</span>
+                        <span>NAS👣1——DARTS</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/01/14/detector2/" data-toggle="tooltip" data-placement="top" title="哈哈哈目标检测🧸2——mmdetection 数据集准备build_dataset函数详解">
-                        Next<br>
-                        <span>哈哈哈目标检测🧸2——mmdetection 数据集准备build_dataset函数详解</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰8——Anaconda conda 命令详解",
+      "subtitle" : " &quot;Conda, 更好的管理python环境&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/03/22/sundry8/",
+      "date"     : "2021-03-22 20:40:00 +0800"
+    } ,
+  
+    {
       "title"    : "NAS👣1——DARTS",
       "subtitle" : " &quot;可微分神经架构搜索&quot;",
       "tags"     : "NAS👣",

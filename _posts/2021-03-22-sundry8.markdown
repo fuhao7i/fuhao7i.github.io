@@ -1,0 +1,68 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰8——Anaconda conda 命令详解"
+subtitle:   " \"Conda, 更好的管理python环境\""
+date:       2021-03-22 12:40:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+## 1. 创建环境
+
+`conda create -n envname python=3.7`
+
+## 2. 激活环境
+
+`conda activate envname`
+
+## 3. 查看存在的所有环境
+
+`conda info --envs`
+
+## 4. 克隆环境(本地)
+
+`conda create -n env2name --clone nv1name`
+
+env2 是新创建的环境，env1 是被克隆的环境，env2和env1完全相同。
+
+## 5. 环境迁移(异地)
+
+1. 激活环境
+
+`conda activate envname`
+
+2. 环境导出
+
+`conda env export > rf.yaml`
+
+**or**
+
+```Bash
+# -n 后面的参数是服务器A要克隆的环境名称
+conda env export -n bigdata > rf.yaml
+```
+
+3. 安装复制环境
+
+`conda env create -n newenvname -f rf.yaml`
+
+-n 后面是新环境的名称
+
+### 警告
+
+如果发现没有相关依赖的pip包，可能与你的conda版本有关，接着用以下命令进行导出pip包.
+
+使用 `pip freeze` 会输出所有在本地已安装的包（但不包括 pip、wheel、setuptools 等自带包），若需要输出内容与 `pip list` 一致，需使用 `pip freeze -all`.
+
+```Bash
+pip freeze > requirements.txt
+```
+
+```Bash
+pip install -r requirements.txt
+```
+
+
