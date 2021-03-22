@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Dali杂货铺🐰4——软连接(符号连接) ln -s "
+title:      "Dali杂货铺🐰4——软连接(符号连接) ln -s 源文件 目标文件"
 subtitle:   " \"文件调用\""
 date:       2021-01-22 11:49:00
 author:     "fuhao7i"
@@ -12,7 +12,7 @@ tags:
 
 > 实现一个文件在多处的调用，而且无需挪动文件位置，无需复制，好酷🕶️，之前在学习Linux知识的时候真是小看了它。
 
-> 利用软连接来实现 ln -s
+> 利用软连接来实现 ln -s 源文件 目标文件
 
 ```Bash
 sudo rm -rf /usr/local/cuda #删除之前生成的软链接

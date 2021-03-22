@@ -351,9 +351,10 @@
 
 <p>将cuda的bin和lib写入系统环境
 打开<code class="language-plaintext highlighter-rouge">～/.bashrc</code>文件，在末尾追加两句：</p>
-<pre><code class="language-Bash">export CUDA_HOME=/usr/local/cuda-9.2
-export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:$LD_LIBRARY_PATH
-export PATH=/usr/local/cuda-9.2/bin:$PATH
+<pre><code class="language-Bash">export CUDA_HOME=/usr/local/cuda
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+export LIBRARY_PATH=/usr/local/cuda/lib64:$LIBRARY_PATH
 </code></pre>
 <p>并重新激活环境<code class="language-plaintext highlighter-rouge">source ~/.bashrc</code>。</p>
 
