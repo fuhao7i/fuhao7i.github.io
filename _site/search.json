@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "NAS👣1——DARTS",
+      "subtitle" : " &quot;可微分神经架构搜索&quot;",
+      "tags"     : "NAS👣",
+      "url"      : "/2021/03/22/nas1/",
+      "date"     : "2021-03-22 19:07:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali工具箱🔧3—— DD——DaliDetetion",
       "subtitle" : " &quot;更好的帮你完成深度学习任务&quot;",
       "tags"     : "Dali工具箱🔧",
@@ -35,7 +43,7 @@
     {
       "title"    : "Dali工具箱🔧2——Torch 数据集准备 Pipline",
       "subtitle" : " &quot;transform to train.txt, Dataset, DataLoader, 预处理&quot;",
-      "tags"     : "Dali工具箱🔧, PyTorch🧟‍♂️",
+      "tags"     : "Dali工具箱🔧",
       "url"      : "/2021/03/12/dalitools2/",
       "date"     : "2021-03-12 22:15:00 +0800"
     } ,

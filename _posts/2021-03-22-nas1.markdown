@@ -1,0 +1,31 @@
+---
+layout:     post
+title:      "NAS👣1——DARTS"
+subtitle:   " \"可微分神经架构搜索\""
+date:       2021-03-22 11:07:00
+author:     "fuhao7i"
+header-img: "img/in-post/nas.jpg"
+catalog: true
+tags:
+    - NAS👣
+---
+
+# 0. 配置文件 configs
+
+```python
+
+model= dict(
+    type= 'Classification' # 或者是‘_base/Faster_RCNN.py’
+    backbone= dict(
+        'Conv'= dict(input_channels= 3, out_channels=16, stride=1, padding=1),
+        'Conv'= dict(16, 64, 1, (2, 2)),
+        output_indices= (1, 2),
+    )
+    classificer= dict(
+        'Linear'= dict(768000, 1024),
+        'Linear'= dict(1024, )
+    )
+
+)
+
+```
