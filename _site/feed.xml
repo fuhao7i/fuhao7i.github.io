@@ -5,9 +5,26 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 22 Mar 2021 15:56:38 +0800</pubDate>
-    <lastBuildDate>Mon, 22 Mar 2021 15:56:38 +0800</lastBuildDate>
+    <pubDate>Thu, 25 Mar 2021 19:49:04 +0800</pubDate>
+    <lastBuildDate>Thu, 25 Mar 2021 19:49:04 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Neural Network🦖5——Fast R-CNN SPP layer空间金字塔学习</title>
+        <description>&lt;h1 id=&quot;spp-layer空间金字塔&quot;&gt;SPP layer空间金字塔&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;卷积层的不同大小输出，经过SPP layer空间金字塔处理，输出为同样大小，然后在传给全连接层。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Wed, 24 Mar 2021 00:01:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/03/24/nn5/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/24/nn5/</guid>
+        
+        <category>Neural Network🦖</category>
+        
+        
+      </item>
     
       <item>
         <title>Dali杂货铺🐰10——指定GPU进行训练</title>
@@ -1030,58 +1047,6 @@ transforms.RandomOrder，将transforms中的操作随机打乱
         <pubDate>Thu, 11 Mar 2021 22:13:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/03/11/nn4/</link>
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/11/nn4/</guid>
-        
-        <category>Neural Network🦖</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Neural Network🦖3——GAN</title>
-        <description>&lt;h1 id=&quot;1-核心g--d&quot;&gt;1. 核心：G &amp;amp; D&lt;/h1&gt;
-
-&lt;p&gt;G：Generator 生成器网络。
-D：Discriminator 判别器网络。&lt;/p&gt;
-
-&lt;h1 id=&quot;2-训练方法&quot;&gt;2. 训练方法&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;训练D的时候，就是将真图像和生成的图像（假图像）输入到D，进行一个二分类（真和假的判定）&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;训练G的时候，需要把G和D看成一个整体。输出仍然是一个score，随机向量Z传入G生成图像之后传入D，之后生成score。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;这里D是不可以训练的！&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;3-疑问&quot;&gt;3. 疑问&lt;/h1&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;1. losses = self(**data)
-
-会调用forward_train()方法。
-
-2. mmdetection/mmdet/models/detectors/base.py
-
-train_step()方法在此文件中。
-
-3. https://www.zhihu.com/column/c_1270382879478755328系列讲解不错
-
-4. mmdetection优化器调用位置
-
-mmcv/runner/hooks/optimizer.py
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;-引用&quot;&gt;#. 引用&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_39941721/article/details/113073319&quot;&gt;gan判别器的loss接近零_训练GAN，你应该知道的二三事&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.freesion.com/article/9034391877/&quot;&gt;PYTORCH实现一个简单的生成对抗网络GAN&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Fri, 26 Feb 2021 06:32:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/02/26/nn3/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/02/26/nn3/</guid>
         
         <category>Neural Network🦖</category>
         

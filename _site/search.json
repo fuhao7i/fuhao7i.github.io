@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Neural Network🦖5——Fast R-CNN SPP layer空间金字塔学习",
+      "subtitle" : " &quot;神经网络优化，损失函数&quot;",
+      "tags"     : "Neural Network🦖",
+      "url"      : "/2021/03/24/nn5/",
+      "date"     : "2021-03-24 00:01:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰10——指定GPU进行训练",
       "subtitle" : " &quot;TF, Keras, Torch&quot;",
       "tags"     : "Dali杂货铺🐰",
@@ -146,7 +154,7 @@
   
     {
       "title"    : "Dali杂货铺🐰2——super()函数解决多重继承问题",
-      "subtitle" : " &quot;python&quot;",
+      "subtitle" : " &quot;python, super(自己, self).__init__()&quot;",
       "tags"     : "Dali杂货铺🐰",
       "url"      : "/2021/01/18/sundry2/",
       "date"     : "2021-01-18 02:48:00 +0800"

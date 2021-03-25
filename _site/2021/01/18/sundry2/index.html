@@ -244,7 +244,7 @@
                     </div>
                     <h1>Dali杂货铺🐰2——super()函数解决多重继承问题</h1>
                     
-                    <h2 class="subheading"> "python"</h2>
+                    <h2 class="subheading"> "python, super(自己, self).__init__()"</h2>
                     <span class="meta">Posted by fuhao7i on January 18, 2021</span>
                 </div>
             </div>
@@ -282,6 +282,13 @@
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Python3.x 和 Python2.x 的一个区别是: Python 3 可以使用直接使用 <code class="language-plaintext highlighter-rouge">super().xxx</code> 代替 <code class="language-plaintext highlighter-rouge">super(Class, self).xxx</code>.</p>
+
+<h3 id="为什么要用super自己-selfinit">为什么要用super(自己, self).<strong>init</strong>()?</h3>
+
+<p><code class="language-plaintext highlighter-rouge">注意super继承只能用于新式类，用于经典类时就会报错。</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">新式类</code>：必须有继承的类，如果没什么想继承的，那就继承object(即继承自己)
+<code class="language-plaintext highlighter-rouge">经典类</code>：没有父类，如果此时调用super就会出现错误：『super() argument 1 must be type, not classobj』</p>
 
                 
                 <!--Donate start-->
@@ -398,57 +405,57 @@
         
         
         
-                <a data-sort="0030" 
+                <a data-sort="0031" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv"
                     title="阿菊的OpenCv"
                     rel="1">阿菊的OpenCv</a>
         
-                <a data-sort="0021" 
+                <a data-sort="0022" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
                     rel="10">Dali杂货铺🐰</a>
         
-                <a data-sort="0026" 
+                <a data-sort="0027" 
                     href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8"
                     title="哈哈哈目标检测🧸"
                     rel="5">哈哈哈目标检测🧸</a>
         
                 <a data-sort="0027" 
+                    href="/archive/?tag=Neural+Network%F0%9F%A6%96"
+                    title="Neural Network🦖"
+                    rel="5">Neural Network🦖</a>
+        
+                <a data-sort="0028" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
                     title="Dali工具箱🔧"
                     rel="4">Dali工具箱🔧</a>
         
-                <a data-sort="0027" 
-                    href="/archive/?tag=Neural+Network%F0%9F%A6%96"
-                    title="Neural Network🦖"
-                    rel="4">Neural Network🦖</a>
-        
-                <a data-sort="0029" 
+                <a data-sort="0030" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0030" 
+                <a data-sort="0031" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2"
                     title="小菊的语义分割"
                     rel="1">小菊的语义分割</a>
         
-                <a data-sort="0030" 
+                <a data-sort="0031" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0030" 
+                <a data-sort="0031" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>
         
-                <a data-sort="0030" 
+                <a data-sort="0031" 
                     href="/archive/?tag=PyTorch%F0%9F%A7%9F%E2%80%8D%E2%99%82%EF%B8%8F"
                     title="PyTorch🧟‍♂️"
                     rel="1">PyTorch🧟‍♂️</a>
         
-                <a data-sort="0030" 
+                <a data-sort="0031" 
                     href="/archive/?tag=Word%F0%9F%93%96"
                     title="Word📖"
                     rel="1">Word📖</a>

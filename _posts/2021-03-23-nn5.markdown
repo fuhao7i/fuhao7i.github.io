@@ -1,0 +1,15 @@
+---
+layout:     post
+title:      "Neural Network🦖5——Fast R-CNN SPP layer空间金字塔学习"
+subtitle:   " \"神经网络优化，损失函数\""
+date:       2021-03-23 16:01:00
+author:     "fuhao7i"
+header-img: "img/in-post/nn.jpg"
+catalog: true
+tags:
+    - Neural Network🦖
+---
+
+# SPP layer空间金字塔
+
+> 卷积层的不同大小输出，经过SPP layer空间金字塔处理，输出为同样大小，然后在传给全连接层。
