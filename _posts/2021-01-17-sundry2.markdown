@@ -25,4 +25,5 @@ Python3.x 和 Python2.x 的一个区别是: Python 3 可以使用直接使用 `s
 `注意super继承只能用于新式类，用于经典类时就会报错。`
 
 `新式类`：必须有继承的类，如果没什么想继承的，那就继承object(即继承自己)
+
 `经典类`：没有父类，如果此时调用super就会出现错误：『super() argument 1 must be type, not classobj』
