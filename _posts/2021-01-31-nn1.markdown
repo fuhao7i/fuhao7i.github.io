@@ -14,6 +14,8 @@ tags:
 
 # 1. [双线性插值](https://www.jianshu.com/p/587c3a45df67)
 
+[图像缩放之双线性插值](https://blog.csdn.net/s12244315/article/details/49452175)
+
 [...](https://www.pianshen.com/article/39612542/)
 
 ## #. 引用
