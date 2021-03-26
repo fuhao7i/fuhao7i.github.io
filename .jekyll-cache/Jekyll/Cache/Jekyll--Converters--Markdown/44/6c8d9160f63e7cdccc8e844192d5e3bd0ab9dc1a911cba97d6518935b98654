@@ -1,0 +1,4 @@
+I"@<blockquote>
+  <p>在做图像分割的时候，需要对图像进行像素级别的分类，因此在卷积提取到抽象特征后需要通过上采样将feature map还原到原图大小。常见的上采样方法有双线性插值、转置卷积、上采样(Upsampling)和上池化(Unpooling)等…</p>
+</blockquote>
+:ET
