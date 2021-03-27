@@ -9,7 +9,7 @@ Hi, I'm Fuhao7i, currently a senior student in the field of computer vision, esp
 
 #### Accomplishments📖
 
-- [Present a paper and lecture as lead author at an IEEE conference][1]·2020.07
+<!-- - [Present a paper and lecture as lead author at an IEEE conference][1]·2020.07 -->
 
 [1]:  https://space.bilibili.com/481802918
 
