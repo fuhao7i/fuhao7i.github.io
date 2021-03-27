@@ -1,0 +1,13 @@
+---
+layout:     post
+title:      "Books📖"
+subtitle:   " \"书籍是人类进步的阶梯\""
+date:       2020-12-29 17:04:00
+author:     "fuhao7i"
+header-img: "img/in-post/word.jpg"
+catalog: true
+tags:
+    - Books📖
+---
+
+### 1. [《动手学深度学习》](https://tangshusen.me/Dive-into-DL-PyTorch/#/)
