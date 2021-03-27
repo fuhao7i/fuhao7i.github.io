@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "小菊的语义分割1——数据集的制作(一): ISPRS_Potsdam遥感图像数据集"
+title:      "小菊的语义分割2🌼——数据集的制作(一): ISPRS_Potsdam遥感图像数据集"
 subtitle:   " \"遥感图像数据集, 语义分割数据集制作\""
-date:       2020-12-21 23:37:00
+date:       2020-12-21 13:54:00
 author:     "fuhao7i"
 header-img: "img/in-post/xiaoju.jpg"
 catalog: true
 tags:
-    - 小菊的语义分割
+    - 小菊的语义分割🌼
 ---
 
 # 1. 为什么要对遥感图像进行切分？

@@ -1,0 +1,64 @@
+I""<h1 id="1-数据预处理">1. 数据预处理</h1>
+
+<p><code class="language-plaintext highlighter-rouge">思路:</code> 读取train.txt文件，获取训练图像及对应标签的文件路径，读取图像，将图像转化为<code class="language-plaintext highlighter-rouge">tensor</code>之后，<code class="language-plaintext highlighter-rouge">resize</code>调整图像尺寸大小并进行<code class="language-plaintext highlighter-rouge">归一化处理</code>，之后也可通过旋转，色偏，增加噪声等方式进行<code class="language-plaintext highlighter-rouge">数据增强</code>。注意要保证图像和标签的处理一致。</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20210327141350996.png" center="" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">padding可以使图像在resize时不失真</code></p>
+
+<p><strong>Keras实现</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">img_h</span> <span class="o">=</span> <span class="mi">224</span>
+<span class="n">img_w</span> <span class="o">=</span> <span class="mi">224</span>
+<span class="n">n_classes</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># labels映射
+</span><span class="k">def</span> <span class="nf">label_map</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+    <span class="n">labelmap</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">img_h</span><span class="p">,</span> <span class="n">img_w</span><span class="p">,</span> <span class="n">n_calsses</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">img_h</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">img_w</span><span class="p">):</span>
+            <span class="n">labelmap</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">labels</span><span class="p">[</span><span class="n">h</span><span class="p">][</span><span class="n">w</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">labelmap</span>
+
+
+<span class="k">def</span> <span class="nf">gen_data</span><span class="p">(</span><span class="n">mode</span><span class="p">):</span>
+    
+    <span class="k">assert</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'train'</span><span class="p">,</span> <span class="s">'test'</span><span class="p">],</span> \
+        <span class="s">'mode should be either </span><span class="se">\'</span><span class="s">test</span><span class="se">\'</span><span class="s"> or </span><span class="se">\'</span><span class="s">train</span><span class="se">\'</span><span class="s">'</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">'train'</span><span class="p">:</span>
+
+
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

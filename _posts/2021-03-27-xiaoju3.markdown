@@ -1,0 +1,50 @@
+---
+layout:     post
+title:      "小菊的语义分割3🌼——数据预处理及像素级分类实现原理"
+subtitle:   " \"数据标签预处理, Softmax进行像素级分类原理\""
+date:       2021-03-27 14:00:00
+author:     "fuhao7i"
+header-img: "img/in-post/xiaoju.jpg"
+catalog: true
+tags:
+    - 小菊的语义分割🌼
+---
+
+# 1. 数据预处理
+
+`思路:` 读取train.txt文件，获取训练图像及对应标签的文件路径，读取图像，将图像转化为`tensor`之后，`resize`调整图像尺寸大小并进行`归一化处理`，之后也可通过旋转，色偏，增加噪声等方式进行`数据增强`。注意要保证图像和标签的处理一致。
+
+<img src='https://img-blog.csdnimg.cn/20210327141350996.png' center>
+
+`padding可以使图像在resize时不失真`
+
+**Keras实现**
+
+```python
+import numpy as np
+
+img_h = 224
+img_w = 224
+n_classes = 3
+
+# labels映射
+def label_map(labels):
+    labelmap = np.zeros([img_h, img_w, n_calsses])
+    for h in range(img_h):
+        for w in range(img_w):
+            labelmap[h, w, labels[h][w]] = 1
+    return labelmap
+
+
+def gen_data(mode):
+    
+    assert mode in ['train', 'test'], \
+        'mode should be either \'test\' or \'train\''
+
+    data = []
+    label = []
+    if mode == 'train':
+
+
+
+```
