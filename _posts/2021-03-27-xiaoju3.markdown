@@ -22,29 +22,148 @@ tags:
 
 ```python
 import numpy as np
+from PIL import Image
+import keras
+from keras import backend as K
 
-img_h = 224
-img_w = 224
-n_classes = 3
+# 标签像素值对应的物体类别, 0为背景
+CLASSES = {
+    '[0 0 0]' : 0, # 背景
+    '[1 1 1]' : 1,
+    '[2 2 2]' : 2,
+}
+
+HEIGHT = 224
+WIDTH = 224
+N_CLASSES = 3
+
+BATCH_SIZE = 16
+
+# train.txt和val.txt的文件路径
+path_train_txt = ''
+path_val_txt = ''
+
+# train的图像和标签路径
+path_Xtrain = ''
+path_Xlabel = ''
+# val的图像和标签路径
+path_Yval = ''
+path_Ylabel = ''
 
 # labels映射
 def label_map(labels):
-    labelmap = np.zeros([img_h, img_w, n_calsses])
-    for h in range(img_h):
-        for w in range(img_w):
-            labelmap[h, w, labels[h][w]] = 1
+    labelmap = np.zeros([HEIGHT, WIDTH, N_CLASSES])
+    for h in range(HEIGHT):
+        for w in range(WIDTH):
+            labelmap[h, w, str(labels[h, w])] = 1
     return labelmap
 
 
-def gen_data(mode):
-    
-    assert mode in ['train', 'test'], \
-        'mode should be either \'test\' or \'train\''
+def data_generator(lines, mode):
+    assert mode in ['train', 'val'], \
+        'mode must be ethier \'train\' or \'val\''
 
-    data = []
-    label = []
+    n = len(lines)
+
     if mode == 'train':
+        with open(path_train_txt, 'r') as f:
+            lines = f.readlines()
+        np.random.shuffle(lines)
 
+        path0 = path_Xtrian
+        path1 = path_Xlabel
+    else:
+        with open(path_val_txt, 'r') as f:
+            lines = f.readlines()
+        np.random.shuffle(lines)
+
+        path0 = path_Yval
+        path1 = path_Ylabel 
+
+    while 1:
+        data = []
+        label = []
+        for _ in range(BATCH_SIZE):
+            if i == 0: 
+                np.random.shuffle(lines)
+            name = lines[i].split(';')[0]
+            img = Image.open(path0 + '/' + name)
+            img = img.resize((HEIGHT, WIDTH))
+            img = np.array(img)
+            img = img/255.
+            data.append(img)
+
+            name = (lines[i].split(';')[1]).replace("\n", "")
+            img = Image.open(path1 + '/' + name)
+            img = img.resize((HEIGHT, WIDTH))
+            img = np.array(img)
+            seg_labels = label_map(img)
+
+            seg_labels = np.reshape(seg_labels, (-1,N_CLASSES))
+
+            label.append(seg_labels)
+
+            i = (i+1) % n
+
+            # yield 的作用就是把一个函数变成一个 generator
+        yield (np.array(data), np.array(label))
+
+# 定义损失函数
+def loss(y_true, y_pred):
+    crossloss = K.binary_crossentropy(y_true,y_pred)
+    loss = K.sum(crossloss)/HEIGHT/WIDTH
+
+int main():
+    
+    # 用于最后保存模型的路径
+    log_dir = ''
+
+    # 创建模型
+    model = Net()
+
+    # 获取训练样本和验证样本的数目
+    with open(path_train_txt, 'r') as f:
+        lines = f.readlines()
+    num_train = len(lines)
+    with open(path_val_txt, 'r') as f:
+        lines = f.readlines()
+    num_val = len(lines)
+
+
+    # 设置学习率下降方法,val_loss验证损失连续5个epoch不下降就让学习率减半
+    reduce_lr = ReduceLROnPlateau(
+                            monitor='val_loss', 
+                            factor=0.5, 
+                            patience=5, 
+                            verbose=1
+                        )
+    # 是否需要早停，当val_loss一直不下降的时候意味着模型基本训练完毕，可以停止
+    early_stopping = EarlyStopping(
+                            monitor='val_loss', 
+                            min_delta=0, 
+                            patience=10, 
+                            verbose=1
+                        )
+    # 设置损失，优化器
+    model.compile(loss = loss,
+            optimizer = Adam(lr=1e-3),
+            metrics = ['accuracy'])
+
+    print('Train on {} samples, val on {} samples, with batch size {}.'.format(num_train, num_val, BATCH_SIZE))
+
+    # 开始训练
+    model.fit_generator(data_generator('train'),
+            steps_per_epoch=max(1, num_train//batch_size),
+            validation_data=data_generator('val'),
+            validation_steps=max(1, num_val//batch_size),
+            epochs=50,
+            initial_epoch=0,
+            callbacks=[reduce_lr, early_stopping])
+
+    model.save_weights(log_dir+'Dali.h5')
 
 
 ```
+
+**PyTorch实现**
+
