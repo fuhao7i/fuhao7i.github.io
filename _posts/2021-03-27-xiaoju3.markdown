@@ -18,26 +18,87 @@ tags:
 
 `padding可以使图像在resize时不失真`
 
-**Keras实现**
+# 2. label map 标签映射
+
+<img src='https://img-blog.csdnimg.cn/20210328145544433.png' center>
+
+如图就是我们的语义分割标签图像，相同颜色(像素值)的像素点代表的是同一类物体。假设像我们这个标签图像所展示的那样，我们需要分割出来图片中的猫和狗，那对我们的语义分割任务来说就是总共要分3类：0 背景；1 猫；2 狗；因此，我们需要创建3个尺寸大小和标签图像完全相同的数组来表示每一个像素点的类别；如下图所示：
+
+<img src='https://img-blog.csdnimg.cn/20210328145242405.png' center>
+
+`label[0, 0] = [1, 0, 0]` 说明[0, 0]位置是背景，`label[1, 1] = [0, 1, 0]`说明[1, 1]这个像素点属于猫。我们`Reshape`之后好像更方便大家理解:
+
+```python
+    seg_labels = np.reshape(seg_labels, (-1,NCLASSES))
+```
+
+```Bash
+ [[1, 0, 0],
+  [1, 0, 0],
+  [1, 0, 0],
+  [1, 0, 0],
+  [1, 0, 0],
+  [0, 1, 0],
+  [0, 0, 1],
+  [0, 0, 1],
+     ...
+           ]
+```
+
+这就是我们最后用来和预测结果计算损失的数据啦🌼`相信大家对为什么这样做还有点云里雾里的感觉，那么接下来就让我们揭开语义分割的神秘面纱吧🌼`
+
+# 3. 像素级分类原理
+
+了解完lable的具体格式之后，我们来看一下网络的最后几层设计:
+
+```python
+    x = Conv2D(n_classes,(1,1), padding='vaild' )(x)
+	x = Reshape((-1,n_classes))(x)
+	output = Softmax()(x)
+```
+
+这个和我们label的处理是一致的，输出的是每一个像素点属于哪一类的概率，如下图：
+
+<img src='https://img-blog.csdnimg.cn/20210328152456675.png' center>
+
+`tensor表示:`
+```Bash
+ [[0.4, 0.3, 0.3],
+  [0.7, 0.2, 0.1],
+  [0.8, 0.2, 0.0],
+  [0.8, 0.1, 0.1],
+        ...
+                 ]
+```
+
+将我们处理之后的label和预测得到的结果传给我们的损失函数就能计算出loss了，这样我们就实现了像素级的分类————也就是`语义分割`了🌼
+
+**下面是包含了数据预处理，损失定义等整个模型训练过程的train.py文件，大家稍作修改就可以训练自己的语义分割模型了🌼**
+
+**[Keras实现](https://keras.io/zh/models/model/)**
 
 ```python
 import numpy as np
 from PIL import Image
+
 import keras
 from keras import backend as K
+from keras.optimizers import Adam
+from keras.layers import Lambda
+from keras.callbacks import TensorBoard, ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
 
 # 标签像素值对应的物体类别, 0为背景
 CLASSES = {
     '[0 0 0]' : 0, # 背景
-    '[1 1 1]' : 1,
-    '[2 2 2]' : 2,
+    '[7 7 7]' : 1,
+    '[26 26 26]' : 2,
 }
 
-HEIGHT = 224
-WIDTH = 224
-N_CLASSES = 3
+NCLASSES = 2
+HEIGHT = 576
+WIDTH = 576
 
-BATCH_SIZE = 16
+BATCH_SIZE = 2
 
 # train.txt和val.txt的文件路径
 path_train_txt = ''
@@ -50,70 +111,75 @@ path_Xlabel = ''
 path_Yval = ''
 path_Ylabel = ''
 
+
 # labels映射
 def label_map(labels):
-    labelmap = np.zeros([HEIGHT, WIDTH, N_CLASSES])
-    for h in range(HEIGHT):
-        for w in range(WIDTH):
-            labelmap[h, w, str(labels[h, w])] = 1
+    labelmap = np.zeros((int(HEIGHT),int(WIDTH),NCLASSES))
+    for h in range(int(HEIGHT)):
+        for w in range(int(WIDTH)):
+            if str(labels[h, w]) in CLASSES.keys():
+                c = CLASSES[str(labels[h, w])]
+            else:
+                c = 0
+            labelmap[h, w, c] = 1
     return labelmap
 
 
-def data_generator(lines, mode):
+def data_generator(mode):
     assert mode in ['train', 'val'], \
         'mode must be ethier \'train\' or \'val\''
-
-    n = len(lines)
 
     if mode == 'train':
         with open(path_train_txt, 'r') as f:
             lines = f.readlines()
         np.random.shuffle(lines)
 
-        path0 = path_Xtrian
+        n = len(lines)
+        path0 = path_Xtrain
         path1 = path_Xlabel
     else:
         with open(path_val_txt, 'r') as f:
             lines = f.readlines()
         np.random.shuffle(lines)
 
+        n = len(lines)
         path0 = path_Yval
         path1 = path_Ylabel 
 
+    i = 0
     while 1:
-        data = []
-        label = []
+        images = []
+        labels = []
         for _ in range(BATCH_SIZE):
-            if i == 0: 
+            if i==0:
                 np.random.shuffle(lines)
             name = lines[i].split(';')[0]
             img = Image.open(path0 + '/' + name)
-            img = img.resize((HEIGHT, WIDTH))
+            img = img.resize((HEIGHT,WIDTH))
             img = np.array(img)
-            img = img/255.
-            data.append(img)
+            img = img/255
+            images.append(img)
 
             name = (lines[i].split(';')[1]).replace("\n", "")
             img = Image.open(path1 + '/' + name)
-            img = img.resize((HEIGHT, WIDTH))
+            img = img.resize((int(HEIGHT),int(WIDTH)))
             img = np.array(img)
+            
             seg_labels = label_map(img)
+            seg_labels = np.reshape(seg_labels, (-1,NCLASSES))
 
-            seg_labels = np.reshape(seg_labels, (-1,N_CLASSES))
-
-            label.append(seg_labels)
-
+            labels.append(seg_labels)
             i = (i+1) % n
-
-            # yield 的作用就是把一个函数变成一个 generator
-        yield (np.array(data), np.array(label))
+        yield (np.array(images),np.array(labels))
 
 # 定义损失函数
 def loss(y_true, y_pred):
     crossloss = K.binary_crossentropy(y_true,y_pred)
     loss = K.sum(crossloss)/HEIGHT/WIDTH
 
-int main():
+    return loss
+
+if __name__ == "__main__":
     
     # 用于最后保存模型的路径
     log_dir = ''
@@ -153,9 +219,9 @@ int main():
 
     # 开始训练
     model.fit_generator(data_generator('train'),
-            steps_per_epoch=max(1, num_train//batch_size),
+            steps_per_epoch=max(1, num_train//BATCH_SIZE),
             validation_data=data_generator('val'),
-            validation_steps=max(1, num_val//batch_size),
+            validation_steps=max(1, num_val//BATCH_SIZE),
             epochs=50,
             initial_epoch=0,
             callbacks=[reduce_lr, early_stopping])
@@ -165,5 +231,5 @@ int main():
 
 ```
 
-**PyTorch实现**
+**[PyTorch实现](https://fuhao7i.com/2021/03/12/dalitools2/)**
 
