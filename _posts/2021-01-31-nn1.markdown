@@ -10,11 +10,11 @@ tags:
     - Neural Network🦖
 ---
 
-> 在做图像分割的时候，需要对图像进行像素级别的分类，因此在卷积提取到抽象特征后需要通过上采样将feature map还原到原图大小。常见的上采样方法有双线性插值、转置卷积、上采样(Upsampling)和上池化(Unpooling)等...
+> 在做图像分割的时候，需要对图像进行像素级别的分类，因此在卷积提取到抽象特征后需要通过上采样将feature map还原到原图大小。常见的上采样方法有双线性插值(bilinear)、转置卷积、上采样(Upsampling)和上池化(Unpooling)等...
 
 # 1. [双线性插值](https://www.jianshu.com/p/587c3a45df67)
 
-`torch.nn.functional.interpolate(input, size=None, scale_factor=None, mode='nearest', align_corners=None)实现`
+`torch.nn.functional.interpolate(input, size=None, scale_factor=None, mode='bilinear', align_corners=None)实现`
 
 根据给定的size或scale_factor参数来对输入进行下/上采样
 
