@@ -19,6 +19,9 @@ tags:
 根据给定的size或scale_factor参数来对输入进行下/上采样
 
 使用的插值算法取决于参数mode的设置
+```python
+torch.nn.functional.interpolate(input, scale_factor=8, mode='bilinear', align_corners=False)
+```
 
 ```Bash
 参数：

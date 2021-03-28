@@ -9,4 +9,13 @@ catalog: true
 tags:
     - Neural Network🦖
 ---
-
+### 1. 传入两个模型参数
+`字典形式`
+```python
+optimizer = torch.optim.SGD([
+                {'params': model.parameters()},
+                {'params': lossnet.parameters(), 'lr': 1e-4}
+            ], lr, momentum=0.9)
+```
+# 引用:
+1. [pytorch优化器传入两个模型的参数/已不同的学习速率训练模型](https://blog.csdn.net/u011622208/article/details/90698688)

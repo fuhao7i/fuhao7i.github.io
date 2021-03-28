@@ -1,0 +1,16 @@
+I"&<h3 id="1-传入两个模型参数">1. 传入两个模型参数</h3>
+<p><code class="language-plaintext highlighter-rouge">字典形式</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="n">SGD</span><span class="p">([</span>
+                <span class="p">{</span><span class="s">'params'</span><span class="p">:</span> <span class="n">model</span><span class="p">.</span><span class="n">parameters</span><span class="p">()},</span>
+                <span class="p">{</span><span class="s">'params'</span><span class="p">:</span> <span class="n">lossnet</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="s">'lr'</span><span class="p">:</span> <span class="mf">1e-4</span><span class="p">}</span>
+            <span class="p">],</span> <span class="n">lr</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h1 id="引用">引用:</h1>
+<ol>
+  <li><a href="https://blog.csdn.net/u011622208/article/details/90698688">pytorch优化器传入两个模型的参数/已不同的学习速率训练模型</a></li>
+</ol>
+:ET

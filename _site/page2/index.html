@@ -411,8 +411,17 @@ model = dict(
         
         <div class="post-content-preview">
             
-                
-
+                1. 传入两个模型参数
+字典形式
+1
+2
+3
+4
+optimizer = torch.optim.SGD([
+                {'params': model.parameters()},
+                {'params': lossnet.parameters(), 'lr': 1e-4}
+            ], lr, momentum=0.9)
+...
             
         </div>
     </a>
