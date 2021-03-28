@@ -29,7 +29,7 @@ tags:
 `label[0, 0] = [1, 0, 0]` 说明[0, 0]位置是背景，`label[1, 1] = [0, 1, 0]`说明[1, 1]这个像素点属于猫。我们`Reshape`之后好像更方便大家理解:
 
 ```python
-    seg_labels = np.reshape(seg_labels, (-1,NCLASSES))
+seg_labels = np.reshape(seg_labels, (-1,NCLASSES))
 ```
 
 ```Bash
@@ -53,9 +53,9 @@ tags:
 了解完lable的具体格式之后，我们来看一下网络的最后几层设计:
 
 ```python
-    x = Conv2D(n_classes,(1,1), padding='vaild' )(x)
-	x = Reshape((-1,n_classes))(x)
-	output = Softmax()(x)
+x = Conv2D(n_classes,(1,1), padding='vaild' )(x)
+x = Reshape((-1,n_classes))(x)
+output = Softmax()(x)
 ```
 
 这个和我们label的处理是一致的，输出的是每一个像素点属于哪一类的概率，如下图：
