@@ -244,7 +244,7 @@
                     </div>
                     <h1>Neural Network🦖1——上采样Upsampling详解</h1>
                     
-                    <h2 class="subheading"> "反卷积, 上采样"</h2>
+                    <h2 class="subheading"> "反卷积, 上采样, 插值算法"</h2>
                     <span class="meta">Posted by fuhao7i on February 1, 2021</span>
                 </div>
             </div>
@@ -276,6 +276,25 @@
 </blockquote>
 
 <h1 id="1-双线性插值">1. <a href="https://www.jianshu.com/p/587c3a45df67">双线性插值</a></h1>
+
+<p><code class="language-plaintext highlighter-rouge">torch.nn.functional.interpolate(input, size=None, scale_factor=None, mode='nearest', align_corners=None)实现</code></p>
+
+<p>根据给定的size或scale_factor参数来对输入进行下/上采样</p>
+
+<p>使用的插值算法取决于参数mode的设置</p>
+
+<pre><code class="language-Bash">参数：
+
+input (Tensor) – 输入张量
+
+size (int or Tuple[int] or Tuple[int, int] or Tuple[int, int, int]) –输出大小.
+
+scale_factor (float or Tuple[float]) – 指定输出为输入的多少倍数。如果输入为tuple，其也要制定为tuple类型
+
+mode (str) – 可使用的上采样算法，有'nearest', 'linear', 'bilinear', 'bicubic' , 'trilinear'和'area'. 默认使用'nearest'
+
+align_corners (bool, optional) –几何上，我们认为输入和输出的像素是正方形，而不是点。如果设置为True，则输入和输出张量由其角像素的中心点对齐，从而保留角像素处的值。如果设置为False，则输入和输出张量由它们的角像素的角点对齐，插值使用边界外值的边值填充;当scale_factor保持不变时，使该操作独立于输入大小。仅当使用的算法为'linear', 'bilinear', 'bilinear'or 'trilinear'时可以使用。默认设置为False
+</code></pre>
 
 <p><a href="https://blog.csdn.net/s12244315/article/details/49452175">图像缩放之双线性插值</a></p>
 

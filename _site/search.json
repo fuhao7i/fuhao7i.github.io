@@ -122,7 +122,7 @@
   
     {
       "title"    : "Neural Network🦖1——上采样Upsampling详解",
-      "subtitle" : " &quot;反卷积, 上采样&quot;",
+      "subtitle" : " &quot;反卷积, 上采样, 插值算法&quot;",
       "tags"     : "Neural Network🦖",
       "url"      : "/2021/02/01/nn1/",
       "date"     : "2021-02-01 02:43:00 +0800"
