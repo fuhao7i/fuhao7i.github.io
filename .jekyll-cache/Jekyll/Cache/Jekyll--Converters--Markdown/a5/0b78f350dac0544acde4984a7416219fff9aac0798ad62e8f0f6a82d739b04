@@ -1,0 +1,15 @@
+I"�<h2 id="1-physical-modelthe-atmospheric-scattering-model">1. Physical Model：The atmospheric scattering model</h2>
+
+\[\large I(x) = J(x)t(x)+A(1-t(x))    (1)\]
+
+<p>其中，$I(x)$是得到的雾图，$J(x)$是场景光辉(清晰的图片)，$A$是全局的光照强度，$t(x)$是传播矩阵，如下所示：</p>
+
+\[\large t(x) = e^{- \beta d(x)}  (2)\]
+
+<p>其中，%\beta%是大气散射系数，$d(x)$是物体到相机的距离。</p>
+
+<p>根据这个模型，我们进行一个简单的推导，就能得到如何由一个模糊图像得到清晰的图像，从而起到图像增强的效果。</p>
+
+\[\large J(x) = {1\div t(x)}I(x) - A{1/t(x)} + A\]
+
+:ET

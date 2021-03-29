@@ -1,0 +1,9 @@
+I"Q<h2 id="1-physical-modelthe-atmospheric-scattering-model">1. Physical Model：The atmospheric scattering model</h2>
+
+\[\large I(x) = J(x)t(x)+A(1-t(x))\]
+
+<p>其中，$I(x)$是得到的雾图，$J(x)$是场景光辉(清晰的图片)，$A$是全局的光照强度，$t(x)$是传播矩阵，如下所示：</p>
+
+\[t(x) = e^{-\betad(x)}\]
+
+:ET

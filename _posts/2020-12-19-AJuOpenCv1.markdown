@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "阿菊的OpenCv1——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)"
+title:      "阿菊的OpenCv🎨1——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)"
 subtitle:   " \"Opencv, plt, cv2.split, cv2.merge\""
 date:       2020-12-19 20:33:00
 author:     "fuhao7i"
 header-img: "img/in-post/AJuOpenCv.jpg"
 catalog: true
 tags:
-    - 阿菊的OpenCv
+    - 阿菊的OpenCv🎨
 ---
 
 > “Yeah It's on. ”

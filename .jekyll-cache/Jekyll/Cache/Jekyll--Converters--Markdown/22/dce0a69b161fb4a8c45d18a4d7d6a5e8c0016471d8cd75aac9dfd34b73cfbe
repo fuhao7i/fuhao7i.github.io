@@ -1,0 +1,12 @@
+I"Ä<h2 id="1-physical-modelthe-atmospheric-scattering-model">1. Physical Modelï¼šThe atmospheric scattering model</h2>
+
+<p>$I(x) = J(x)t(x)+A(1-t(x))$</p>
+
+<p>$ m = gamma m_0 = frac{m_0}{sqrt{1-v^2/c^2}} $</p>
+
+<script type="math/tex; mode=display">% <![CDATA[
+N < f(x) < M Leftrightarrow [ f(x)-M ][ f(x)-N] < 0 \
+                Leftrightarrow | f(x)-frac{M+N}{2} | < frac{M-N}{2}  \
+                Leftrightarrow frac{f(x)-N}{M-f(x)}>0 %]]></script>
+
+:ET
