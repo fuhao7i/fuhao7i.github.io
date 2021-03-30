@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 30 Mar 2021 09:03:00 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Mar 2021 09:03:00 +0800</lastBuildDate>
+    <pubDate>Tue, 30 Mar 2021 14:19:03 +0800</pubDate>
+    <lastBuildDate>Tue, 30 Mar 2021 14:19:03 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -167,7 +167,7 @@
 
 &lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210328145544433.png&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;如图就是我们的语义分割标签图像，相同颜色(像素值)的像素点代表的是同一类物体。假设像我们这个标签图像所展示的那样，我们需要分割出来图片中的猫和狗，那对我们的语义分割任务来说就是总共要分3类：0 背景；1 猫；2 狗；因此，我们需要创建3个尺寸大小和标签图像完全相同的数组来表示每一个像素点的类别；如下图所示：&lt;/p&gt;
+&lt;p&gt;如图就是我们的语义分割标签图像，相同颜色(像素值)的像素点代表的是同一类物体。假设像我们这个标签图像所展示的那样，我们需要分割出来图片中的猫和狗，那对我们的语义分割任务来说就是总共要分3类：0 背景；1 猫；2 狗；因此，我们需要创建一个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[Height, Width, N_classes]&lt;/code&gt;数组来表示每一个像素点的类别；如下图所示：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210328145242405.png&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
 
