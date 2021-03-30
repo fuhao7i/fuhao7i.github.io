@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 30 Mar 2021 14:19:03 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Mar 2021 14:19:03 +0800</lastBuildDate>
+    <pubDate>Tue, 30 Mar 2021 19:07:56 +0800</pubDate>
+    <lastBuildDate>Tue, 30 Mar 2021 19:07:56 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -582,6 +582,21 @@
       </item>
     
       <item>
+        <title>Dali杂货铺🐰11——为什么神经网络需要激活函数？</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;我们可以不用使用非线性函数来构造线性变换，而是让每个神经元简单地返回它们的结果。但是这样的话，我们所有的层都会简单地将一组输入线性的进行矢量乘积和矢量加法。实际上，线性变换无法解决许多问题，所以激活函数是对矢量乘积和偏差的一个补充。激活函数将有效地缩小模型可以估计的函数数量。&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Mon, 22 Mar 2021 23:49:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/03/22/sundry11/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/22/sundry11/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
+    
+      <item>
         <title>Dali杂货铺🐰10——指定GPU进行训练</title>
         <description>&lt;h1 id=&quot;1-cuda_visible_devices&quot;&gt;1. CUDA_VISIBLE_DEVICES&lt;/h1&gt;
 
@@ -1080,30 +1095,6 @@ fc.bias      torch.Size([1000])
         <pubDate>Tue, 16 Mar 2021 08:35:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/03/16/sundry8/</link>
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/16/sundry8/</guid>
-        
-        <category>Dali杂货铺🐰</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰7——Python 字典操作详解</title>
-        <description>&lt;h1 id=&quot;1-update方法&quot;&gt;1. update()方法&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'one'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'two'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'three'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'one'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;4.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'four'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;9.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;输出:&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;{'one': 4.5, 'two': 2, 'three': 3, 'four': 9.3}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-        <pubDate>Mon, 15 Mar 2021 05:00:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/03/15/sundry7/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/15/sundry7/</guid>
         
         <category>Dali杂货铺🐰</category>
         

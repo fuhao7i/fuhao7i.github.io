@@ -1,0 +1,13 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰11——为什么神经网络需要激活函数？"
+subtitle:   " \"Relu, Sigmoid, Softmax\""
+date:       2021-03-22 15:49:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+> 我们可以不用使用非线性函数来构造线性变换，而是让每个神经元简单地返回它们的结果。但是这样的话，我们所有的层都会简单地将一组输入线性的进行矢量乘积和矢量加法。实际上，线性变换无法解决许多问题，所以激活函数是对矢量乘积和偏差的一个补充。激活函数将有效地缩小模型可以估计的函数数量。
