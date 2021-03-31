@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 30 Mar 2021 19:07:56 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Mar 2021 19:07:56 +0800</lastBuildDate>
+    <pubDate>Wed, 31 Mar 2021 21:51:11 +0800</pubDate>
+    <lastBuildDate>Wed, 31 Mar 2021 21:51:11 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -209,12 +209,12 @@
 &lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210328152456675.png&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tensor表示:&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;
- [[0.4, 0.3, 0.3],
-  [0.7, 0.2, 0.1],
-  [0.8, 0.2, 0.0],
-  [0.8, 0.1, 0.1],
-        ...
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;       Output              Label
+ [[0.4, 0.3, 0.3],      [[1, 0, 0],
+  [0.7, 0.2, 0.1],       [1, 0, 0],
+  [0.8, 0.2, 0.0],       [1, 0, 0],
+  [0.8, 0.1, 0.1],       [1, 0, 0],
+        ...                 ...
                  ]
 &lt;/code&gt;&lt;/pre&gt;
 
