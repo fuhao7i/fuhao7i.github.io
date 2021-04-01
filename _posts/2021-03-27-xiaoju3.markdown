@@ -234,3 +234,249 @@ if __name__ == "__main__":
 ```
 
 **[PyTorch实现](https://fuhao7i.com/2021/03/12/dalitools2/)**
+
+```python
+import argparse
+import copy
+import os
+import time
+import warnings
+
+from PIL import Image
+import torch
+import torchvision.transforms as transforms
+from torch.utils.data import Dataset, DataLoader
+import torch.optim as optim
+import matplotlib.pyplot as plt
+
+import torch.nn as nn
+
+# ===================>
+import logging
+logging.basicConfig(filename='./work_dirs/segnet/segnet.log', filemode='a', level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logger.setLevel(level = logging.DEBUG)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+console.setFormatter(formatter)
+
+logger.addHandler(console)
+# <==================
+
+# 标签像素值对应的物体类别, 0为背景
+CLASSES = {
+    '[0 0 0]' : 0,    # 背景
+    '[22 0 255]' : 1, # 建筑物
+    '[0 255 0]' : 2,  # 植被
+    '[255 255 255]':3,# 道路
+}
+
+NCLASSES = 4
+HEIGHT = 512
+WIDTH = 512
+
+BATCH_SIZE = 8
+
+# train.txt和val.txt的文件路径
+path_train_txt = './dataset/train.txt'
+path_val_txt = './dataset/val.txt'
+
+# train的图像和标签路径
+path_Xtrain = './dataset/jpg/'
+path_Xlabel = './dataset/png/'
+# val的图像和标签路径
+path_Yval = './dataset/val_jpg/'
+path_Ylabel = './dataset/val_png/'
+
+
+
+# labels映射
+def label_map(labels):
+    labelmap = np.zeros((int(HEIGHT),int(WIDTH),NCLASSES))
+    for h in range(int(HEIGHT)):
+        for w in range(int(WIDTH)):
+            if str(labels[h, w]) in CLASSES.keys():
+                c = CLASSES[str(labels[h, w])]
+            else:
+                c = 0
+            labelmap[h, w, c] = 1
+    return labelmap
+
+class MyDataset(Dataset):  # 创建类：MyDataset,继承torch.utils.data.Dataset
+    def __init__(self, datatxt, mode, transform=None):
+        super(MyDataset, self).__init__()
+        fh = open(datatxt, 'r')  # 打开txt，读取内容
+        data = []
+        for line in fh:  # 按行循环txt文本中的内容
+            words = line.split(';')  # 通过指定分隔符对字符串进行切片
+            data.append((words[0], words[1]))  # 把txt里的内容读入data列表保存，words[0]是图片信息，words[1]是label
+        if mode == 'train':
+            self.path_train = path_Xtrain
+            self.path_label = path_Xlabel
+        self.data = data
+        self.transform = transform
+
+    def __getitem__(self, index):  # 按照索引读取每个元素的具体内容
+        fn, label = self.data[index]  # fn是图片path
+
+        img = Image.open(self.path_train + fn).convert('RGB')
+
+        label = Image.open(self.path_label + fn).convert('RGB')
+
+
+
+        # from PIL import Image
+
+        if self.transform is not None:  # 是否进行transform
+            img = self.transform(img)
+        return img, label  # return回哪些内容，在训练时循环读取每个batch，就能获得哪些内容
+
+    def __len__(self):  # 它返回的是数据集的长度，必须有
+        return len(self.data)
+
+
+def main():
+
+
+    
+    # 实例化网络
+    model = Net()
+    # print(model)
+    
+    if torch.cuda.is_available():
+        model =  model.cuda()
+
+    train_transforms = transforms.Compose([
+     
+        transforms.Resize((512, 512)),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5),(0.5, 0.5, 0.5)),
+        ])
+    
+    val_transforms = transforms.Compose([
+        transforms.Resize((512, 512)),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5),(0.5, 0.5, 0.5)),
+    ])
+
+    train_data = MyDataset(datatxt=path_train_txt, transform=train_transforms)
+    train_loader = DataLoader(dataset=train_data, batch_size=2, shuffle=True)
+
+    val_data = MyDataset(datatxt=path_val_txt, transform=val_transforms)
+    val_loader = DataLoader(dataset=val_data, batch_size=2, shuffle=True)
+
+    optimizer = optim.SGD(model.module.backbone.parameters(), lr=0.001, momentum=0.9, weight_decay=0.0001)
+
+    # print('backbone parameters:', model.module.backbone)
+    num_epoches = 20
+    image = {}
+    criterion = nn.CrossEntropyLoss()
+
+    val_acc_history = []
+    best_model_wts = copy.deepcopy(model.state_dict())
+    best_acc = 0.0
+
+    # pretrained_dict = torch.load('/content/drive/MyDrive/search/mmdetection/data/resneXt_imagenet.pth')
+    # model_dict = model.state_dict()
+    # pretrained_dict = {k: v for k, v in pretrained_dict.items() if 'classifier' not in k}
+    # for k in pretrained_dict:
+    #     print(k)
+    # model_dict.update(pretrained_dict)
+    # model.load_state_dict(model_dict)
+
+    for epoch in range(num_epoches):
+        print('Epoch {}/{}'.format(epoch + 1, num_epoches))
+        print('-' * 10)
+
+        for phase in ['train', 'val']:
+            if phase == 'train':
+                model.train()  # Set model to training mode
+
+                running_loss = 0.0
+                running_corrects = 0
+
+                for i, (imgs, labels) in enumerate(train_loader):
+                    imgs = imgs.cuda(cfg.gpu_ids[0])
+                    labels = labels.cuda(cfg.gpu_ids[0])
+                    
+                    # print(labels)
+                    optimizer.zero_grad()       
+
+                    image['img'] = imgs
+                    image['img_metas'] = imgs
+
+                    outputs = model.extract_backbone(image, optimizer)
+                    loss = criterion(outputs, labels)
+                    loss.backward()
+                    optimizer.step()
+                    
+                    _, preds = torch.max(outputs, 1)
+
+                    print('loss:', loss.item())
+                    running_loss += loss.item() * imgs.size(0)
+                    running_corrects += torch.sum(preds == labels.data)
+                    # print('{}/{}'.format(i * 50, len(train_loader.dataset)))
+
+                epoch_loss = running_loss / len(train_loader.dataset)
+                epoch_acc = running_corrects.double() / len(train_loader.dataset)
+
+                print(' Loss: {:.4f}, acc: {:.6f} , running_loss: {:6f} , len: {:.6f}'.format(epoch_loss, epoch_acc, running_loss, len(train_loader.dataset)))    
+
+
+            else:
+                optimizer.zero_grad()     
+                # if epoch < 10:
+                #     break
+                model.eval()   # Set model to evaluate mode
+                
+                running_loss = 0.0
+                running_corrects = 0
+
+                for i, (imgs, labels) in enumerate(val_loader):
+
+                    imgs = imgs.cuda(cfg.gpu_ids[0])
+                    labels = labels.cuda(cfg.gpu_ids[0])
+                    # print(labels)
+                    optimizer.zero_grad()
+
+                    image['img'] = imgs
+                    image['img_metas'] = imgs
+                    
+                    outputs = model.extract_backbone(image, optimizer)
+                    # print(outputs.shape, labels.shape)
+                    loss = criterion(outputs, labels)
+                    
+                    _, preds = torch.max(outputs, 1)
+
+
+                    running_loss += loss.item() * imgs.size(0)
+                    running_corrects += torch.sum(preds == labels.data)
+                # epoch_loss = running_loss / 1000.0
+                # epoch_acc = running_corrects.double() / 1000.0
+                epoch_loss = running_loss / len(val_loader.dataset)
+                epoch_acc = running_corrects.double() / len(val_loader.dataset)
+
+                print(' Val_loss: {:.4f}, Val_acc: {:.6f} '.format(epoch_loss, epoch_acc))
+            
+                if epoch_acc > best_acc:
+                    best_acc = epoch_acc
+                    best_model_wts = copy.deepcopy(model.state_dict())
+                    torch.save(best_model_wts, '/content/drive/MyDrive/search/mmdetection/data/middle.pth')
+                val_acc_history.append(epoch_acc)
+
+            print()
+
+    print('Best val Acc: {:4f}'.format(best_acc))
+              
+    torch.save(best_model_wts, '/content/drive/MyDrive/search/mmdetection/data/resneXt_imagenet_338x600_best.pth')
+
+
+
+
+if __name__ == '__main__':
+    main()
+
+```
