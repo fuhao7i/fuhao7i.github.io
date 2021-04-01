@@ -1,0 +1,375 @@
+I"�f<h1 id="1-数据预处理">1. 数据预处理</h1>
+
+<p><code class="language-plaintext highlighter-rouge">思路:</code> 读取train.txt文件，获取训练图像及对应标签的文件路径，读取图像，将图像转化为<code class="language-plaintext highlighter-rouge">tensor</code>之后，<code class="language-plaintext highlighter-rouge">resize</code>调整图像尺寸大小并进行<code class="language-plaintext highlighter-rouge">归一化处理</code>，之后也可通过旋转，色偏，增加噪声等方式进行<code class="language-plaintext highlighter-rouge">数据增强</code>。注意要保证图像和标签的处理一致。</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20210327141350996.png" center="" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">padding可以使图像在resize时不失真</code></p>
+
+<h1 id="2-label-map-标签映射">2. label map 标签映射</h1>
+
+<p><img src="https://img-blog.csdnimg.cn/20210328145544433.png" center="" /></p>
+
+<p>如图就是我们的语义分割标签图像，相同颜色(像素值)的像素点代表的是同一类物体。假设像我们这个标签图像所展示的那样，我们需要分割出来图片中的猫和狗，那对我们的语义分割任务来说就是总共要分3类：0 背景；1 猫；2 狗；因此，我们需要创建一个<code class="language-plaintext highlighter-rouge">[Height, Width, N_classes]</code>数组来表示每一个像素点的类别；如下图所示：</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20210328145242405.png" center="" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">label[0, 0] = [1, 0, 0]</code> 说明[0, 0]位置是背景，<code class="language-plaintext highlighter-rouge">label[1, 1] = [0, 1, 0]</code>说明[1, 1]这个像素点属于猫。我们<code class="language-plaintext highlighter-rouge">Reshape</code>之后好像更方便大家理解:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">seg_labels</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">seg_labels</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">NCLASSES</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<pre><code class="language-Bash">
+ [[1, 0, 0],
+  [1, 0, 0],
+  [1, 0, 0],
+  [1, 0, 0],
+  [1, 0, 0],
+  [0, 1, 0],
+  [0, 0, 1],
+  [0, 0, 1],
+     ...
+           ]
+</code></pre>
+
+<p>这就是我们最后用来和预测结果计算损失的数据啦🌼<code class="language-plaintext highlighter-rouge">相信大家对为什么这样做还有点云里雾里的感觉，那么接下来就让我们揭开语义分割的神秘面纱吧🌼</code></p>
+
+<h1 id="3-像素级分类原理">3. 像素级分类原理</h1>
+
+<p>了解完lable的具体格式之后，我们来看一下网络的最后几层设计:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">x</span> <span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s">'vaild'</span> <span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">Reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">n_classes</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">Softmax</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>这个和我们label的处理是一致的，输出的是每一个像素点属于哪一类的概率，如下图：</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20210328152456675.png" center="" /></p>
+
+<p><code class="language-plaintext highlighter-rouge">tensor表示:</code></p>
+<pre><code class="language-Bash">       Output              Label
+ [[0.4, 0.3, 0.3],      [[1, 0, 0],
+  [0.7, 0.2, 0.1],       [1, 0, 0],
+  [0.8, 0.2, 0.0],       [1, 0, 0],
+  [0.8, 0.1, 0.1],       [1, 0, 0],
+        ...                 ...
+                 ]
+</code></pre>
+
+<p>将我们处理之后的label和预测得到的结果传给我们的损失函数就能计算出loss了，这样我们就实现了像素级的分类————也就是<code class="language-plaintext highlighter-rouge">语义分割</code>了🌼</p>
+
+<p><strong>下面是包含了数据预处理，损失定义等整个模型训练过程的train.py文件，大家稍作修改就可以训练自己的语义分割模型了🌼</strong></p>
+
+<p><strong><a href="https://keras.io/zh/models/model/">Keras实现</a></strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">import</span> <span class="nn">keras</span>
+<span class="kn">from</span> <span class="nn">keras</span> <span class="kn">import</span> <span class="n">backend</span> <span class="k">as</span> <span class="n">K</span>
+<span class="kn">from</span> <span class="nn">keras.optimizers</span> <span class="kn">import</span> <span class="n">Adam</span>
+<span class="kn">from</span> <span class="nn">keras.layers</span> <span class="kn">import</span> <span class="n">Lambda</span>
+<span class="kn">from</span> <span class="nn">keras.callbacks</span> <span class="kn">import</span> <span class="n">TensorBoard</span><span class="p">,</span> <span class="n">ModelCheckpoint</span><span class="p">,</span> <span class="n">ReduceLROnPlateau</span><span class="p">,</span> <span class="n">EarlyStopping</span>
+
+<span class="c1"># 标签像素值对应的物体类别, 0为背景
+</span><span class="n">CLASSES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">'[0 0 0]'</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="c1"># 背景
+</span>    <span class="s">'[7 7 7]'</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s">'[26 26 26]'</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">NCLASSES</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">HEIGHT</span> <span class="o">=</span> <span class="mi">576</span>
+<span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">576</span>
+
+<span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># train.txt和val.txt的文件路径
+</span><span class="n">path_train_txt</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">path_val_txt</span> <span class="o">=</span> <span class="s">''</span>
+
+<span class="c1"># train的图像和标签路径
+</span><span class="n">path_Xtrain</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">path_Xlabel</span> <span class="o">=</span> <span class="s">''</span>
+<span class="c1"># val的图像和标签路径
+</span><span class="n">path_Yval</span> <span class="o">=</span> <span class="s">''</span>
+<span class="n">path_Ylabel</span> <span class="o">=</span> <span class="s">''</span>
+
+
+<span class="c1"># labels映射
+</span><span class="k">def</span> <span class="nf">label_map</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+    <span class="n">labelmap</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">),</span><span class="n">NCLASSES</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span> <span class="ow">in</span> <span class="n">CLASSES</span><span class="p">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="n">CLASSES</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">labelmap</span><span class="p">[</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">labelmap</span>
+
+
+<span class="k">def</span> <span class="nf">data_generator</span><span class="p">(</span><span class="n">mode</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">[</span><span class="s">'train'</span><span class="p">,</span> <span class="s">'val'</span><span class="p">],</span> \
+        <span class="s">'mode must be ethier </span><span class="se">\'</span><span class="s">train</span><span class="se">\'</span><span class="s"> or </span><span class="se">\'</span><span class="s">val</span><span class="se">\'</span><span class="s">'</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s">'train'</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_train_txt</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+        <span class="n">path0</span> <span class="o">=</span> <span class="n">path_Xtrain</span>
+        <span class="n">path1</span> <span class="o">=</span> <span class="n">path_Xlabel</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_val_txt</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+        <span class="n">path0</span> <span class="o">=</span> <span class="n">path_Yval</span>
+        <span class="n">path1</span> <span class="o">=</span> <span class="n">path_Ylabel</span> 
+
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">BATCH_SIZE</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">';'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">path0</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">resize</span><span class="p">((</span><span class="n">HEIGHT</span><span class="p">,</span><span class="n">WIDTH</span><span class="p">))</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">/</span><span class="mi">255</span>
+            <span class="n">images</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+            <span class="n">name</span> <span class="o">=</span> <span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">split</span><span class="p">(</span><span class="s">';'</span><span class="p">)[</span><span class="mi">1</span><span class="p">]).</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">path1</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">resize</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">HEIGHT</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">WIDTH</span><span class="p">)))</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+            
+            <span class="n">seg_labels</span> <span class="o">=</span> <span class="n">label_map</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+            <span class="n">seg_labels</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">seg_labels</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">NCLASSES</span><span class="p">))</span>
+
+            <span class="n">labels</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">seg_labels</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span>
+        <span class="k">yield</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">images</span><span class="p">),</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+
+<span class="c1"># 定义损失函数
+</span><span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">crossloss</span> <span class="o">=</span> <span class="n">K</span><span class="p">.</span><span class="n">binary_crossentropy</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">K</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">crossloss</span><span class="p">)</span><span class="o">/</span><span class="n">HEIGHT</span><span class="o">/</span><span class="n">WIDTH</span>
+
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    
+    <span class="c1"># 用于最后保存模型的路径
+</span>    <span class="n">log_dir</span> <span class="o">=</span> <span class="s">''</span>
+
+    <span class="c1"># 创建模型
+</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
+
+    <span class="c1"># 获取训练样本和验证样本的数目
+</span>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_train_txt</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">num_train</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_val_txt</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">num_val</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+
+    <span class="c1"># 设置学习率下降方法,val_loss验证损失连续5个epoch不下降就让学习率减半
+</span>    <span class="n">reduce_lr</span> <span class="o">=</span> <span class="n">ReduceLROnPlateau</span><span class="p">(</span>
+                            <span class="n">monitor</span><span class="o">=</span><span class="s">'val_loss'</span><span class="p">,</span> 
+                            <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> 
+                            <span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> 
+                            <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span>
+                        <span class="p">)</span>
+    <span class="c1"># 是否需要早停，当val_loss一直不下降的时候意味着模型基本训练完毕，可以停止
+</span>    <span class="n">early_stopping</span> <span class="o">=</span> <span class="n">EarlyStopping</span><span class="p">(</span>
+                            <span class="n">monitor</span><span class="o">=</span><span class="s">'val_loss'</span><span class="p">,</span> 
+                            <span class="n">min_delta</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+                            <span class="n">patience</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+                            <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span>
+                        <span class="p">)</span>
+    <span class="c1"># 设置损失，优化器
+</span>    <span class="n">model</span><span class="p">.</span><span class="nb">compile</span><span class="p">(</span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span><span class="p">,</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">),</span>
+            <span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s">'accuracy'</span><span class="p">])</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s">'Train on {} samples, val on {} samples, with batch size {}.'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">num_train</span><span class="p">,</span> <span class="n">num_val</span><span class="p">,</span> <span class="n">BATCH_SIZE</span><span class="p">))</span>
+
+    <span class="c1"># 开始训练
+</span>    <span class="n">model</span><span class="p">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">data_generator</span><span class="p">(</span><span class="s">'train'</span><span class="p">),</span>
+            <span class="n">steps_per_epoch</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_train</span><span class="o">//</span><span class="n">BATCH_SIZE</span><span class="p">),</span>
+            <span class="n">validation_data</span><span class="o">=</span><span class="n">data_generator</span><span class="p">(</span><span class="s">'val'</span><span class="p">),</span>
+            <span class="n">validation_steps</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_val</span><span class="o">//</span><span class="n">BATCH_SIZE</span><span class="p">),</span>
+            <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+            <span class="n">initial_epoch</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">reduce_lr</span><span class="p">,</span> <span class="n">early_stopping</span><span class="p">])</span>
+
+    <span class="n">model</span><span class="p">.</span><span class="n">save_weights</span><span class="p">(</span><span class="n">log_dir</span><span class="o">+</span><span class="s">'Dali.h5'</span><span class="p">)</span>
+
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong><a href="https://fuhao7i.com/2021/03/12/dalitools2/">PyTorch实现</a></strong></p>
+:ET

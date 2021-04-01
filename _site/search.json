@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰12——logging模块 打印日志",
+      "subtitle" : " &quot;以打印日志为荣, 单步跟踪为耻&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/04/01/sundry12/",
+      "date"     : "2021-04-01 22:26:00 +0800"
+    } ,
+  
+    {
       "title"    : "GAN&amp;Image Enhancement🐽1——AODNet: All-in-One Dehazing Network",
       "subtitle" : " &quot;图像去雾&quot;",
       "tags"     : "GAN&Image Enhancement🐽",

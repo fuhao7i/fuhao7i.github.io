@@ -1,0 +1,46 @@
+I"�<blockquote>
+  <p>logging 提供了标准的日志借口，可以通过它来存储各种格式的日志；</p>
+</blockquote>
+
+<blockquote>
+  <blockquote>
+    <p>logging 优势：
+可以控制消息的级别(debug, info, warning, error, critial)，过滤掉那些不重要的信息；通过赋予logger或handle不同的级别，保存不同的日志信息；</p>
+  </blockquote>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="p">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s">'./segnet.log'</span><span class="p">,</span> <span class="n">filemode</span><span class="o">=</span><span class="s">'a'</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">DEBUG</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">logger</span><span class="p">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="p">)</span>
+
+<span class="n">console</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+<span class="n">console</span><span class="p">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">console</span><span class="p">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>
+
+<span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'How should i do?'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="引用">引用：</h1>
+<ol>
+  <li><a href="https://www.cnblogs.com/deeper/p/7404190.html">logging模块详细介绍</a></li>
+</ol>
+:ET

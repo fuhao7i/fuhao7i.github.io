@@ -5,9 +5,66 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 31 Mar 2021 21:51:11 +0800</pubDate>
-    <lastBuildDate>Wed, 31 Mar 2021 21:51:11 +0800</lastBuildDate>
+    <pubDate>Thu, 01 Apr 2021 16:10:28 +0800</pubDate>
+    <lastBuildDate>Thu, 01 Apr 2021 16:10:28 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali杂货铺🐰12——logging模块 打印日志</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;logging 提供了标准的日志借口，可以通过它来存储各种格式的日志；&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;logging 优势：
+可以控制消息的级别(debug, info, warning, error, critial)，过滤掉那些不重要的信息；通过赋予logger或handle不同的级别，保存不同的日志信息；&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;logging&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;basicConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'./segnet.log'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filemode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;level&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DEBUG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'%(asctime)s - %(name)s - %(levelname)s - %(message)s'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setLevel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;level&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DEBUG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Formatter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'%(asctime)s - %(name)s - %(levelname)s - %(message)s'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;console&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;StreamHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setLevel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setFormatter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'How should i do?'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;引用&quot;&gt;引用：&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/deeper/p/7404190.html&quot;&gt;logging模块详细介绍&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Thu, 01 Apr 2021 22:26:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/01/sundry12/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/01/sundry12/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
     
       <item>
         <title>GAN&amp;Image Enhancement🐽1——AODNet: All-in-One Dehazing Network</title>
@@ -529,7 +586,6 @@
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://fuhao7i.com/2021/03/12/dalitools2/&quot;&gt;PyTorch实现&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
-
 </description>
         <pubDate>Sat, 27 Mar 2021 22:00:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/03/27/xiaoju3/</link>
@@ -763,340 +819,6 @@ conda env export -n bigdata &amp;gt; rf.yaml
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/20/dalitools3/</guid>
         
         <category>Dali工具箱🔧</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰8——PyTorch 保存,加载和查看训练好的模型</title>
-        <description>&lt;h1 id=&quot;1-保存模型&quot;&gt;1. 保存模型&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./Double.pth&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;2-加载训练好的模型&quot;&gt;2. 加载训练好的模型&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;# 创建模型
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Net&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# 加载预训练模型的参数
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load_state_dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./Double.pth&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;3-查看训练好的模型&quot;&gt;3. 查看训练好的模型&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch&lt;/span&gt; 
-&lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/root/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'      '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;或&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;torch&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 命令行是逐行立即执行的
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/root/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'      '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;result:&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;conv1.weight      torch.Size([64, 3, 7, 7])
-bn1.running_mean      torch.Size([64])
-bn1.running_var      torch.Size([64])
-bn1.weight      torch.Size([64])
-bn1.bias      torch.Size([64])
-layer1.0.conv1.weight      torch.Size([64, 64, 1, 1])
-layer1.0.bn1.running_mean      torch.Size([64])
-layer1.0.bn1.running_var      torch.Size([64])
-layer1.0.bn1.weight      torch.Size([64])
-layer1.0.bn1.bias      torch.Size([64])
-layer1.0.conv2.weight      torch.Size([64, 64, 3, 3])
-layer1.0.bn2.running_mean      torch.Size([64])
-layer1.0.bn2.running_var      torch.Size([64])
-layer1.0.bn2.weight      torch.Size([64])
-layer1.0.bn2.bias      torch.Size([64])
-layer1.0.conv3.weight      torch.Size([256, 64, 1, 1])
-layer1.0.bn3.running_mean      torch.Size([256])
-layer1.0.bn3.running_var      torch.Size([256])
-layer1.0.bn3.weight      torch.Size([256])
-layer1.0.bn3.bias      torch.Size([256])
-layer1.0.downsample.0.weight      torch.Size([256, 64, 1, 1])
-layer1.0.downsample.1.running_mean      torch.Size([256])
-layer1.0.downsample.1.running_var      torch.Size([256])
-layer1.0.downsample.1.weight      torch.Size([256])
-layer1.0.downsample.1.bias      torch.Size([256])
-layer1.1.conv1.weight      torch.Size([64, 256, 1, 1])
-layer1.1.bn1.running_mean      torch.Size([64])
-layer1.1.bn1.running_var      torch.Size([64])
-layer1.1.bn1.weight      torch.Size([64])
-layer1.1.bn1.bias      torch.Size([64])
-layer1.1.conv2.weight      torch.Size([64, 64, 3, 3])
-layer1.1.bn2.running_mean      torch.Size([64])
-layer1.1.bn2.running_var      torch.Size([64])
-layer1.1.bn2.weight      torch.Size([64])
-layer1.1.bn2.bias      torch.Size([64])
-layer1.1.conv3.weight      torch.Size([256, 64, 1, 1])
-layer1.1.bn3.running_mean      torch.Size([256])
-layer1.1.bn3.running_var      torch.Size([256])
-layer1.1.bn3.weight      torch.Size([256])
-layer1.1.bn3.bias      torch.Size([256])
-layer1.2.conv1.weight      torch.Size([64, 256, 1, 1])
-layer1.2.bn1.running_mean      torch.Size([64])
-layer1.2.bn1.running_var      torch.Size([64])
-layer1.2.bn1.weight      torch.Size([64])
-layer1.2.bn1.bias      torch.Size([64])
-layer1.2.conv2.weight      torch.Size([64, 64, 3, 3])
-layer1.2.bn2.running_mean      torch.Size([64])
-layer1.2.bn2.running_var      torch.Size([64])
-layer1.2.bn2.weight      torch.Size([64])
-layer1.2.bn2.bias      torch.Size([64])
-layer1.2.conv3.weight      torch.Size([256, 64, 1, 1])
-layer1.2.bn3.running_mean      torch.Size([256])
-layer1.2.bn3.running_var      torch.Size([256])
-layer1.2.bn3.weight      torch.Size([256])
-layer1.2.bn3.bias      torch.Size([256])
-layer2.0.conv1.weight      torch.Size([128, 256, 1, 1])
-layer2.0.bn1.running_mean      torch.Size([128])
-layer2.0.bn1.running_var      torch.Size([128])
-layer2.0.bn1.weight      torch.Size([128])
-layer2.0.bn1.bias      torch.Size([128])
-layer2.0.conv2.weight      torch.Size([128, 128, 3, 3])
-layer2.0.bn2.running_mean      torch.Size([128])
-layer2.0.bn2.running_var      torch.Size([128])
-layer2.0.bn2.weight      torch.Size([128])
-layer2.0.bn2.bias      torch.Size([128])
-layer2.0.conv3.weight      torch.Size([512, 128, 1, 1])
-layer2.0.bn3.running_mean      torch.Size([512])
-layer2.0.bn3.running_var      torch.Size([512])
-layer2.0.bn3.weight      torch.Size([512])
-layer2.0.bn3.bias      torch.Size([512])
-layer2.0.downsample.0.weight      torch.Size([512, 256, 1, 1])
-layer2.0.downsample.1.running_mean      torch.Size([512])
-layer2.0.downsample.1.running_var      torch.Size([512])
-layer2.0.downsample.1.weight      torch.Size([512])
-layer2.0.downsample.1.bias      torch.Size([512])
-layer2.1.conv1.weight      torch.Size([128, 512, 1, 1])
-layer2.1.bn1.running_mean      torch.Size([128])
-layer2.1.bn1.running_var      torch.Size([128])
-layer2.1.bn1.weight      torch.Size([128])
-layer2.1.bn1.bias      torch.Size([128])
-layer2.1.conv2.weight      torch.Size([128, 128, 3, 3])
-layer2.1.bn2.running_mean      torch.Size([128])
-layer2.1.bn2.running_var      torch.Size([128])
-layer2.1.bn2.weight      torch.Size([128])
-layer2.1.bn2.bias      torch.Size([128])
-layer2.1.conv3.weight      torch.Size([512, 128, 1, 1])
-layer2.1.bn3.running_mean      torch.Size([512])
-layer2.1.bn3.running_var      torch.Size([512])
-layer2.1.bn3.weight      torch.Size([512])
-layer2.1.bn3.bias      torch.Size([512])
-layer2.2.conv1.weight      torch.Size([128, 512, 1, 1])
-layer2.2.bn1.running_mean      torch.Size([128])
-layer2.2.bn1.running_var      torch.Size([128])
-layer2.2.bn1.weight      torch.Size([128])
-layer2.2.bn1.bias      torch.Size([128])
-layer2.2.conv2.weight      torch.Size([128, 128, 3, 3])
-layer2.2.bn2.running_mean      torch.Size([128])
-layer2.2.bn2.running_var      torch.Size([128])
-layer2.2.bn2.weight      torch.Size([128])
-layer2.2.bn2.bias      torch.Size([128])
-layer2.2.conv3.weight      torch.Size([512, 128, 1, 1])
-layer2.2.bn3.running_mean      torch.Size([512])
-layer2.2.bn3.running_var      torch.Size([512])
-layer2.2.bn3.weight      torch.Size([512])
-layer2.2.bn3.bias      torch.Size([512])
-layer2.3.conv1.weight      torch.Size([128, 512, 1, 1])
-layer2.3.bn1.running_mean      torch.Size([128])
-layer2.3.bn1.running_var      torch.Size([128])
-layer2.3.bn1.weight      torch.Size([128])
-layer2.3.bn1.bias      torch.Size([128])
-layer2.3.conv2.weight      torch.Size([128, 128, 3, 3])
-layer2.3.bn2.running_mean      torch.Size([128])
-layer2.3.bn2.running_var      torch.Size([128])
-layer2.3.bn2.weight      torch.Size([128])
-layer2.3.bn2.bias      torch.Size([128])
-layer2.3.conv3.weight      torch.Size([512, 128, 1, 1])
-layer2.3.bn3.running_mean      torch.Size([512])
-layer2.3.bn3.running_var      torch.Size([512])
-layer2.3.bn3.weight      torch.Size([512])
-layer2.3.bn3.bias      torch.Size([512])
-layer3.0.conv1.weight      torch.Size([256, 512, 1, 1])
-layer3.0.bn1.running_mean      torch.Size([256])
-layer3.0.bn1.running_var      torch.Size([256])
-layer3.0.bn1.weight      torch.Size([256])
-layer3.0.bn1.bias      torch.Size([256])
-layer3.0.conv2.weight      torch.Size([256, 256, 3, 3])
-layer3.0.bn2.running_mean      torch.Size([256])
-layer3.0.bn2.running_var      torch.Size([256])
-layer3.0.bn2.weight      torch.Size([256])
-layer3.0.bn2.bias      torch.Size([256])
-layer3.0.conv3.weight      torch.Size([1024, 256, 1, 1])
-layer3.0.bn3.running_mean      torch.Size([1024])
-layer3.0.bn3.running_var      torch.Size([1024])
-layer3.0.bn3.weight      torch.Size([1024])
-layer3.0.bn3.bias      torch.Size([1024])
-layer3.0.downsample.0.weight      torch.Size([1024, 512, 1, 1])
-layer3.0.downsample.1.running_mean      torch.Size([1024])
-layer3.0.downsample.1.running_var      torch.Size([1024])
-layer3.0.downsample.1.weight      torch.Size([1024])
-layer3.0.downsample.1.bias      torch.Size([1024])
-layer3.1.conv1.weight      torch.Size([256, 1024, 1, 1])
-layer3.1.bn1.running_mean      torch.Size([256])
-layer3.1.bn1.running_var      torch.Size([256])
-layer3.1.bn1.weight      torch.Size([256])
-layer3.1.bn1.bias      torch.Size([256])
-layer3.1.conv2.weight      torch.Size([256, 256, 3, 3])
-layer3.1.bn2.running_mean      torch.Size([256])
-layer3.1.bn2.running_var      torch.Size([256])
-layer3.1.bn2.weight      torch.Size([256])
-layer3.1.bn2.bias      torch.Size([256])
-layer3.1.conv3.weight      torch.Size([1024, 256, 1, 1])
-layer3.1.bn3.running_mean      torch.Size([1024])
-layer3.1.bn3.running_var      torch.Size([1024])
-layer3.1.bn3.weight      torch.Size([1024])
-layer3.1.bn3.bias      torch.Size([1024])
-layer3.2.conv1.weight      torch.Size([256, 1024, 1, 1])
-layer3.2.bn1.running_mean      torch.Size([256])
-layer3.2.bn1.running_var      torch.Size([256])
-layer3.2.bn1.weight      torch.Size([256])
-layer3.2.bn1.bias      torch.Size([256])
-layer3.2.conv2.weight      torch.Size([256, 256, 3, 3])
-layer3.2.bn2.running_mean      torch.Size([256])
-layer3.2.bn2.running_var      torch.Size([256])
-layer3.2.bn2.weight      torch.Size([256])
-layer3.2.bn2.bias      torch.Size([256])
-layer3.2.conv3.weight      torch.Size([1024, 256, 1, 1])
-layer3.2.bn3.running_mean      torch.Size([1024])
-layer3.2.bn3.running_var      torch.Size([1024])
-layer3.2.bn3.weight      torch.Size([1024])
-layer3.2.bn3.bias      torch.Size([1024])
-layer3.3.conv1.weight      torch.Size([256, 1024, 1, 1])
-layer3.3.bn1.running_mean      torch.Size([256])
-layer3.3.bn1.running_var      torch.Size([256])
-layer3.3.bn1.weight      torch.Size([256])
-layer3.3.bn1.bias      torch.Size([256])
-layer3.3.conv2.weight      torch.Size([256, 256, 3, 3])
-layer3.3.bn2.running_mean      torch.Size([256])
-layer3.3.bn2.running_var      torch.Size([256])
-layer3.3.bn2.weight      torch.Size([256])
-layer3.3.bn2.bias      torch.Size([256])
-layer3.3.conv3.weight      torch.Size([1024, 256, 1, 1])
-layer3.3.bn3.running_mean      torch.Size([1024])
-layer3.3.bn3.running_var      torch.Size([1024])
-layer3.3.bn3.weight      torch.Size([1024])
-layer3.3.bn3.bias      torch.Size([1024])
-layer3.4.conv1.weight      torch.Size([256, 1024, 1, 1])
-layer3.4.bn1.running_mean      torch.Size([256])
-layer3.4.bn1.running_var      torch.Size([256])
-layer3.4.bn1.weight      torch.Size([256])
-layer3.4.bn1.bias      torch.Size([256])
-layer3.4.conv2.weight      torch.Size([256, 256, 3, 3])
-layer3.4.bn2.running_mean      torch.Size([256])
-layer3.4.bn2.running_var      torch.Size([256])
-layer3.4.bn2.weight      torch.Size([256])
-layer3.4.bn2.bias      torch.Size([256])
-layer3.4.conv3.weight      torch.Size([1024, 256, 1, 1])
-layer3.4.bn3.running_mean      torch.Size([1024])
-layer3.4.bn3.running_var      torch.Size([1024])
-layer3.4.bn3.weight      torch.Size([1024])
-layer3.4.bn3.bias      torch.Size([1024])
-layer3.5.conv1.weight      torch.Size([256, 1024, 1, 1])
-layer3.5.bn1.running_mean      torch.Size([256])
-layer3.5.bn1.running_var      torch.Size([256])
-layer3.5.bn1.weight      torch.Size([256])
-layer3.5.bn1.bias      torch.Size([256])
-layer3.5.conv2.weight      torch.Size([256, 256, 3, 3])
-layer3.5.bn2.running_mean      torch.Size([256])
-layer3.5.bn2.running_var      torch.Size([256])
-layer3.5.bn2.weight      torch.Size([256])
-layer3.5.bn2.bias      torch.Size([256])
-layer3.5.conv3.weight      torch.Size([1024, 256, 1, 1])
-layer3.5.bn3.running_mean      torch.Size([1024])
-layer3.5.bn3.running_var      torch.Size([1024])
-layer3.5.bn3.weight      torch.Size([1024])
-layer3.5.bn3.bias      torch.Size([1024])
-layer4.0.conv1.weight      torch.Size([512, 1024, 1, 1])
-layer4.0.bn1.running_mean      torch.Size([512])
-layer4.0.bn1.running_var      torch.Size([512])
-layer4.0.bn1.weight      torch.Size([512])
-layer4.0.bn1.bias      torch.Size([512])
-layer4.0.conv2.weight      torch.Size([512, 512, 3, 3])
-layer4.0.bn2.running_mean      torch.Size([512])
-layer4.0.bn2.running_var      torch.Size([512])
-layer4.0.bn2.weight      torch.Size([512])
-layer4.0.bn2.bias      torch.Size([512])
-layer4.0.conv3.weight      torch.Size([2048, 512, 1, 1])
-layer4.0.bn3.running_mean      torch.Size([2048])
-layer4.0.bn3.running_var      torch.Size([2048])
-layer4.0.bn3.weight      torch.Size([2048])
-layer4.0.bn3.bias      torch.Size([2048])
-layer4.0.downsample.0.weight      torch.Size([2048, 1024, 1, 1])
-layer4.0.downsample.1.running_mean      torch.Size([2048])
-layer4.0.downsample.1.running_var      torch.Size([2048])
-layer4.0.downsample.1.weight      torch.Size([2048])
-layer4.0.downsample.1.bias      torch.Size([2048])
-layer4.1.conv1.weight      torch.Size([512, 2048, 1, 1])
-layer4.1.bn1.running_mean      torch.Size([512])
-layer4.1.bn1.running_var      torch.Size([512])
-layer4.1.bn1.weight      torch.Size([512])
-layer4.1.bn1.bias      torch.Size([512])
-layer4.1.conv2.weight      torch.Size([512, 512, 3, 3])
-layer4.1.bn2.running_mean      torch.Size([512])
-layer4.1.bn2.running_var      torch.Size([512])
-layer4.1.bn2.weight      torch.Size([512])
-layer4.1.bn2.bias      torch.Size([512])
-layer4.1.conv3.weight      torch.Size([2048, 512, 1, 1])
-layer4.1.bn3.running_mean      torch.Size([2048])
-layer4.1.bn3.running_var      torch.Size([2048])
-layer4.1.bn3.weight      torch.Size([2048])
-layer4.1.bn3.bias      torch.Size([2048])
-layer4.2.conv1.weight      torch.Size([512, 2048, 1, 1])
-layer4.2.bn1.running_mean      torch.Size([512])
-layer4.2.bn1.running_var      torch.Size([512])
-layer4.2.bn1.weight      torch.Size([512])
-layer4.2.bn1.bias      torch.Size([512])
-layer4.2.conv2.weight      torch.Size([512, 512, 3, 3])
-layer4.2.bn2.running_mean      torch.Size([512])
-layer4.2.bn2.running_var      torch.Size([512])
-layer4.2.bn2.weight      torch.Size([512])
-layer4.2.bn2.bias      torch.Size([512])
-layer4.2.conv3.weight      torch.Size([2048, 512, 1, 1])
-layer4.2.bn3.running_mean      torch.Size([2048])
-layer4.2.bn3.running_var      torch.Size([2048])
-layer4.2.bn3.weight      torch.Size([2048])
-layer4.2.bn3.bias      torch.Size([2048])
-fc.weight      torch.Size([1000, 2048])
-fc.bias      torch.Size([1000])
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&quot;-引用&quot;&gt;#. 引用&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/137562717&quot;&gt;PyTorch使用预训练模型(保存，加载，加载部分，冻结某些参数，修改网络某些层等…)&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Tue, 16 Mar 2021 08:35:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/03/16/sundry8/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/16/sundry8/</guid>
-        
-        <category>Dali杂货铺🐰</category>
         
         
       </item>
