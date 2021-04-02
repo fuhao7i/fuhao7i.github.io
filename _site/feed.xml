@@ -5,13 +5,17 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 02 Apr 2021 20:51:48 +0800</pubDate>
-    <lastBuildDate>Fri, 02 Apr 2021 20:51:48 +0800</lastBuildDate>
+    <pubDate>Fri, 02 Apr 2021 20:53:53 +0800</pubDate>
+    <lastBuildDate>Fri, 02 Apr 2021 20:53:53 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
         <title>Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了</title>
-        <description>
+        <description>&lt;h1 id=&quot;引用&quot;&gt;引用.&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/fufu_good/article/details/104340036&quot;&gt;使用Pytorch实现学习率衰减/降低（learning rate decay）&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
 </description>
         <pubDate>Sat, 03 Apr 2021 04:50:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/04/03/sundry15/</link>

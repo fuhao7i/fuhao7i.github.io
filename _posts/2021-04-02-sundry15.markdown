@@ -9,3 +9,7 @@ catalog: true
 tags:
     - Dali杂货铺🐰
 ---
+
+# 引用.
+
+1. [使用Pytorch实现学习率衰减/降低（learning rate decay）](https://blog.csdn.net/fufu_good/article/details/104340036)
