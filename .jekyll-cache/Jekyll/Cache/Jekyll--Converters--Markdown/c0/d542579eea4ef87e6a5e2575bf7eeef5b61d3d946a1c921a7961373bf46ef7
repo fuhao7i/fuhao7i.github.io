@@ -1,0 +1,11 @@
+I"'<p><strong>wandb(Weights &amp; Biases)是一个类似于tensorboard的极度丝滑的在线模型训练可视化工具。</strong></p>
+
+<p>wandb这个库可以帮助我们跟踪实验，记录运行中的超参数和输出指标，可视化结果并共享结果以及可以实时监控我们系统的各项指标：CPU，GPU等；</p>
+
+<pre><code class="language-Bash">!pip install wandb
+import wandb
+wandb.init()
+</code></pre>
+
+<p>会返回一个网页连接，点击登陆后会返回一个密钥，直接复制粘贴到程序里就可以了。</p>
+:ET

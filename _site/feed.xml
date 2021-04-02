@@ -5,9 +5,80 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 01 Apr 2021 19:53:47 +0800</pubDate>
-    <lastBuildDate>Thu, 01 Apr 2021 19:53:47 +0800</lastBuildDate>
+    <pubDate>Fri, 02 Apr 2021 20:51:48 +0800</pubDate>
+    <lastBuildDate>Fri, 02 Apr 2021 20:51:48 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了</title>
+        <description>
+</description>
+        <pubDate>Sat, 03 Apr 2021 04:50:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/03/sundry15/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/03/sundry15/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Dali杂货铺🐰14——GPU显存占满，但利用率却很低？</title>
+        <description>&lt;h1 id=&quot;1-float32&quot;&gt;1. float32&lt;/h1&gt;
+
+&lt;p&gt;查看各个张量(即每一层的输入输出，一般输入类型对了，输出类型也对)是否为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float32&lt;/code&gt;，Tensorflow在GPU上不能处理&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float64&lt;/code&gt;的tensor，因此我们需要确保每个tensor为float32位。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;注意&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;np.ones 和 np.zeros 都默认为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float64&lt;/code&gt;位.&lt;/p&gt;
+
+&lt;p&gt;astype: 转换np.array的数据类型
+a.dtype: 输出a的数据类型&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'float32'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;2-注意算法的时间复杂度&quot;&gt;2. 注意算法的时间复杂度&lt;/h1&gt;
+
+&lt;p&gt;看看你的程序里，数据预处理部分，是不是有特别 &lt;strong&gt;“笨重”&lt;/strong&gt; 的部分，比如说: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;两个for循环遍历数据&lt;/code&gt; … 😭 我的就是因为这个浪费我两天时间，我一直还以为是tensorflow的版本问题, 年轻了…&lt;/p&gt;
+</description>
+        <pubDate>Fri, 02 Apr 2021 17:50:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/02/sundry14/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/02/sundry14/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Dali杂货铺🐰13——wandb 模型训练轻量级可视化工具</title>
+        <description>&lt;p&gt;&lt;strong&gt;wandb(Weights &amp;amp; Biases)是一个类似于tensorboard的极度丝滑的在线模型训练可视化工具。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;wandb这个库可以帮助我们跟踪实验，记录运行中的超参数和输出指标，可视化结果并共享结果以及可以实时监控我们系统的各项指标：CPU，GPU等；&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;!pip install wandb
+import wandb
+wandb.init()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;会返回一个网页连接，点击登陆后会返回一个密钥，直接复制粘贴到程序里就可以了。&lt;/p&gt;
+</description>
+        <pubDate>Fri, 02 Apr 2021 17:50:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/02/sundry13/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/02/sundry13/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
     
       <item>
         <title>Dali杂货铺🐰12——logging模块 打印日志</title>
@@ -36,9 +107,13 @@
 12
 13
 14
+15
+16
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;logging&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;basicConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'./segnet.log'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filemode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;level&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DEBUG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'%(asctime)s - %(name)s - %(levelname)s - %(message)s'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 避免缓存中有logger，重复输出
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;handlers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;logger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setLevel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;level&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DEBUG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;formatter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Formatter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'%(asctime)s - %(name)s - %(levelname)s - %(message)s'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -1178,135 +1253,6 @@
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/22/sundry10/</guid>
         
         <category>Dali杂货铺🐰</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰9——Anaconda conda 命令详解</title>
-        <description>&lt;h2 id=&quot;1-创建环境&quot;&gt;1. 创建环境&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conda create -n envname python=3.7&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;2-激活环境&quot;&gt;2. 激活环境&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conda activate envname&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;3-查看存在的所有环境&quot;&gt;3. 查看存在的所有环境&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conda info --envs&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;4-克隆环境本地&quot;&gt;4. 克隆环境(本地)&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conda create -n env2name --clone nv1name&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;env2 是新创建的环境，env1 是被克隆的环境，env2和env1完全相同。&lt;/p&gt;
-
-&lt;h2 id=&quot;5-环境迁移异地&quot;&gt;5. 环境迁移(异地)&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-激活-or-关闭环境&quot;&gt;1. 激活 or 关闭环境&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conda activate envname&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conda deactivate&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;2-环境导出&quot;&gt;2. 环境导出&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conda env export &amp;gt; rf.yaml&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;or&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;# -n 后面的参数是服务器A要克隆的环境名称
-conda env export -n bigdata &amp;gt; rf.yaml
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;3-安装复制环境&quot;&gt;3. 安装复制环境&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;conda env create -n newenvname -f rf.yaml&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;-n 后面是新环境的名称&lt;/p&gt;
-
-&lt;h3 id=&quot;警告&quot;&gt;警告&lt;/h3&gt;
-
-&lt;p&gt;如果发现没有相关依赖的pip包，可能与你的conda版本有关，接着用以下命令进行导出pip包.&lt;/p&gt;
-
-&lt;p&gt;使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip freeze&lt;/code&gt; 会输出所有在本地已安装的包（但不包括 pip、wheel、setuptools 等自带包），若需要输出内容与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip list&lt;/code&gt; 一致，需使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip freeze -all&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;pip freeze &amp;gt; requirements.txt
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;pip install -r requirements.txt
-&lt;/code&gt;&lt;/pre&gt;
-
-</description>
-        <pubDate>Mon, 22 Mar 2021 20:40:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/03/22/sundry9/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/22/sundry9/</guid>
-        
-        <category>Dali杂货铺🐰</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>NAS👣1——DARTS</title>
-        <description>&lt;h1 id=&quot;-引用&quot;&gt;#. 引用&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/u012347027/article/details/106175020&quot;&gt;神经网络架构搜索——可微分搜索（DARTS）&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/73037439&quot;&gt;【论文笔记】DARTS公式推导&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Mon, 22 Mar 2021 19:07:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/03/22/nas1/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/22/nas1/</guid>
-        
-        <category>NAS👣</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali工具箱🔧3—— DD——DaliDetetion</title>
-        <description>&lt;h1 id=&quot;0-配置文件-configs&quot;&gt;0. 配置文件 configs&lt;/h1&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;
-&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Classification'&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 或者是‘_base/Faster_RCNN.py’
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;backbone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'Conv'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_channels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'Conv'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;output_indices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;classificer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'Linear'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;768000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;'Linear'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1024&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Sat, 20 Mar 2021 23:34:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/03/20/dalitools3/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/20/dalitools3/</guid>
-        
-        <category>Dali工具箱🔧</category>
         
         
       </item>

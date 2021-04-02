@@ -253,6 +253,91 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2021/04/03/sundry15/">
+        <h2 class="post-title">
+            Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "loss problems"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                
+
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on April 3, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/04/02/sundry14/">
+        <h2 class="post-title">
+            Dali杂货铺🐰14——GPU显存占满，但利用率却很低？
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "Tensorflow, 渴望GPU"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                1. float32
+
+查看各个张量(即每一层的输入输出，一般输入类型对了，输出类型也对)是否为float32，Tensorflow在GPU上不能处理float64的tensor，因此我们需要确保每个tensor为float32位。
+
+注意
+
+np.ones 和 np.zeros 都默认为float64位.
+
+astype: 转换np.array的数据类型
+a.dtype: 输出a的数据类型...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on April 2, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/04/02/sundry13/">
+        <h2 class="post-title">
+            Dali杂货铺🐰13——wandb 模型训练轻量级可视化工具
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "丝滑的在线模型训练可视化工具, 监控GPU使用情况"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                wandb(Weights &amp; Biases)是一个类似于tensorboard的极度丝滑的在线模型训练可视化工具。
+
+wandb这个库可以帮助我们跟踪实验，记录运行中的超参数和输出指标，可视化结果并共享结果以及可以实时监控我们系统的各项指标：CPU，GPU等；
+
+!pip install wandb
+import wandb
+wandb.init()
+
+
+会返回一个网页连接，点击登...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on April 2, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/04/01/sundry12/">
         <h2 class="post-title">
             Dali杂货铺🐰12——logging模块 打印日志
@@ -289,7 +374,8 @@
 12
 13
 14
-impo...
+15
+1...
             
         </div>
     </a>
@@ -479,115 +565,6 @@ os.environ['CUDA_VISIBLE_DEVICES'] = 0      # 只有GPU:0 对程序...
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2021/03/22/sundry9/">
-        <h2 class="post-title">
-            Dali杂货铺🐰9——Anaconda conda 命令详解
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "Conda, 更好的管理python环境"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                1. 创建环境
-
-conda create -n envname python=3.7
-
-2. 激活环境
-
-conda activate envname
-
-3. 查看存在的所有环境
-
-conda info --envs
-
-4. 克隆环境(本地)
-
-conda create -n env2name --clone nv1name
-
-env2 是新创建的环境，env1 是被克隆的环境，env2和...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 22, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/03/22/nas1/">
-        <h2 class="post-title">
-            NAS👣1——DARTS
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "可微分神经架构搜索"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                #. 引用
-
-
-  神经网络架构搜索——可微分搜索（DARTS）
-  【论文笔记】DARTS公式推导
-
-
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 22, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/03/20/dalitools3/">
-        <h2 class="post-title">
-            Dali工具箱🔧3—— DD——DaliDetetion
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "更好的帮你完成深度学习任务"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                0. 配置文件 configs
-
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-
-model= dict(
-    type= 'Classification' # 或者是‘_base/Faster_RCNN.py’
-    backbone= dict(
-        'Conv'= dict(input_channels= 3, out_channels=16...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 20, 2021
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -627,7 +604,7 @@ model= dict(
         
         
         
-                <a data-sort="0036" 
+                <a data-sort="0039" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8"
                     title="阿菊的OpenCv🎨"
                     rel="1">阿菊的OpenCv🎨</a>
@@ -635,54 +612,54 @@ model= dict(
                 <a data-sort="0025" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
-                    rel="12">Dali杂货铺🐰</a>
+                    rel="15">Dali杂货铺🐰</a>
         
-                <a data-sort="0032" 
+                <a data-sort="0035" 
                     href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8"
                     title="哈哈哈目标检测🧸"
                     rel="5">哈哈哈目标检测🧸</a>
         
-                <a data-sort="0032" 
+                <a data-sort="0035" 
                     href="/archive/?tag=Neural+Network%F0%9F%A6%96"
                     title="Neural Network🦖"
                     rel="5">Neural Network🦖</a>
         
-                <a data-sort="0033" 
+                <a data-sort="0036" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
                     title="Dali工具箱🔧"
                     rel="4">Dali工具箱🔧</a>
         
-                <a data-sort="0034" 
+                <a data-sort="0037" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
                     title="小菊的语义分割🌼"
                     rel="3">小菊的语义分割🌼</a>
         
-                <a data-sort="0035" 
+                <a data-sort="0038" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0036" 
+                <a data-sort="0039" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0036" 
+                <a data-sort="0039" 
                     href="/archive/?tag=Books%F0%9F%93%96"
                     title="Books📖"
                     rel="1">Books📖</a>
         
-                <a data-sort="0036" 
+                <a data-sort="0039" 
                     href="/archive/?tag=GAN%26Image+Enhancement%F0%9F%90%BD"
                     title="GAN&Image Enhancement🐽"
                     rel="1">GAN&Image Enhancement🐽</a>
         
-                <a data-sort="0036" 
+                <a data-sort="0039" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>
         
-                <a data-sort="0036" 
+                <a data-sort="0039" 
                     href="/archive/?tag=PyTorch%F0%9F%A7%9F%E2%80%8D%E2%99%82%EF%B8%8F"
                     title="PyTorch🧟‍♂️"
                     rel="1">PyTorch🧟‍♂️</a>

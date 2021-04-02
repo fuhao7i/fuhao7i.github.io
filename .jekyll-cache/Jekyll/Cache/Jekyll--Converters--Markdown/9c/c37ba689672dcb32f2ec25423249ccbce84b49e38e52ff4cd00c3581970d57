@@ -1,0 +1,25 @@
+I"�<h1 id="1-float32">1. float32</h1>
+
+<p>查看各个张量(即每一层的输入输出，一般输入类型对了，输出类型也对)是否为<code class="language-plaintext highlighter-rouge">float32</code>，Tensorflow在GPU上不能处理<code class="language-plaintext highlighter-rouge">float64</code>的tensor，因此我们需要确保每个tensor为float32位。</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">注意</code></strong></p>
+
+<p>np.ones 和 np.zeros 都默认为<code class="language-plaintext highlighter-rouge">float64</code>位.</p>
+
+<p>astype: 转换np.array的数据类型
+a.dtype: 输出a的数据类型</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)).</span><span class="n">astype</span><span class="p">(</span><span class="s">'float32'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">dtype</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="2-注意算法的时间复杂度">2. 注意算法的时间复杂度</h1>
+
+<p>看看你的程序里，数据预处理部分，是不是有特别 <strong>“笨重”</strong> 的部分，比如说: <code class="language-plaintext highlighter-rouge">两个for循环遍历数据</code> … 😭 我的就是因为这个浪费我两天时间，我一直还以为是tensorflow的版本问题, 年轻了…</p>
+:ET
