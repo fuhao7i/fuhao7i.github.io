@@ -10,6 +10,27 @@ tags:
     - Dali杂货铺🐰
 ---
 
+# 1. 分析
+
+## 1. 学习率没有灵魂
+
+学习率是个神奇的东西, 你是不是也对learning rate的选取而苦恼过, 总是感觉一成不变的学习率缺少灵魂:
+
+- 太小？ loss降低的太慢💦
+- 太大？ loss可能达不到最优, 而可能在最优值范围震动
+
+<img src="https://img-blog.csdnimg.cn/20210403160419334.png" center>
+
+### 解决: torch.optim.lr_scheduler 学习率下降机制
+
+## 2. 学习率为0
+
+学习率为0，网络的参数不再更新，故损失也不会再下降，因此我们可以看一下是不是错用了学习率下降方法导致学习率为0.
+
+## 3. 优化器设置
+
+看看我们的模型参数是不是正常载入到优化器中了。也就是看一下优化器的设置有没有出错。
+
 # 引用.
 
 1. [使用Pytorch实现学习率衰减/降低（learning rate decay）](https://blog.csdn.net/fufu_good/article/details/104340036)

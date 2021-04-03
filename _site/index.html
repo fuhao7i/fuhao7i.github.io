@@ -264,12 +264,24 @@
         
         <div class="post-content-preview">
             
-                引用.
+                1. 分析
+
+1. 学习率没有灵魂
+
+学习率是个神奇的东西, 你是不是也对learning rate的选取而苦恼过, 总是感觉一成不变的学习率缺少灵魂:
 
 
-  使用Pytorch实现学习率衰减/降低（learning rate decay）
+  太小？ loss降低的太慢💦
+  太大？ loss可能达不到最优, 而可能在最优值范围震动
 
 
+
+
+解决: torch.optim.lr_scheduler 学习率下降机制
+
+2. 学习率为0
+
+学习率为0，网络的参数不再更新，故损...
             
         </div>
     </a>

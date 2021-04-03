@@ -28,7 +28,7 @@
     <meta property="og:title" content="Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了 - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="引用.
+    <meta property="og:description" content="1. 分析
 ">
     
     <meta property="article:published_time" content="2021-04-03T04:50:00Z">
@@ -280,7 +280,30 @@
                 <!-- Multi-Lingual -->
                 
 
-				<h1 id="引用">引用.</h1>
+				<h1 id="1-分析">1. 分析</h1>
+
+<h2 id="1-学习率没有灵魂">1. 学习率没有灵魂</h2>
+
+<p>学习率是个神奇的东西, 你是不是也对learning rate的选取而苦恼过, 总是感觉一成不变的学习率缺少灵魂:</p>
+
+<ul>
+  <li>太小？ loss降低的太慢💦</li>
+  <li>太大？ loss可能达不到最优, 而可能在最优值范围震动</li>
+</ul>
+
+<p><img src="https://img-blog.csdnimg.cn/20210403160419334.png" center="" /></p>
+
+<h3 id="解决-torchoptimlr_scheduler-学习率下降机制">解决: torch.optim.lr_scheduler 学习率下降机制</h3>
+
+<h2 id="2-学习率为0">2. 学习率为0</h2>
+
+<p>学习率为0，网络的参数不再更新，故损失也不会再下降，因此我们可以看一下是不是错用了学习率下降方法导致学习率为0.</p>
+
+<h2 id="3-优化器设置">3. 优化器设置</h2>
+
+<p>看看我们的模型参数是不是正常载入到优化器中了。也就是看一下优化器的设置有没有出错。</p>
+
+<h1 id="引用">引用.</h1>
 
 <ol>
   <li><a href="https://blog.csdn.net/fufu_good/article/details/104340036">使用Pytorch实现学习率衰减/降低（learning rate decay）</a></li>
