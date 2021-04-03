@@ -31,7 +31,7 @@ tags:
 ```python
 seg_labels = np.reshape(seg_labels, (-1,NCLASSES))
 ```
-
+**one-hot 编码**
 ```Bash
 
  [[1, 0, 0],
@@ -74,6 +74,41 @@ output = Softmax()(x)
 ```
 
 将我们处理之后的label和预测得到的结果传给我们的损失函数就能计算出loss了，这样我们就实现了像素级的分类————也就是`语义分割`了🌼
+
+### 帮助理解标签的处理
+
+```python
+import numpy as np
+import tensorflow as tf
+from PIL import Image
+from keras.utils import to_categorical
+CLASSES = {
+     # 默认背景为0
+     76 : 1, # 建筑物
+    150 : 2,  # 植被
+    255 : 3,# 道路
+}
+
+NCLASSES = 4
+HEIGHT = 2
+WIDTH = 2
+
+labels = [[25, 76],
+          [150, 255]]
+
+labels = np.array(labels).astype('int')
+
+labelmap = np.zeros((int(HEIGHT), int(WIDTH)))
+
+for k in CLASSES:
+    labelmap[(labels == k)] = CLASSES[k]
+
+labelmap = np.reshape(labelmap, (-1, 1))
+
+labelmap = to_categorical(labelmap, NCLASSES)
+
+print(labelmap)
+```
 
 **下面是包含了数据预处理，损失定义等整个模型训练过程的train.py文件，大家稍作修改就可以训练自己的语义分割模型了🌼**
 
@@ -231,6 +266,188 @@ if __name__ == "__main__":
     model.save_weights(log_dir+'Dali.h5')
 
 
+```
+
+**`上面的标签处理方便理解，但是时间复杂度高，在cup上处理慢，下面为改进版本:`**
+
+```python
+import tensorflow as tf
+import numpy as np
+from PIL import Image
+# import keras
+from tensorflow import keras
+from tensorflow.keras import backend as K
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.layers import Lambda
+from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
+from tensorflow.keras.utils import to_categorical
+from models.decoders.segnet import resnet50_segnet
+import glob
+# tf.device('/device:GPU:0')
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
+# ===================>
+import logging
+logging.basicConfig(filename='./work_dirs/segnet/segnet.log', filemode='a', level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logger.handlers.clear()
+logger.setLevel(level = logging.DEBUG)
+
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+console = logging.StreamHandler()
+console.setLevel(logging.INFO)
+console.setFormatter(formatter)
+
+logger.addHandler(console)
+# <==================
+
+# 标签像素值对应的物体类别, 0为背景
+CLASSES = {
+    # 默认背景为0
+     76 : 1,  # 建筑物
+    150 : 2,  # 植被
+    255 : 3,  # 道路
+}
+
+NCLASSES = 4
+HEIGHT = 512
+WIDTH = 512
+
+BATCH_SIZE = 8
+
+# train.txt和val.txt的文件路径
+path_train_txt = './dataset/train.txt'
+path_val_txt = './dataset/val.txt'
+
+# train的图像和标签路径
+path_Xtrain = './dataset/jpg/'
+path_Xlabel = './dataset/png/'
+# val的图像和标签路径
+path_Yval = './dataset/val_jpg/'
+path_Ylabel = './dataset/val_png/'
+
+
+# labels映射
+def label_map(labels):
+    labelmap = np.zeros((int(HEIGHT),int(WIDTH),NCLASSES)).astype('float32')
+    for h in range(int(HEIGHT)):
+        for w in range(int(WIDTH)):
+            if str(labels[h, w]) in CLASSES.keys():
+                c = CLASSES[str(labels[h, w])]
+            else:
+                c = 0
+            labelmap[h, w, c] = 1
+
+    return labelmap
+
+
+def data_generator(mode):
+    assert mode in ['train', 'val'], \
+        'mode must be ethier \'train\' or \'val\''
+
+    if mode == 'train':
+        with open(path_train_txt, 'r') as f:
+            lines = f.readlines()
+        np.random.shuffle(lines)
+
+        n = len(lines)
+        path0 = path_Xtrain
+        path1 = path_Xlabel
+    else:
+        with open(path_val_txt, 'r') as f:
+            lines = f.readlines()
+        np.random.shuffle(lines)
+
+        n = len(lines)
+        path0 = path_Yval
+        path1 = path_Ylabel 
+
+    i = 0
+    while 1:
+        images = []
+        labels = []
+        for _ in range(BATCH_SIZE):
+            if i==0:
+                np.random.shuffle(lines)
+            name = lines[i].split(';')[0]
+            img = Image.open(path0 + name)
+            img = img.resize((HEIGHT,WIDTH))
+            img = np.array(img).astype('float32')
+            img = img/255
+            images.append(img)
+
+            name = (lines[i].split(';')[1]).replace("\n", "")
+            img = Image.open(path1 + name).convert('L')
+            img = img.resize((int(HEIGHT),int(WIDTH)))
+            img = np.array(img)
+            img = tf.convert_to_tensor(img)
+
+            seg_labels = np.zeros((HEIGHT, WIDTH))
+            for k in CLASSES:
+                seg_labels[(img == k)] = CLASSES[k]
+            seg_labels = np.reshape(seg_labels, (-1,1))
+            seg_labels = to_categorical(seg_labels, NCLASSES)
+            # print(seg_labels)
+            labels.append(seg_labels)
+            i = (i+1) % n
+        yield (np.array(images).astype('float32'),np.array(labels).astype('float32'))
+
+# 定义损失函数
+def loss(y_true, y_pred):
+    crossloss = K.binary_crossentropy(y_true, y_pred)
+    loss = K.sum(crossloss)/HEIGHT/WIDTH
+
+    return loss
+
+if __name__ == "__main__":
+    
+    # 用于最后保存模型的路径
+    log_dir = './work_dirs/segnet/'
+
+    # 创建模型
+    model = resnet50_segnet(n_classes=NCLASSES, input_height=HEIGHT, input_width=WIDTH)
+
+    # 获取训练样本和验证样本的数目
+    with open(path_train_txt, 'r') as f:
+        lines = f.readlines()
+    num_train = len(lines)
+    with open(path_val_txt, 'r') as f:
+        lines = f.readlines()
+    num_val = len(lines)
+
+
+    # 设置学习率下降方法,val_loss验证损失连续5个epoch不下降就让学习率减半
+    reduce_lr = ReduceLROnPlateau(
+                            monitor='val_loss', 
+                            factor=0.5, 
+                            patience=5, 
+                            verbose=1
+                        )
+    # 是否需要早停，当val_loss一直不下降的时候意味着模型基本训练完毕，可以停止
+    early_stopping = EarlyStopping(
+                            monitor='val_loss', 
+                            min_delta=0, 
+                            patience=10, 
+                            verbose=1
+                        )
+    # 设置损失，优化器
+    model.compile(loss = loss,
+            optimizer = Adam(lr=1e-3),
+            metrics = ['accuracy'])
+    logger.info('Train on {} samples, val on {} samples, with batch size {}.'.format(num_train, num_val, BATCH_SIZE))
+    # print('Train on {} samples, val on {} samples, with batch size {}.'.format(num_train, num_val, BATCH_SIZE))
+
+    # 开始训练
+    history = model.fit(data_generator('train'),
+              steps_per_epoch=max(1, num_train//BATCH_SIZE),
+              validation_data=data_generator('val'),
+              validation_steps=max(1, num_val//BATCH_SIZE),
+              epochs=50,
+              initial_epoch=0,
+              callbacks=[reduce_lr, early_stopping])
+    logger.info(history)
+    model.save_weights(log_dir+'segnet.h5')
 ```
 
 **[PyTorch实现](https://fuhao7i.com/2021/03/12/dalitools2/)**
