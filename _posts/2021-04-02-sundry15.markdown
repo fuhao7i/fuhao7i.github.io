@@ -23,6 +23,8 @@ tags:
 
 ### 解决: torch.optim.lr_scheduler 学习率下降机制
 
+[How to adjust learning rate](https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate)
+
 ## 2. 学习率为0
 
 学习率为0，网络的参数不再更新，故损失也不会再下降，因此我们可以看一下是不是错用了学习率下降方法导致学习率为0.

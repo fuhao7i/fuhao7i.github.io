@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 03 Apr 2021 16:05:09 +0800</pubDate>
-    <lastBuildDate>Sat, 03 Apr 2021 16:05:09 +0800</lastBuildDate>
+    <pubDate>Sat, 03 Apr 2021 16:16:13 +0800</pubDate>
+    <lastBuildDate>Sat, 03 Apr 2021 16:16:13 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -25,6 +25,8 @@
 &lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210403160419334.png&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;解决-torchoptimlr_scheduler-学习率下降机制&quot;&gt;解决: torch.optim.lr_scheduler 学习率下降机制&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate&quot;&gt;How to adjust learning rate&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;2-学习率为0&quot;&gt;2. 学习率为0&lt;/h2&gt;
 
