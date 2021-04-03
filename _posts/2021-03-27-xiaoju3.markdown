@@ -283,9 +283,8 @@ from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint, ReduceLROnP
 from tensorflow.keras.utils import to_categorical
 from models.decoders.segnet import resnet50_segnet
 import glob
-# tf.device('/device:GPU:0')
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
+# logging 模块, 保存日志文件
 # ===================>
 import logging
 logging.basicConfig(filename='./work_dirs/segnet/segnet.log', filemode='a', level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
