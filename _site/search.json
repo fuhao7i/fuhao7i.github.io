@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰17——torch 训练过程查看某一层的梯度",
+      "subtitle" : " &quot;Drawing neural network&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/04/05/sundry17/",
+      "date"     : "2021-04-05 23:58:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰16——Summary of drawing neural network tools",
       "subtitle" : " &quot;Drawing neural network&quot;",
       "tags"     : "Dali杂货铺🐰",

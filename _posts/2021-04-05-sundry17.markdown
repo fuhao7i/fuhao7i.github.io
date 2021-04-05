@@ -1,0 +1,16 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰17——torch 训练过程查看某一层的梯度"
+subtitle:   " \"Drawing neural network\""
+date:       2021-04-05 15:58:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+```python
+print('=== after loss.backward() ===')
+print(self.D.conv0.weight.grad)
+```

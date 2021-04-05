@@ -5,9 +5,26 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 05 Apr 2021 16:00:43 +0800</pubDate>
-    <lastBuildDate>Mon, 05 Apr 2021 16:00:43 +0800</lastBuildDate>
+    <pubDate>Mon, 05 Apr 2021 18:26:59 +0800</pubDate>
+    <lastBuildDate>Mon, 05 Apr 2021 18:26:59 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali杂货铺🐰17——torch 训练过程查看某一层的梯度</title>
+        <description>&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'=== after loss.backward() ==='&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conv0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 05 Apr 2021 23:58:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/05/sundry17/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/05/sundry17/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
     
       <item>
         <title>Dali杂货铺🐰16——Summary of drawing neural network tools</title>
@@ -1672,23 +1689,6 @@ wandb.init()
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/27/xiaoju1/</guid>
         
         <category>小菊的语义分割🌼</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Neural Network🦖5——Fast R-CNN SPP layer空间金字塔学习</title>
-        <description>&lt;h1 id=&quot;spp-layer空间金字塔&quot;&gt;SPP layer空间金字塔&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;卷积层的不同大小输出，经过SPP layer空间金字塔处理，输出为同样大小，然后在传给全连接层。&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Wed, 24 Mar 2021 00:01:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/03/24/nn5/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/24/nn5/</guid>
-        
-        <category>Neural Network🦖</category>
         
         
       </item>
