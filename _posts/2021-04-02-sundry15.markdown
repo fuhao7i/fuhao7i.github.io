@@ -10,7 +10,7 @@ tags:
     - Dali杂货铺🐰
 ---
 
-# 1. 分析
+# 1. [分析:如何解决神经网络训练时loss不下降的问题](https://blog.ailemon.me/2019/02/26/solution-to-loss-doesnt-drop-in-nn-train/)
 
 ## 1. 学习率没有灵魂
 
@@ -36,3 +36,4 @@ tags:
 # 引用.
 
 1. [使用Pytorch实现学习率衰减/降低（learning rate decay）](https://blog.csdn.net/fufu_good/article/details/104340036)
+2. [torch.optim.lr_scheduler：调整学习率](https://blog.csdn.net/qyhaill/article/details/103043637)

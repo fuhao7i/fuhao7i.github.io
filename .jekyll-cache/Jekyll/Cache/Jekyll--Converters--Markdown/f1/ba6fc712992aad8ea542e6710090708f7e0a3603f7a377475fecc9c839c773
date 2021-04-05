@@ -1,0 +1,36 @@
+I"�<h1 id="2-lr_scheduler-学习率调整策略">2. lr_scheduler 学习率调整策略</h1>
+
+<h3 id="21-reducelronplateau">2.1 ReduceLROnPlateau</h3>
+
+<p>目前不依赖epoch更新lr的只有<code class="language-plaintext highlighter-rouge">torch.optim.lr_scheduler.ReduceLROnPlateau</code>.</p>
+
+<h3 id="22-steplr">2.2 StepLR</h3>
+
+<p><strong>grammar</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="n">lr_scheduler</span><span class="p">.</span><span class="n">StepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">step_size</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">last_epoch</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>update strategy</strong></p>
+
+<p>每过一个<code class="language-plaintext highlighter-rouge">step_size</code>个epoch，做一次更新:</p>
+
+\[\large new\_lr = initial_lr * gamma^{epoch//step\_size} \tag 1\]
+
+<h3 id="1-传入两个模型参数">1. 传入两个模型参数</h3>
+<p><code class="language-plaintext highlighter-rouge">字典形式</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="n">SGD</span><span class="p">([</span>
+                <span class="p">{</span><span class="s">'params'</span><span class="p">:</span> <span class="n">model</span><span class="p">.</span><span class="n">parameters</span><span class="p">()},</span>
+                <span class="p">{</span><span class="s">'params'</span><span class="p">:</span> <span class="n">lossnet</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="s">'lr'</span><span class="p">:</span> <span class="mf">1e-4</span><span class="p">}</span>
+            <span class="p">],</span> <span class="n">lr</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<h1 id="引用">引用:</h1>
+<ol>
+  <li><a href="https://blog.csdn.net/u011622208/article/details/90698688">pytorch优化器传入两个模型的参数/已不同的学习速率训练模型</a></li>
+</ol>
+:ET

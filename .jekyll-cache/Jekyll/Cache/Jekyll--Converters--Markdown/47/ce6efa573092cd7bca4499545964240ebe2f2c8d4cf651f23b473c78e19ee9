@@ -1,0 +1,85 @@
+I",<h1 id="1-保存模型">1. 保存模型</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">(),</span><span class="s">"./Double.pth"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="2-加载训练好的模型">2. 加载训练好的模型</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c1"># 创建模型
+</span><span class="n">model</span><span class="o">=</span><span class="n">Net</span><span class="p">()</span>
+<span class="c1"># 加载预训练模型的参数
+</span><span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"./Double.pth"</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="3-查看训练好的模型">3. 查看训练好的模型</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span> 
+<span class="n">content</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'/root/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">content</span><span class="p">[</span><span class="n">key</span><span class="p">].</span><span class="n">size</span><span class="p">(),</span><span class="n">sep</span><span class="o">=</span><span class="s">'      '</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">或</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span>  <span class="c1"># 命令行是逐行立即执行的
+</span><span class="n">content</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'/root/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="n">sep</span><span class="o">=</span><span class="s">'      '</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">result:</code></p>
+
+<pre><code class="language-Bash">conv1.weight      torch.Size([64, 3, 7, 7])
+bn1.running_mean      torch.Size([64])
+bn1.running_var      torch.Size([64])
+bn1.weight      torch.Size([64])
+bn1.bias      torch.Size([64])
+layer1.0.conv1.weight      torch.Size([64, 64, 1, 1])
+layer1.0.bn1.running_mean      torch.Size([64])
+layer1.0.bn1.running_var      torch.Size([64])
+layer1.0.bn1.weight      torch.Size([64])
+layer1.0.bn1.bias      torch.Size([64])
+layer1.0.conv2.weight      torch.Size([64, 64, 3, 3])
+layer1.0.bn2.running_mean      torch.Size([64])
+layer1.0.bn2.running_var      torch.Size([64])
+layer1.0.bn2.weight      torch.Size([64])
+   ...
+</code></pre>
+
+<h1 id="4-将对应层的预训练权重导入">4. 将对应层的预训练权重导入</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="n">pretrained_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'/content/drive/MyDrive/search/mmdetection/data/resneXt_imagenet_338x600.pth'</span><span class="p">)</span>
+<span class="n">model_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">()</span>
+<span class="n">pretrained_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pretrained_dict</span><span class="p">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">model_dict</span><span class="p">}</span>
+<span class="n">model_dict</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">pretrained_dict</span><span class="p">)</span>
+<span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">model_dict</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="-引用">#. 引用</h1>
+
+<ol>
+  <li><a href="https://zhuanlan.zhihu.com/p/137562717">PyTorch使用预训练模型(保存，加载，加载部分，冻结某些参数，修改网络某些层等…)</a></li>
+</ol>
+:ET

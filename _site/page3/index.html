@@ -358,17 +358,18 @@ model = dict(
         
         <div class="post-content-preview">
             
-                1. 传入两个模型参数
-字典形式
+                2. lr_scheduler 学习率调整策略
+
+2.1 ReduceLROnPlateau
+
+目前不依赖epoch更新lr的只有torch.optim.lr_scheduler.ReduceLROnPlateau.
+
+2.2 StepLR
+
+grammar
+
 1
-2
-3
-4
-optimizer = torch.optim.SGD([
-                {'params': model.parameters()},
-                {'params': lossnet.parameters(), 'lr': 1e-4}
-            ], lr, momentum=0.9)
-...
+class torch.optim.lr_scheduler.StepLR(optimizer, step_size, gamm...
             
         </div>
     </a>

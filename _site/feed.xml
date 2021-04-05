@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 05 Apr 2021 11:22:03 +0800</pubDate>
-    <lastBuildDate>Mon, 05 Apr 2021 11:22:03 +0800</lastBuildDate>
+    <pubDate>Mon, 05 Apr 2021 16:00:43 +0800</pubDate>
+    <lastBuildDate>Mon, 05 Apr 2021 16:00:43 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -54,7 +54,7 @@ After each convolution kernel traverses all the feature maps, linear addition is
     
       <item>
         <title>Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了</title>
-        <description>&lt;h1 id=&quot;1-分析&quot;&gt;1. 分析&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;1-分析如何解决神经网络训练时loss不下降的问题&quot;&gt;1. &lt;a href=&quot;https://blog.ailemon.me/2019/02/26/solution-to-loss-doesnt-drop-in-nn-train/&quot;&gt;分析:如何解决神经网络训练时loss不下降的问题&lt;/a&gt;&lt;/h1&gt;
 
 &lt;h2 id=&quot;1-学习率没有灵魂&quot;&gt;1. 学习率没有灵魂&lt;/h2&gt;
 
@@ -83,6 +83,7 @@ After each convolution kernel traverses all the feature maps, linear addition is
 
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/fufu_good/article/details/104340036&quot;&gt;使用Pytorch实现学习率衰减/降低（learning rate decay）&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/qyhaill/article/details/103043637&quot;&gt;torch.optim.lr_scheduler：调整学习率&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 </description>
         <pubDate>Sat, 03 Apr 2021 04:50:00 +0800</pubDate>
