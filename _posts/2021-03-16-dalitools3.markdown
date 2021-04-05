@@ -2,7 +2,7 @@
 layout:     post
 title:      "Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广"
 subtitle:   " \"transform, 尺寸调整, 数据增强\""
-date:       2021-03-12 14:15:00
+date:       2021-03-16 14:15:00
 author:     "fuhao7i"
 header-img: "img/in-post/tools.jpg"
 catalog: true

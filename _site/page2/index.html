@@ -129,6 +129,8 @@
                         
                         
                         
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -253,6 +255,67 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2021/03/22/sundry11/">
+        <h2 class="post-title">
+            Dali杂货铺🐰11——为什么神经网络需要激活函数？
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "Relu, Sigmoid, Softmax"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                
+  我们可以不用使用非线性函数来构造线性变换，而是让每个神经元简单地返回它们的结果。但是这样的话，我们所有的层都会简单地将一组输入线性的进行矢量乘积和矢量加法。实际上，线性变换无法解决许多问题，所以激活函数是对矢量乘积和偏差的一个补充。激活函数将有效地缩小模型可以估计的函数数量。
+
+
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on March 22, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/03/22/sundry10/">
+        <h2 class="post-title">
+            Dali杂货铺🐰10——指定GPU进行训练
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "TF, Keras, Torch"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                1. CUDA_VISIBLE_DEVICES
+
+1. os.environ[‘CUDA_VISIBLE_DEVICES’]
+
+1
+2
+3
+4
+5
+6
+import os
+
+os.environ['CUDA_VISIBLE_DEVICES'] = -1     # cpu模式
+
+os.environ['CUDA_VISIBLE_DEVICES'] = 0      # 只有GPU:0 对程序...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on March 22, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/03/22/sundry9/">
         <h2 class="post-title">
             Dali杂货铺🐰9——Anaconda conda 命令详解
@@ -319,9 +382,9 @@ env2 是新创建的环境，env1 是被克隆的环境，env2和...
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/03/20/dalitools3/">
+    <a href="/2021/03/20/dalitools4/">
         <h2 class="post-title">
-            Dali工具箱🔧3—— DD——DaliDetetion
+            Dali工具箱🔧4—— DD——DaliDetetion
         </h2>
         
         <h3 class="post-subtitle">
@@ -357,6 +420,29 @@ model= dict(
     </a>
     <p class="post-meta">
         Posted by fuhao7i on March 20, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/03/16/dalitools3/">
+        <h2 class="post-title">
+            Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "transform, 尺寸调整, 数据增强"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                #
+
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on March 16, 2021
     </p>
 </div>
 <hr>
@@ -443,29 +529,6 @@ print(a)
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/03/12/dalitools3/">
-        <h2 class="post-title">
-            Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "transform, 尺寸调整, 数据增强"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                #
-
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 12, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2021/03/12/dalitools2/">
         <h2 class="post-title">
             Dali工具箱🔧2——Torch 数据集准备 Pipline
@@ -531,98 +594,6 @@ print(a)
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2021/02/26/nn3/">
-        <h2 class="post-title">
-            Neural Network🦖3——GAN
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "GAN网络详解"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                1. 核心：G &amp; D
-
-G：Generator 生成器网络。
-D：Discriminator 判别器网络。
-
-2. 训练方法
-
-
-  
-    训练D的时候，就是将真图像和生成的图像（假图像）输入到D，进行一个二分类（真和假的判定）
-  
-  
-    训练G的时候，需要把G和D看成一个整体。输出仍然是一个score，随机向量Z传入G生成图像之后传入D，之后生成score。这里D是...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on February 26, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/02/22/detector5/">
-        <h2 class="post-title">
-            哈哈哈目标检测🧸5——mmdetection v0.6 (SSD)网络搭建过程详解
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "mmdetection v0.6, 结构详解"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-  以SSD网络为例, 从配置文件到backbone…, 探索整个网络的搭建过程.
-
-
-1. /configs/ssd512_coco.py
-
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-...
-# 网络结构
-model = dict(
-    type='SingleStageDetect...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on February 22, 2021
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -666,62 +637,62 @@ model = dict(
         
         
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8"
                     title="阿菊的OpenCv🎨"
                     rel="1">阿菊的OpenCv🎨</a>
         
-                <a data-sort="0025" 
+                <a data-sort="0026" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
-                    rel="15">Dali杂货铺🐰</a>
+                    rel="16">Dali杂货铺🐰</a>
         
-                <a data-sort="0035" 
+                <a data-sort="0036" 
+                    href="/archive/?tag=Neural+Network%F0%9F%A6%96"
+                    title="Neural Network🦖"
+                    rel="6">Neural Network🦖</a>
+        
+                <a data-sort="0037" 
                     href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8"
                     title="哈哈哈目标检测🧸"
                     rel="5">哈哈哈目标检测🧸</a>
         
-                <a data-sort="0035" 
-                    href="/archive/?tag=Neural+Network%F0%9F%A6%96"
-                    title="Neural Network🦖"
-                    rel="5">Neural Network🦖</a>
-        
-                <a data-sort="0036" 
+                <a data-sort="0038" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
                     title="Dali工具箱🔧"
                     rel="4">Dali工具箱🔧</a>
         
-                <a data-sort="0037" 
+                <a data-sort="0039" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
                     title="小菊的语义分割🌼"
                     rel="3">小菊的语义分割🌼</a>
         
-                <a data-sort="0038" 
+                <a data-sort="0040" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=Books%F0%9F%93%96"
                     title="Books📖"
                     rel="1">Books📖</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=GAN%26Image+Enhancement%F0%9F%90%BD"
                     title="GAN&Image Enhancement🐽"
                     rel="1">GAN&Image Enhancement🐽</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=PyTorch%F0%9F%A7%9F%E2%80%8D%E2%99%82%EF%B8%8F"
                     title="PyTorch🧟‍♂️"
                     rel="1">PyTorch🧟‍♂️</a>

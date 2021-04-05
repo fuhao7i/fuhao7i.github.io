@@ -1,0 +1,11 @@
+I"�<p><code class="language-plaintext highlighter-rouge">The convolution kernel not only has height and width but also has depth</code></p>
+
+<p><img src="https://img-blog.csdnimg.cn/2021040509574565.png" center="" /></p>
+
+<p>And it has the same depth as the feature map being convolved. Therefore, each convolution kernel can traverse all the feature maps of the upper level.</p>
+
+<p><img src="https://img-blog.csdnimg.cn/20210405100253974.jpeg" center="" /></p>
+
+<p>每一个卷积核遍历完所有的特征图之后，进行线性相加，就得到了新的特征图。
+After each convolution kernel traverses all the feature maps, linear addition is performed to obtain a new feature map.</p>
+:ET

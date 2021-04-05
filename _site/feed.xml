@@ -5,9 +5,52 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 03 Apr 2021 16:16:13 +0800</pubDate>
-    <lastBuildDate>Sat, 03 Apr 2021 16:16:13 +0800</lastBuildDate>
+    <pubDate>Mon, 05 Apr 2021 11:22:03 +0800</pubDate>
+    <lastBuildDate>Mon, 05 Apr 2021 11:22:03 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali杂货铺🐰16——Summary of drawing neural network tools</title>
+        <description>&lt;h1 id=&quot;1-plotneuralnet&quot;&gt;1. &lt;a href=&quot;https://github.com/HarisIqbal88/PlotNeuralNet&quot;&gt;plotNeuralNet&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210405111744890.png&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;2-bokeh&quot;&gt;2. &lt;a href=&quot;https://bokeh.pydata.org/en/latest/&quot;&gt;Bokeh&lt;/a&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://bokeh.pydata.org/en/latest/docs/user_guide.html#userguide&quot;&gt;Bokeh官方文档&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Bokeh是一个交互式可视化库，面向现代Web浏览器进行演示。 它的目标是提供优雅，简洁的多功能图形构造，并通过非常大或流数据集的高性能交互来扩展此功能。 Bokeh可以帮助任何想要快速轻松地创建交互式图表，仪表板和数据应用程序的人。&lt;/p&gt;
+</description>
+        <pubDate>Mon, 05 Apr 2021 19:16:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/05/sundry16/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/05/sundry16/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Neural Network🦖6——How dose the convolutional layer achieve higher or lower dimensionality?</title>
+        <description>&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;The convolution kernel not only has height and width but also has depth&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/2021040509574565.png&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And it has the same depth as the feature map being convolved. Therefore, each convolution kernel can traverse all the feature maps of the upper level.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210405100253974.jpeg&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;每一个卷积核遍历完所有的特征图之后，进行线性相加，就得到了新的特征图。
+After each convolution kernel traverses all the feature maps, linear addition is performed to obtain a new feature map.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 05 Apr 2021 17:53:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/05/nn6/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/05/nn6/</guid>
+        
+        <category>Neural Network🦖</category>
+        
+        
+      </item>
     
       <item>
         <title>Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了</title>
@@ -112,7 +155,7 @@ wandb.init()
       <item>
         <title>Dali杂货铺🐰12——logging模块 打印日志</title>
         <description>&lt;blockquote&gt;
-  &lt;p&gt;logging 提供了标准的日志借口，可以通过它来存储各种格式的日志；&lt;/p&gt;
+  &lt;p&gt;logging 提供了标准的日志接口，可以通过它来存储各种格式的日志；&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
@@ -1645,63 +1688,6 @@ wandb.init()
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/24/nn5/</guid>
         
         <category>Neural Network🦖</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰11——为什么神经网络需要激活函数？</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;我们可以不用使用非线性函数来构造线性变换，而是让每个神经元简单地返回它们的结果。但是这样的话，我们所有的层都会简单地将一组输入线性的进行矢量乘积和矢量加法。实际上，线性变换无法解决许多问题，所以激活函数是对矢量乘积和偏差的一个补充。激活函数将有效地缩小模型可以估计的函数数量。&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
-        <pubDate>Mon, 22 Mar 2021 23:49:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/03/22/sundry11/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/22/sundry11/</guid>
-        
-        <category>Dali杂货铺🐰</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰10——指定GPU进行训练</title>
-        <description>&lt;h1 id=&quot;1-cuda_visible_devices&quot;&gt;1. CUDA_VISIBLE_DEVICES&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-osenvironcuda_visible_devices&quot;&gt;1. os.environ[‘CUDA_VISIBLE_DEVICES’]&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'CUDA_VISIBLE_DEVICES'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;# cpu模式
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'CUDA_VISIBLE_DEVICES'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;# 只有GPU:0 对程序可见
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;environ&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'CUDA_VISIBLE_DEVICES'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# GPU:0 和 GPU:1 对程序可见
-&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;2-在bash命令中使用&quot;&gt;2. 在bash命令中使用&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;CUDA_VISIBLE_DEVICES=1 python run.py
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;3-使用devicegpu0-or-cudagpu0指定&quot;&gt;3. 使用.device(‘gpu:0’) or .cuda(‘gpu:0’)指定&lt;/h2&gt;
-
-&lt;h1 id=&quot;-引用&quot;&gt;#. 引用&lt;/h1&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_39782394/article/details/111294929&quot;&gt;pytorch指定gpu训练_PyTorch多GPU并行训练方法及问题整理&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Mon, 22 Mar 2021 23:49:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/03/22/sundry10/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/03/22/sundry10/</guid>
-        
-        <category>Dali杂货铺🐰</category>
         
         
       </item>

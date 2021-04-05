@@ -25,26 +25,16 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Dali杂货铺🐰1——__init__.py文件的作用 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <meta property="og:type" content="article">
-    <meta property="og:description" content="1. 标志该文件夹为python的包(module package)
-">
-    
-    <meta property="article:published_time" content="2021-01-18T00:57:00Z">
-    
-    
-    <meta property="article:author" content="fuhao7i">
-    
-    
-    <meta property="article:tag" content="Dali杂货铺🐰">
-    
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="[我还很年轻，吃苦趁现在！]">
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/18/sundry1/">
+    <meta property="og:url" content="https://fuhao7i.github.io/page5/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Dali杂货铺🐰1——__init__.py文件的作用 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -53,7 +43,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/18/sundry1/">
+    <link rel="canonical" href="https://fuhao7i.github.io/page5/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -225,190 +215,141 @@
   </div>
 </div>
 
-    <!-- Post Header -->
+    <!-- Page Header -->
 
 
 
 
-<style type="text/css">
-    header.intro-header{
-        position: relative;
-        background-image: url('/img/in-post/sundry.jpg');
-        background: ;
-    }
 
-    
-</style>
 
-<header class="intro-header" >
 
-    <div class="header-mask"></div>
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                        <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
-                        
-                    </div>
-                    <h1>Dali杂货铺🐰1——__init__.py文件的作用</h1>
-                    
-                    <h2 class="subheading"> "python"</h2>
-                    <span class="meta">Posted by fuhao7i on January 18, 2021</span>
-                </div>
-            </div>
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        
+        <div class="site-heading">
+        
+          <h1>fuhao7i Blog</h1>
+          <span class="subheading">[我还很年轻，吃苦趁现在！]</span>
         </div>
+      </div>
     </div>
+  </div>
 </header>
 
 
-
-
-
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-
-    <!-- Post Container -->
-            <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                post-container">
-
-                <!-- Multi-Lingual -->
-                
-
-				<h1 id="1-标志该文件夹为python的包module-package">1. 标志该文件夹为python的包(module package)</h1>
-
-<p><code class="language-plaintext highlighter-rouge">__init__.py</code>在文件夹下，可以使该文件夹变为一个python包。也就是可以使用<code class="language-plaintext highlighter-rouge">import ${filename}</code>导入。</p>
-
-<h1 id="2-自动运行">2. 自动运行</h1>
-
-<p>在导入python包时，会自动执行该包下的<code class="language-plaintext highlighter-rouge">__init__.py</code>文件。<code class="language-plaintext highlighter-rouge">__init__.py</code>文件也可以为空。</p>
-
-<h1 id="3-_all_------">3. _<em>all_</em> = [    ]</h1>
-
-<p>我们在导入包时，经常会用到全部导入。即:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">package</span> <span class="kn">import</span> <span class="o">*</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>这时我们就需要借助<code class="language-plaintext highlighter-rouge">__all__</code>来实现。</p>
-
-<p><code class="language-plaintext highlighter-rouge">__all__</code>关联的是一个模块列表。当我们执行<code class="language-plaintext highlighter-rouge">from package import *</code>时，import就会把注册在包 <code class="language-plaintext highlighter-rouge">__init__.py</code> 文件中<code class="language-plaintext highlighter-rouge">__all__</code>列表中的所有子模块和子包导入到当前作用域。</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">"subPackage_1"</span><span class="p">,</span> <span class="s">"subPackage_2"</span><span class="p">]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-
-                
-                <!--Donate start-->
-                <iframe src="/donate.html" style="overflow-x:hidden;overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;"  frameborder="0" scrolling="no"></iframe>
-                <!--donate end-->
-                
-                <link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
-                <script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
-
-
-                <div id="gitalk-container" style="margin: 30px;padding-bottom: 30px;"></div>
-                <script>
-                    var gitalk = new Gitalk({
-                        clientID: '1695c83228c471fa58d4',
-                        clientSecret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
-                        repo: 'issues_fuhao7i',
-                        owner: 'fuhao7i',
-                        admin: ['fuhao7i'],
-                        id: location.pathname,      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
-
-                    })
-                    gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
-                </script>
-
-
-
-                <hr style="visibility: hidden;">
-                <ul class="pager">
-                    
-                    <li class="previous">
-                        <a href="/2021/01/16/detector4/" data-toggle="tooltip" data-placement="top" title="哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py">
-                        Previous<br>
-                        <span>哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py</span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li class="next">
-                        <a href="/2021/01/18/sundry2/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰2——super()函数解决多重继承问题">
-                        Next<br>
-                        <span>Dali杂货铺🐰2——super()函数解决多重继承问题</span>
-                        </a>
-                    </li>
-                    
-                </ul>
-                <hr style="visibility: hidden;">
-
-
-                
-
-                
-
-            </div>  
-
-    <!-- Side Catalog Container -->
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
         
-            <!--不蒜子统计-->
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2020/12/21/xiaoju2/">
+        <h2 class="post-title">
+            小菊的语义分割2🌼——数据集的制作(一): ISPRS_Potsdam遥感图像数据集
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "遥感图像数据集, 语义分割数据集制作"
+        </h3>
+        
+        <div class="post-content-preview">
             
+                1. 为什么要对遥感图像进行切分？
+一般的遥感图像尺寸都是非常大的，就像这里我们用的ISPRS遥感图像数据集，每张遥感图像.ttf的尺寸都是6000 x 6000，这根本就不能用于我们的模型训练😣(内存瞬干爆炸💥)，因此需要我们自己将大的遥感图像切分成自己需要的尺寸，像是常用的224 x 224，512 x 512等。
 
-            <div class="
-                col-lg-2 col-lg-offset-0
-                visible-lg-block
-                sidebar-container
-                catalog-container">
-                <div class="side-catalog">
-                    <hr class="hidden-sm hidden-xs">
-                    <h5>
-                        <a href="https://fuhao7i.com/coffee.html" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" width="150" ></a>
-                        <br>
-                        <br>
-                        <link rel="stylesheet" href="/iconfont.css">
-                        <script src="/iconfont.js"></script>
-                        views
-                        <svg class="icon" aria-hidden="true">
-                        <use xlink:href="#icon-love"></use>
-                        </svg>
-                        <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
 
-                        <br>
-                        <br>
-                        <a class="catalog-toggle" href="#">CATALOG</a>
-                       
-                    </h5>
-                    <ul class="catalog-body"></ul>
-                </div>
-            </div>
-            <style>
-            .icon {
-            width: 1em;
-            height: 1em;
-            vertical-align: -0.15em;
-            fill: currentColor;
-            overflow: hidden;
-            }
-            </style>
+
+大家可以利用如下代码将遥感图像切分成224 x 224的大小，如需...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on December 21, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/12/20/AJuOpenCv1/">
+        <h2 class="post-title">
+            阿菊的OpenCv🎨1——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)
+        </h2>
         
+        <h3 class="post-subtitle">
+             "Opencv, plt, cv2.split, cv2.merge"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                
+  “Yeah It’s on. ”
 
+
+0. 原始图像
+
+
+1. cv2读取图像并用matplotlib显示
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+import cv2
+import matplotlib.pyplot as plt
+
+img = cv2.imread('../images/ju.jpg')
+
+plt.figure('Aju') #窗口名称
+plt.title('juju...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on December 20, 2020
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page4">&larr; Newer Posts</a>
+    </li>
+    
+    
+</ul>
+
+
+
+    		</div>
     <!-- Sidebar Container -->
             <div class="
-                col-lg-8 col-lg-offset-2
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
                 <!-- Featured Tags -->
                 
 
@@ -416,8 +357,6 @@
 <a href="https://fuhao7i.com/coffee.html" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" width="150" ></a>
 <br>
 <section>
-    
-        <hr class="hidden-sm hidden-xs">
     
     <h5><a href="/archive/">FEATURED TAGS</a></h5>
     <div class="tags">
@@ -490,6 +429,48 @@
 </section>
 
 
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+  <hr>
+  <h5><a href="/about/">ABOUT ME</a></h5>
+  <div class="short-about">
+    
+    <img src="/img/github.jpg" />
+    
+    
+    
+    <p>苦心人, 天不负<br>卧薪尝胆, 三千越甲可吞吴</p>
+    
+    <!-- SNS Link -->
+    
+
+
+<ul class="list-inline">
+
+
+  <li><a target="_blank" href="mailto:2689378080@qq.com" rel="external nofollow noopener noreferrer"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li>
+  <li><a target="_blank" href="https://wpa.qq.com/msgrd?v=3&amp;uin=2689378080&amp;site=qq&amp;menu=yes" rel="external nofollow noopener noreferrer"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-qq fa-stack-1x fa-inverse"></i></span></a></li>
+  
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/fuhao7i">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+    
+  </div>
+</section>
+
                 <!-- Friends Blog -->
                 
 <hr>
@@ -502,55 +483,10 @@
   
 </ul>
 
-            </div>
-        </div>
-    </div>
-
-</article>
-
-<!-- add support for mathjax by voleking-->
-
-
-
-
-
-
-
-
-
-<!-- async load function -->
-<script>
-    function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
-    }
-</script>
-<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
-<script>
-    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'hover',
-          placement: 'right',
-          // icon: '#'
-        };
-        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
-    })
-</script>
-<style>
-    /* place left on bigger screen */
-    @media all and (min-width: 800px) {
-        .anchorjs-link{
-            position: absolute;
-            left: -0.75em;
-            font-size: 1.1em;
-            margin-top : -0.1em;
-        }
-    }
-</style>
+    		</div>
+        
+	</div>
+</div>
 
 
 

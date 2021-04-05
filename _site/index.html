@@ -129,6 +129,8 @@
                         
                         
                         
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -253,6 +255,63 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2021/04/05/sundry16/">
+        <h2 class="post-title">
+            Dali杂货铺🐰16——Summary of drawing neural network tools
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "Drawing neural network"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                1. plotNeuralNet
+
+
+
+2. Bokeh
+
+Bokeh官方文档
+
+Bokeh是一个交互式可视化库，面向现代Web浏览器进行演示。 它的目标是提供优雅，简洁的多功能图形构造，并通过非常大或流数据集的高性能交互来扩展此功能。 Bokeh可以帮助任何想要快速轻松地创建交互式图表，仪表板和数据应用程序的人。
+
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on April 5, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/04/05/nn6/">
+        <h2 class="post-title">
+            Neural Network🦖6——How dose the convolutional layer achieve higher or lower dimensionality?
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "Convolutional principle"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                The convolution kernel not only has height and width but also has depth
+
+
+
+And it has the same depth as the feature map being convolved. Therefore, each convolution kernel can traverse all the feat...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on April 5, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/04/03/sundry15/">
         <h2 class="post-title">
             Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了
@@ -365,7 +424,7 @@ wandb.init()
         <div class="post-content-preview">
             
                 
-  logging 提供了标准的日志借口，可以通过它来存储各种格式的日志；
+  logging 提供了标准的日志接口，可以通过它来存储各种格式的日志；
 
 
 
@@ -519,67 +578,6 @@ padding可以使图像在resize时不失真
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2021/03/22/sundry11/">
-        <h2 class="post-title">
-            Dali杂货铺🐰11——为什么神经网络需要激活函数？
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "Relu, Sigmoid, Softmax"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-  我们可以不用使用非线性函数来构造线性变换，而是让每个神经元简单地返回它们的结果。但是这样的话，我们所有的层都会简单地将一组输入线性的进行矢量乘积和矢量加法。实际上，线性变换无法解决许多问题，所以激活函数是对矢量乘积和偏差的一个补充。激活函数将有效地缩小模型可以估计的函数数量。
-
-
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 22, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/03/22/sundry10/">
-        <h2 class="post-title">
-            Dali杂货铺🐰10——指定GPU进行训练
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "TF, Keras, Torch"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                1. CUDA_VISIBLE_DEVICES
-
-1. os.environ[‘CUDA_VISIBLE_DEVICES’]
-
-1
-2
-3
-4
-5
-6
-import os
-
-os.environ['CUDA_VISIBLE_DEVICES'] = -1     # cpu模式
-
-os.environ['CUDA_VISIBLE_DEVICES'] = 0      # 只有GPU:0 对程序...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 22, 2021
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -619,62 +617,62 @@ os.environ['CUDA_VISIBLE_DEVICES'] = 0      # 只有GPU:0 对程序...
         
         
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8"
                     title="阿菊的OpenCv🎨"
                     rel="1">阿菊的OpenCv🎨</a>
         
-                <a data-sort="0025" 
+                <a data-sort="0026" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
-                    rel="15">Dali杂货铺🐰</a>
+                    rel="16">Dali杂货铺🐰</a>
         
-                <a data-sort="0035" 
+                <a data-sort="0036" 
+                    href="/archive/?tag=Neural+Network%F0%9F%A6%96"
+                    title="Neural Network🦖"
+                    rel="6">Neural Network🦖</a>
+        
+                <a data-sort="0037" 
                     href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8"
                     title="哈哈哈目标检测🧸"
                     rel="5">哈哈哈目标检测🧸</a>
         
-                <a data-sort="0035" 
-                    href="/archive/?tag=Neural+Network%F0%9F%A6%96"
-                    title="Neural Network🦖"
-                    rel="5">Neural Network🦖</a>
-        
-                <a data-sort="0036" 
+                <a data-sort="0038" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
                     title="Dali工具箱🔧"
                     rel="4">Dali工具箱🔧</a>
         
-                <a data-sort="0037" 
+                <a data-sort="0039" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
                     title="小菊的语义分割🌼"
                     rel="3">小菊的语义分割🌼</a>
         
-                <a data-sort="0038" 
+                <a data-sort="0040" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=Books%F0%9F%93%96"
                     title="Books📖"
                     rel="1">Books📖</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=GAN%26Image+Enhancement%F0%9F%90%BD"
                     title="GAN&Image Enhancement🐽"
                     rel="1">GAN&Image Enhancement🐽</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=PyTorch%F0%9F%A7%9F%E2%80%8D%E2%99%82%EF%B8%8F"
                     title="PyTorch🧟‍♂️"
                     rel="1">PyTorch🧟‍♂️</a>

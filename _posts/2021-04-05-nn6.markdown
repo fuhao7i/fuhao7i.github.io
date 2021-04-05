@@ -1,0 +1,22 @@
+---
+layout:     post
+title:      "Neural Network🦖6——How dose the convolutional layer achieve higher or lower dimensionality?"
+subtitle:   " \"Convolutional principle\""
+date:       2021-04-05 09:53:00
+author:     "fuhao7i"
+header-img: "img/in-post/nn.jpg"
+catalog: true
+tags:
+    - Neural Network🦖
+---
+
+`The convolution kernel not only has height and width but also has depth`
+
+<img src="https://img-blog.csdnimg.cn/2021040509574565.png" center>
+
+And it has the same depth as the feature map being convolved. Therefore, each convolution kernel can traverse all the feature maps of the upper level.
+
+<img src="https://img-blog.csdnimg.cn/20210405100253974.jpeg" center>
+
+每一个卷积核遍历完所有的特征图之后，进行线性相加，就得到了新的特征图。
+After each convolution kernel traverses all the feature maps, linear addition is performed to obtain a new feature map.

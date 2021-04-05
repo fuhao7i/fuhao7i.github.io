@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰16——Summary of drawing neural network tools",
+      "subtitle" : " &quot;Drawing neural network&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/04/05/sundry16/",
+      "date"     : "2021-04-05 19:16:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Neural Network🦖6——How dose the convolutional layer achieve higher or lower dimensionality?",
+      "subtitle" : " &quot;Convolutional principle&quot;",
+      "tags"     : "Neural Network🦖",
+      "url"      : "/2021/04/05/nn6/",
+      "date"     : "2021-04-05 17:53:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了",
       "subtitle" : " &quot;loss problems&quot;",
       "tags"     : "Dali杂货铺🐰",
@@ -97,11 +113,19 @@
     } ,
   
     {
-      "title"    : "Dali工具箱🔧3—— DD——DaliDetetion",
+      "title"    : "Dali工具箱🔧4—— DD——DaliDetetion",
       "subtitle" : " &quot;更好的帮你完成深度学习任务&quot;",
       "tags"     : "Dali工具箱🔧",
-      "url"      : "/2021/03/20/dalitools3/",
+      "url"      : "/2021/03/20/dalitools4/",
       "date"     : "2021-03-20 23:34:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广",
+      "subtitle" : " &quot;transform, 尺寸调整, 数据增强&quot;",
+      "tags"     : "Dali工具箱🔧",
+      "url"      : "/2021/03/16/dalitools3/",
+      "date"     : "2021-03-16 22:15:00 +0800"
     } ,
   
     {
@@ -118,14 +142,6 @@
       "tags"     : "Dali杂货铺🐰",
       "url"      : "/2021/03/15/sundry7/",
       "date"     : "2021-03-15 05:00:00 +0800"
-    } ,
-  
-    {
-      "title"    : "Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广",
-      "subtitle" : " &quot;transform, 尺寸调整, 数据增强&quot;",
-      "tags"     : "Dali工具箱🔧",
-      "url"      : "/2021/03/12/dalitools3/",
-      "date"     : "2021-03-12 22:15:00 +0800"
     } ,
   
     {
