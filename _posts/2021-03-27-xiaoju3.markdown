@@ -77,8 +77,6 @@ output = Softmax()(x)
 
 `损失理解:`
 
-交叉熵：
-
 ```python
 import numpy as np
 import math
