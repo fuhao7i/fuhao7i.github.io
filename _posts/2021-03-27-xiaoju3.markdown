@@ -76,8 +76,8 @@ output = Softmax()(x)
 将我们处理之后的label和预测得到的结果传给我们的损失函数就能计算出loss了，这样我们就实现了像素级的分类————也就是`语义分割`了🌼
 
 `损失理解:`
-**损失函数:**
 
+**损失函数:**
 ```python
 import numpy as np
 import math
