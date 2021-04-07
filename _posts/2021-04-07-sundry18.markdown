@@ -1,0 +1,14 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰18——The role of hook in mmdetection"
+subtitle:   " \"HOOK, hook\""
+date:       2021-04-07 10:02:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+# Reference
+1. [目标检测(MMdetection)-HOOK机制](https://zhuanlan.zhihu.com/p/238130913)

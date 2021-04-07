@@ -10,6 +10,8 @@ tags:
     - Dali杂货铺🐰
 ---
 
+在`loss.backward()`之后查看某一层的梯度
+
 ```python
 print('=== after loss.backward() ===')
 print(self.D.conv0.weight.grad)

@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "Neural Network🦖7——How to clip gradient?",
+      "subtitle" : " &quot;clip grad, Gradient clipping&quot;",
+      "tags"     : "Neural Network🦖",
+      "url"      : "/2021/04/07/nn7/",
+      "date"     : "2021-04-07 19:12:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Dali杂货铺🐰18——The role of hook in mmdetection",
+      "subtitle" : " &quot;HOOK, hook&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/04/07/sundry18/",
+      "date"     : "2021-04-07 18:02:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰17——torch 训练过程查看某一层的梯度",
       "subtitle" : " &quot;Drawing neural network&quot;",
       "tags"     : "Dali杂货铺🐰",

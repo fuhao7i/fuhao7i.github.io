@@ -75,6 +75,40 @@ output = Softmax()(x)
 
 将我们处理之后的label和预测得到的结果传给我们的损失函数就能计算出loss了，这样我们就实现了像素级的分类————也就是`语义分割`了🌼
 
+`损失理解:`
+
+交叉熵：
+
+```python
+import numpy as np
+import math
+import tensorflow.keras.backend as K
+
+def crossentropy(y, x):
+    return -(y * np.log(x))
+
+y_true = np.array([[0, 1, 0], [1, 0, 0]])
+y_pred = np.array([[0.2, 0.6, 0.2], [0.3, 0.3, 0.4]])
+
+
+print("Keras:", K.categorical_crossentropy(K.constant(y_true), K.constant(y_pred)))
+
+loss1 = 0.0
+loss2 = 0.0
+loss1 = np.array(loss1).astype('float32')
+loss2 = np.array(loss2).astype('float32')
+for i in range(3):
+    loss1 += crossentropy(y_true[0][i], y_pred[0][i])
+    loss2 += crossentropy(y_true[1][i], y_pred[1][i])  
+
+print("ours :", loss1, loss2)
+```
+
+```Bash
+Keras: tf.Tensor([0.5108256 1.2039728], shape=(2,), dtype=float32)
+ours : 0.51082563 1.2039728
+```
+
 ### 帮助理解标签的处理
 
 ```python

@@ -255,6 +255,55 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2021/04/07/nn7/">
+        <h2 class="post-title">
+            Neural Network🦖7——How to clip gradient?
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "clip grad, Gradient clipping"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                
+
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on April 7, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/04/07/sundry18/">
+        <h2 class="post-title">
+            Dali杂货铺🐰18——The role of hook in mmdetection
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "HOOK, hook"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                Reference
+
+  目标检测(MMdetection)-HOOK机制
+
+
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on April 7, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/04/05/sundry17/">
         <h2 class="post-title">
             Dali杂货铺🐰17——torch 训练过程查看某一层的梯度
@@ -266,7 +315,9 @@
         
         <div class="post-content-preview">
             
-                1
+                在loss.backward()之后查看某一层的梯度
+
+1
 2
 print('=== after loss.backward() ===')
 print(self.D.conv0.weight.grad)
@@ -513,70 +564,6 @@ wandb.init()
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2021/03/27/xiaoju3/">
-        <h2 class="post-title">
-            小菊的语义分割3🌼——数据预处理及像素级分类实现原理
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "数据标签预处理, Softmax进行像素级分类原理"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                1. 数据预处理
-
-思路: 读取train.txt文件，获取训练图像及对应标签的文件路径，读取图像，将图像转化为tensor之后，resize调整图像尺寸大小并进行归一化处理，之后也可通过旋转，色偏，增加噪声等方式进行数据增强。注意要保证图像和标签的处理一致。
-
-
-
-padding可以使图像在resize时不失真
-
-2. label map 标签映射
-
-
-
-如图就是我们的语义分割标签图像，相...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 27, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/03/27/xiaoju1/">
-        <h2 class="post-title">
-            小菊的语义分割1🌼——语义分割科普Semantic Segmentation
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "什么是语义分割？"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-
-什么是语义分割？
-
-语义分割其实就是像素级的分类任务。假设我们看到这样一幅图：
-
-
-
-我们一眼就能看到这是一只狗正趴在地上，那如果我们把这张图片传给计算机，计算机该如何获得这张图片哪些地方是狗，哪些地方是地面呢？因为计算机在读取图片的时候，是按像素点来读取的，对计算机来说，这么一张图片，其实就是整齐排列的大量的像素点，那么如果我们按照每一个像素点来进行分类：是小狗？或者是地面，就能准确的...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 27, 2021
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -616,62 +603,62 @@ padding可以使图像在resize时不失真
         
         
         
-                <a data-sort="0042" 
+                <a data-sort="0044" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8"
                     title="阿菊的OpenCv🎨"
                     rel="1">阿菊的OpenCv🎨</a>
         
-                <a data-sort="0026" 
+                <a data-sort="0027" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
-                    rel="17">Dali杂货铺🐰</a>
-        
-                <a data-sort="0037" 
-                    href="/archive/?tag=Neural+Network%F0%9F%A6%96"
-                    title="Neural Network🦖"
-                    rel="6">Neural Network🦖</a>
+                    rel="18">Dali杂货铺🐰</a>
         
                 <a data-sort="0038" 
+                    href="/archive/?tag=Neural+Network%F0%9F%A6%96"
+                    title="Neural Network🦖"
+                    rel="7">Neural Network🦖</a>
+        
+                <a data-sort="0040" 
                     href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8"
                     title="哈哈哈目标检测🧸"
                     rel="5">哈哈哈目标检测🧸</a>
         
-                <a data-sort="0039" 
+                <a data-sort="0041" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
                     title="Dali工具箱🔧"
                     rel="4">Dali工具箱🔧</a>
         
-                <a data-sort="0040" 
+                <a data-sort="0042" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
                     title="小菊的语义分割🌼"
                     rel="3">小菊的语义分割🌼</a>
         
-                <a data-sort="0041" 
+                <a data-sort="0043" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0042" 
+                <a data-sort="0044" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0042" 
+                <a data-sort="0044" 
                     href="/archive/?tag=Books%F0%9F%93%96"
                     title="Books📖"
                     rel="1">Books📖</a>
         
-                <a data-sort="0042" 
+                <a data-sort="0044" 
                     href="/archive/?tag=GAN%26Image+Enhancement%F0%9F%90%BD"
                     title="GAN&Image Enhancement🐽"
                     rel="1">GAN&Image Enhancement🐽</a>
         
-                <a data-sort="0042" 
+                <a data-sort="0044" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>
         
-                <a data-sort="0042" 
+                <a data-sort="0044" 
                     href="/archive/?tag=PyTorch%F0%9F%A7%9F%E2%80%8D%E2%99%82%EF%B8%8F"
                     title="PyTorch🧟‍♂️"
                     rel="1">PyTorch🧟‍♂️</a>

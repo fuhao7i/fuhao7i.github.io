@@ -25,13 +25,16 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Dali杂货铺🐰6——torch 分布式训练(多GPU)注意事项 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali杂货铺🐰18——The role of hook in mmdetection - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="1. ‘SyncBN’: nn.SyncBatchNorm
+    <meta property="og:description" content="Reference
+
+  目标检测(MMdetection)-HOOK机制
+
 ">
     
-    <meta property="article:published_time" content="2021-01-27T01:37:00Z">
+    <meta property="article:published_time" content="2021-04-07T18:02:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
@@ -41,10 +44,10 @@
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/27/sundry6/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/04/07/sundry18/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Dali杂货铺🐰6——torch 分布式训练(多GPU)注意事项 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali杂货铺🐰18——The role of hook in mmdetection - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -53,7 +56,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/27/sundry6/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/04/07/sundry18/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -253,10 +256,10 @@
                         <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
                         
                     </div>
-                    <h1>Dali杂货铺🐰6——torch 分布式训练(多GPU)注意事项</h1>
+                    <h1>Dali杂货铺🐰18——The role of hook in mmdetection</h1>
                     
-                    <h2 class="subheading"> "深度学习, 分布式训练, 多GPU"</h2>
-                    <span class="meta">Posted by fuhao7i on January 27, 2021</span>
+                    <h2 class="subheading"> "HOOK, hook"</h2>
+                    <span class="meta">Posted by fuhao7i on April 7, 2021</span>
                 </div>
             </div>
         </div>
@@ -282,14 +285,9 @@
                 <!-- Multi-Lingual -->
                 
 
-				<h1 id="1-syncbn-nnsyncbatchnorm">1. ‘SyncBN’: nn.SyncBatchNorm</h1>
-
-<p><code class="language-plaintext highlighter-rouge">warning:</code> 当单块GPU训练torch模型时，如果程序内含有<code class="language-plaintext highlighter-rouge">SyncBN</code>会报错误: <code class="language-plaintext highlighter-rouge">AssertionError: Default process group is not initialized</code></p>
-
-<h1 id="-引用">#. 引用</h1>
-
+				<h1 id="reference">Reference</h1>
 <ol>
-  <li><a href="https://blog.csdn.net/weixin_39782394/article/details/111294929">pytorch指定gpu训练_PyTorch多GPU并行训练方法及问题整理</a></li>
+  <li><a href="https://zhuanlan.zhihu.com/p/238130913">目标检测(MMdetection)-HOOK机制</a></li>
 </ol>
 
                 
@@ -321,17 +319,17 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/01/23/sundry5/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰5——torch 深度学习model()函数参数问题">
+                        <a href="/2021/04/05/sundry17/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰17——torch 训练过程查看某一层的梯度">
                         Previous<br>
-                        <span>Dali杂货铺🐰5——torch 深度学习model()函数参数问题</span>
+                        <span>Dali杂货铺🐰17——torch 训练过程查看某一层的梯度</span>
                         </a>
                     </li>
                     
                     
                     <li class="next">
-                        <a href="/2021/02/01/nn1/" data-toggle="tooltip" data-placement="top" title="Neural Network🦖1——上采样Upsampling详解">
+                        <a href="/2021/04/07/nn7/" data-toggle="tooltip" data-placement="top" title="Neural Network🦖7——How to clip gradient?">
                         Next<br>
-                        <span>Neural Network🦖1——上采样Upsampling详解</span>
+                        <span>Neural Network🦖7——How to clip gradient?</span>
                         </a>
                     </li>
                     
