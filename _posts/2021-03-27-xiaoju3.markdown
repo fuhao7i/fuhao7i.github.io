@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "小菊的语义分割3🌼——数据预处理及像素级分类实现原理"
+title:      "小菊的语义分割3🌼——像素级分类实现原理及数据预处理"
 subtitle:   " \"数据标签预处理, Softmax进行像素级分类原理\""
 date:       2021-03-27 14:00:00
 author:     "fuhao7i"
@@ -9,6 +9,84 @@ catalog: true
 tags:
     - 小菊的语义分割🌼
 ---
+
+> 通过小菊的语义分割1🌼，我们已经知道了语义分割其实就是像素级的分类任务，也就是说它要做的是给每一个像素点进行分类，那我们具体应该怎样实现这个特殊的分类任务呢？————不急，我们先来看一下普通的图像分类任务是怎样实现的
+
+# 0. 图像分类任务实现原理
+
+其实我们的语义分割——像素级分类和我们的普通图像分类任务还是非常相似的，只不过是一个给像素点进行分类，一个给整个图像进行分类，它们的标签处理方式和最后的损失计算都是非常相似的。
+
+首先，我们假设有这样一堆图片，里面总共有3个类——猫，狗和狼，那么我们定义标签的时候可以将猫作为第0类，狗是第1类，狼是第2类，然后给它们转换成分类常用的one-hot编码格式，如下所示:
+
+```Bash
+ 类别    标签    one-hot  
+ 猫      0      [1, 0, 0]
+ 狗      1      [0, 1, 0]
+ 狼      2      [0, 0, 1]
+```
+
+我们把每一张图片和它的one-hot编码格式标签对应起来，就可以用于后面的损失函数计算了。
+
+接下来我们再看看我们的分类网络的输出是怎样的。分类网络的输出是一个一维数组[...]，具体数组里面有几个元素和我们要分的类别有关，我们这里分3类，数组的长度就为3————[x0, x1, x2]，之后我们`Softmax([x0, x1, x2])`，得到[p0, p1, p2]，其中p0+p1+p2=1，p0代表的是图像为第0类的概率，p1代表的是图像为第1类的概率，以此类推。最大概率对应种类就是分类网络预测的图像的种类。`例` 我们将标签为[0, 1, 0]的图像输入到分类网络得到输出[0.1, 0.7, 0.2]，其中最大概率0.7对应的类别为1，则分类网络任务该图像为狗。
+
+最后我们来看一下分类网络损失的计算：**交叉熵**
+
+$$
+\large loss = - (\sum\limits_{i=1}^N y\_true_i * ln( y\_pre_i )) \tag {1}
+$$
+
+其中 $0 < y\_pre_i <= 1$。因为我们的y_true只有一个为1，其余全为0，带入可得我们的损失为 **loss = - ln( y_prei )**，带入我们上边的例子就是**loss = -ln(0.7)**,ln函数在**(0,1]**为增函数，加上负号为减函数，也就是说我们的分类网络只有提高图像分类正确的概率，我们的loss才会减小。
+
+`损失理解:`
+
+```python
+import numpy as np
+import math
+import tensorflow.keras.backend as K
+
+# 类别    标签    one-hot  
+# 猫      0      [1, 0, 0]
+# 狗      1      [0, 1, 0]
+# 狼      2      [0, 0, 1]
+
+def crossentropy(y, x):
+    return -(y * np.log(x))
+
+y_true = np.array([[0, 1, 0], [1, 0, 0]])
+y_pred = np.array([[0.2, 0.6, 0.2], [0.3, 0.3, 0.4]])
+
+
+print("Keras:", K.categorical_crossentropy(K.constant(y_true), K.constant(y_pred)))
+
+loss1 = 0.0
+loss2 = 0.0
+loss1 = np.array(loss1).astype('float32')
+loss2 = np.array(loss2).astype('float32')
+for i in range(3):
+    loss1 += crossentropy(y_true[0][i], y_pred[0][i])
+    loss2 += crossentropy(y_true[1][i], y_pred[1][i])  
+
+print("ours :", loss1, loss2)
+```
+
+```Bash
+Keras: tf.Tensor([0.5108256 1.2039728], shape=(2,), dtype=float32)
+ours : 0.51082563 1.2039728
+```
+
+看懂了普通的图像分类任务之后，再看我们的语义分割，其实就是给每一个像素点对应一个one-hot编码标签，之后我们的语义分割网络的输出和分类网络的输出也是一样的，会输出每一个像素点对应每个类别的概率。如下所示：
+
+```Bash
+       Output              Label
+ [[0.4, 0.3, 0.3],      [[1, 0, 0],        # 第1个像素点
+  [0.7, 0.2, 0.1],       [1, 0, 0],        # 第2个像素点
+  [0.8, 0.2, 0.0],       [1, 0, 0],        # 第三个像素点
+  [0.8, 0.1, 0.1],       [1, 0, 0],        # 第四个像素点
+        ...                 ...
+                 ]
+```
+
+接下来就让我们看一下它在语义分割中是怎样具体实现的吧
 
 # 1. 数据预处理
 
@@ -74,44 +152,6 @@ output = Softmax()(x)
 ```
 
 将我们处理之后的label和预测得到的结果传给我们的损失函数就能计算出loss了，这样我们就实现了像素级的分类————也就是`语义分割`了🌼
-
-`损失理解:`
-
-**损失函数:**
-```python
-import numpy as np
-import math
-import tensorflow.keras.backend as K
-
-# 类别    标签    one-hot  
-# 猫      0      [1, 0, 0]
-# 狗      1      [0, 1, 0]
-# 狼      2      [0, 0, 1]
-
-def crossentropy(y, x):
-    return -(y * np.log(x))
-
-y_true = np.array([[0, 1, 0], [1, 0, 0]])
-y_pred = np.array([[0.2, 0.6, 0.2], [0.3, 0.3, 0.4]])
-
-
-print("Keras:", K.categorical_crossentropy(K.constant(y_true), K.constant(y_pred)))
-
-loss1 = 0.0
-loss2 = 0.0
-loss1 = np.array(loss1).astype('float32')
-loss2 = np.array(loss2).astype('float32')
-for i in range(3):
-    loss1 += crossentropy(y_true[0][i], y_pred[0][i])
-    loss2 += crossentropy(y_true[1][i], y_pred[1][i])  
-
-print("ours :", loss1, loss2)
-```
-
-```Bash
-Keras: tf.Tensor([0.5108256 1.2039728], shape=(2,), dtype=float32)
-ours : 0.51082563 1.2039728
-```
 
 ### 帮助理解标签的处理
 
