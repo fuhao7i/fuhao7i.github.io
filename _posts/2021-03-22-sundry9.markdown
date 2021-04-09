@@ -67,4 +67,9 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
+### 4. 删除环境
+
+```Bash
+conda remove -n envname --all
+```
 
