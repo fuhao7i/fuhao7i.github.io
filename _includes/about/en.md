@@ -1,6 +1,6 @@
 > Till death do us part.
 
-Hi, I'm Fuhao7i, currently a senior student in the field of computer vision, especially like "toss and turn"...
+CVPR, ICCV, ECCV
 
 #### Haunts🦕
 
