@@ -1,0 +1,65 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰19——Rules for defining the names of hyperparameters in torch"
+subtitle:   " \"model.state_dict(), model.named_parameters()\""
+date:       2021-04-10 15:46:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+
+```python
+import torch
+import torch.nn as nn
+
+class monet(nn.Module):
+    def __init__(self):
+        super(monet, self).__init__()
+        self.pre_conv = nn.Sequential(
+            nn.Conv2d(48, 48, 3, 1, 1),
+            nn.ReLU(inplace=True)
+        )
+        self.conv0 = nn.Conv2d(48, 48, 3, 1)
+        self.layers = nn.ModuleList()
+        for i in range(3):
+            self.layers.append(self.conv0)
+
+        self.arch_weights = [torch.autograd.Variable(torch.zeros(8).cuda(), requires_grad=True) for i in range(len(self.layers))]
+
+        self.softmax = nn.Softmax()
+
+    def forward(self, x):
+        x = self.pre_conv(x)
+        x = self.layers(x)
+        x = self.conv0(x)
+        x = self.softmax(self.arch_weights) * x
+        return x
+net = monet()
+for i in net.state_dict():
+    print(i)
+print(net.arch_weights[:2])
+print(net.pre_conv)
+print(net.conv0.parameters())
+```
+`outputs:`
+```Bash
+pre_conv.0.weight
+pre_conv.0.bias
+conv0.weight
+conv0.bias
+layers.0.weight
+layers.0.bias
+layers.1.weight
+layers.1.bias
+layers.2.weight
+layers.2.bias
+[tensor([0., 0., 0., 0., 0., 0., 0., 0.], device='cuda:0', requires_grad=True), tensor([0., 0., 0., 0., 0., 0., 0., 0.], device='cuda:0', requires_grad=True)]
+Sequential(
+  (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (1): ReLU(inplace=True)
+)
+<generator object Module.parameters at 0x7f22dfa5bb50>
+```

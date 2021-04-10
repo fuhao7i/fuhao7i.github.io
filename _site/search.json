@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰19——Rules for defining the names of hyperparameters in torch",
+      "subtitle" : " &quot;model.state_dict(), model.named_parameters()&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/04/10/sundry19/",
+      "date"     : "2021-04-10 23:46:00 +0800"
+    } ,
+  
+    {
       "title"    : "Neural Network🦖7——How to clip gradient?",
       "subtitle" : " &quot;clip grad, Gradient clipping&quot;",
       "tags"     : "Neural Network🦖",

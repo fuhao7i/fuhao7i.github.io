@@ -1,6 +1,10 @@
 > Till death do us part.
 
-CVPR, ICCV, ECCV
+#### AIM🎯
+
+- CVPR🥇
+- ECCV🥇
+- ICCV🥇
 
 #### Haunts🦕
 

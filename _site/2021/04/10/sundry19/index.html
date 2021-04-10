@@ -25,28 +25,28 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="哈哈哈目标检测🧸3——mmdetection 训练文件详解train.py - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali杂货铺🐰19——Rules for defining the names of hyperparameters in torch - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="
-  mmdetection 详解：训练自己的模型
-
+    <meta property="og:description" content="```python
+import torch
+import torch.nn as nn
 ">
     
-    <meta property="article:published_time" content="2021-01-14T02:54:00Z">
+    <meta property="article:published_time" content="2021-04-10T23:46:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="哈哈哈目标检测🧸">
+    <meta property="article:tag" content="Dali杂货铺🐰">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/01/14/detector3/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/04/10/sundry19/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>哈哈哈目标检测🧸3——mmdetection 训练文件详解train.py - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali杂货铺🐰19——Rules for defining the names of hyperparameters in torch - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -55,7 +55,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/01/14/detector3/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/04/10/sundry19/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -235,7 +235,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/mubiaojiance.jpg');
+        background-image: url('/img/in-post/sundry.jpg');
         background: ;
     }
 
@@ -252,13 +252,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8" title="哈哈哈目标检测🧸">哈哈哈目标检测🧸</a>
+                        <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
                         
                     </div>
-                    <h1>哈哈哈目标检测🧸3——mmdetection 训练文件详解train.py</h1>
+                    <h1>Dali杂货铺🐰19——Rules for defining the names of hyperparameters in torch</h1>
                     
-                    <h2 class="subheading"> "mmdetection 开始训练模型"</h2>
-                    <span class="meta">Posted by fuhao7i on January 14, 2021</span>
+                    <h2 class="subheading"> "model.state_dict(), model.named_parameters()"</h2>
+                    <span class="meta">Posted by fuhao7i on April 10, 2021</span>
                 </div>
             </div>
         </div>
@@ -284,74 +284,7 @@
                 <!-- Multi-Lingual -->
                 
 
-				<blockquote>
-  <p>mmdetection 详解：训练自己的模型</p>
-</blockquote>
-
-<h1 id="1-train_detector-函数详解">1. train_detector() 函数详解</h1>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="n">train_detector</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">,</span>
-    <span class="n">train_dataset</span><span class="p">,</span>
-    <span class="n">cfg</span><span class="p">,</span>
-    <span class="n">distributed</span><span class="o">=</span><span class="n">distributed</span><span class="p">,</span>
-    <span class="n">validate</span><span class="o">=</span><span class="n">args</span><span class="p">.</span><span class="n">validate</span><span class="p">,</span>
-    <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">参数：</code></p>
-
-<pre><code class="language-Bash">model : 构建的网络模型
-train_dataset : 构建的训练数据集
-cfg : 读取的Config py文件
-distributed : 是否是分布式训练
-validate : whether to evaluate the checkpoint during training
-logger : 日志信息
-</code></pre>
-
-<p>接下来我们详细看一下<code class="language-plaintext highlighter-rouge">train_detector()函数</code>。<br />
-<code class="language-plaintext highlighter-rouge">./mmdet/apis/train.py</code></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">train_detector</span><span class="p">(</span><span class="n">model</span><span class="p">,</span>
-                   <span class="n">dataset</span><span class="p">,</span>
-                   <span class="n">cfg</span><span class="p">,</span>
-                   <span class="n">distributed</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                   <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                   <span class="n">logger</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">logger</span> <span class="o">=</span> <span class="n">get_root_logger</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">log_level</span><span class="p">)</span>
-    
-    <span class="c1"># start training
-</span>    <span class="k">if</span> <span class="n">distributed</span><span class="p">:</span>
-        <span class="n">_dist_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">_non_dist_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="n">validate</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h2 id="11-_non_dist_train-单个gpu非分布式训练">1.1 _non_dist_train() (单个GPU)非分布式训练</h2>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+				<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -382,112 +315,56 @@ logger : 日志信息
 29
 30
 31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">_non_dist_train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="nb">NotImplementedError</span><span class="p">(</span><span class="s">'Built-in validation is not implemented '</span>
-                                  <span class="s">'yet in not-distributed training. Use '</span>
-                                  <span class="s">'distributed training or test.py and '</span>
-                                  <span class="s">'*eval.py scripts instead.'</span><span class="p">)</span>
-    <span class="c1"># put model on gpus
-</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">MMDataParallel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">device_ids</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">gpus</span><span class="p">)).</span><span class="n">cuda</span><span class="p">()</span>
-    
-    <span class="c1"># build runner
-</span>    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">build_optimizer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'optimizer_exclude_arch'</span><span class="p">))</span>
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="n">nn</span>
 
-    <span class="n">arch_name</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">optimizer_arch</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="k">if</span> <span class="s">'optimizer_arch'</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="nb">NotImplementedError</span>
-    
-    <span class="n">runner</span> <span class="o">=</span> <span class="n">Runner</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">batch_processor</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">optimizer_arch</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">log_level</span><span class="p">,</span> <span class="n">arch_name</span><span class="o">=</span><span class="n">arch_name</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">monet</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">monet</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">pre_conv</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="n">ReLU</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">conv0</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">ModuleList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">conv0</span><span class="p">)</span>
 
-    <span class="c1"># fp16 setting
-</span>    <span class="n">fp16_cfg</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'fp16'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">fp16_cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">optimizer_config</span> <span class="o">=</span> <span class="n">Fp16OptimizerHook</span><span class="p">(</span>
-            <span class="o">**</span><span class="n">cfg</span><span class="p">.</span><span class="n">optimizer_config</span><span class="p">,</span> <span class="o">**</span><span class="n">fp16_cfg</span><span class="p">,</span> <span class="n">distributed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">optimizer_config</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">.</span><span class="n">optimizer_config</span>
-        <span class="n">optimizer_arch_config</span> <span class="o">=</span> <span class="n">cfg</span><span class="p">.</span><span class="n">optimizer_config</span>
-    <span class="n">runner</span><span class="p">.</span><span class="n">register_training_hooks</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">lr_config</span><span class="p">,</span> <span class="n">optimizer_config</span><span class="p">,</span> <span class="n">optimizer_arch_config</span><span class="p">,</span>
-                                   <span class="n">cfg</span><span class="p">.</span><span class="n">checkpoint_config</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">log_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">arch_weights</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="p">.</span><span class="n">autograd</span><span class="p">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">8</span><span class="p">).</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">))]</span>
 
-    <span class="k">if</span> <span class="n">cfg</span><span class="p">.</span><span class="n">resume_from</span><span class="p">:</span>
-        <span class="n">runner</span><span class="p">.</span><span class="n">resume</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">resume_from</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">cfg</span><span class="p">.</span><span class="n">load_from</span><span class="p">:</span>
-        <span class="n">runner</span><span class="p">.</span><span class="n">load_checkpoint</span><span class="p">(</span><span class="n">cfg</span><span class="p">.</span><span class="n">load_from</span><span class="p">)</span>
-    
-    <span class="k">if</span> <span class="s">'optimizer_arch'</span> <span class="ow">in</span> <span class="n">cfg</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="nb">NotImplementedError</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">data_loaders</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">build_dataloader</span><span class="p">(</span>
-                <span class="n">dataset</span><span class="p">,</span>
-                <span class="n">cfg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">imgs_per_gpu</span><span class="p">,</span>
-                <span class="n">cfg</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">workers_per_gpu</span><span class="p">,</span>
-                <span class="n">cfg</span><span class="p">.</span><span class="n">gpus</span><span class="p">,</span>
-                <span class="n">dist</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="n">runner</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">data_loaders</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">workflow</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">total_epochs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">softmax</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="n">Softmax</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">pre_conv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">conv0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">softmax</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">arch_weights</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span>
+        <span class="k">return</span> <span class="n">x</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">monet</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">net</span><span class="p">.</span><span class="n">state_dict</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">net</span><span class="p">.</span><span class="n">arch_weights</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">net</span><span class="p">.</span><span class="n">pre_conv</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">net</span><span class="p">.</span><span class="n">conv0</span><span class="p">.</span><span class="n">parameters</span><span class="p">())</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
-
-<h3 id="111-构建runner实例">1.1.1 构建Runner实例</h3>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="n">runner</span> <span class="o">=</span> <span class="n">Runner</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">batch_processor</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span> <span class="n">optimizer_arch</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">work_dir</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">log_level</span><span class="p">,</span> <span class="n">arch_name</span><span class="o">=</span><span class="n">arch_name</span><span class="p">)</span>
-<span class="p">...</span>
-<span class="n">runner</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">data_loaders</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">workflow</span><span class="p">,</span> <span class="n">cfg</span><span class="p">.</span><span class="n">total_epochs</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>这里我们来看<code class="language-plaintext highlighter-rouge">Runner</code>第二个参数<code class="language-plaintext highlighter-rouge">batch_processor</code></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">batch_processor</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">train_mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">losses</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-
-    <span class="n">losses_</span> <span class="o">=</span> <span class="n">losses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">loss_latency</span> <span class="o">=</span> <span class="n">losses</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">loss_latency</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">losses_</span><span class="p">[</span><span class="s">'loss_latency'</span><span class="p">]</span> <span class="o">=</span> <span class="n">loss_latency</span>
-
-    <span class="n">loss</span><span class="p">,</span> <span class="n">log_vars</span> <span class="o">=</span> <span class="n">parse_losses</span><span class="p">(</span><span class="n">losses_</span><span class="p">)</span>
-   
-    <span class="n">outputs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">log_vars</span><span class="o">=</span><span class="n">log_vars</span><span class="p">,</span> <span class="n">num_samples</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s">'img'</span><span class="p">].</span><span class="n">data</span><span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">outputs</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">outputs:</code></p>
+<pre><code class="language-Bash">pre_conv.0.weight
+pre_conv.0.bias
+conv0.weight
+conv0.bias
+layers.0.weight
+layers.0.bias
+layers.1.weight
+layers.1.bias
+layers.2.weight
+layers.2.bias
+[tensor([0., 0., 0., 0., 0., 0., 0., 0.], device='cuda:0', requires_grad=True), tensor([0., 0., 0., 0., 0., 0., 0., 0.], device='cuda:0', requires_grad=True)]
+Sequential(
+  (0): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  (1): ReLU(inplace=True)
+)
+&lt;generator object Module.parameters at 0x7f22dfa5bb50&gt;
+</code></pre>
 
                 
                 <!--Donate start-->
@@ -518,19 +395,12 @@ logger : 日志信息
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/01/14/detector2/" data-toggle="tooltip" data-placement="top" title="哈哈哈目标检测🧸2——mmdetection 数据集准备build_dataset函数详解">
+                        <a href="/2021/04/07/nn7/" data-toggle="tooltip" data-placement="top" title="Neural Network🦖7——How to clip gradient?">
                         Previous<br>
-                        <span>哈哈哈目标检测🧸2——mmdetection 数据集准备build_dataset函数详解</span>
+                        <span>Neural Network🦖7——How to clip gradient?</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/01/15/stage1/" data-toggle="tooltip" data-placement="top" title="阶段性学习总结🔑1——HitDet改进">
-                        Next<br>
-                        <span>阶段性学习总结🔑1——HitDet改进</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
