@@ -5,14 +5,14 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 11 Apr 2021 16:43:59 +0800</pubDate>
-    <lastBuildDate>Sun, 11 Apr 2021 16:43:59 +0800</lastBuildDate>
+    <pubDate>Sun, 11 Apr 2021 16:45:36 +0800</pubDate>
+    <lastBuildDate>Sun, 11 Apr 2021 16:45:36 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
         <title>Dali杂货铺🐰19——Rules for defining the names of hyperparameters in torch</title>
         <description>&lt;blockquote&gt;
-  &lt;p&gt;Sometimes, we need to train models jointly, or use one model to help another model training. It’s critically for us to konw the name of parameters in the model.&lt;/p&gt;
+  &lt;p&gt;Sometimes, we need to train models jointly, or use one model to help another model training. So it’s critically for us to konw the name of parameters in the model.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
