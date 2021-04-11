@@ -10,7 +10,7 @@ tags:
     - Dali杂货铺🐰
 ---
 
-> Sometimes, we need to train models jointly, or use one model to help another model training. It's critically for us to konw the name of parameters in the model.
+> Sometimes, we need to train models jointly, or use one model to help another model training. So it's critically for us to konw the name of parameters in the model.
 
 ```python
 import torch
