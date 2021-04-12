@@ -29,7 +29,9 @@
     
     <meta property="og:type" content="article">
     <meta property="og:description" content="
-">
+  Due to the improper selection of the learning rate, the weight update is larger.
+  There is a lot of noise in the prepared data, resulting in large differences in target variables.
+  The imprope...">
     
     <meta property="article:published_time" content="2021-04-07T19:12:00Z">
     
@@ -255,7 +257,7 @@
                     </div>
                     <h1>Neural Network🦖7——How to clip gradient?</h1>
                     
-                    <h2 class="subheading"> "clip grad, Gradient clipping"</h2>
+                    <h2 class="subheading"> "clip grad, Gradient clipping, Gradient Scaling"</h2>
                     <span class="meta">Posted by fuhao7i on April 7, 2021</span>
                 </div>
             </div>
@@ -282,7 +284,28 @@
                 <!-- Multi-Lingual -->
                 
 
-				
+				<ul>
+  <li>Due to the improper selection of the learning rate, the weight update is larger.</li>
+  <li>There is a lot of noise in the prepared data, resulting in large differences in target variables.</li>
+  <li>The improper selection of the loss function results in the calculation of a larger error value.</li>
+</ul>
+
+<p>梯度爆炸的一种常见解决方法是先更改误差导数，然后通过网络反向传播误差导数，然后使用它来更新权重。通过重新缩放误差导数，权重的更新也将被重新缩放，从而大大降低了上溢(NaN)或下溢(Inf)的可能性。更新误差导数的主要方法有两种：</p>
+
+<ul>
+  <li>梯度缩放 Gradient Scaling</li>
+  <li>梯度裁剪 Gradient Clipping</li>
+</ul>
+
+<p>梯度缩放涉及对误差梯度向量进行归一化，以使向量范数大小等于定义的值，例如1.0。只要它们超过阈值，就重新缩放它们。如果渐变超出了预期范围，则渐变裁剪会强制将渐变值（逐个元素）强制为特定的最小值或最大值。这些方法通常简称为梯度裁剪。</p>
+
+<p><code class="language-plaintext highlighter-rouge">它是一种仅解决训练深度神经网络模型的数值稳定性，而不能改进网络性能的方法。</code></p>
+
+<h1 id="reference">reference</h1>
+
+<ol>
+  <li><a href="https://blog.csdn.net/weixin_39653948/article/details/105962326">【调参19】如何使用梯度裁剪（Gradient Clipping）避免梯度爆炸</a></li>
+</ol>
 
                 
                 <!--Donate start-->

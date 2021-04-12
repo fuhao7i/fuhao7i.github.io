@@ -299,13 +299,15 @@
         </h2>
         
         <h3 class="post-subtitle">
-             "clip grad, Gradient clipping"
+             "clip grad, Gradient clipping, Gradient Scaling"
         </h3>
         
         <div class="post-content-preview">
             
                 
-
+  Due to the improper selection of the learning rate, the weight update is larger.
+  There is a lot of noise in the prepared data, resulting in large differences in target variables.
+  The imprope...
             
         </div>
     </a>
@@ -358,7 +360,7 @@
 1
 2
 print('=== after loss.backward() ===')
-print(self.D.conv0.weight.grad)
+print(self.model.conv0.weight.grad)
 
 
             

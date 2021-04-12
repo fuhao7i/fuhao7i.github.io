@@ -14,5 +14,5 @@ tags:
 
 ```python
 print('=== after loss.backward() ===')
-print(self.D.conv0.weight.grad)
+print(self.model.conv0.weight.grad)
 ```

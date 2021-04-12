@@ -10,7 +10,7 @@
   
     {
       "title"    : "Neural Network🦖7——How to clip gradient?",
-      "subtitle" : " &quot;clip grad, Gradient clipping&quot;",
+      "subtitle" : " &quot;clip grad, Gradient clipping, Gradient Scaling&quot;",
       "tags"     : "Neural Network🦖",
       "url"      : "/2021/04/07/nn7/",
       "date"     : "2021-04-07 19:12:00 +0800"

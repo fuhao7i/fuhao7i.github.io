@@ -1,0 +1,6 @@
+I"?<ul>
+  <li>Due to the improper selection of the learning rate, the weight update is larger.</li>
+  <li>There is a lot of noise in the prepared data, resulting in large differences in target variables.</li>
+  <li>The improper selection of the loss function results in the calculation of a larger error value.</li>
+</ul>
+:ET
