@@ -1,0 +1,32 @@
+---
+layout:     post
+title:      "Detector🎯5—— one-stage VS two-stage"
+subtitle:   " \"FPN, RPN\""
+date:       2021-04-13 18:50:00
+author:     "fuhao7i"
+header-img: "img/in-post/mubiaojiance.jpg"
+catalog: true
+tags:
+    - Detector🎯
+---
+
+# 1. main differences
+
+- one-stage network is faster.
+- two-stage network is more accurate.
+
+# 2. one-stage 
+
+> Directly regress the category probability and position coordinate value of the object without RPN(region proposal network).
+
+`classical one-stage object detection network`
+
+```Bash
+YOLOv1, YOLOv2, YOLOv3
+SSD, DSSD ...
+Retina-Net ...
+```
+
+### [Retina Net](https://blog.csdn.net/cp1314971/article/details/105841094/)
+
+<img src="https://img-blog.csdnimg.cn/20210413164117265.png" center>

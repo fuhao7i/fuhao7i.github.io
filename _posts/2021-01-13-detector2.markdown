@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "哈哈哈目标检测🧸2——mmdetection 数据集准备build_dataset函数详解"
+title:      "Detector🎯2——mmdetection 数据集准备build_dataset函数详解"
 subtitle:   " \"mmdetection 数据集准备\""
 date:       2021-01-13 17:32:00
 author:     "fuhao7i"
 header-img: "img/in-post/mubiaojiance.jpg"
 catalog: true
 tags:
-    - 哈哈哈目标检测🧸
+    - Detector🎯
 ---
 
 > mmdetection 数据集准备，包括训练数据集和测试数据集

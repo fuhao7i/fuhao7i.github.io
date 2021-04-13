@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "哈哈哈目标检测🧸3——mmdetection 训练文件详解train.py"
+title:      "Detector🎯3——mmdetection 训练文件详解train.py"
 subtitle:   " \"mmdetection 开始训练模型\""
 date:       2021-01-13 18:54:00
 author:     "fuhao7i"
 header-img: "img/in-post/mubiaojiance.jpg"
 catalog: true
 tags:
-    - 哈哈哈目标检测🧸
+    - Detector🎯
 ---
 
 > mmdetection 详解：训练自己的模型

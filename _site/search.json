@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Detector🎯5—— one-stage VS two-stage",
+      "subtitle" : " &quot;FPN, RPN&quot;",
+      "tags"     : "Detector🎯",
+      "url"      : "/2021/04/14/detector5/",
+      "date"     : "2021-04-14 02:50:00 +0800"
+    } ,
+  
+    {
       "title"    : "Neural Network🦖8——model.eval() VS with torch.no_grad()",
       "subtitle" : " &quot;BatchNorm, Dropout, grad_backprop&quot;",
       "tags"     : "Neural Network🦖",
@@ -209,14 +217,6 @@
     } ,
   
     {
-      "title"    : "哈哈哈目标检测🧸5——mmdetection v0.6 (SSD)网络搭建过程详解",
-      "subtitle" : " &quot;mmdetection v0.6, 结构详解&quot;",
-      "tags"     : "哈哈哈目标检测🧸",
-      "url"      : "/2021/02/22/detector5/",
-      "date"     : "2021-02-22 18:11:00 +0800"
-    } ,
-  
-    {
       "title"    : "Neural Network🦖2——优化器详解",
       "subtitle" : " &quot;优化器的作用与实现原理&quot;",
       "tags"     : "Neural Network🦖",
@@ -289,9 +289,9 @@
     } ,
   
     {
-      "title"    : "哈哈哈目标检测🧸4——mmdetection 测试文件详解 test.py",
+      "title"    : "Detector🎯4——mmdetection 测试文件详解 test.py",
       "subtitle" : " &quot;mmdetection 测试模型&quot;",
-      "tags"     : "哈哈哈目标检测🧸",
+      "tags"     : "Detector🎯",
       "url"      : "/2021/01/16/detector4/",
       "date"     : "2021-01-16 05:50:00 +0800"
     } ,
@@ -305,17 +305,17 @@
     } ,
   
     {
-      "title"    : "哈哈哈目标检测🧸3——mmdetection 训练文件详解train.py",
+      "title"    : "Detector🎯3——mmdetection 训练文件详解train.py",
       "subtitle" : " &quot;mmdetection 开始训练模型&quot;",
-      "tags"     : "哈哈哈目标检测🧸",
+      "tags"     : "Detector🎯",
       "url"      : "/2021/01/14/detector3/",
       "date"     : "2021-01-14 02:54:00 +0800"
     } ,
   
     {
-      "title"    : "哈哈哈目标检测🧸2——mmdetection 数据集准备build_dataset函数详解",
+      "title"    : "Detector🎯2——mmdetection 数据集准备build_dataset函数详解",
       "subtitle" : " &quot;mmdetection 数据集准备&quot;",
-      "tags"     : "哈哈哈目标检测🧸",
+      "tags"     : "Detector🎯",
       "url"      : "/2021/01/14/detector2/",
       "date"     : "2021-01-14 01:32:00 +0800"
     } ,
@@ -345,9 +345,9 @@
     } ,
   
     {
-      "title"    : "哈哈哈目标检测🧸1——mmdetection环境配置",
+      "title"    : "Detector🎯1——mmdetection环境配置",
       "subtitle" : " &quot;mmdetection工具箱学习记录&quot;",
-      "tags"     : "哈哈哈目标检测🧸",
+      "tags"     : "Detector🎯",
       "url"      : "/2021/01/10/detector1/",
       "date"     : "2021-01-10 04:19:00 +0800"
     } ,

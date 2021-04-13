@@ -5,9 +5,44 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 13 Apr 2021 13:05:30 +0800</pubDate>
-    <lastBuildDate>Tue, 13 Apr 2021 13:05:30 +0800</lastBuildDate>
+    <pubDate>Tue, 13 Apr 2021 20:53:10 +0800</pubDate>
+    <lastBuildDate>Tue, 13 Apr 2021 20:53:10 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Detector🎯5—— one-stage VS two-stage</title>
+        <description>&lt;h1 id=&quot;1-main-differences&quot;&gt;1. main differences&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;one-stage network is faster.&lt;/li&gt;
+  &lt;li&gt;two-stage network is more accurate.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;2-one-stage&quot;&gt;2. one-stage&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Directly regress the category probability and position coordinate value of the object without RPN(region proposal network).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;classical one-stage object detection network&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;YOLOv1, YOLOv2, YOLOv3
+SSD, DSSD ...
+Retina-Net ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;retina-net&quot;&gt;&lt;a href=&quot;https://blog.csdn.net/cp1314971/article/details/105841094/&quot;&gt;Retina Net&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210413164117265.png&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 14 Apr 2021 02:50:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/14/detector5/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/14/detector5/</guid>
+        
+        <category>Detector🎯</category>
+        
+        
+      </item>
     
       <item>
         <title>Neural Network🦖8——model.eval() VS with torch.no_grad()</title>
@@ -352,28 +387,6 @@ a.dtype: 输出a的数据类型&lt;/p&gt;
         <pubDate>Fri, 02 Apr 2021 17:50:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/04/02/sundry14/</link>
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/02/sundry14/</guid>
-        
-        <category>Dali杂货铺🐰</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰13——wandb 模型训练轻量级可视化工具</title>
-        <description>&lt;p&gt;&lt;strong&gt;wandb(Weights &amp;amp; Biases)是一个类似于tensorboard的极度丝滑的在线模型训练可视化工具。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;wandb这个库可以帮助我们跟踪实验，记录运行中的超参数和输出指标，可视化结果并共享结果以及可以实时监控我们系统的各项指标：CPU，GPU等；&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;!pip install wandb
-import wandb
-wandb.init()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;会返回一个网页连接，点击登陆后会返回一个密钥，直接复制粘贴到程序里就可以了。&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Apr 2021 17:50:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/04/02/sundry13/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/02/sundry13/</guid>
         
         <category>Dali杂货铺🐰</category>
         

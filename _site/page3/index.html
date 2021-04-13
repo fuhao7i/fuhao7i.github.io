@@ -255,6 +255,49 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2021/03/20/dalitools4/">
+        <h2 class="post-title">
+            Dali工具箱🔧4—— DD——DaliDetetion
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "更好的帮你完成深度学习任务"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                0. 配置文件 configs
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+
+model= dict(
+    type= 'Classification' # 或者是‘_base/Faster_RCNN.py’
+    backbone= dict(
+        'Conv'= dict(input_channels= 3, out_channels=16...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on March 20, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/03/16/dalitools3/">
         <h2 class="post-title">
             Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广
@@ -459,64 +502,6 @@ D：Discriminator 判别器网络。
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/02/22/detector5/">
-        <h2 class="post-title">
-            哈哈哈目标检测🧸5——mmdetection v0.6 (SSD)网络搭建过程详解
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "mmdetection v0.6, 结构详解"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-  以SSD网络为例, 从配置文件到backbone…, 探索整个网络的搭建过程.
-
-
-1. /configs/ssd512_coco.py
-
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-...
-# 网络结构
-model = dict(
-    type='SingleStageDetect...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on February 22, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2021/02/20/nn2/">
         <h2 class="post-title">
             Neural Network🦖2——优化器详解
@@ -667,9 +652,9 @@ warning: 当单块GPU训练torch模型时，如果程序内含有SyncBN会报错
                     rel="8">Neural Network🦖</a>
         
                 <a data-sort="0042" 
-                    href="/archive/?tag=%E5%93%88%E5%93%88%E5%93%88%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%F0%9F%A7%B8"
-                    title="哈哈哈目标检测🧸"
-                    rel="5">哈哈哈目标检测🧸</a>
+                    href="/archive/?tag=Detector%F0%9F%8E%AF"
+                    title="Detector🎯"
+                    rel="5">Detector🎯</a>
         
                 <a data-sort="0043" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
