@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali杂货铺🐰20——Common operations of tensors",
+      "subtitle" : " &quot;cat, &quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/04/14/sundry20/",
+      "date"     : "2021-04-14 05:07:00 +0800"
+    } ,
+  
+    {
       "title"    : "Detector🎯5—— one-stage VS two-stage",
       "subtitle" : " &quot;FPN, RPN&quot;",
       "tags"     : "Detector🎯",

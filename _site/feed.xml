@@ -5,9 +5,60 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 13 Apr 2021 20:53:10 +0800</pubDate>
-    <lastBuildDate>Tue, 13 Apr 2021 20:53:10 +0800</lastBuildDate>
+    <pubDate>Tue, 13 Apr 2021 21:16:10 +0800</pubDate>
+    <lastBuildDate>Tue, 13 Apr 2021 21:16:10 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali杂货铺🐰20——Common operations of tensors</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;record the common operations of tensors.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;1-torchcattensor1-tensor2-dim&quot;&gt;1. torch.cat((tensor1, tensor2), dim)&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;cat is ‘concatenate’, menas link (things) together in a chain or series.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-Bash&quot;&gt;&amp;gt;&amp;gt;&amp;gt; import torch
+&amp;gt;&amp;gt;&amp;gt; A=torch.ones(2,3) #2x3的张量（矩阵）                                     
+&amp;gt;&amp;gt;&amp;gt; A
+tensor([[ 1.,  1.,  1.],
+        [ 1.,  1.,  1.]])
+&amp;gt;&amp;gt;&amp;gt; B=2*torch.ones(4,3)#4x3的张量（矩阵）                                    
+&amp;gt;&amp;gt;&amp;gt; B
+tensor([[ 2.,  2.,  2.],
+        [ 2.,  2.,  2.],
+        [ 2.,  2.,  2.],
+        [ 2.,  2.,  2.]])
+&amp;gt;&amp;gt;&amp;gt; C=torch.cat((A,B),0)#按维数0（行）拼接
+&amp;gt;&amp;gt;&amp;gt; C
+tensor([[ 1.,  1.,  1.],
+         [ 1.,  1.,  1.],
+         [ 2.,  2.,  2.],
+         [ 2.,  2.,  2.],
+         [ 2.,  2.,  2.],
+         [ 2.,  2.,  2.]])
+&amp;gt;&amp;gt;&amp;gt; C.size()
+torch.Size([6, 3])
+&amp;gt;&amp;gt;&amp;gt; D=2*torch.ones(2,4) #2x4的张量（矩阵）
+&amp;gt;&amp;gt;&amp;gt; C=torch.cat((A,D),1)#按维数1（列）拼接
+&amp;gt;&amp;gt;&amp;gt; C
+tensor([[ 1.,  1.,  1.,  2.,  2.,  2.,  2.],
+        [ 1.,  1.,  1.,  2.,  2.,  2.,  2.]])
+&amp;gt;&amp;gt;&amp;gt; C.size()
+torch.Size([2, 7])
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Wed, 14 Apr 2021 05:07:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/14/sundry20/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/14/sundry20/</guid>
+        
+        <category>Dali杂货铺🐰</category>
+        
+        
+      </item>
     
       <item>
         <title>Detector🎯5—— one-stage VS two-stage</title>
@@ -31,7 +82,7 @@ SSD, DSSD ...
 Retina-Net ...
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&quot;retina-net&quot;&gt;&lt;a href=&quot;https://blog.csdn.net/cp1314971/article/details/105841094/&quot;&gt;Retina Net&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id=&quot;retina-net&quot;&gt;&lt;a href=&quot;https://blog.csdn.net/cp1314971/article/details/105841094/&quot;&gt;Retina Net&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210413164117265.png&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
@@ -351,42 +402,6 @@ After each convolution kernel traverses all the feature maps, linear addition is
         <pubDate>Sat, 03 Apr 2021 04:50:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/04/03/sundry15/</link>
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/03/sundry15/</guid>
-        
-        <category>Dali杂货铺🐰</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Dali杂货铺🐰14——GPU显存占满，但利用率却很低？</title>
-        <description>&lt;h1 id=&quot;1-float32&quot;&gt;1. float32&lt;/h1&gt;
-
-&lt;p&gt;查看各个张量(即每一层的输入输出，一般输入类型对了，输出类型也对)是否为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float32&lt;/code&gt;，Tensorflow在GPU上不能处理&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float64&lt;/code&gt;的tensor，因此我们需要确保每个tensor为float32位。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;注意&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;np.ones 和 np.zeros 都默认为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float64&lt;/code&gt;位.&lt;/p&gt;
-
-&lt;p&gt;astype: 转换np.array的数据类型
-a.dtype: 输出a的数据类型&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ones&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'float32'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;2-注意算法的时间复杂度&quot;&gt;2. 注意算法的时间复杂度&lt;/h1&gt;
-
-&lt;p&gt;看看你的程序里，数据预处理部分，是不是有特别 &lt;strong&gt;“笨重”&lt;/strong&gt; 的部分，比如说: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;两个for循环遍历数据&lt;/code&gt; … 😭 我的就是因为这个浪费我两天时间，我一直还以为是tensorflow的版本问题, 年轻了…&lt;/p&gt;
-</description>
-        <pubDate>Fri, 02 Apr 2021 17:50:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/04/02/sundry14/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/02/sundry14/</guid>
         
         <category>Dali杂货铺🐰</category>
         

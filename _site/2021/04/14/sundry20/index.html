@@ -25,26 +25,28 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Dali工具箱🔧4—— DD——DaliDetetion - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali杂货铺🐰20——Common operations of tensors - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="0. 配置文件 configs
+    <meta property="og:description" content="
+  record the common operations of tensors.
+
 ">
     
-    <meta property="article:published_time" content="2021-03-20T23:34:00Z">
+    <meta property="article:published_time" content="2021-04-14T05:07:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="Dali工具箱🔧">
+    <meta property="article:tag" content="Dali杂货铺🐰">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/03/20/dalitools4/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/04/14/sundry20/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Dali工具箱🔧4—— DD——DaliDetetion - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali杂货铺🐰20——Common operations of tensors - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -53,7 +55,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/03/20/dalitools4/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/04/14/sundry20/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -233,7 +235,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/tools.jpg');
+        background-image: url('/img/in-post/sundry.jpg');
         background: ;
     }
 
@@ -250,13 +252,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7" title="Dali工具箱🔧">Dali工具箱🔧</a>
+                        <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
                         
                     </div>
-                    <h1>Dali工具箱🔧4—— DD——DaliDetetion</h1>
+                    <h1>Dali杂货铺🐰20——Common operations of tensors</h1>
                     
-                    <h2 class="subheading"> "更好的帮你完成深度学习任务"</h2>
-                    <span class="meta">Posted by fuhao7i on March 20, 2021</span>
+                    <h2 class="subheading"> "cat, "</h2>
+                    <span class="meta">Posted by fuhao7i on April 14, 2021</span>
                 </div>
             </div>
         </div>
@@ -282,39 +284,45 @@
                 <!-- Multi-Lingual -->
                 
 
-				<h1 id="0-配置文件-configs">0. 配置文件 configs</h1>
+				<blockquote>
+  <p>record the common operations of tensors.</p>
+</blockquote>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-</pre></td><td class="rouge-code"><pre>
-<span class="n">model</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-    <span class="nb">type</span><span class="o">=</span> <span class="s">'Classification'</span> <span class="c1"># 或者是‘_base/Faster_RCNN.py’
-</span>    <span class="n">backbone</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="s">'Conv'</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">input_channels</span><span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-        <span class="s">'Conv'</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
-        <span class="n">output_indices</span><span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="p">)</span>
-    <span class="n">classificer</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="s">'Linear'</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="mi">768000</span><span class="p">,</span> <span class="mi">1024</span><span class="p">),</span>
-        <span class="s">'Linear'</span><span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="p">)</span>
-    <span class="p">)</span>
+<h3 id="1-torchcattensor1-tensor2-dim">1. torch.cat((tensor1, tensor2), dim)</h3>
 
-<span class="p">)</span>
+<blockquote>
+  <p>cat is ‘concatenate’, menas link (things) together in a chain or series.</p>
+</blockquote>
 
-</pre></td></tr></tbody></table></code></pre></div></div>
+<pre><code class="language-Bash">&gt;&gt;&gt; import torch
+&gt;&gt;&gt; A=torch.ones(2,3) #2x3的张量（矩阵）                                     
+&gt;&gt;&gt; A
+tensor([[ 1.,  1.,  1.],
+        [ 1.,  1.,  1.]])
+&gt;&gt;&gt; B=2*torch.ones(4,3)#4x3的张量（矩阵）                                    
+&gt;&gt;&gt; B
+tensor([[ 2.,  2.,  2.],
+        [ 2.,  2.,  2.],
+        [ 2.,  2.,  2.],
+        [ 2.,  2.,  2.]])
+&gt;&gt;&gt; C=torch.cat((A,B),0)#按维数0（行）拼接
+&gt;&gt;&gt; C
+tensor([[ 1.,  1.,  1.],
+         [ 1.,  1.,  1.],
+         [ 2.,  2.,  2.],
+         [ 2.,  2.,  2.],
+         [ 2.,  2.,  2.],
+         [ 2.,  2.,  2.]])
+&gt;&gt;&gt; C.size()
+torch.Size([6, 3])
+&gt;&gt;&gt; D=2*torch.ones(2,4) #2x4的张量（矩阵）
+&gt;&gt;&gt; C=torch.cat((A,D),1)#按维数1（列）拼接
+&gt;&gt;&gt; C
+tensor([[ 1.,  1.,  1.,  2.,  2.,  2.,  2.],
+        [ 1.,  1.,  1.,  2.,  2.,  2.,  2.]])
+&gt;&gt;&gt; C.size()
+torch.Size([2, 7])
+</code></pre>
 
                 
                 <!--Donate start-->
@@ -345,19 +353,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/03/16/dalitools3/" data-toggle="tooltip" data-placement="top" title="Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广">
+                        <a href="/2021/04/14/detector5/" data-toggle="tooltip" data-placement="top" title="Detector🎯5—— one-stage VS two-stage">
                         Previous<br>
-                        <span>Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广</span>
+                        <span>Detector🎯5—— one-stage VS two-stage</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/03/22/nas1/" data-toggle="tooltip" data-placement="top" title="NAS👣1——DARTS">
-                        Next<br>
-                        <span>NAS👣1——DARTS</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

@@ -1,0 +1,40 @@
+I"�<blockquote>
+  <p>record the common operations of tensors.</p>
+</blockquote>
+
+<h3 id="1-torchcattensor1-tensor2-dim">1. torch.cat((tensor1, tensor2), dim)</h3>
+
+<blockquote>
+  <p>cat is ‘concatenate’, menas link (things) together in a chain or series.</p>
+</blockquote>
+
+<pre><code class="language-Bash">&gt;&gt;&gt; import torch
+&gt;&gt;&gt; A=torch.ones(2,3) #2x3的张量（矩阵）                                     
+&gt;&gt;&gt; A
+tensor([[ 1.,  1.,  1.],
+        [ 1.,  1.,  1.]])
+&gt;&gt;&gt; B=2*torch.ones(4,3)#4x3的张量（矩阵）                                    
+&gt;&gt;&gt; B
+tensor([[ 2.,  2.,  2.],
+        [ 2.,  2.,  2.],
+        [ 2.,  2.,  2.],
+        [ 2.,  2.,  2.]])
+&gt;&gt;&gt; C=torch.cat((A,B),0)#按维数0（行）拼接
+&gt;&gt;&gt; C
+tensor([[ 1.,  1.,  1.],
+         [ 1.,  1.,  1.],
+         [ 2.,  2.,  2.],
+         [ 2.,  2.,  2.],
+         [ 2.,  2.,  2.],
+         [ 2.,  2.,  2.]])
+&gt;&gt;&gt; C.size()
+torch.Size([6, 3])
+&gt;&gt;&gt; D=2*torch.ones(2,4) #2x4的张量（矩阵）
+&gt;&gt;&gt; C=torch.cat((A,D),1)#按维数1（列）拼接
+&gt;&gt;&gt; C
+tensor([[ 1.,  1.,  1.,  2.,  2.,  2.,  2.],
+        [ 1.,  1.,  1.,  2.,  2.,  2.,  2.]])
+&gt;&gt;&gt; C.size()
+torch.Size([2, 7])
+</code></pre>
+:ET
