@@ -25,26 +25,29 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Dali杂货铺🐰16——Summary of drawing neural network tools - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Neural Network🦖8——model.eval() VS with torch.no_grad() - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="1. plotNeuralNet
+    <meta property="og:description" content="In short
+
+  model.eval() will notify all your layers that you are in eval mode, that way, batchnorm or dropout layers will work in eval mode instead of training mode.
+
 ">
     
-    <meta property="article:published_time" content="2021-04-05T19:16:00Z">
+    <meta property="article:published_time" content="2021-04-13T18:12:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="Dali杂货铺🐰">
+    <meta property="article:tag" content="Neural Network🦖">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/04/05/sundry16/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/04/13/nn8/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Dali杂货铺🐰16——Summary of drawing neural network tools - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Neural Network🦖8——model.eval() VS with torch.no_grad() - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -53,7 +56,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/04/05/sundry16/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/04/13/nn8/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -233,7 +236,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/sundry.jpg');
+        background-image: url('/img/in-post/nn.jpg');
         background: ;
     }
 
@@ -250,13 +253,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
+                        <a class="tag" href="/archive/?tag=Neural+Network%F0%9F%A6%96" title="Neural Network🦖">Neural Network🦖</a>
                         
                     </div>
-                    <h1>Dali杂货铺🐰16——Summary of drawing neural network tools</h1>
+                    <h1>Neural Network🦖8——model.eval() VS with torch.no_grad()</h1>
                     
-                    <h2 class="subheading"> "Drawing neural network"</h2>
-                    <span class="meta">Posted by fuhao7i on April 5, 2021</span>
+                    <h2 class="subheading"> "BatchNorm, Dropout, grad_backprop"</h2>
+                    <span class="meta">Posted by fuhao7i on April 13, 2021</span>
                 </div>
             </div>
         </div>
@@ -282,15 +285,39 @@
                 <!-- Multi-Lingual -->
                 
 
-				<h1 id="1-plotneuralnet">1. <a href="https://github.com/HarisIqbal88/PlotNeuralNet">plotNeuralNet</a></h1>
+				<p><strong>In short</strong></p>
+<ul>
+  <li>
+    <p><strong>model.eval()</strong> will notify all your layers that you are in eval mode, that way, batchnorm or dropout layers will work in eval mode instead of training mode.</p>
+  </li>
+  <li>
+    <p><strong>torch.no_grad()</strong> impacts the autograd engine and deactivate it. It will reduce memory usage and speed up computations but you won’t be able to backprop(which you don’t want in an eval script).</p>
+  </li>
+</ul>
 
-<p><img src="https://img-blog.csdnimg.cn/20210405111744890.png" center="" /></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_loader</span><span class="p">):</span>
+    <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="nb">eval</span><span class="p">()</span>
+    <span class="bp">self</span><span class="p">.</span><span class="n">data_loader</span> <span class="o">=</span> <span class="n">data_loader</span>
 
-<h1 id="2-bokeh">2. <a href="https://bokeh.pydata.org/en/latest/">Bokeh</a></h1>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data_batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">data_loader</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">(</span><span class="n">data_batch</span><span class="p">)</span>
+            <span class="p">...</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<p><a href="https://bokeh.pydata.org/en/latest/docs/user_guide.html#userguide">Bokeh官方文档</a></p>
+<h1 id="reference">reference</h1>
 
-<p>Bokeh是一个交互式可视化库，面向现代Web浏览器进行演示。 它的目标是提供优雅，简洁的多功能图形构造，并通过非常大或流数据集的高性能交互来扩展此功能。 Bokeh可以帮助任何想要快速轻松地创建交互式图表，仪表板和数据应用程序的人。</p>
+<ul>
+  <li><a href="https://discuss.pytorch.org/t/model-eval-vs-with-torch-no-grad/19615">‘model.eval()’ vs ‘with torch.no_grad()’</a></li>
+</ul>
 
                 
                 <!--Donate start-->
@@ -321,19 +348,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/04/05/nn6/" data-toggle="tooltip" data-placement="top" title="Neural Network🦖6——How dose the convolutional layer achieve higher or lower dimensionality?">
+                        <a href="/2021/04/10/sundry19/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰19——Rules for defining the names of hyperparameters in torch">
                         Previous<br>
-                        <span>Neural Network🦖6——How dose the convolutional layer achieve higher or lower dimensionality?</span>
+                        <span>Dali杂货铺🐰19——Rules for defining the names of hyperparameters in torch</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/04/05/sundry17/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰17——torch 训练过程查看某一层的梯度">
-                        Next<br>
-                        <span>Dali杂货铺🐰17——torch 训练过程查看某一层的梯度</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

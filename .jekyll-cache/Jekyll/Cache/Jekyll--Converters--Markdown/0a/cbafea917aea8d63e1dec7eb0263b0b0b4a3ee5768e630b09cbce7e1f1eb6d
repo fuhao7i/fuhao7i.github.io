@@ -1,0 +1,5 @@
+I"ã<p><strong>In short</strong></p>
+<ul>
+  <li><strong>model.eval()</strong> will notify all your layers that you are in eval mode, that way, batchnorm or dropout layers will work in eval mode instead of training mode.</li>
+</ul>
+:ET

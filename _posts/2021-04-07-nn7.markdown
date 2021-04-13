@@ -10,11 +10,11 @@ tags:
     - Neural Network🦖
 ---
 
-- Due to the improper selection of the learning rate, the weight update is larger.
-- There is a lot of noise in the prepared data, resulting in large differences in target variables.
-- The improper selection of the loss function results in the calculation of a larger error value.
+> - Due to the improper selection of the learning rate, the weight update is larger.
+> - There is a lot of noise in the prepared data, resulting in large differences in target variables.
+> - The improper selection of the loss function results in the calculation of a larger error value.
 
-梯度爆炸的一种常见解决方法是先更改误差导数，然后通过网络反向传播误差导数，然后使用它来更新权重。通过重新缩放误差导数，权重的更新也将被重新缩放，从而大大降低了上溢(NaN)或下溢(Inf)的可能性。更新误差导数的主要方法有两种：
+梯度爆炸/消失的一种常见解决方法是重新缩放误差导数，通过网络反向传播误差导数，然后使用它来更新权重。通过重新缩放误差导数，权重的更新也将被重新缩放，从而大大降低了上溢(NaN)或下溢(Inf)的可能性。更新误差导数的主要方法有两种：
 
 - 梯度缩放 Gradient Scaling
 - 梯度裁剪 Gradient Clipping
@@ -22,6 +22,18 @@ tags:
 梯度缩放涉及对误差梯度向量进行归一化，以使向量范数大小等于定义的值，例如1.0。只要它们超过阈值，就重新缩放它们。如果渐变超出了预期范围，则渐变裁剪会强制将渐变值（逐个元素）强制为特定的最小值或最大值。这些方法通常简称为梯度裁剪。
 
 `它是一种仅解决训练深度神经网络模型的数值稳定性，而不能改进网络性能的方法。`
+
+## implementation by torch
+
+`torch.nn.utils.clip_grad_norm(parameters, max_norm=8, norm_type=2)`
+
+这个函数是根据参数的范数来衡量的
+
+- parameters: 一个基于变量的迭代器，会进行归一化. an iterable of Variables that will have gradients normalized
+- max_norm: 梯度最大范数 max norm of the gradients
+- norm_type: 规定范数的类型，默认为L2. type of the used p-norm. Can be'inf'for infinity norm
+
+returns: 参数的总体范数(作为单个向量来看)
 
 # reference
 

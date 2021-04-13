@@ -1,0 +1,31 @@
+---
+layout:     post
+title:      "Neural Network🦖8——model.eval() VS with torch.no_grad()"
+subtitle:   " \"BatchNorm, Dropout, grad_backprop\""
+date:       2021-04-13 10:12:00
+author:     "fuhao7i"
+header-img: "img/in-post/nn.jpg"
+catalog: true
+tags:
+    - Neural Network🦖
+---
+
+**In short**
+- **model.eval()** will notify all your layers that you are in eval mode, that way, batchnorm or dropout layers will work in eval mode instead of training mode.
+
+- **torch.no_grad()** impacts the autograd engine and deactivate it. It will reduce memory usage and speed up computations but you won't be able to backprop(which you don't want in an eval script).
+
+```python
+def val(self, data_loader):
+    self.model.eval()
+    self.data_loader = data_loader
+
+    for i, data_batch in enumerate(self.data_loader):
+        with torch.no_grad():
+            outputs = self.model(data_batch)
+            ...
+```
+
+# reference
+
+- [‘model.eval()’ vs ‘with torch.no_grad()’](https://discuss.pytorch.org/t/model-eval-vs-with-torch-no-grad/19615)

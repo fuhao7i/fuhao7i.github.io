@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Neural Network🦖8——model.eval() VS with torch.no_grad()",
+      "subtitle" : " &quot;BatchNorm, Dropout, grad_backprop&quot;",
+      "tags"     : "Neural Network🦖",
+      "url"      : "/2021/04/13/nn8/",
+      "date"     : "2021-04-13 18:12:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰19——Rules for defining the names of hyperparameters in torch",
       "subtitle" : " &quot;model.state_dict(), model.named_parameters()&quot;",
       "tags"     : "Dali杂货铺🐰",
