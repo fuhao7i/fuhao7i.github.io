@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 13 Apr 2021 21:16:10 +0800</pubDate>
-    <lastBuildDate>Tue, 13 Apr 2021 21:16:10 +0800</lastBuildDate>
+    <pubDate>Tue, 13 Apr 2021 21:20:59 +0800</pubDate>
+    <lastBuildDate>Tue, 13 Apr 2021 21:20:59 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -85,6 +85,8 @@ Retina-Net ...
 &lt;h3 id=&quot;retina-net&quot;&gt;&lt;a href=&quot;https://blog.csdn.net/cp1314971/article/details/105841094/&quot;&gt;Retina Net&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210413164117265.png&quot; center=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/kuangliu/pytorch-retinanet&quot;&gt;PyTorch-RetinaNet&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 14 Apr 2021 02:50:00 +0800</pubDate>
         <link>https://fuhao7i.github.io/2021/04/14/detector5/</link>
