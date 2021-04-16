@@ -25,28 +25,26 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="阿菊的OpenCv🎨1——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge) - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="小菊的语义分割4🌼——Metrics for semantic segmentation - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="
-  “Yeah It’s on. ”
-
+    <meta property="og:description" content="reference
 ">
     
-    <meta property="article:published_time" content="2020-12-20T04:33:00Z">
+    <meta property="article:published_time" content="2021-04-17T04:41:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="阿菊的OpenCv🎨">
+    <meta property="article:tag" content="小菊的语义分割🌼">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2020/12/20/AJuOpenCv1/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/04/17/xiaoju4/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>阿菊的OpenCv🎨1——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge) - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>小菊的语义分割4🌼——Metrics for semantic segmentation - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -55,7 +53,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2020/12/20/AJuOpenCv1/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/04/17/xiaoju4/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -235,7 +233,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/AJuOpenCv.jpg');
+        background-image: url('/img/in-post/xiaoju.jpg');
         background: ;
     }
 
@@ -252,13 +250,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8" title="阿菊的OpenCv🎨">阿菊的OpenCv🎨</a>
+                        <a class="tag" href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC" title="小菊的语义分割🌼">小菊的语义分割🌼</a>
                         
                     </div>
-                    <h1>阿菊的OpenCv🎨1——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)</h1>
+                    <h1>小菊的语义分割4🌼——Metrics for semantic segmentation</h1>
                     
-                    <h2 class="subheading"> "Opencv, plt, cv2.split, cv2.merge"</h2>
-                    <span class="meta">Posted by fuhao7i on December 20, 2020</span>
+                    <h2 class="subheading"> "mAP, precision, recall, F1-score, IoU, mIoU"</h2>
+                    <span class="meta">Posted by fuhao7i on April 17, 2021</span>
                 </div>
             </div>
         </div>
@@ -284,148 +282,11 @@
                 <!-- Multi-Lingual -->
                 
 
-				<blockquote>
-  <p>“Yeah It’s on. ”</p>
-</blockquote>
+				<h1 id="reference">reference</h1>
 
-<h1 id="0-原始图像">0. 原始图像</h1>
-<p><img src="https://img-blog.csdnimg.cn/20201215160651373.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述" /></p>
-
-<h1 id="1-cv2读取图像并用matplotlib显示">1. cv2读取图像并用matplotlib显示</h1>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'../images/ju.jpg'</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="s">'Aju'</span><span class="p">)</span> <span class="c1">#窗口名称
-</span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'jujujuju'</span><span class="p">)</span> <span class="c1">#图像名称
-</span><span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">e.g.运行结果如下：</code></p>
-
-<p><img src="https://img-blog.csdnimg.cn/20201215152746218.png#pic_center" width="70%" /></p>
-
-<p>为什么我们用plt显示的图像看起来偏蓝色呢？因为OpenCV在读取图像的时候是按照<strong>BGR通道顺序</strong>来读取的，而我们平时看到的正常图片的编码格式为<strong>RGB通道顺序</strong>。所以为了用plt将图像显示为正常我们看到的图像，这里需要引入<strong>RGB图像通道的拆分与合并</strong>。</p>
-
-<h1 id="2rgb图像通道的拆分与合并">2.RGB图像通道的拆分与合并</h1>
-
-<p>将cv2读取的图像按照BGR的通道顺序进行拆分后再按照RGB的通道顺序进行合并，图像就可以正常显示了。</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'../images/ju.jpg'</span><span class="p">)</span>
-
-<span class="n">b</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">img</span><span class="p">)</span> <span class="c1">#按照BGR通道进行拆分
-</span>
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span> <span class="c1">#按照RGB通道顺序合并
-</span> 
-<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="s">'Aju'</span><span class="p">)</span> <span class="c1">#窗口名称
-</span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'jujujuju'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">e.g.运行结果如下：</code></p>
-
-<p>&lt;img src=”https://img-blog.csdnimg.cn/20201215155931573.png#pic_center” width=70%&gt;</p>
-
-<h1 id="3-matplotlib-显示多幅图像">3. matplotlib 显示多幅图像</h1>
-<p>plt显示多幅图像需要用到subplot。</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">imread</span><span class="p">(</span><span class="s">'../images/ju.jpg'</span><span class="p">)</span>
-<span class="n">b0</span><span class="p">,</span> <span class="n">g0</span><span class="p">,</span> <span class="n">r0</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="p">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
-
-<span class="n">zeros</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">img</span><span class="p">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s">"uint8"</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">zeros</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">b0</span><span class="p">])</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">zeros</span><span class="p">,</span> <span class="n">g0</span><span class="p">,</span> <span class="n">zeros</span><span class="p">])</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">r0</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">zeros</span><span class="p">])</span>  
-
-<span class="n">rg</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">r0</span><span class="p">,</span> <span class="n">g0</span><span class="p">,</span> <span class="n">zeros</span><span class="p">])</span>
-<span class="n">rb</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">r0</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">b0</span><span class="p">])</span>
-<span class="n">gb</span> <span class="o">=</span> <span class="n">cv2</span><span class="p">.</span><span class="n">merge</span><span class="p">([</span><span class="n">zeros</span><span class="p">,</span> <span class="n">g0</span><span class="p">,</span> <span class="n">b0</span><span class="p">])</span>
-
-<span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="s">'AJu'</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span> <span class="c1">#窗口名称和大小
-</span><span class="n">plt</span><span class="p">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">'Multi_ju'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'origin'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'R'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'G'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'B'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'RG'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rg</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'RB'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rb</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'GB'</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gb</span><span class="p">),</span> <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s">'off'</span><span class="p">)</span>
-<span class="c1">#plt.axis('off')隐藏坐标轴
-</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">duangduangduang～</code></p>
-
-<p><img src="https://img-blog.csdnimg.cn/20201215161018528.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z1aGFvN2k=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述" /></p>
-
-<p><strong>我会坚持分享更多关于计算机视觉的知识，同时也希望大家可以多多关注我，让我们一起进步，加油加油！！！</strong></p>
-
-<p><img src="https://img-blog.csdnimg.cn/2020121516200984.jpg#pic_center" alt="在这里插入图片描述" /></p>
-
+<ol>
+  <li><a href="https://www.cnblogs.com/qqw-1995/p/10528237.html">深度学习之语义分割中的度量标准</a></li>
+</ol>
 
                 
                 <!--Donate start-->
@@ -455,13 +316,13 @@
                 <hr style="visibility: hidden;">
                 <ul class="pager">
                     
-                    
-                    <li class="next">
-                        <a href="/2020/12/21/xiaoju2/" data-toggle="tooltip" data-placement="top" title="小菊的语义分割2🌼——数据集的制作(一): ISPRS_Potsdam遥感图像数据集">
-                        Next<br>
-                        <span>小菊的语义分割2🌼——数据集的制作(一): ISPRS_Potsdam遥感图像数据集</span>
+                    <li class="previous">
+                        <a href="/2021/04/17/sundry21/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰21——The contiguous() in PyTorch">
+                        Previous<br>
+                        <span>Dali杂货铺🐰21——The contiguous() in PyTorch</span>
                         </a>
                     </li>
+                    
                     
                 </ul>
                 <hr style="visibility: hidden;">

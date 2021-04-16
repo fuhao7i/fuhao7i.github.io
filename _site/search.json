@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "小菊的语义分割4🌼——Metrics for semantic segmentation",
+      "subtitle" : " &quot;mAP, precision, recall, F1-score, IoU, mIoU&quot;",
+      "tags"     : "小菊的语义分割🌼",
+      "url"      : "/2021/04/17/xiaoju4/",
+      "date"     : "2021-04-17 04:41:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Dali杂货铺🐰21——The contiguous() in PyTorch",
+      "subtitle" : " &quot;contiguous(), &quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/04/17/sundry21/",
+      "date"     : "2021-04-17 02:08:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰20——Common operations of tensors",
       "subtitle" : " &quot;cat, &quot;",
       "tags"     : "Dali杂货铺🐰",

@@ -255,6 +255,69 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2021/04/05/nn6/">
+        <h2 class="post-title">
+            Neural Network🦖6——How dose the convolutional layer achieve higher or lower dimensionality?
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "Convolutional principle"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                The convolution kernel not only has height and width but also has depth
+
+
+
+And it has the same depth as the feature map being convolved. Therefore, each convolution kernel can traverse all the feat...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on April 5, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/04/03/sundry15/">
+        <h2 class="post-title">
+            Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "loss problems"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                1. 分析:如何解决神经网络训练时loss不下降的问题
+
+1. 学习率没有灵魂
+
+学习率是个神奇的东西, 你是不是也对learning rate的选取而苦恼过, 总是感觉一成不变的学习率缺少灵魂:
+
+
+  太小？ loss降低的太慢💦
+  太大？ loss可能达不到最优, 而可能在最优值范围震动
+
+
+
+
+解决: torch.optim.lr_scheduler 学习率下降机制
+
+How to...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on April 3, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/04/02/sundry14/">
         <h2 class="post-title">
             Dali杂货铺🐰14——GPU显存占满，但利用率却很低？
@@ -502,80 +565,6 @@ wandb.init()
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2021/03/22/sundry10/">
-        <h2 class="post-title">
-            Dali杂货铺🐰10——指定GPU进行训练
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "TF, Keras, Torch"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                1. CUDA_VISIBLE_DEVICES
-
-1. os.environ[‘CUDA_VISIBLE_DEVICES’]
-
-1
-2
-3
-4
-5
-6
-import os
-
-os.environ['CUDA_VISIBLE_DEVICES'] = -1     # cpu模式
-
-os.environ['CUDA_VISIBLE_DEVICES'] = 0      # 只有GPU:0 对程序...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 22, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/03/22/sundry9/">
-        <h2 class="post-title">
-            Dali杂货铺🐰9——Anaconda conda 命令详解
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "Conda, 更好的管理python环境"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                1. 创建环境
-
-conda create -n envname python=3.7
-
-2. 激活环境
-
-conda activate envname
-
-3. 查看存在的所有环境
-
-conda info --envs
-
-4. 克隆环境(本地)
-
-conda create -n env2name --clone nv1name
-
-env2 是新创建的环境，env1 是被克隆的环境，env2和...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 22, 2021
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -619,62 +608,62 @@ env2 是新创建的环境，env1 是被克隆的环境，env2和...
         
         
         
-                <a data-sort="0047" 
+                <a data-sort="0049" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8"
                     title="阿菊的OpenCv🎨"
                     rel="1">阿菊的OpenCv🎨</a>
         
-                <a data-sort="0028" 
+                <a data-sort="0029" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
-                    rel="20">Dali杂货铺🐰</a>
+                    rel="21">Dali杂货铺🐰</a>
         
-                <a data-sort="0040" 
+                <a data-sort="0042" 
                     href="/archive/?tag=Neural+Network%F0%9F%A6%96"
                     title="Neural Network🦖"
                     rel="8">Neural Network🦖</a>
         
-                <a data-sort="0043" 
+                <a data-sort="0045" 
                     href="/archive/?tag=Detector%F0%9F%8E%AF"
                     title="Detector🎯"
                     rel="5">Detector🎯</a>
         
-                <a data-sort="0044" 
+                <a data-sort="0046" 
+                    href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
+                    title="小菊的语义分割🌼"
+                    rel="4">小菊的语义分割🌼</a>
+        
+                <a data-sort="0046" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
                     title="Dali工具箱🔧"
                     rel="4">Dali工具箱🔧</a>
         
-                <a data-sort="0045" 
-                    href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
-                    title="小菊的语义分割🌼"
-                    rel="3">小菊的语义分割🌼</a>
-        
-                <a data-sort="0046" 
+                <a data-sort="0048" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0047" 
+                <a data-sort="0049" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0047" 
+                <a data-sort="0049" 
                     href="/archive/?tag=Books%F0%9F%93%96"
                     title="Books📖"
                     rel="1">Books📖</a>
         
-                <a data-sort="0047" 
+                <a data-sort="0049" 
                     href="/archive/?tag=GAN%26Image+Enhancement%F0%9F%90%BD"
                     title="GAN&Image Enhancement🐽"
                     rel="1">GAN&Image Enhancement🐽</a>
         
-                <a data-sort="0047" 
+                <a data-sort="0049" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>
         
-                <a data-sort="0047" 
+                <a data-sort="0049" 
                     href="/archive/?tag=PyTorch%F0%9F%A7%9F%E2%80%8D%E2%99%82%EF%B8%8F"
                     title="PyTorch🧟‍♂️"
                     rel="1">PyTorch🧟‍♂️</a>

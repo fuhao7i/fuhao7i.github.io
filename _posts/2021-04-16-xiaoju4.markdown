@@ -1,0 +1,15 @@
+---
+layout:     post
+title:      "小菊的语义分割4🌼——Metrics for semantic segmentation"
+subtitle:   " \"mAP, precision, recall, F1-score, IoU, mIoU\""
+date:       2021-04-16 20:41:00
+author:     "fuhao7i"
+header-img: "img/in-post/xiaoju.jpg"
+catalog: true
+tags:
+    - 小菊的语义分割🌼
+---
+
+# reference
+
+1. [深度学习之语义分割中的度量标准](https://www.cnblogs.com/qqw-1995/p/10528237.html)
