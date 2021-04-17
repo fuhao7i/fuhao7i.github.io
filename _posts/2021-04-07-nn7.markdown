@@ -14,7 +14,7 @@ tags:
 > - There is a lot of noise in the prepared data, resulting in large differences in target variables.
 > - The improper selection of the loss function results in the calculation of a larger error value.
 
-梯度爆炸/消失的一种常见解决方法是重新缩放误差导数，通过网络反向传播误差导数，然后使用它来更新权重。通过重新缩放误差导数，权重的更新也将被重新缩放，从而大大降低了上溢(NaN)或下溢(Inf)的可能性。更新误差导数的主要方法有两种：
+梯度爆炸/消失的一种常见解决方法是重新缩放误差导数，通过网络反向传播误差导数，然后使用它来更新权重。通过重新缩放误差导数，权重的更新也将被重新缩放，从而大大降低了上溢或下溢(NaN: not a number, Inf: infinity)的可能性。更新误差导数的主要方法有两种：
 
 - 梯度缩放 Gradient Scaling
 - 梯度裁剪 Gradient Clipping

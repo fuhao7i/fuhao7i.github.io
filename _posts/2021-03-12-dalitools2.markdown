@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "Dali工具箱🔧2——Torch 数据集准备 Pipline"
+title:      "Dali工具箱🕶2——Torch 数据集准备 Pipline"
 subtitle:   " \"transform to train.txt, Dataset, DataLoader, 预处理\""
 date:       2021-03-12 14:15:00
 author:     "fuhao7i"
 header-img: "img/in-post/tools.jpg"
 catalog: true
 tags:
-    - Dali工具箱🔧
+    - Dali工具箱🕶
 ---
 
 # 0. 生成train.txt

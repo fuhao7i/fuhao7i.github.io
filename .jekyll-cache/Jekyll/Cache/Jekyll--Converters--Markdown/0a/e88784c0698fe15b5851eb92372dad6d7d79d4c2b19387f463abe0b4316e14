@@ -1,0 +1,30 @@
+I"Å<blockquote>
+  <p>Modular loading checkpoint</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="c1"># ------------------------------------- #
+#   put your checkpoint path into here. 
+# ------------------------------------- #
+</span><span class="n">checkpoint_path</span> <span class="o">=</span> <span class="s">" checkpoint path "</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Loading weights into state dict...'</span><span class="p">)</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">device</span><span class="p">(</span><span class="s">'cuda'</span> <span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s">'cpu'</span><span class="p">)</span>
+<span class="n">model_dict</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">()</span>
+<span class="n">pretrained_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="n">checkpoint_path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="n">pretrained_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pretrained_dict</span><span class="p">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">np</span><span class="p">.</span><span class="n">shape</span><span class="p">(</span><span class="n">model_dict</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">==</span>  <span class="n">np</span><span class="p">.</span><span class="n">shape</span><span class="p">(</span><span class="n">v</span><span class="p">)}</span>
+<span class="n">model_dict</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">pretrained_dict</span><span class="p">)</span>
+<span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">model_dict</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'Finished!'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

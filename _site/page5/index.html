@@ -131,6 +131,8 @@
                         
                         
                         
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -255,6 +257,69 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2021/01/18/sundry1/">
+        <h2 class="post-title">
+            Dali杂货铺🐰1——__init__.py文件的作用
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "python"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                1. 标志该文件夹为python的包(module package)
+
+__init__.py在文件夹下，可以使该文件夹变为一个python包。也就是可以使用import ${filename}导入。
+
+2. 自动运行
+
+在导入python包时，会自动执行该包下的__init__.py文件。__init__.py文件也可以为空。
+
+3. _all_ = [    ]
+
+我们在导入包时，经常会...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on January 18, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2021/01/16/detector4/">
+        <h2 class="post-title">
+            Detector🎯4——mmdetection 测试文件详解 test.py
+        </h2>
+        
+        <h3 class="post-subtitle">
+             "mmdetection 测试模型"
+        </h3>
+        
+        <div class="post-content-preview">
+            
+                
+  mmdetection 详解：测试训练好的模型
+
+
+1. 运行test.py
+
+test有两种模式: 分布式和非分布式。这和train的过程类似。只不过test需要载入我们训练好的网络模型权重。
+
+# single-gpu testing
+python tools/test.py ${CONFIG_FILE} ${CHECKPOINT_FILE} [--out ${RESULT_FIL...
+            
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by fuhao7i on January 16, 2021
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/01/15/stage1/">
         <h2 class="post-title">
             阶段性学习总结🔑1——HitDet改进
@@ -365,29 +430,6 @@ train_dataset = build_dataset(cfg.data.train)
 <hr>
 
 <div class="post-preview">
-    <a href="/2021/01/11/torch1/">
-        <h2 class="post-title">
-            PyTorch🧟‍♂️1——PyTorch输出中间特征层
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "torch, 模型融合"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on January 11, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2021/01/11/competition1/">
         <h2 class="post-title">
             Competition🐳1——车道线检测识别与标注
@@ -423,7 +465,7 @@ train_dataset = build_dataset(cfg.data.train)
 <div class="post-preview">
     <a href="/2021/01/11/dalitools1/">
         <h2 class="post-title">
-            Dali工具箱🔧1——torch GPU版本环境配置
+            Dali工具箱🕶1——torch GPU版本环境配置
         </h2>
         
         <h3 class="post-subtitle">
@@ -525,52 +567,6 @@ Google colab提供的免费GPU，是我目前学习的主要工具。很适...
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/12/20/AJuOpenCv1/">
-        <h2 class="post-title">
-            阿菊的OpenCv🎨1——cv2读取图像并用matplotlib(plt)显示多幅图像以及RGB图像通道的拆分(cv2.split)与合并(cv2.merge)
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "Opencv, plt, cv2.split, cv2.merge"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-  “Yeah It’s on. ”
-
-
-0. 原始图像
-
-
-1. cv2读取图像并用matplotlib显示
-
-1
-2
-3
-4
-5
-6
-7
-8
-9
-import cv2
-import matplotlib.pyplot as plt
-
-img = cv2.imread('../images/ju.jpg')
-
-plt.figure('Aju') #窗口名称
-plt.title('juju...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on December 20, 2020
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -580,6 +576,10 @@ plt.title('juju...
         <a href="/page4">&larr; Newer Posts</a>
     </li>
     
+    
+    <li class="next">
+        <a href="/page6">Older Posts &rarr;</a>
+    </li>
     
 </ul>
 
@@ -610,65 +610,65 @@ plt.title('juju...
         
         
         
-                <a data-sort="0049" 
+                <a data-sort="0050" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8"
                     title="阿菊的OpenCv🎨"
                     rel="1">阿菊的OpenCv🎨</a>
         
-                <a data-sort="0029" 
+                <a data-sort="0030" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
                     rel="21">Dali杂货铺🐰</a>
         
-                <a data-sort="0042" 
+                <a data-sort="0043" 
                     href="/archive/?tag=Neural+Network%F0%9F%A6%96"
                     title="Neural Network🦖"
                     rel="8">Neural Network🦖</a>
         
-                <a data-sort="0045" 
+                <a data-sort="0046" 
+                    href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%95%B6"
+                    title="Dali工具箱🕶"
+                    rel="5">Dali工具箱🕶</a>
+        
+                <a data-sort="0046" 
                     href="/archive/?tag=Detector%F0%9F%8E%AF"
                     title="Detector🎯"
                     rel="5">Detector🎯</a>
         
-                <a data-sort="0046" 
+                <a data-sort="0047" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
                     title="小菊的语义分割🌼"
                     rel="4">小菊的语义分割🌼</a>
         
-                <a data-sort="0046" 
-                    href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%94%A7"
-                    title="Dali工具箱🔧"
-                    rel="4">Dali工具箱🔧</a>
-        
-                <a data-sort="0048" 
+                <a data-sort="0049" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0049" 
+                <a data-sort="0050" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0049" 
+                <a data-sort="0050" 
                     href="/archive/?tag=Books%F0%9F%93%96"
                     title="Books📖"
                     rel="1">Books📖</a>
         
-                <a data-sort="0049" 
+                <a data-sort="0050" 
                     href="/archive/?tag=GAN%26Image+Enhancement%F0%9F%90%BD"
                     title="GAN&Image Enhancement🐽"
                     rel="1">GAN&Image Enhancement🐽</a>
         
-                <a data-sort="0049" 
+                <a data-sort="0050" 
+                    href="/archive/?tag=Modular+torch%F0%9F%92%8C"
+                    title="Modular torch💌"
+                    rel="1">Modular torch💌</a>
+        
+                <a data-sort="0050" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>
-        
-                <a data-sort="0049" 
-                    href="/archive/?tag=PyTorch%F0%9F%A7%9F%E2%80%8D%E2%99%82%EF%B8%8F"
-                    title="PyTorch🧟‍♂️"
-                    rel="1">PyTorch🧟‍♂️</a>
     </div>
 </section>
 

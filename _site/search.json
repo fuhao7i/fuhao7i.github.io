@@ -1,6 +1,22 @@
 [
   
     {
+      "title"    : "Dali工具箱🕶5——the use of numpy",
+      "subtitle" : " &quot;np.where, np.argmax, np.argmin, np.eye, np.seed, np.vstack, np.hstack&quot;",
+      "tags"     : "Dali工具箱🕶",
+      "url"      : "/2021/04/17/dalitools5/",
+      "date"     : "2021-04-17 20:13:00 +0800"
+    } ,
+  
+    {
+      "title"    : "Modular torch💌1——load checkpoint",
+      "subtitle" : " &quot;load weights into state dict&quot;",
+      "tags"     : "Modular torch💌",
+      "url"      : "/2021/04/17/modular1/",
+      "date"     : "2021-04-17 17:06:00 +0800"
+    } ,
+  
+    {
       "title"    : "小菊的语义分割4🌼——Metrics for semantic segmentation",
       "subtitle" : " &quot;mAP, precision, recall, F1-score, IoU, mIoU&quot;",
       "tags"     : "小菊的语义分割🌼",
@@ -185,17 +201,17 @@
     } ,
   
     {
-      "title"    : "Dali工具箱🔧4—— DD——DaliDetetion",
+      "title"    : "Dali工具箱🕶4—— DD——DaliDetetion",
       "subtitle" : " &quot;更好的帮你完成深度学习任务&quot;",
-      "tags"     : "Dali工具箱🔧",
+      "tags"     : "Dali工具箱🕶",
       "url"      : "/2021/03/20/dalitools4/",
       "date"     : "2021-03-20 23:34:00 +0800"
     } ,
   
     {
-      "title"    : "Dali工具箱🔧3——torch.transform( Pipline ) 进行数据增广",
+      "title"    : "Dali工具箱🕶3——torch.transform( Pipline ) 进行数据增广",
       "subtitle" : " &quot;transform, 尺寸调整, 数据增强&quot;",
-      "tags"     : "Dali工具箱🔧",
+      "tags"     : "Dali工具箱🕶",
       "url"      : "/2021/03/16/dalitools3/",
       "date"     : "2021-03-16 22:15:00 +0800"
     } ,
@@ -217,9 +233,9 @@
     } ,
   
     {
-      "title"    : "Dali工具箱🔧2——Torch 数据集准备 Pipline",
+      "title"    : "Dali工具箱🕶2——Torch 数据集准备 Pipline",
       "subtitle" : " &quot;transform to train.txt, Dataset, DataLoader, 预处理&quot;",
-      "tags"     : "Dali工具箱🔧",
+      "tags"     : "Dali工具箱🕶",
       "url"      : "/2021/03/12/dalitools2/",
       "date"     : "2021-03-12 22:15:00 +0800"
     } ,
@@ -345,14 +361,6 @@
     } ,
   
     {
-      "title"    : "PyTorch🧟‍♂️1——PyTorch输出中间特征层",
-      "subtitle" : " &quot;torch, 模型融合&quot;",
-      "tags"     : "PyTorch🧟‍♂️",
-      "url"      : "/2021/01/11/torch1/",
-      "date"     : "2021-01-11 20:47:00 +0800"
-    } ,
-  
-    {
       "title"    : "Competition🐳1——车道线检测识别与标注",
       "subtitle" : " &quot;中国软件杯, 车道线的手动标注&quot;",
       "tags"     : "Competition🐳",
@@ -361,9 +369,9 @@
     } ,
   
     {
-      "title"    : "Dali工具箱🔧1——torch GPU版本环境配置",
+      "title"    : "Dali工具箱🕶1——torch GPU版本环境配置",
       "subtitle" : " &quot;从CUDA，cuDNN到gcc版本，傻瓜式配置各torch版本&quot;",
-      "tags"     : "Dali工具箱🔧",
+      "tags"     : "Dali工具箱🕶",
       "url"      : "/2021/01/11/dalitools1/",
       "date"     : "2021-01-11 04:46:00 +0800"
     } ,

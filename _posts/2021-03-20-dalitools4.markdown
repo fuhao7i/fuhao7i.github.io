@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "Dali工具箱🔧4—— DD——DaliDetetion"
+title:      "Dali工具箱🕶4—— DD——DaliDetetion"
 subtitle:   " \"更好的帮你完成深度学习任务\""
 date:       2021-03-20 15:34:00
 author:     "fuhao7i"
 header-img: "img/in-post/tools.jpg"
 catalog: true
 tags:
-    - Dali工具箱🔧
+    - Dali工具箱🕶
 ---
 
 # 0. 配置文件 configs
