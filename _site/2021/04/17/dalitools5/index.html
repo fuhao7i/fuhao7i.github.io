@@ -257,7 +257,7 @@
                     </div>
                     <h1>Dali工具箱🕶5——the use of numpy</h1>
                     
-                    <h2 class="subheading"> "np.where, np.argmax, np.argmin, np.eye, np.seed, np.vstack, np.hstack"</h2>
+                    <h2 class="subheading"> "np.where, np.argmax, np.argmin, np.eye, np.seed, np.vstack, np.hstack, torch.sum, squeeze "</h2>
                     <span class="meta">Posted by fuhao7i on April 17, 2021</span>
                 </div>
             </div>
@@ -485,7 +485,40 @@ array([[ 0,  1,  2,  3,  0,  1,  2,  3],
  [ 6  5  4  7]]
 </code></pre>
 
-<h1 id="️numpy的copy和view">⚠️numpy的copy和view</h1>
+<h1 id="6-squeeze">6. squeeze</h1>
+
+<p><strong>作用: 从数组的形状中删除单维度条目，即把shape中为1的维度去掉</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">a</span>  <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<pre><code class="language-Bash">array([[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]])
+
+(1, 10)
+</code></pre>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<pre><code class="language-Bash">array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+(10,)
+</code></pre>
+
+<p><strong>对维度不为1的维度没有用</strong></p>
+
+<h1 id="7-numpy的copy和view">7. numpy的copy和view</h1>
 
 <p><code class="language-plaintext highlighter-rouge">a = b 完全不复制, a和b相互影响</code></p>
 
@@ -535,18 +568,7 @@ array([[ 0,  1,  2,  3,  0,  1,  2,  3],
 
 <p><code class="language-plaintext highlighter-rouge">a = b.copy()</code>复制，a和b互不影响</p>
 
-<h1 id="sundry">sundry</h1>
-
-<ul>
-  <li><strong>np.argmax(t, axis=0)</strong> 获取数组t第0维最大值的位置</li>
-  <li><strong>np.argmin(t, axis=0)</strong> 获取数组t第0维最小值的位置</li>
-  <li><strong>np.zeros((3,4))</strong> 创建全0数组</li>
-  <li><strong>np.ones((3,4))</strong> 创建全1数组</li>
-  <li><strong>np.eye(3)</strong> 创建一个对角线全为1，其余全为0的正方形矩阵</li>
-  <li><strong>np.seed(s)</strong> 随机数种子，s是给定的种子值。因为计算机生成的是伪随机数，所以通过设定相同的随机数种子，可以每次生成相同的随机数</li>
-</ul>
-
-<h1 id="tip">tip</h1>
+<h1 id="8-torchsum">8. torch.sum</h1>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -638,6 +660,17 @@ tensor([[ 2,  0, 18],
         [ 0, 32,  0]])
 </code></pre>
 
+<h1 id="9-sundry">9. sundry</h1>
+
+<ul>
+  <li><strong>np.argmax(t, axis=0)</strong> 获取数组t第0维最大值的位置</li>
+  <li><strong>np.argmin(t, axis=0)</strong> 获取数组t第0维最小值的位置</li>
+  <li><strong>np.zeros((3,4))</strong> 创建全0数组</li>
+  <li><strong>np.ones((3,4))</strong> 创建全1数组</li>
+  <li><strong>np.eye(3)</strong> 创建一个对角线全为1，其余全为0的正方形矩阵</li>
+  <li><strong>np.seed(s)</strong> 随机数种子，s是给定的种子值。因为计算机生成的是伪随机数，所以通过设定相同的随机数种子，可以每次生成相同的随机数</li>
+</ul>
+
                 
                 <!--Donate start-->
                 <iframe src="/donate.html" style="overflow-x:hidden;overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;"  frameborder="0" scrolling="no"></iframe>
@@ -673,6 +706,13 @@ tensor([[ 2,  0, 18],
                         </a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2021/04/18/modular2/" data-toggle="tooltip" data-placement="top" title="Modular torch💌2——Define your Dataset">
+                        Next<br>
+                        <span>Modular torch💌2——Define your Dataset</span>
+                        </a>
+                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
@@ -751,62 +791,62 @@ tensor([[ 2,  0, 18],
         
         
         
-                <a data-sort="0050" 
+                <a data-sort="0052" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8"
                     title="阿菊的OpenCv🎨"
                     rel="1">阿菊的OpenCv🎨</a>
         
-                <a data-sort="0030" 
+                <a data-sort="0031" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
-                    rel="21">Dali杂货铺🐰</a>
+                    rel="22">Dali杂货铺🐰</a>
         
-                <a data-sort="0043" 
+                <a data-sort="0045" 
                     href="/archive/?tag=Neural+Network%F0%9F%A6%96"
                     title="Neural Network🦖"
                     rel="8">Neural Network🦖</a>
         
-                <a data-sort="0046" 
+                <a data-sort="0048" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%95%B6"
                     title="Dali工具箱🕶"
                     rel="5">Dali工具箱🕶</a>
         
-                <a data-sort="0046" 
+                <a data-sort="0048" 
                     href="/archive/?tag=Detector%F0%9F%8E%AF"
                     title="Detector🎯"
                     rel="5">Detector🎯</a>
         
-                <a data-sort="0047" 
+                <a data-sort="0049" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
                     title="小菊的语义分割🌼"
                     rel="4">小菊的语义分割🌼</a>
         
-                <a data-sort="0049" 
+                <a data-sort="0051" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0050" 
+                <a data-sort="0051" 
+                    href="/archive/?tag=Modular+torch%F0%9F%92%8C"
+                    title="Modular torch💌"
+                    rel="2">Modular torch💌</a>
+        
+                <a data-sort="0052" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0050" 
+                <a data-sort="0052" 
                     href="/archive/?tag=Books%F0%9F%93%96"
                     title="Books📖"
                     rel="1">Books📖</a>
         
-                <a data-sort="0050" 
+                <a data-sort="0052" 
                     href="/archive/?tag=GAN%26Image+Enhancement%F0%9F%90%BD"
                     title="GAN&Image Enhancement🐽"
                     rel="1">GAN&Image Enhancement🐽</a>
         
-                <a data-sort="0050" 
-                    href="/archive/?tag=Modular+torch%F0%9F%92%8C"
-                    title="Modular torch💌"
-                    rel="1">Modular torch💌</a>
-        
-                <a data-sort="0050" 
+                <a data-sort="0052" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>

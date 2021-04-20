@@ -1,0 +1,24 @@
+I"�<blockquote>
+  <p>pickle 模块实现了基本的数据序列化与反序列化。序列化对象可以在磁盘上保存对象，并在需要的时候读取出来,反序列化适合程序直接应用。</p>
+</blockquote>
+
+<h1 id="1-dump-function">1. dump() function</h1>
+
+<p><code class="language-plaintext highlighter-rouge">pickle.dump(obj, file, [,protocol])</code></p>
+
+<ul>
+  <li><strong>obj:</strong> 序列化对象，将对象obj保存到文件file中；</li>
+  <li><strong>file:</strong> 表示保存到的类文件对象,file必须有一个write()接口.</li>
+  <li><strong>protocol:</strong> 序列化模式，默认为0(ASCII协议，表示以文本的形式进行序列化)，还可以是1或2，表示以二进制的形式进行序列化。</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">pickle</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s">"./arch_1.pkl"</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="2-load-function">2. load() function</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">arch</span> <span class="o">=</span> <span class="n">pickle</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">"./arch_1.pkl"</span><span class="p">,</span> <span class="s">"rb"</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

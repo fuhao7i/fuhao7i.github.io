@@ -1,0 +1,151 @@
+I"�5<h1 id="1-dataset-for-classification">1. Dataset for classification</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">MyDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>  <span class="c1"># 创类：MyDataset,继承torch.utils.data.Dataset
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datatxt</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyDataset</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">datatxt</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span>  <span class="c1"># 打开txt，读取内容
+</span>        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fh</span><span class="p">:</span>  <span class="c1"># 按行循环txt文本中的内容
+</span>            <span class="n">words</span> <span class="o">=</span> <span class="n">line</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">';'</span><span class="p">)</span>  <span class="c1"># 通过指定分隔符对字符串进行切片
+</span>            <span class="n">data</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">words</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>  <span class="c1"># 把txt里的内容读入data列表保存，words[0]是图片信息，words[1]是label
+</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>  <span class="c1"># 按照索引读取每个元素的具体内容
+</span>        <span class="n">fn</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>  <span class="c1"># fn是图片path
+</span>        <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">'/content/drive/MyDrive/search/mmdetection/data/imagenet-underwater/train/'</span> <span class="o">+</span> <span class="n">fn</span><span class="p">).</span><span class="n">convert</span><span class="p">(</span><span class="s">'RGB'</span><span class="p">)</span>  <span class="c1"># from PIL import Image
+</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">transform</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>  <span class="c1"># 是否进行transform
+</span>            <span class="n">img</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">transform</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">label</span>  <span class="c1"># return回哪些内容，在训练时循环读取每个batch，就能获得哪些内容
+</span>
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># 它返回的是数据集的长度，必须有
+</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">data</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="2-dataset-for-semantic-segmentation">2. Dataset for semantic segmentation</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">MyDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data_txt</span><span class="p">,</span><span class="n">split</span><span class="p">,</span><span class="n">image_size</span><span class="p">,</span><span class="n">num_classes</span><span class="p">,</span><span class="n">random_data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyDataset</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="p">.</span><span class="n">data_txt</span> <span class="o">=</span> <span class="n">data_txt</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">len_dataset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_txt</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">split</span> <span class="o">=</span> <span class="n">split</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">image_size</span> <span class="o">=</span> <span class="n">image_size</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">num_classes</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">split</span> <span class="o">==</span> <span class="s">'train'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">path0</span> <span class="o">=</span> <span class="s">'/content/drive/MyDrive/语义分割/dataset/jpg'</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">path1</span> <span class="o">=</span> <span class="s">'/content/drive/MyDrive/语义分割/dataset/L_png'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">path0</span> <span class="o">=</span> <span class="s">'/content/drive/MyDrive/语义分割/dataset/val_jpg'</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">path1</span> <span class="o">=</span> <span class="s">'/content/drive/MyDrive/语义分割/dataset/L_val_png'</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">shuffle</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">data_txt</span><span class="p">)</span>
+            
+        <span class="n">annotation_line</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">data_txt</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">name0</span> <span class="o">=</span> <span class="n">annotation_line</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">';'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">name1</span> <span class="o">=</span> <span class="n">annotation_line</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">';'</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+        <span class="c1"># 从文件中读取图像
+</span>        <span class="n">jpg</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">path0</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">name0</span><span class="p">)</span>
+        <span class="n">png</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">path1</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">name1</span><span class="p">)</span>
+
+        <span class="c1"># 从文件中读取图像
+</span>        <span class="n">png</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">png</span><span class="p">)</span>
+
+        <span class="n">png</span><span class="p">[</span><span class="n">png</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="p">.</span><span class="n">num_classes</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="c1"># 转化成one_hot编码的形式
+</span>        <span class="n">seg_labels</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">num_classes</span><span class="p">)[</span><span class="n">png</span><span class="p">.</span><span class="n">reshape</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span>
+        <span class="n">seg_labels</span> <span class="o">=</span> <span class="n">seg_labels</span><span class="p">.</span><span class="n">reshape</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">image_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">image_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="bp">self</span><span class="p">.</span><span class="n">num_classes</span><span class="p">))</span>
+
+        <span class="c1"># 将jpg的格式从(h, w, c) =&gt; (c, h, w)，torch要求图片通道在前
+</span>        <span class="n">jpg</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">jpg</span><span class="p">),[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mi">255</span>
+        
+        <span class="c1"># 输出
+</span>        <span class="c1"># jpg: (3, 512, 512) 归一化到[0, 1]
+</span>        <span class="c1"># png: (512, 512)    每一个像素点存的是它的类别, 0,1,2,3,4
+</span>        <span class="c1"># seg_labels: (512, 512, Num_classes) one-hot编码格式
+</span>        <span class="k">return</span> <span class="n">jpg</span><span class="p">,</span> <span class="n">png</span><span class="p">,</span> <span class="n">seg_labels</span>
+
+    <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">train_batches</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="3-dataset-for-object-detection">3. Dataset for object detection</h1>
+
+:ET

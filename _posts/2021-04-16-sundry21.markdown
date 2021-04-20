@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Dali杂货铺🐰21——The contiguous() in PyTorch"
-subtitle:   " \"contiguous(), \""
+subtitle:   " \"contiguous(), squeeze()\""
 date:       2021-04-16 18:08:00
 author:     "fuhao7i"
 header-img: "img/in-post/sundry.jpg"

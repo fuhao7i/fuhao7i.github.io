@@ -25,16 +25,28 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali杂货铺🐰22——the dump() and load() function in pickle module - fuhao7i的博客 | fuhao7i Blog">
     
-    <meta property="og:type" content="website">
-    <meta property="og:description" content="[我还很年轻，吃苦趁现在！]">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="
+  pickle 模块实现了基本的数据序列化与反序列化。序列化对象可以在磁盘上保存对象，并在需要的时候读取出来,反序列化适合程序直接应用。
+
+">
+    
+    <meta property="article:published_time" content="2021-04-17T02:08:00Z">
+    
+    
+    <meta property="article:author" content="fuhao7i">
+    
+    
+    <meta property="article:tag" content="Dali杂货铺🐰">
+    
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/page2/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/04/17/sundry22/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali杂货铺🐰22——the dump() and load() function in pickle module - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -43,7 +55,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/page2/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/04/17/sundry22/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -217,385 +229,189 @@
   </div>
 </div>
 
-    <!-- Page Header -->
+    <!-- Post Header -->
 
 
 
 
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/in-post/sundry.jpg');
+        background: ;
+    }
 
+    
+</style>
 
+<header class="intro-header" >
 
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="site-heading">
-        
-          <h1>fuhao7i Blog</h1>
-          <span class="subheading">[我还很年轻，吃苦趁现在！]</span>
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
+                        
+                    </div>
+                    <h1>Dali杂货铺🐰22——the dump() and load() function in pickle module</h1>
+                    
+                    <h2 class="subheading"> "pickle, dump(), load()"</h2>
+                    <span class="meta">Posted by fuhao7i on April 17, 2021</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-        
 
-<!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                postlist-container
-            ">
-    			
-<div class="post-preview">
-    <a href="/2021/04/07/nn7/">
-        <h2 class="post-title">
-            Neural Network🦖7——How to clip gradient?
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "clip grad, Gradient clipping, Gradient Scaling"
-        </h3>
-        
-        <div class="post-content-preview">
-            
+
+
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
                 
-  
-    Due to the improper selection of the learning rate, the weight update is larger.
-    There is a lot of noise in the prepared data, resulting in large differences in target variables.
-    Th...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on April 7, 2021
-    </p>
-</div>
-<hr>
 
-<div class="post-preview">
-    <a href="/2021/04/07/sundry18/">
-        <h2 class="post-title">
-            Dali杂货铺🐰18——The role of hook in mmdetection
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "HOOK, hook"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                Reference
+				<blockquote>
+  <p>pickle 模块实现了基本的数据序列化与反序列化。序列化对象可以在磁盘上保存对象，并在需要的时候读取出来,反序列化适合程序直接应用。</p>
+</blockquote>
 
-  目标检测(MMdetection)-HOOK机制
+<h1 id="1-dump-function">1. dump() function</h1>
 
+<p><code class="language-plaintext highlighter-rouge">pickle.dump(obj, file, [,protocol])</code></p>
 
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on April 7, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/04/05/sundry17/">
-        <h2 class="post-title">
-            Dali杂货铺🐰17——torch 训练过程查看某一层的梯度
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "Drawing neural network"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                在loss.backward()之后查看某一层的梯度
-
-1
-2
-print('=== after loss.backward() ===')
-print(self.model.conv0.weight.grad)
-
-
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on April 5, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/04/05/sundry16/">
-        <h2 class="post-title">
-            Dali杂货铺🐰16——Summary of drawing neural network tools
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "Drawing neural network"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                1. plotNeuralNet
-
-
-
-2. Bokeh
-
-Bokeh官方文档
-
-Bokeh是一个交互式可视化库，面向现代Web浏览器进行演示。 它的目标是提供优雅，简洁的多功能图形构造，并通过非常大或流数据集的高性能交互来扩展此功能。 Bokeh可以帮助任何想要快速轻松地创建交互式图表，仪表板和数据应用程序的人。
-
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on April 5, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/04/05/nn6/">
-        <h2 class="post-title">
-            Neural Network🦖6——How dose the convolutional layer achieve higher or lower dimensionality?
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "Convolutional principle"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                The convolution kernel not only has height and width but also has depth
-
-
-
-And it has the same depth as the feature map being convolved. Therefore, each convolution kernel can traverse all the feat...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on April 5, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/04/03/sundry15/">
-        <h2 class="post-title">
-            Dali杂货铺🐰15——loss不能正常下降 or 下降到一定程度便不下降了
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "loss problems"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                1. 分析:如何解决神经网络训练时loss不下降的问题
-
-1. 学习率没有灵魂
-
-学习率是个神奇的东西, 你是不是也对learning rate的选取而苦恼过, 总是感觉一成不变的学习率缺少灵魂:
-
-
-  太小？ loss降低的太慢💦
-  太大？ loss可能达不到最优, 而可能在最优值范围震动
-
-
-
-
-解决: torch.optim.lr_scheduler 学习率下降机制
-
-How to...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on April 3, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/04/02/sundry14/">
-        <h2 class="post-title">
-            Dali杂货铺🐰14——GPU显存占满，但利用率却很低？
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "Tensorflow, 渴望GPU"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                1. float32
-
-查看各个张量(即每一层的输入输出，一般输入类型对了，输出类型也对)是否为float32，Tensorflow在GPU上不能处理float64的tensor，因此我们需要确保每个tensor为float32位。
-
-注意
-
-np.ones 和 np.zeros 都默认为float64位.
-
-astype: 转换np.array的数据类型
-a.dtype: 输出a的数据类型...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on April 2, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/04/02/sundry13/">
-        <h2 class="post-title">
-            Dali杂货铺🐰13——wandb 模型训练轻量级可视化工具
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "丝滑的在线模型训练可视化工具, 监控GPU使用情况"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                wandb(Weights &amp; Biases)是一个类似于tensorboard的极度丝滑的在线模型训练可视化工具。
-
-wandb这个库可以帮助我们跟踪实验，记录运行中的超参数和输出指标，可视化结果并共享结果以及可以实时监控我们系统的各项指标：CPU，GPU等；
-
-!pip install wandb
-import wandb
-wandb.init()
-
-
-会返回一个网页连接，点击登...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on April 2, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/04/01/sundry12/">
-        <h2 class="post-title">
-            Dali杂货铺🐰12——logging模块 打印日志
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "以打印日志为荣, 单步跟踪为耻"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                
-  logging 提供了标准的日志接口，可以通过它来存储各种格式的日志；
-
-
-
-  
-    logging 优势：
-可以控制消息的级别(debug, info, warning, error, critial)，过滤掉那些不重要的信息；通过赋予logger或handle不同的级别，保存不同的日志信息；
-  
-
-
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-1...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on April 1, 2021
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2021/03/29/imageenhancement1/">
-        <h2 class="post-title">
-            GAN&Image Enhancement🐽1——AODNet: All-in-One Dehazing Network
-        </h2>
-        
-        <h3 class="post-subtitle">
-             "图像去雾"
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                paper: AOD-Net: All-in-One Dehazing Network
-
-1. Physical Model：The atmospheric scattering model
-
-\[\large I(x) = J(x)t(x)+A(1-t(x))   \tag {1}\]
-
-其中，$I(x)$是得到的雾图，$J(x)$是场景光辉(清晰的图片)，$A$是全局的光照强度，$t(x...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by fuhao7i on March 29, 2021
-    </p>
-</div>
-<hr>
-
-
-<!-- Pager -->
-
-<ul class="pager">
-    
-    <li class="previous">
-        <a href="/">&larr; Newer Posts</a>
-    </li>
-    
-    
-    <li class="next">
-        <a href="/page3">Older Posts &rarr;</a>
-    </li>
-    
+<ul>
+  <li><strong>obj:</strong> 序列化对象，将对象obj保存到文件file中；</li>
+  <li><strong>file:</strong> 表示保存到的类文件对象,file必须有一个write()接口.</li>
+  <li><strong>protocol:</strong> 序列化模式，默认为0(ASCII协议，表示以文本的形式进行序列化)，还可以是1或2，表示以二进制的形式进行序列化。</li>
 </ul>
 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">pickle</span><span class="p">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s">"./arch_1.pkl"</span><span class="p">,</span> <span class="s">'wb'</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="2-load-function">2. load() function</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">arch</span> <span class="o">=</span> <span class="n">pickle</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">"./arch_1.pkl"</span><span class="p">,</span> <span class="s">"rb"</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+                
+                <!--Donate start-->
+                <iframe src="/donate.html" style="overflow-x:hidden;overflow-y:hidden; border:0xp none #fff; min-height:240px; width:100%;"  frameborder="0" scrolling="no"></iframe>
+                <!--donate end-->
+                
+                <link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.css">
+                <script src="https://cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
 
 
-    		</div>
+                <div id="gitalk-container" style="margin: 30px;padding-bottom: 30px;"></div>
+                <script>
+                    var gitalk = new Gitalk({
+                        clientID: '1695c83228c471fa58d4',
+                        clientSecret: '3c6a9e3e05b2f978c97dff25925a155269f803c4',
+                        repo: 'issues_fuhao7i',
+                        owner: 'fuhao7i',
+                        admin: ['fuhao7i'],
+                        id: location.pathname,      // 用于标记评论是哪个页面的，确保唯一，并且长度小于50
+
+                    })
+                    gitalk.render('gitalk-container');    // 渲染Gitalk评论组件
+                </script>
+
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2021/04/17/sundry21/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰21——The contiguous() in PyTorch">
+                        Previous<br>
+                        <span>Dali杂货铺🐰21——The contiguous() in PyTorch</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2021/04/17/xiaoju4/" data-toggle="tooltip" data-placement="top" title="小菊的语义分割4🌼——Metrics for semantic segmentation">
+                        Next<br>
+                        <span>小菊的语义分割4🌼——Metrics for semantic segmentation</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+
+                
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <!--不蒜子统计-->
+            
+
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a href="https://fuhao7i.com/coffee.html" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" width="150" ></a>
+                        <br>
+                        <br>
+                        <link rel="stylesheet" href="/iconfont.css">
+                        <script src="/iconfont.js"></script>
+                        views
+                        <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-love"></use>
+                        </svg>
+                        <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>
+
+                        <br>
+                        <br>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                       
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+            <style>
+            .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+            }
+            </style>
+        
+
     <!-- Sidebar Container -->
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
 
@@ -603,6 +419,8 @@ wandb.init()
 <a href="https://fuhao7i.com/coffee.html" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" width="150" ></a>
 <br>
 <section>
+    
+        <hr class="hidden-sm hidden-xs">
     
     <h5><a href="/archive/">FEATURED TAGS</a></h5>
     <div class="tags">
@@ -675,48 +493,6 @@ wandb.init()
 </section>
 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-  <hr>
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-    
-    <img src="/img/github.jpg" />
-    
-    
-    
-    <p>苦心人, 天不负<br>卧薪尝胆, 三千越甲可吞吴</p>
-    
-    <!-- SNS Link -->
-    
-
-
-<ul class="list-inline">
-
-
-  <li><a target="_blank" href="mailto:2689378080@qq.com" rel="external nofollow noopener noreferrer"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></a></li>
-  <li><a target="_blank" href="https://wpa.qq.com/msgrd?v=3&amp;uin=2689378080&amp;site=qq&amp;menu=yes" rel="external nofollow noopener noreferrer"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i> <i class="fa fa-qq fa-stack-1x fa-inverse"></i></span></a></li>
-  
-  
-  
-  
-  
-  
-  <li>
-    <a target="_blank" href="https://github.com/fuhao7i">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-</ul>
-    
-  </div>
-</section>
-
                 <!-- Friends Blog -->
                 
 <hr>
@@ -729,10 +505,55 @@ wandb.init()
   
 </ul>
 
-    		</div>
-        
-	</div>
-</div>
+            </div>
+        </div>
+    </div>
+
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
 

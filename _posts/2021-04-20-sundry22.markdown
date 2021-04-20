@@ -1,0 +1,31 @@
+---
+layout:     post
+title:      "Dali杂货铺🐰22——the dump() and load() function in pickle module"
+subtitle:   " \"pickle, dump(), load()\""
+date:       2021-04-16 18:08:00
+author:     "fuhao7i"
+header-img: "img/in-post/sundry.jpg"
+catalog: true
+tags:
+    - Dali杂货铺🐰
+---
+
+> pickle 模块实现了基本的数据序列化与反序列化。序列化对象可以在磁盘上保存对象，并在需要的时候读取出来,反序列化适合程序直接应用。
+
+# 1. dump() function
+
+`pickle.dump(obj, file, [,protocol])`
+
+- **obj:** 序列化对象，将对象obj保存到文件file中；
+- **file:** 表示保存到的类文件对象,file必须有一个write()接口.
+- **protocol:** 序列化模式，默认为0(ASCII协议，表示以文本的形式进行序列化)，还可以是1或2，表示以二进制的形式进行序列化。
+
+```python
+pickle.dump(data, open("./arch_1.pkl", 'wb'))
+```
+
+# 2. load() function
+
+```python
+arch = pickle.load(open("./arch_1.pkl", "rb"))
+```

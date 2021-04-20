@@ -1,8 +1,16 @@
 [
   
     {
+      "title"    : "Modular torch💌2——Define your Dataset",
+      "subtitle" : " &quot;Dataset for classification, semantic sementation, object detection or ...&quot;",
+      "tags"     : "Modular torch💌",
+      "url"      : "/2021/04/18/modular2/",
+      "date"     : "2021-04-18 04:27:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali工具箱🕶5——the use of numpy",
-      "subtitle" : " &quot;np.where, np.argmax, np.argmin, np.eye, np.seed, np.vstack, np.hstack&quot;",
+      "subtitle" : " &quot;np.where, np.argmax, np.argmin, np.eye, np.seed, np.vstack, np.hstack, torch.sum, squeeze &quot;",
       "tags"     : "Dali工具箱🕶",
       "url"      : "/2021/04/17/dalitools5/",
       "date"     : "2021-04-17 20:13:00 +0800"
@@ -25,8 +33,16 @@
     } ,
   
     {
+      "title"    : "Dali杂货铺🐰22——the dump() and load() function in pickle module",
+      "subtitle" : " &quot;pickle, dump(), load()&quot;",
+      "tags"     : "Dali杂货铺🐰",
+      "url"      : "/2021/04/17/sundry22/",
+      "date"     : "2021-04-17 02:08:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali杂货铺🐰21——The contiguous() in PyTorch",
-      "subtitle" : " &quot;contiguous(), &quot;",
+      "subtitle" : " &quot;contiguous(), squeeze()&quot;",
       "tags"     : "Dali杂货铺🐰",
       "url"      : "/2021/04/17/sundry21/",
       "date"     : "2021-04-17 02:08:00 +0800"
