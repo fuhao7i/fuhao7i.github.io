@@ -331,6 +331,100 @@
 <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'How should i do?'</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
+<h1 id="modular-logging">modular logging</h1>
+
+<p><code class="language-plaintext highlighter-rouge">./utils/logger.py</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="k">class</span> <span class="nc">TextLogger</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">filemode</span><span class="o">=</span><span class="s">'a'</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TextLogger</span><span class="p">,</span> <span class="bp">self</span><span class="p">).</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">filemode</span> <span class="o">=</span> <span class="n">filemode</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">level</span> <span class="o">=</span> <span class="n">level</span>
+        <span class="bp">self</span><span class="p">.</span><span class="nb">format</span> <span class="o">=</span> <span class="nb">format</span>
+
+    <span class="k">def</span> <span class="nf">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">logging</span><span class="p">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">filemode</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">filemode</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">level</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="nb">format</span><span class="p">)</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">getLogger</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="c1"># 避免缓存中有logger，重复输出
+</span>        <span class="n">logger</span><span class="p">.</span><span class="n">handlers</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">level</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">level</span><span class="p">)</span>
+
+        <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">Formatter</span><span class="p">(</span><span class="s">'%(asctime)s - %(name)s - %(levelname)s - %(message)s'</span><span class="p">)</span>
+
+        <span class="n">console</span> <span class="o">=</span> <span class="n">logging</span><span class="p">.</span><span class="n">StreamHandler</span><span class="p">()</span>
+        <span class="n">console</span><span class="p">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="p">.</span><span class="n">INFO</span><span class="p">)</span>
+        <span class="n">console</span><span class="p">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">'How should i do?'</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">logger</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">main.py</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">utils.logger</span> <span class="kn">import</span> <span class="n">TextLogger</span>
+
+<span class="n">name</span> <span class="o">=</span> <span class="s">'fuhao7i'</span>
+
+<span class="n">work_dir</span> <span class="o">=</span> <span class="s">'./work_dirs/'</span> <span class="o">+</span> <span class="n">time</span><span class="p">.</span><span class="n">asctime</span><span class="p">(</span> <span class="n">time</span><span class="p">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">())</span> <span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">exists</span><span class="p">(</span><span class="n">work_dir</span><span class="p">):</span>
+    <span class="n">os</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">work_dir</span><span class="p">)</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">TextLogger</span><span class="p">(</span><span class="n">name</span><span class="o">=</span> <span class="n">name</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span> <span class="n">work_dir</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">'.log'</span><span class="p">).</span><span class="n">get_logger</span><span class="p">()</span>
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
 <h1 id="引用">引用：</h1>
 <ol>
   <li><a href="https://www.cnblogs.com/deeper/p/7404190.html">logging模块详细介绍</a></li>
@@ -365,9 +459,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/03/29/imageenhancement1/" data-toggle="tooltip" data-placement="top" title="GAN&Image Enhancement🐽1——AODNet: All-in-One Dehazing Network">
+                        <a href="/2021/03/29/imageenhancement1/" data-toggle="tooltip" data-placement="top" title="Image Enhancement🐽1——AODNet: All-in-One Dehazing Network">
                         Previous<br>
-                        <span>GAN&Image Enhancement🐽1——AODNet: All-in-One Dehazing Network</span>
+                        <span>Image Enhancement🐽1——AODNet: All-in-One Dehazing Network</span>
                         </a>
                     </li>
                     
@@ -456,62 +550,62 @@
         
         
         
-                <a data-sort="0052" 
+                <a data-sort="0053" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8"
                     title="阿菊的OpenCv🎨"
                     rel="1">阿菊的OpenCv🎨</a>
         
-                <a data-sort="0031" 
+                <a data-sort="0032" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
                     rel="22">Dali杂货铺🐰</a>
         
-                <a data-sort="0045" 
+                <a data-sort="0046" 
                     href="/archive/?tag=Neural+Network%F0%9F%A6%96"
                     title="Neural Network🦖"
                     rel="8">Neural Network🦖</a>
         
-                <a data-sort="0048" 
+                <a data-sort="0049" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%95%B6"
                     title="Dali工具箱🕶"
                     rel="5">Dali工具箱🕶</a>
         
-                <a data-sort="0048" 
+                <a data-sort="0049" 
                     href="/archive/?tag=Detector%F0%9F%8E%AF"
                     title="Detector🎯"
                     rel="5">Detector🎯</a>
         
-                <a data-sort="0049" 
+                <a data-sort="0050" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
                     title="小菊的语义分割🌼"
                     rel="4">小菊的语义分割🌼</a>
         
-                <a data-sort="0051" 
+                <a data-sort="0052" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0051" 
+                <a data-sort="0052" 
+                    href="/archive/?tag=Image+Enhancement%F0%9F%90%BD"
+                    title="Image Enhancement🐽"
+                    rel="2">Image Enhancement🐽</a>
+        
+                <a data-sort="0052" 
                     href="/archive/?tag=Modular+torch%F0%9F%92%8C"
                     title="Modular torch💌"
                     rel="2">Modular torch💌</a>
         
-                <a data-sort="0052" 
+                <a data-sort="0053" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0052" 
+                <a data-sort="0053" 
                     href="/archive/?tag=Books%F0%9F%93%96"
                     title="Books📖"
                     rel="1">Books📖</a>
         
-                <a data-sort="0052" 
-                    href="/archive/?tag=GAN%26Image+Enhancement%F0%9F%90%BD"
-                    title="GAN&Image Enhancement🐽"
-                    rel="1">GAN&Image Enhancement🐽</a>
-        
-                <a data-sort="0052" 
+                <a data-sort="0053" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>

@@ -49,6 +49,16 @@ import tensorflow.keras.backend as K
 # 狗      1      [0, 1, 0]
 # 狼      2      [0, 0, 1]
 
+labels = ['0', '1', '2']
+y_true = ['1', '0']
+y_pred = [ [0.2, 0.6, 0.2],
+           [0.3, 0.3, 0.4] ]
+
+sk_log_loss = log_loss(y_true, y_pred, labels=labels)
+
+print('sk_log_loss:', sk_log_loss)
+
+
 def crossentropy(y, x):
     return -(y * np.log(x))
 
@@ -65,13 +75,14 @@ loss2 = np.array(loss2).astype('float32')
 for i in range(3):
     loss1 += crossentropy(y_true[0][i], y_pred[0][i])
     loss2 += crossentropy(y_true[1][i], y_pred[1][i])  
-
-print("ours :", loss1, loss2)
+mean_loss = (loss1 + loss2) / 2
+print("ours :", loss1, loss2, mean_loss)
 ```
 
 ```Bash
+sk_log_loss: 0.8573992
 Keras: tf.Tensor([0.5108256 1.2039728], shape=(2,), dtype=float32)
-ours : 0.51082563 1.2039728
+ours : 0.51082563 1.2039728 0.8573992
 ```
 
 看懂了普通的图像分类任务之后，再看我们的语义分割，其实就是给每一个像素点对应一个one-hot编码标签，之后我们的语义分割网络的输出和分类网络的输出也是一样的，会输出每一个像素点对应每个类别的概率。如下所示：

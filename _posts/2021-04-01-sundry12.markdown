@@ -34,5 +34,58 @@ logger.addHandler(console)
 logger.info('How should i do?')
 ```
 
+# modular logging
+
+`./utils/logger.py`
+```python
+import logging
+
+class TextLogger():
+    def __init__(self, name= None, filename= None, filemode='a', level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'):
+        super(TextLogger, self).__init__()
+        self.name = name
+        self.filename = filename
+        self.filemode = filemode
+        self.level = level
+        self.format = format
+
+    def get_logger(self):
+
+        logging.basicConfig(filename=self.filename, filemode=self.filemode, level=self.level, format=self.format)
+        logger = logging.getLogger(self.name)
+        # 避免缓存中有logger，重复输出
+        logger.handlers.clear()
+        logger.setLevel(level = self.level)
+
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+        console = logging.StreamHandler()
+        console.setLevel(logging.INFO)
+        console.setFormatter(formatter)
+
+        logger.addHandler(console)
+
+        logger.info('How should i do?')
+
+        return logger
+```
+
+`main.py`
+```python
+import os
+import time
+from utils.logger import TextLogger
+
+name = 'fuhao7i'
+
+work_dir = './work_dirs/' + time.asctime( time.localtime(time.time()) )
+
+if not os.path.exists(work_dir):
+    os.mkdir(work_dir)
+
+logger = TextLogger(name= name, filename= work_dir + '/' + name + '.log').get_logger()
+
+```
+
 # 引用：
 1. [logging模块详细介绍](https://www.cnblogs.com/deeper/p/7404190.html)

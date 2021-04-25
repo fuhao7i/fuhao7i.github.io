@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "GAN&Image Enhancement🐽1——AODNet: All-in-One Dehazing Network"
+title:      "Image Enhancement🐽1——AODNet: All-in-One Dehazing Network"
 subtitle:   " \"图像去雾\""
 date:       2021-03-29 09:13:00
 author:     "fuhao7i"
 header-img: "img/in-post/imageenhancement.jpg"
 catalog: true
 tags:
-    - GAN&Image Enhancement🐽
+    - Image Enhancement🐽
 latex: ture
 ---
 
