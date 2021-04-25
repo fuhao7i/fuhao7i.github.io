@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Dali杂货铺🐰8——PyTorch 保存,加载和查看训练好的模型"
-subtitle:   " \"save, load, 载入预训练权重\""
+subtitle:   " \"save, load, weights, 载入预训练权重\""
 date:       2021-03-16 00:35:00
 author:     "fuhao7i"
 header-img: "img/in-post/sundry.jpg"
