@@ -1,0 +1,58 @@
+I"<h1 id="1-ssim-structural-similarity">1. SSIM: Structural similarity</h1>
+
+<h1 id="2-psnr-peak-signal-to-nosie-ratio">2. PSNR: Peak Signal to Nosie Ratio</h1>
+
+<h1 id="3-implement">3. implement</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">skimage</span>
+<span class="kn">from</span> <span class="nn">skimage.metrics</span> <span class="kn">import</span> <span class="n">structural_similarity</span> <span class="k">as</span> <span class="n">ssim</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span> 
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">im1</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">'./uw1.png'</span><span class="p">)</span>
+<span class="n">im2</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="s">'./gt1.png'</span><span class="p">)</span>
+
+<span class="n">im1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">im1</span><span class="p">)</span>
+<span class="n">im2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">im2</span><span class="p">)</span>
+
+<span class="c1"># diff = im1 - im2
+# mse = np.mean(np.square(diff))
+# psnr = 10 * np.log10(255 * 255 / mse)
+</span>
+<span class="c1"># print(psnr)
+</span>
+<span class="n">pnsr</span> <span class="o">=</span> <span class="n">skimage</span><span class="p">.</span><span class="n">metrics</span><span class="p">.</span><span class="n">peak_signal_noise_ratio</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">im2</span><span class="p">,</span> <span class="n">data_range</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+
+<span class="n">ssim</span> <span class="o">=</span> <span class="n">skimage</span><span class="p">.</span><span class="n">metrics</span><span class="p">.</span><span class="n">structural_similarity</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">im2</span><span class="p">,</span> <span class="n">data_range</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">multichannel</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">psnr</span><span class="p">,</span> <span class="n">ssim</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="reference">Reference</h1>
+
+<ol>
+  <li><a href="https://zhuanlan.zhihu.com/p/50757421">图像质量评价指标之 PSNR 和 SSIM</a></li>
+</ol>
+:ET
