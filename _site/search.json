@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali工具箱🕶6——Compute Confusion Matrix",
+      "subtitle" : " &quot;confusion matrix, TP, FP, TN, FN, Precision, IoU, Recall &quot;",
+      "tags"     : "Dali工具箱🕶",
+      "url"      : "/2021/04/27/dalitools6/",
+      "date"     : "2021-04-27 22:06:00 +0800"
+    } ,
+  
+    {
       "title"    : "Image Enhancement🐽2——metrics for picture quality",
       "subtitle" : " &quot;SSIM(structural similarity), PSNR(Peak Signal to Noise Ratio)&quot;",
       "tags"     : "Image Enhancement🐽",

@@ -5,9 +5,25 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 26 Apr 2021 15:41:51 +0800</pubDate>
-    <lastBuildDate>Mon, 26 Apr 2021 15:41:51 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Apr 2021 19:08:39 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Apr 2021 19:08:39 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
+    
+      <item>
+        <title>Dali工具箱🕶6——Compute Confusion Matrix</title>
+        <description>&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210427145951560.png#pic_center&quot; /&gt;&lt;/p&gt;
+
+&lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Accuracy的计算⚠️不是TPP4, 是TP4
+&lt;/font&gt;
+</description>
+        <pubDate>Tue, 27 Apr 2021 22:06:00 +0800</pubDate>
+        <link>https://fuhao7i.github.io/2021/04/27/dalitools6/</link>
+        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/27/dalitools6/</guid>
+        
+        <category>Dali工具箱🕶</category>
+        
+        
+      </item>
     
       <item>
         <title>Image Enhancement🐽2——metrics for picture quality</title>
@@ -841,51 +857,6 @@ Retina-Net ...
         <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/14/detector5/</guid>
         
         <category>Detector🎯</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Neural Network🦖8——model.eval() VS with torch.no_grad()</title>
-        <description>&lt;p&gt;&lt;strong&gt;In short&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;model.eval()&lt;/strong&gt; will notify all your layers that you are in eval mode, that way, batchnorm or dropout layers will work in eval mode instead of training mode.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;torch.no_grad()&lt;/strong&gt; impacts the autograd engine and deactivate it. It will reduce memory usage and speed up computations but you won’t be able to backprop(which you don’t want in an eval script).&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-2
-3
-4
-5
-6
-7
-8
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;rouge-code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data_loader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data_loader&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data_loader&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data_batch&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data_loader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;no_grad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;outputs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data_batch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;reference&quot;&gt;reference&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://discuss.pytorch.org/t/model-eval-vs-with-torch-no-grad/19615&quot;&gt;‘model.eval()’ vs ‘with torch.no_grad()’&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Tue, 13 Apr 2021 18:12:00 +0800</pubDate>
-        <link>https://fuhao7i.github.io/2021/04/13/nn8/</link>
-        <guid isPermaLink="true">https://fuhao7i.github.io/2021/04/13/nn8/</guid>
-        
-        <category>Neural Network🦖</category>
         
         
       </item>
