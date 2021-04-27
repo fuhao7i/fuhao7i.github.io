@@ -1,28 +1,16 @@
----
-layout:     post
-title:      "Dali工具箱🕶6——Compute Confusion Matrix"
-subtitle:   " \"confusion matrix, TP, FP, TN, FN, Precision, IoU, Recall \""
-date:       2021-04-27 14:06:00
-author:     "fuhao7i"
-header-img: "img/in-post/tools.jpg"
-catalog: true
-tags:
-    - Dali工具箱🕶
----
+I"*<p><img src="https://img-blog.csdnimg.cn/20210427145951560.png#pic_center" /></p>
 
-<img src="https://img-blog.csdnimg.cn/20210427145951560.png#pic_center">
-
-<font size= 5 color="red">Accuracy的计算⚠️不是TPP4, 是TP4
+<font size="5" color="red">Accuracy的计算⚠️不是TPP4, 是TP4
 
 # 1. sklearn.metrics.confusion_matrix(y_true, y_pred, labels=None, sample_weight=None)
 
 y_true为真实值, y_pred为预测值(softmax之后, 取最大值的坐标, 即预测的像素点类别)  `y_true和y_pred都需要flatten为一维数组`
 
 ```python
->>> from sklearn.metrics import confusion_matrix
->>> y_true = [2, 0, 2, 2, 0, 1]
->>> y_pred = [0, 0, 2, 2, 0, 2]
->>> confusion_matrix(y_true, y_pred)
+&gt;&gt;&gt; from sklearn.metrics import confusion_matrix
+&gt;&gt;&gt; y_true = [2, 0, 2, 2, 0, 1]
+&gt;&gt;&gt; y_pred = [0, 0, 2, 2, 0, 2]
+&gt;&gt;&gt; confusion_matrix(y_true, y_pred)
 ```
 ```Bash
 array([[2, 0, 0],
@@ -33,9 +21,9 @@ array([[2, 0, 0],
 或
 
 ```python
->>> y_true = ["cat", "ant", "cat", "cat", "ant", "bird"]
->>> y_pred = ["ant", "ant", "cat", "cat", "ant", "cat"]
->>> confusion_matrix(y_true, y_pred, labels=["ant", "bird", "cat"])
+&gt;&gt;&gt; y_true = ["cat", "ant", "cat", "cat", "ant", "bird"]
+&gt;&gt;&gt; y_pred = ["ant", "ant", "cat", "cat", "ant", "cat"]
+&gt;&gt;&gt; confusion_matrix(y_true, y_pred, labels=["ant", "bird", "cat"])
 ```
 ```Bash
 array([[2, 0, 0],
@@ -103,3 +91,5 @@ def val(model, dataloader, optimizer, logger, epoch, Epoches, work_dir, NUM_CLAS
     precision, recall, IoU = compute_results(conf_total)
 ```
 
+</font>
+:ET

@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 27 Apr 2021 19:08:39 +0800</pubDate>
-    <lastBuildDate>Tue, 27 Apr 2021 19:08:39 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Apr 2021 20:31:49 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Apr 2021 20:31:49 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -14,6 +14,96 @@
         <description>&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210427145951560.png#pic_center&quot; /&gt;&lt;/p&gt;
 
 &lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Accuracy的计算⚠️不是TPP4, 是TP4
+
+# 1. sklearn.metrics.confusion_matrix(y_true, y_pred, labels=None, sample_weight=None)
+
+y_true为真实值, y_pred为预测值(softmax之后, 取最大值的坐标, 即预测的像素点类别)  `y_true和y_pred都需要flatten为一维数组`
+
+```python
+&amp;gt;&amp;gt;&amp;gt; from sklearn.metrics import confusion_matrix
+&amp;gt;&amp;gt;&amp;gt; y_true = [2, 0, 2, 2, 0, 1]
+&amp;gt;&amp;gt;&amp;gt; y_pred = [0, 0, 2, 2, 0, 2]
+&amp;gt;&amp;gt;&amp;gt; confusion_matrix(y_true, y_pred)
+```
+```Bash
+array([[2, 0, 0],
+       [0, 0, 1],
+       [1, 0, 2]])
+```
+
+或
+
+```python
+&amp;gt;&amp;gt;&amp;gt; y_true = [&quot;cat&quot;, &quot;ant&quot;, &quot;cat&quot;, &quot;cat&quot;, &quot;ant&quot;, &quot;bird&quot;]
+&amp;gt;&amp;gt;&amp;gt; y_pred = [&quot;ant&quot;, &quot;ant&quot;, &quot;cat&quot;, &quot;cat&quot;, &quot;ant&quot;, &quot;cat&quot;]
+&amp;gt;&amp;gt;&amp;gt; confusion_matrix(y_true, y_pred, labels=[&quot;ant&quot;, &quot;bird&quot;, &quot;cat&quot;])
+```
+```Bash
+array([[2, 0, 0],
+       [0, 0, 1],
+       [1, 0, 2]])
+```
+
+# 2. Implement by Torch
+
+```python
+def compute_results(conf_total):
+    n_class =  conf_total.shape[0]
+    consider_unlabeled = True  # must consider the unlabeled, please set it to True
+    if consider_unlabeled is True:
+        start_index = 0
+    else:
+        start_index = 1
+    precision_per_class = np.zeros(n_class)
+    recall_per_class = np.zeros(n_class)
+    iou_per_class = np.zeros(n_class)
+    for cid in range(start_index, n_class): # cid: class id
+        if conf_total[start_index:, cid].sum() == 0:
+            precision_per_class[cid] =  np.nan
+        else:
+            precision_per_class[cid] = float(conf_total[cid, cid]) / float(conf_total[start_index:, cid].sum()) # precision = TP/TP+FP
+        if conf_total[cid, start_index:].sum() == 0:
+            recall_per_class[cid] = np.nan
+        else:
+            recall_per_class[cid] = float(conf_total[cid, cid]) / float(conf_total[cid, start_index:].sum()) # recall = TP/TP+FN
+        if (conf_total[cid, start_index:].sum() + conf_total[start_index:, cid].sum() - conf_total[cid, cid]) == 0:
+            iou_per_class[cid] = np.nan
+        else:
+            iou_per_class[cid] = float(conf_total[cid, cid]) / float((conf_total[cid, start_index:].sum() + conf_total[start_index:, cid].sum() - conf_total[cid, cid])) # IoU = TP/TP+FP+FN
+
+    return precision_per_class, recall_per_class, iou_per_class
+
+
+    
+
+def val(model, dataloader, optimizer, logger, epoch, Epoches, work_dir, NUM_CLASSES):
+    model = model.eval()
+    conf_total = np.zeros((NUM_CLASSES, NUM_CLASSES))
+
+    for iter, batch in enumerate(dataloader):
+
+        imgs, pngs, labels = batch
+
+        imgs = Variable(torch.from_numpy(imgs).type(torch.FloatTensor))
+        pngs = Variable(torch.from_numpy(pngs).type(torch.FloatTensor)).long()
+        labels = Variable(torch.from_numpy(labels).type(torch.FloatTensor))
+
+        imgs = imgs.cuda()
+        pngs = pngs.cuda()
+        labels = labels.cuda() 
+
+        outputs = model(imgs)
+        loss = F.cross_entropy(outputs, pngs)
+        #loss = CE_Loss(outputs, pngs, num_classes = NUM_CLASSES)
+        
+        label = pngs.cpu().numpy().squeeze().flatten()
+        prediction = outputs.argmax(1).cpu().numpy().squeeze().flatten()
+        conf = confusion_matrix(y_true=label, y_pred=prediction, labels=[0,1,2,3,4])
+        conf_total += conf
+
+    precision, recall, IoU = compute_results(conf_total)
+```
+
 &lt;/font&gt;
 </description>
         <pubDate>Tue, 27 Apr 2021 22:06:00 +0800</pubDate>
