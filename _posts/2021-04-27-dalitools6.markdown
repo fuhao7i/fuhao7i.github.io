@@ -12,7 +12,7 @@ tags:
 
 <img src="https://img-blog.csdnimg.cn/20210427145951560.png#pic_center">
 
-<font size= 5 color="red">Accuracy的计算⚠️不是TPP4, 是TP4
+<font size= 5 color="red">Accuracy的计算⚠️不是TPP4, 是TP4 </font>
 
 # 1. sklearn.metrics.confusion_matrix(y_true, y_pred, labels=None, sample_weight=None)
 
@@ -73,7 +73,7 @@ def compute_results(conf_total):
     return precision_per_class, recall_per_class, iou_per_class
 
 
-    
+
 
 def val(model, dataloader, optimizer, logger, epoch, Epoches, work_dir, NUM_CLASSES):
     model = model.eval()
