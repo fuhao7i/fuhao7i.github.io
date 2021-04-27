@@ -5,8 +5,8 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 27 Apr 2021 20:45:24 +0800</pubDate>
-    <lastBuildDate>Tue, 27 Apr 2021 20:45:24 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Apr 2021 20:48:57 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Apr 2021 20:48:57 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
@@ -15,7 +15,7 @@
 
 &lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Accuracy的计算⚠️不是TPP4, 是TP4 &lt;/font&gt;
 
-&lt;h1 id=&quot;1-sklearnmetricsconfusion_matrixy_true-y_pred-labelsnone-sample_weightnone&quot;&gt;1. sklearn.metrics.confusion_matrix(y_true, y_pred, labels=None, sample_weight=None)&lt;/h1&gt;
+&lt;h1 id=&quot;1sklearnmetricsconfusion_matrix-y_true-y_pred-labelsnone-sample_weightnone&quot;&gt;1.sklearn.metrics.confusion_matrix (y_true, y_pred, labels=None, sample_weight=None)&lt;/h1&gt;
 
 &lt;p&gt;y_true为真实值, y_pred为预测值(softmax之后, 取最大值的坐标, 即预测的像素点类别)  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y_true和y_pred都需要flatten为一维数组&lt;/code&gt;&lt;/p&gt;
 
@@ -47,7 +47,7 @@
        [1, 0, 2]])
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&quot;2-implement-by-torch&quot;&gt;2. Implement by Torch&lt;/h1&gt;
+&lt;h1 id=&quot;2implement-by-torch&quot;&gt;2.Implement by Torch&lt;/h1&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2

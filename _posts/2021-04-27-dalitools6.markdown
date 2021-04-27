@@ -14,7 +14,7 @@ tags:
 
 <font size= 5 color="red">Accuracy的计算⚠️不是TPP4, 是TP4 </font>
 
-# 1. sklearn.metrics.confusion_matrix(y_true, y_pred, labels=None, sample_weight=None)
+# 1.sklearn.metrics.confusion_matrix (y_true, y_pred, labels=None, sample_weight=None)
 
 y_true为真实值, y_pred为预测值(softmax之后, 取最大值的坐标, 即预测的像素点类别)  `y_true和y_pred都需要flatten为一维数组`
 
@@ -43,7 +43,7 @@ array([[2, 0, 0],
        [1, 0, 2]])
 ```
 
-# 2. Implement by Torch
+# 2.Implement by Torch
 
 ```python
 def compute_results(conf_total):
