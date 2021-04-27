@@ -5,15 +5,13 @@
     <description>这里是 @fuhao7i 的个人博客，我还很年轻，吃苦趁现在！</description>
     <link>https://fuhao7i.github.io/</link>
     <atom:link href="https://fuhao7i.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 27 Apr 2021 20:48:57 +0800</pubDate>
-    <lastBuildDate>Tue, 27 Apr 2021 20:48:57 +0800</lastBuildDate>
+    <pubDate>Tue, 27 Apr 2021 22:54:01 +0800</pubDate>
+    <lastBuildDate>Tue, 27 Apr 2021 22:54:01 +0800</lastBuildDate>
     <generator>Jekyll v4.2.0</generator>
     
       <item>
         <title>Dali工具箱🕶6——Compute Confusion Matrix</title>
-        <description>&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210427145951560.png#pic_center&quot; /&gt;&lt;/p&gt;
-
-&lt;font size=&quot;5&quot; color=&quot;red&quot;&gt;Accuracy的计算⚠️不是TPP4, 是TP4 &lt;/font&gt;
+        <description>&lt;p&gt;&lt;img src=&quot;https://img-blog.csdnimg.cn/20210427225249883.png#pic_center&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;1sklearnmetricsconfusion_matrix-y_true-y_pred-labelsnone-sample_weightnone&quot;&gt;1.sklearn.metrics.confusion_matrix (y_true, y_pred, labels=None, sample_weight=None)&lt;/h1&gt;
 

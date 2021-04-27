@@ -10,9 +10,7 @@ tags:
     - Dali工具箱🕶
 ---
 
-<img src="https://img-blog.csdnimg.cn/20210427145951560.png#pic_center">
-
-<font size= 5 color="red">Accuracy的计算⚠️不是TPP4, 是TP4 </font>
+<img src="https://img-blog.csdnimg.cn/20210427225249883.png#pic_center">
 
 # 1.sklearn.metrics.confusion_matrix (y_true, y_pred, labels=None, sample_weight=None)
 
