@@ -54,6 +54,7 @@ def compute_results(conf_total):
     precision_per_class = np.zeros(n_class)
     recall_per_class = np.zeros(n_class)
     iou_per_class = np.zeros(n_class)
+    f1_score_per_class = np.zeros(n_class)
     for cid in range(start_index, n_class): # cid: class id
         if conf_total[start_index:, cid].sum() == 0:
             precision_per_class[cid] =  np.nan
@@ -68,7 +69,8 @@ def compute_results(conf_total):
         else:
             iou_per_class[cid] = float(conf_total[cid, cid]) / float((conf_total[cid, start_index:].sum() + conf_total[start_index:, cid].sum() - conf_total[cid, cid])) # IoU = TP/TP+FP+FN
 
-    return precision_per_class, recall_per_class, iou_per_class
+        f1_score_per_class[cid] = float(2 * precision_per_class[cid] * recall_per_class[cid]) / float(precision_per_class[cid] + recall_per_class[cid])
+    return precision_per_class, recall_per_class, iou_per_class, f1_score_per_class
 
 
 
@@ -98,6 +100,6 @@ def val(model, dataloader, optimizer, logger, epoch, Epoches, work_dir, NUM_CLAS
         conf = confusion_matrix(y_true=label, y_pred=prediction, labels=[0,1,2,3,4])
         conf_total += conf
 
-    precision, recall, IoU = compute_results(conf_total)
+    precision, recall, IoU, f1 = compute_results(conf_total)
 ```
 

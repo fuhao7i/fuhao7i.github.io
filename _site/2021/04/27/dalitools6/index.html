@@ -375,6 +375,8 @@
 53
 54
 55
+56
+57
 </pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">compute_results</span><span class="p">(</span><span class="n">conf_total</span><span class="p">):</span>
     <span class="n">n_class</span> <span class="o">=</span>  <span class="n">conf_total</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">consider_unlabeled</span> <span class="o">=</span> <span class="bp">True</span>  <span class="c1"># must consider the unlabeled, please set it to True
@@ -385,6 +387,7 @@
     <span class="n">precision_per_class</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_class</span><span class="p">)</span>
     <span class="n">recall_per_class</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_class</span><span class="p">)</span>
     <span class="n">iou_per_class</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_class</span><span class="p">)</span>
+    <span class="n">f1_score_per_class</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_class</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">cid</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">n_class</span><span class="p">):</span> <span class="c1"># cid: class id
 </span>        <span class="k">if</span> <span class="n">conf_total</span><span class="p">[</span><span class="n">start_index</span><span class="p">:,</span> <span class="n">cid</span><span class="p">].</span><span class="nb">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">precision_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">=</span>  <span class="n">np</span><span class="p">.</span><span class="n">nan</span>
@@ -399,7 +402,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">iou_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">conf_total</span><span class="p">[</span><span class="n">cid</span><span class="p">,</span> <span class="n">cid</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">((</span><span class="n">conf_total</span><span class="p">[</span><span class="n">cid</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:].</span><span class="nb">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">conf_total</span><span class="p">[</span><span class="n">start_index</span><span class="p">:,</span> <span class="n">cid</span><span class="p">].</span><span class="nb">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">conf_total</span><span class="p">[</span><span class="n">cid</span><span class="p">,</span> <span class="n">cid</span><span class="p">]))</span> <span class="c1"># IoU = TP/TP+FP+FN
 </span>
-    <span class="k">return</span> <span class="n">precision_per_class</span><span class="p">,</span> <span class="n">recall_per_class</span><span class="p">,</span> <span class="n">iou_per_class</span>
+        <span class="n">f1_score_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">precision_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">*</span> <span class="n">recall_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">precision_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">+</span> <span class="n">recall_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">precision_per_class</span><span class="p">,</span> <span class="n">recall_per_class</span><span class="p">,</span> <span class="n">iou_per_class</span><span class="p">,</span> <span class="n">f1_score_per_class</span>
 
 
 
@@ -429,7 +433,7 @@
         <span class="n">conf</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">prediction</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
         <span class="n">conf_total</span> <span class="o">+=</span> <span class="n">conf</span>
 
-    <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">IoU</span> <span class="o">=</span> <span class="n">compute_results</span><span class="p">(</span><span class="n">conf_total</span><span class="p">)</span>
+    <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">IoU</span><span class="p">,</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">compute_results</span><span class="p">(</span><span class="n">conf_total</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 
@@ -468,6 +472,13 @@
                         </a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2021/04/28/dalitools7/" data-toggle="tooltip" data-placement="top" title="Dali工具箱🕶7——Data pre-processing: Transform the label format">
+                        Next<br>
+                        <span>Dali工具箱🕶7——Data pre-processing: Transform the label format</span>
+                        </a>
+                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">
@@ -546,17 +557,17 @@
         
         
         
-                <a data-sort="0054" 
+                <a data-sort="0055" 
                     href="/archive/?tag=%E9%98%BF%E8%8F%8A%E7%9A%84OpenCv%F0%9F%8E%A8"
                     title="阿菊的OpenCv🎨"
                     rel="1">阿菊的OpenCv🎨</a>
         
-                <a data-sort="0033" 
+                <a data-sort="0034" 
                     href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0"
                     title="Dali杂货铺🐰"
                     rel="22">Dali杂货铺🐰</a>
         
-                <a data-sort="0047" 
+                <a data-sort="0048" 
                     href="/archive/?tag=Neural+Network%F0%9F%A6%96"
                     title="Neural Network🦖"
                     rel="8">Neural Network🦖</a>
@@ -564,44 +575,44 @@
                 <a data-sort="0049" 
                     href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%95%B6"
                     title="Dali工具箱🕶"
-                    rel="6">Dali工具箱🕶</a>
+                    rel="7">Dali工具箱🕶</a>
         
-                <a data-sort="0050" 
+                <a data-sort="0051" 
                     href="/archive/?tag=Detector%F0%9F%8E%AF"
                     title="Detector🎯"
                     rel="5">Detector🎯</a>
         
-                <a data-sort="0051" 
+                <a data-sort="0052" 
                     href="/archive/?tag=%E5%B0%8F%E8%8F%8A%E7%9A%84%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2%F0%9F%8C%BC"
                     title="小菊的语义分割🌼"
                     rel="4">小菊的语义分割🌼</a>
         
-                <a data-sort="0053" 
+                <a data-sort="0054" 
                     href="/archive/?tag=Competition%F0%9F%90%B3"
                     title="Competition🐳"
                     rel="2">Competition🐳</a>
         
-                <a data-sort="0053" 
+                <a data-sort="0054" 
                     href="/archive/?tag=Image+Enhancement%F0%9F%90%BD"
                     title="Image Enhancement🐽"
                     rel="2">Image Enhancement🐽</a>
         
-                <a data-sort="0053" 
+                <a data-sort="0054" 
                     href="/archive/?tag=Modular+torch%F0%9F%92%8C"
                     title="Modular torch💌"
                     rel="2">Modular torch💌</a>
         
-                <a data-sort="0054" 
+                <a data-sort="0055" 
                     href="/archive/?tag=%E9%98%B6%E6%AE%B5%E6%80%A7%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93%F0%9F%94%91"
                     title="阶段性学习总结🔑"
                     rel="1">阶段性学习总结🔑</a>
         
-                <a data-sort="0054" 
+                <a data-sort="0055" 
                     href="/archive/?tag=Books%F0%9F%93%96"
                     title="Books📖"
                     rel="1">Books📖</a>
         
-                <a data-sort="0054" 
+                <a data-sort="0055" 
                     href="/archive/?tag=NAS%F0%9F%91%A3"
                     title="NAS👣"
                     rel="1">NAS👣</a>

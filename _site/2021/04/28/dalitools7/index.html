@@ -25,26 +25,26 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Dali杂货铺🐰8——PyTorch 保存,加载和查看训练好的模型 - fuhao7i的博客 | fuhao7i Blog">
+    <meta property="og:title" content="Dali工具箱🕶7——Data pre-processing: Transform the label format - fuhao7i的博客 | fuhao7i Blog">
     
     <meta property="og:type" content="article">
-    <meta property="og:description" content="1. 保存模型
+    <meta property="og:description" content="将labels转化为单通道的png格式，每个像素点存放的是它的种类: 0, 1, 2… 等
 ">
     
-    <meta property="article:published_time" content="2021-03-16T08:35:00Z">
+    <meta property="article:published_time" content="2021-04-28T18:50:00Z">
     
     
     <meta property="article:author" content="fuhao7i">
     
     
-    <meta property="article:tag" content="Dali杂货铺🐰">
+    <meta property="article:tag" content="Dali工具箱🕶">
     
     
     <meta property="og:image" content="https://fuhao7i.github.io/img/github.jpg">
-    <meta property="og:url" content="https://fuhao7i.github.io/2021/03/16/sundry8/">
+    <meta property="og:url" content="https://fuhao7i.github.io/2021/04/28/dalitools7/">
     <meta property="og:site_name" content="fuhao7i的博客 | fuhao7i Blog">
     
-    <title>Dali杂货铺🐰8——PyTorch 保存,加载和查看训练好的模型 - fuhao7i的博客 | fuhao7i Blog</title>
+    <title>Dali工具箱🕶7——Data pre-processing: Transform the label format - fuhao7i的博客 | fuhao7i Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -53,7 +53,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://fuhao7i.github.io/2021/03/16/sundry8/">
+    <link rel="canonical" href="https://fuhao7i.github.io/2021/04/28/dalitools7/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -235,7 +235,7 @@
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/in-post/sundry.jpg');
+        background-image: url('/img/in-post/tools.jpg');
         background: ;
     }
 
@@ -252,13 +252,13 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/archive/?tag=Dali%E6%9D%82%E8%B4%A7%E9%93%BA%F0%9F%90%B0" title="Dali杂货铺🐰">Dali杂货铺🐰</a>
+                        <a class="tag" href="/archive/?tag=Dali%E5%B7%A5%E5%85%B7%E7%AE%B1%F0%9F%95%B6" title="Dali工具箱🕶">Dali工具箱🕶</a>
                         
                     </div>
-                    <h1>Dali杂货铺🐰8——PyTorch 保存,加载和查看训练好的模型</h1>
+                    <h1>Dali工具箱🕶7——Data pre-processing: Transform the label format</h1>
                     
-                    <h2 class="subheading"> "save, load, weights, 载入预训练权重"</h2>
-                    <span class="meta">Posted by fuhao7i on March 16, 2021</span>
+                    <h2 class="subheading"> "semantic segmentation, pngs, labels, transform,  "</h2>
+                    <span class="meta">Posted by fuhao7i on April 28, 2021</span>
                 </div>
             </div>
         </div>
@@ -284,90 +284,59 @@
                 <!-- Multi-Lingual -->
                 
 
-				<h1 id="1-保存模型">1. 保存模型</h1>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">(),</span><span class="s">"./Double.pth"</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h1 id="2-加载训练好的模型">2. 加载训练好的模型</h1>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre><span class="c1"># 创建模型
-</span><span class="n">model</span><span class="o">=</span><span class="n">Net</span><span class="p">()</span>
-<span class="c1"># 加载预训练模型的参数
-</span><span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"./Double.pth"</span><span class="p">))</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h1 id="3-查看训练好的模型">3. 查看训练好的模型</h1>
+				<p>将labels转化为单通道的png格式，每个像素点存放的是它的种类: 0, 1, 2… 等</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span> 
-<span class="n">content</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'/root/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth'</span><span class="p">)</span>
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 
-<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">content</span><span class="p">[</span><span class="n">key</span><span class="p">].</span><span class="n">size</span><span class="p">(),</span><span class="n">sep</span><span class="o">=</span><span class="s">'      '</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">'/content/drive/MyDrive/语义分割/dataset/val.txt'</span><span class="p">,</span> <span class="s">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">readlines</span><span class="p">()</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="s">'/content/drive/MyDrive/语义分割/dataset/val_png'</span>
+
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">';'</span><span class="p">)[</span><span class="mi">1</span><span class="p">]).</span><span class="n">replace</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="s">""</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="nb">open</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="n">convert</span><span class="p">(</span><span class="s">'L'</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">512</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">512</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">L</span><span class="p">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span> <span class="o">==</span> <span class="mi">255</span><span class="p">:</span>
+                <span class="n">L</span><span class="p">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">L</span><span class="p">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span> <span class="o">==</span> <span class="mi">29</span><span class="p">:</span>
+                <span class="n">L</span><span class="p">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">L</span><span class="p">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span> <span class="o">==</span> <span class="mi">150</span><span class="p">:</span>
+                <span class="n">L</span><span class="p">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">L</span><span class="p">.</span><span class="n">getpixel</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span> <span class="o">==</span> <span class="mi">226</span><span class="p">:</span>
+                <span class="n">L</span><span class="p">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">L</span><span class="p">.</span><span class="n">putpixel</span><span class="p">((</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">L</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">'/content/drive/MyDrive/语义分割/dataset/L_val_png/'</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">或</code></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span>  <span class="c1"># 命令行是逐行立即执行的
-</span><span class="n">content</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'/root/.cache/torch/hub/checkpoints/resnet50-19c8e357.pth'</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="n">sep</span><span class="o">=</span><span class="s">'      '</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">result:</code></p>
-
-<pre><code class="language-Bash">conv1.weight      torch.Size([64, 3, 7, 7])
-bn1.running_mean      torch.Size([64])
-bn1.running_var      torch.Size([64])
-bn1.weight      torch.Size([64])
-bn1.bias      torch.Size([64])
-layer1.0.conv1.weight      torch.Size([64, 64, 1, 1])
-layer1.0.bn1.running_mean      torch.Size([64])
-layer1.0.bn1.running_var      torch.Size([64])
-layer1.0.bn1.weight      torch.Size([64])
-layer1.0.bn1.bias      torch.Size([64])
-layer1.0.conv2.weight      torch.Size([64, 64, 3, 3])
-layer1.0.bn2.running_mean      torch.Size([64])
-layer1.0.bn2.running_var      torch.Size([64])
-layer1.0.bn2.weight      torch.Size([64])
-   ...
-</code></pre>
-
-<h1 id="4-将对应层的预训练权重导入">4. 将对应层的预训练权重导入</h1>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="n">pretrained_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'/content/drive/MyDrive/search/mmdetection/data/resneXt_imagenet_338x600.pth'</span><span class="p">)</span>
-<span class="n">model_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">state_dict</span><span class="p">()</span>
-<span class="n">pretrained_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pretrained_dict</span><span class="p">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">model_dict</span><span class="p">}</span>
-<span class="n">model_dict</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">pretrained_dict</span><span class="p">)</span>
-<span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">model_dict</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h1 id="-引用">#. 引用</h1>
-
-<ol>
-  <li><a href="https://zhuanlan.zhihu.com/p/137562717">PyTorch使用预训练模型(保存，加载，加载部分，冻结某些参数，修改网络某些层等…)</a></li>
-</ol>
 
                 
                 <!--Donate start-->
@@ -398,19 +367,12 @@ layer1.0.bn2.weight      torch.Size([64])
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2021/03/15/sundry7/" data-toggle="tooltip" data-placement="top" title="Dali杂货铺🐰7——Python 字典操作详解">
+                        <a href="/2021/04/27/dalitools6/" data-toggle="tooltip" data-placement="top" title="Dali工具箱🕶6——Compute Confusion Matrix">
                         Previous<br>
-                        <span>Dali杂货铺🐰7——Python 字典操作详解</span>
+                        <span>Dali工具箱🕶6——Compute Confusion Matrix</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/2021/03/16/dalitools3/" data-toggle="tooltip" data-placement="top" title="Dali工具箱🕶3——torch.transform( Pipline ) 进行数据增广">
-                        Next<br>
-                        <span>Dali工具箱🕶3——torch.transform( Pipline ) 进行数据增广</span>
-                        </a>
-                    </li>
                     
                 </ul>
                 <hr style="visibility: hidden;">

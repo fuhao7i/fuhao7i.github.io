@@ -68,23 +68,35 @@ class TextLogger():
         logger.info('How should i do?')
 
         return logger
+
+class Write():
+    def __init__(self, logger, **args):
+        super(Write, self).__init__()
+        self.logger = logger
+        self.args = args
+    def write(self):
+        for k, v in self.args.items():
+            self.logger.info(str(k) + ': ' + str(v))
 ```
 
 `main.py`
 ```python
 import os
 import time
-from utils.logger import TextLogger
+from utils.logger import TextLogger, Write
 
-name = 'fuhao7i'
-
-work_dir = './work_dirs/' + time.asctime( time.localtime(time.time()) )
+# ===> name: log名称, work_dir: log和weights的保存路径
+name = 'Unet'
+work_dir = './work_dirs/' + name 
 
 if not os.path.exists(work_dir):
     os.mkdir(work_dir)
 
-logger = TextLogger(name= name, filename= work_dir + '/' + name + '.log').get_logger()
+logger = TextLogger(name= name, filename= work_dir + '/' + time.asctime( time.localtime(time.time()) ) + '.log').get_logger()
 
+...
+
+Write(logger, name=name, work_dir=work_dir, inputs_size=inputs_size, num_classes=NUM_CLASSES,lr=lr, Epochs=Epoches, Batch_size=Batch_size).write()
 ```
 
 # 引用：

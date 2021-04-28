@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Dali工具箱🕶7——Data pre-processing: Transform the label format",
+      "subtitle" : " &quot;semantic segmentation, pngs, labels, transform,  &quot;",
+      "tags"     : "Dali工具箱🕶",
+      "url"      : "/2021/04/28/dalitools7/",
+      "date"     : "2021-04-28 18:50:00 +0800"
+    } ,
+  
+    {
       "title"    : "Dali工具箱🕶6——Compute Confusion Matrix",
       "subtitle" : " &quot;confusion matrix, TP, FP, TN, FN, Precision, IoU, Recall &quot;",
       "tags"     : "Dali工具箱🕶",

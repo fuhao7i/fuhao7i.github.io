@@ -1,0 +1,41 @@
+---
+layout:     post
+title:      "Dali工具箱🕶7——Data pre-processing: Transform the label format"
+subtitle:   " \"semantic segmentation, pngs, labels, transform,  \""
+date:       2021-04-28 10:50:00
+author:     "fuhao7i"
+header-img: "img/in-post/tools.jpg"
+catalog: true
+tags:
+    - Dali工具箱🕶
+---
+
+将labels转化为单通道的png格式，每个像素点存放的是它的种类: 0, 1, 2... 等
+
+```python
+from PIL import Image
+
+with open('/content/drive/MyDrive/语义分割/dataset/val.txt', 'r') as f:
+    lines = f.readlines()
+
+path = '/content/drive/MyDrive/语义分割/dataset/val_png'
+
+for line in lines:
+
+    name = (line.split(';')[1]).replace("\n", "")
+    img = Image.open(path + '/' + name)
+    L = img.convert('L')
+    for i in range(512):
+        for j in range(512):
+            if L.getpixel((i,j)) == 255:
+                L.putpixel((i,j), 1)
+            elif L.getpixel((i,j)) == 29:
+                L.putpixel((i,j), 2)
+            elif L.getpixel((i,j)) == 150:
+                L.putpixel((i,j), 3)
+            elif L.getpixel((i,j)) == 226:
+                L.putpixel((i,j), 4)
+            else:
+                L.putpixel((i,j), 0)
+    L.save('/content/drive/MyDrive/语义分割/dataset/L_val_png/' + name)
+```
