@@ -5,7 +5,6 @@
 #### AIM🎯
 
 - CVPR🥇
-- ECCV🥇
 - ICCV🥇
 
 #### 出没地点🦕

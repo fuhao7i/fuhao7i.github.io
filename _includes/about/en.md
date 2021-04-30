@@ -3,7 +3,6 @@
 #### AIM🎯
 
 - CVPR🥇
-- ECCV🥇
 - ICCV🥇
 
 #### Haunts🦕
