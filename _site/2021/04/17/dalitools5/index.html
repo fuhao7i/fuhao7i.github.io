@@ -485,9 +485,9 @@ array([[ 0,  1,  2,  3,  0,  1,  2,  3],
  [ 6  5  4  7]]
 </code></pre>
 
-<h1 id="6-squeeze">6. squeeze</h1>
+<h1 id="6-squeeze-and-unsqueeze">6. squeeze and unsqueeze</h1>
 
-<p><strong>作用: 从数组的形状中删除单维度条目，即把shape中为1的维度去掉</strong></p>
+<p><strong>squeeze作用: 从数组的形状中删除单维度条目，即把shape中为1的维度去掉</strong></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -517,6 +517,10 @@ array([[ 0,  1,  2,  3,  0,  1,  2,  3],
 </code></pre>
 
 <p><strong>对维度不为1的维度没有用</strong></p>
+
+<p><strong>unsqueeze作用: 增加一个维度</strong></p>
+
+<p>例如: a 的维度为(3, 4), a.unsqueeze(1) 就是在第二维增加一个维度使其变为(3, 1, 4)</p>
 
 <h1 id="7-numpy的copy和view">7. numpy的copy和view</h1>
 

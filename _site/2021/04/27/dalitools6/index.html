@@ -377,6 +377,11 @@
 55
 56
 57
+58
+59
+60
+61
+62
 </pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">compute_results</span><span class="p">(</span><span class="n">conf_total</span><span class="p">):</span>
     <span class="n">n_class</span> <span class="o">=</span>  <span class="n">conf_total</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">consider_unlabeled</span> <span class="o">=</span> <span class="bp">True</span>  <span class="c1"># must consider the unlabeled, please set it to True
@@ -388,8 +393,10 @@
     <span class="n">recall_per_class</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_class</span><span class="p">)</span>
     <span class="n">iou_per_class</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_class</span><span class="p">)</span>
     <span class="n">f1_score_per_class</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_class</span><span class="p">)</span>
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="k">for</span> <span class="n">cid</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">n_class</span><span class="p">):</span> <span class="c1"># cid: class id
-</span>        <span class="k">if</span> <span class="n">conf_total</span><span class="p">[</span><span class="n">start_index</span><span class="p">:,</span> <span class="n">cid</span><span class="p">].</span><span class="nb">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span>        <span class="n">accuracy</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="n">conf_total</span><span class="p">[</span><span class="n">cid</span><span class="p">,</span> <span class="n">cid</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">conf_total</span><span class="p">[</span><span class="n">start_index</span><span class="p">:,</span> <span class="n">cid</span><span class="p">].</span><span class="nb">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">precision_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">=</span>  <span class="n">np</span><span class="p">.</span><span class="n">nan</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">precision_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">conf_total</span><span class="p">[</span><span class="n">cid</span><span class="p">,</span> <span class="n">cid</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">conf_total</span><span class="p">[</span><span class="n">start_index</span><span class="p">:,</span> <span class="n">cid</span><span class="p">].</span><span class="nb">sum</span><span class="p">())</span> <span class="c1"># precision = TP/TP+FP
@@ -403,7 +410,10 @@
             <span class="n">iou_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">conf_total</span><span class="p">[</span><span class="n">cid</span><span class="p">,</span> <span class="n">cid</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">((</span><span class="n">conf_total</span><span class="p">[</span><span class="n">cid</span><span class="p">,</span> <span class="n">start_index</span><span class="p">:].</span><span class="nb">sum</span><span class="p">()</span> <span class="o">+</span> <span class="n">conf_total</span><span class="p">[</span><span class="n">start_index</span><span class="p">:,</span> <span class="n">cid</span><span class="p">].</span><span class="nb">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">conf_total</span><span class="p">[</span><span class="n">cid</span><span class="p">,</span> <span class="n">cid</span><span class="p">]))</span> <span class="c1"># IoU = TP/TP+FP+FN
 </span>
         <span class="n">f1_score_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">precision_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">*</span> <span class="n">recall_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">precision_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span> <span class="o">+</span> <span class="n">recall_per_class</span><span class="p">[</span><span class="n">cid</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">precision_per_class</span><span class="p">,</span> <span class="n">recall_per_class</span><span class="p">,</span> <span class="n">iou_per_class</span><span class="p">,</span> <span class="n">f1_score_per_class</span>
+    
+    <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">conf_total</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">precision_per_class</span><span class="p">,</span> <span class="n">recall_per_class</span><span class="p">,</span> <span class="n">iou_per_class</span><span class="p">,</span> <span class="n">f1_score_per_class</span>
 
 
 
@@ -433,7 +443,7 @@
         <span class="n">conf</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">prediction</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
         <span class="n">conf_total</span> <span class="o">+=</span> <span class="n">conf</span>
 
-    <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">IoU</span><span class="p">,</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">compute_results</span><span class="p">(</span><span class="n">conf_total</span><span class="p">)</span>
+    <span class="n">accuracy</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">IoU</span><span class="p">,</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">compute_results</span><span class="p">(</span><span class="n">conf_total</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 

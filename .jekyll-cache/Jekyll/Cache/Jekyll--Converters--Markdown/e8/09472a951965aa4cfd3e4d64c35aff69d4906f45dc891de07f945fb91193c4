@@ -1,0 +1,391 @@
+I"_<h1 id="1-boolean-indexes">1. Boolean indexes</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="c1"># 数组a中所有大于5的位置为True, 其余为False
+</span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="c1"># 将数组a中所有大于5的位置赋值为999
+</span><span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">]</span><span class="o">=</span><span class="mi">999</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<pre><code class="language-Bash">--------------------
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+-------a &gt; 5-------
+[[False False False False]
+ [False False  True  True]
+ [ True  True  True  True]]
+-------a[a&gt;5]=999-------
+[[  0   1   2   3]
+ [  4   5 999 999]
+ [999 999 999 999]]
+</code></pre>
+
+<h1 id="2-三元运算符">2. 三元运算符</h1>
+<p><code class="language-plaintext highlighter-rouge">np.where</code></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="c1"># a中大于5的位置为999, 其余为111
+</span><span class="n">np</span><span class="p">.</span><span class="n">where</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">111</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<pre><code class="language-Bash">--------------------
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+-------np.where-------
+array([[111, 111, 111, 111],
+       [111, 111, 999, 999],
+       [999, 999, 999, 999]])
+</code></pre>
+
+<h1 id="3-clip">3. clip</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="c1"># a小于4的全都赋值为4，大于8的全都赋值为8
+</span><span class="n">a</span><span class="p">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<pre><code class="language-Bash">--------------------
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+-------clip-------
+array([[4, 4, 4, 4],
+       [4, 5, 6, 7],
+       [8, 8, 8, 8]])
+</code></pre>
+
+<h1 id="4-stack">4. stack</h1>
+
+<p><code class="language-plaintext highlighter-rouge">np.vstack() 列拼接</code> and <code class="language-plaintext highlighter-rouge">np.hstack() 行拼接</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">t2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">np</span><span class="p">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">))</span>
+<span class="n">np</span><span class="p">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<pre><code class="language-Bash">--------------------
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+--------------------
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+-------列拼接-------
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11],
+       [ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11]])
+-------行拼接-------
+array([[ 0,  1,  2,  3,  0,  1,  2,  3],
+       [ 4,  5,  6,  7,  4,  5,  6,  7],
+       [ 8,  9, 10, 11,  8,  9, 10, 11]])
+</code></pre>
+
+<h1 id="5-行列交换">5. 行列交换</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">t1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">t1</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],:]</span> <span class="o">=</span> <span class="n">t1</span><span class="p">[[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],:]</span> <span class="c1"># 行交换
+</span><span class="k">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">t1</span><span class="p">[:,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="n">t1</span><span class="p">[:,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span> <span class="c1"># 交换
+</span><span class="k">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<pre><code class="language-Bash">-------原始t1-------
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+-------行交换-------
+[[ 0  1  2  3]
+ [ 8  9 10 11]
+ [ 4  5  6  7]]
+-------列交换-------
+[[ 2  1  0  3]
+ [10  9  8 11]
+ [ 6  5  4  7]]
+</code></pre>
+
+<h1 id="6-squeeze-and-unsqueeze">6. squeeze and unsqueeze</h1>
+
+<p><strong>squeeze作用: 从数组的形状中删除单维度条目，即把shape中为1的维度去掉</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">a</span>  <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<pre><code class="language-Bash">array([[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]])
+
+(1, 10)
+</code></pre>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<pre><code class="language-Bash">array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+(10,)
+</code></pre>
+
+<p><strong>对维度不为1的维度没有用</strong></p>
+
+<p><strong>unsqueeze作用: 增加一个维度</strong></p>
+
+<p>例如: a 的维度为(3, 4), a.unsqueeze(1) 就是在第二维增加一个维度使其变为(3, 1, 4)</p>
+
+<h1 id="7-numpy的copy和view">7. numpy的copy和view</h1>
+
+<p><code class="language-plaintext highlighter-rouge">a = b 完全不复制, a和b相互影响</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">).</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+<span class="n">b</span><span class="p">[</span><span class="n">b</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">999</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">111</span>
+<span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<pre><code class="language-Bash">-------初始的a-------
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+-------改变b看a的值-------
+[[  0   1   2   3]
+ [  4   5 999 999]
+ [999 999 999 999]]
+-------改变a看b的值-------
+[[111 111   2   3]
+ [  4   5 999 999]
+ [999 999 999 999]]
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">a=b[:], 视图的操作，一种切片，会创建新的对象a, 但是a的数据完全由b保管, 他们两个的数据变化是一致的</code>，和上个操作a=b一样，都是相互影响</p>
+
+<p><code class="language-plaintext highlighter-rouge">a = b.copy()</code>复制，a和b互不影响</p>
+
+<h1 id="8-torchsum">8. torch.sum</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">tensor</span><span class="p">([[[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]],[[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">],[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]]],</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]],[[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">],[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">]]]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">tensor</span><span class="p">([[[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]],[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]]],</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]],[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]]]])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'-'</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'='</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'='</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<pre><code class="language-Bash">tensor([[[[ 1,  2,  3],
+          [ 4,  5,  6]],
+
+         [[ 7,  8,  9],
+          [10, 11, 12]]],
+
+
+        [[[ 1,  2,  3],
+          [ 4,  5,  6]],
+
+         [[ 7,  8,  9],
+          [10, 11, 12]]]])
+--------------------
+torch.Size([2, 2, 2, 3])
+--------------------
+tensor([[[ 2,  4,  6],
+         [ 8, 10, 12]],
+
+        [[14, 16, 18],
+         [20, 22, 24]]])
+--------------------
+tensor([[[ 8, 10, 12],
+         [14, 16, 18]],
+
+        [[ 8, 10, 12],
+         [14, 16, 18]]])
+--------------------
+tensor([[16, 20, 24],
+        [28, 32, 36]])
+====================
+tensor([[[[ 1,  0,  0],
+          [ 0,  5,  0]],
+
+         [[ 0,  0,  9],
+          [ 0, 11,  0]]],
+
+
+        [[[ 1,  0,  0],
+          [ 0,  5,  0]],
+
+         [[ 0,  0,  9],
+          [ 0, 11,  0]]]])
+==============================
+tensor([[[ 2,  0,  0],
+         [ 0, 10,  0]],
+
+        [[ 0,  0, 18],
+         [ 0, 22,  0]]])
+tensor([[ 2,  0, 18],
+        [ 0, 32,  0]])
+</code></pre>
+
+<h1 id="9-sundry">9. sundry</h1>
+
+<ul>
+  <li><strong>np.argmax(t, axis=0)</strong> 获取数组t第0维最大值的位置</li>
+  <li><strong>np.argmin(t, axis=0)</strong> 获取数组t第0维最小值的位置</li>
+  <li><strong>np.zeros((3,4))</strong> 创建全0数组</li>
+  <li><strong>np.ones((3,4))</strong> 创建全1数组</li>
+  <li><strong>np.eye(3)</strong> 创建一个对角线全为1，其余全为0的正方形矩阵</li>
+  <li><strong>np.seed(s)</strong> 随机数种子，s是给定的种子值。因为计算机生成的是伪随机数，所以通过设定相同的随机数种子，可以每次生成相同的随机数</li>
+</ul>
+:ET
