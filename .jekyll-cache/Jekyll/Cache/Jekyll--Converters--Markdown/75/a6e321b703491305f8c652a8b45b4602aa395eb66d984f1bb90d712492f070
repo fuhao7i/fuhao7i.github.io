@@ -1,0 +1,26 @@
+I"š<h1 id="1-main-differences">1. <a href="https://www.cnblogs.com/guoyaohua/p/8994246.html">main differences</a></h1>
+
+<ul>
+  <li>one-stage network is faster.</li>
+  <li>two-stage network is more accurate.</li>
+</ul>
+
+<h1 id="2-one-stage">2. one-stage</h1>
+
+<blockquote>
+  <p>Directly regress the category probability and position coordinate value of the object without RPN(region proposal network).</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">classical one-stage object detection network</code></p>
+
+<pre><code class="language-Bash">YOLOv1, YOLOv2, YOLOv3
+SSD, DSSD ...
+Retina-Net ...
+</code></pre>
+
+<h3 id="retina-net"><a href="https://blog.csdn.net/cp1314971/article/details/105841094/">Retina Net</a></h3>
+
+<p><img src="https://img-blog.csdnimg.cn/20210413164117265.png" center="" /></p>
+
+<p><strong><a href="https://github.com/kuangliu/pytorch-retinanet">PyTorch-RetinaNet</a></strong></p>
+:ET
